@@ -11,9 +11,15 @@ bool Guess(int number) {
 		target = rand() % 100 + 1;
 	}
 	
-	if (number == target)
-		return true;
-	return false;
+	if (number > target) {
+		std::cout << "Smaller" << std::endl;
+		return false;
+	}
+	else if (number < target) {
+		std::cout << "Bigger" << std::endl;
+		return false;
+	}
+	return true;
 }
 
 int main() {
