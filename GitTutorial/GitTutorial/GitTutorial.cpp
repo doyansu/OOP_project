@@ -4,6 +4,15 @@
 #include <ctime>
 
 bool Guess(int number) {
+	static int target = -1;
+
+	srand(time(NULL));
+	if (target == -1) {
+		target = rand() % 100 + 1;
+	}
+	
+	if (number == target)
+		return true;
 	return false;
 }
 
