@@ -30,7 +30,6 @@ bool Guess(int number) {
 		return false;
 	}
 	return true;
->>>>>>> 469b88f37d7a471cdadcc52d868434cd6bb250c9
 }
 
 int main() {
