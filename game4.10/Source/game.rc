@@ -106,6 +106,8 @@ IDB_LOADING             BITMAP                  "..\\res\\loading.bmp"
 
 IDB_ROLE1               BITMAP                  "C:\\MH\\GitHub\\OOP_project\\game4.10\\RES\\3F 3F.bmp"
 
+IDB_ROLE_TEST           BITMAP                  "C:\\MH\\Github\\OOP_project\\game4.10\\RES\\ch1.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
