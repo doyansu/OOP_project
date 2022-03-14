@@ -108,6 +108,8 @@ IDB_ROLE1               BITMAP                  "..\\RES\\3F 3F.bmp"
 
 IDB_ROLE_TEST           BITMAP                  "..\\RES\\ch1.bmp"
 
+IDB_GATE1               BITMAP                  "..\\RES\\gate1.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //

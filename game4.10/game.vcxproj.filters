@@ -132,6 +132,9 @@
     <ClCompile Include="Source\CInitialPlayer.cpp">
       <Filter>MyGame</Filter>
     </ClCompile>
+    <ClCompile Include="Source\CGate.cpp">
+      <Filter>MyGame</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\audio.h">
@@ -173,6 +176,9 @@
     <ClInclude Include="Source\CInitialPlayer.h">
       <Filter>MyGame</Filter>
     </ClInclude>
+    <ClInclude Include="Source\CGate.h">
+      <Filter>MyGame</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Source\game.rc">
@@ -190,6 +196,9 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="RES\ch1.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\gate1.bmp">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

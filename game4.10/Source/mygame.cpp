@@ -84,13 +84,15 @@ void CGameStateInit::OnInit()
 	//
 	// 此OnInit動作會接到CGameStaterRun::OnInit()，所以進度還沒到100%
 	//
-
 	player.LoadBitmap();
+	gate.LoadBitmap();
+
 }
 
 void CGameStateInit::OnBeginState()
 {
 	player.Initialize();
+	gate.Initialize();
 }
 
 void CGameStateInit::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
@@ -135,12 +137,14 @@ void CGameStateInit::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 
 void CGameStateInit::OnLButtonDown(UINT nFlags, CPoint point)
 {
-	GotoGameState(GAME_STATE_RUN);		// 切換至GAME_STATE_RUN
+	//GotoGameState(GAME_STATE_RUN);		// 切換至GAME_STATE_RUN
 }
 
 void CGameStateInit::OnMove()
 {
 	player.OnMove();
+	if(gate.HitPlayer(&player))
+		GotoGameState(GAME_STATE_RUN);
 }
 
 void CGameStateInit::OnShow()
@@ -169,7 +173,9 @@ void CGameStateInit::OnShow()
 	CDDraw::ReleaseBackCDC();					// 放掉 Back Plain 的 CDC
 	*/
 
+	gate.OnShow();
 	player.OnShow();
+	
 }								
 
 /////////////////////////////////////////////////////////////////////////////

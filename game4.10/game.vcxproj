@@ -257,6 +257,7 @@
     <None Include="res\Toolbar.bmp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\CGate.cpp" />
     <ClCompile Include="Source\CInitialPlayer.cpp" />
     <ClCompile Include="Source\audio.cpp" />
     <ClCompile Include="Source\CBall.cpp" />
@@ -304,6 +305,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\CGate.h" />
     <ClInclude Include="Source\CInitialPlayer.h" />
     <ClInclude Include="Source\audio.h" />
     <ClInclude Include="Source\CBall.h" />
@@ -330,6 +332,7 @@
     <Image Include="res\bitmap3.bmp" />
     <Image Include="res\bmp00001.bmp" />
     <Image Include="RES\ch1.bmp" />
+    <Image Include="RES\gate1.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

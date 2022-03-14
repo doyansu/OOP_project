@@ -42,6 +42,7 @@
 #include "CBall.h"
 #include "CBouncingBall.h"
 #include "CInitialPlayer.h"
+#include "CGate.h"
 
 namespace game_framework {
 	/////////////////////////////////////////////////////////////////////////////
@@ -73,6 +74,7 @@ namespace game_framework {
 	private:
 		CMovingBitmap logo;								// csieªºlogo
 		CInitialPlayer player;
+		CGate gate;
 	};
 
 	/////////////////////////////////////////////////////////////////////////////
