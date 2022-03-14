@@ -35,8 +35,8 @@ namespace game_framework {
 
 	void CInitialPlayer::Initialize()
 	{
-		const int X_POS = 280;
-		const int Y_POS = 400;
+		const int X_POS = 320;
+		const int Y_POS = 200;
 		x = X_POS;
 		y = Y_POS;
 		isMovingLeft = isMovingRight = isMovingUp = isMovingDown = false;
