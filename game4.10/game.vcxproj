@@ -257,6 +257,7 @@
     <None Include="res\Toolbar.bmp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\CInitialPlayer.cpp" />
     <ClCompile Include="Source\audio.cpp" />
     <ClCompile Include="Source\CBall.cpp" />
     <ClCompile Include="Source\CBouncingBall.cpp" />
@@ -303,6 +304,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\CInitialPlayer.h" />
     <ClInclude Include="Source\audio.h" />
     <ClInclude Include="Source\CBall.h" />
     <ClInclude Include="Source\CBouncingBall.h" />

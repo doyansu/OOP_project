@@ -80,24 +80,57 @@ void CGameStateInit::OnInit()
 	// 開始載入資料
 	//
 	logo.LoadBitmap(IDB_BACKGROUND);
-	Sleep(300);				// 放慢，以便看清楚進度，實際遊戲請刪除此Sleep
+	//Sleep(300);				// 放慢，以便看清楚進度，實際遊戲請刪除此Sleep
 	//
 	// 此OnInit動作會接到CGameStaterRun::OnInit()，所以進度還沒到100%
 	//
+
+	player.LoadBitmap();
 }
 
 void CGameStateInit::OnBeginState()
 {
+	player.Initialize();
+}
+
+void CGameStateInit::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
+{
+	const char KEY_LEFT = 0x25; // keyboard左箭頭
+	const char KEY_UP = 0x26; // keyboard上箭頭
+	const char KEY_RIGHT = 0x27; // keyboard右箭頭
+	const char KEY_DOWN = 0x28; // keyboard下箭頭
+	if (nChar == KEY_LEFT)
+		player.SetMovingLeft(true);
+	if (nChar == KEY_RIGHT)
+		player.SetMovingRight(true);
+	if (nChar == KEY_UP)
+		player.SetMovingUp(true);
+	if (nChar == KEY_DOWN)
+		player.SetMovingDown(true);
 }
 
 void CGameStateInit::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
-	const char KEY_ESC = 27;
+	/*const char KEY_ESC = 27;
 	const char KEY_SPACE = ' ';
 	if (nChar == KEY_SPACE)
 		GotoGameState(GAME_STATE_RUN);						// 切換至GAME_STATE_RUN
 	else if (nChar == KEY_ESC)								// Demo 關閉遊戲的方法
 		PostMessage(AfxGetMainWnd()->m_hWnd, WM_CLOSE,0,0);	// 關閉遊戲
+		*/
+
+	const char KEY_LEFT = 0x25; // keyboard左箭頭
+	const char KEY_UP = 0x26; // keyboard上箭頭
+	const char KEY_RIGHT = 0x27; // keyboard右箭頭
+	const char KEY_DOWN = 0x28; // keyboard下箭頭
+	if (nChar == KEY_LEFT)
+		player.SetMovingLeft(false);
+	if (nChar == KEY_RIGHT)
+		player.SetMovingRight(false);
+	if (nChar == KEY_UP)
+		player.SetMovingUp(false);
+	if (nChar == KEY_DOWN)
+		player.SetMovingDown(false);
 }
 
 void CGameStateInit::OnLButtonDown(UINT nFlags, CPoint point)
@@ -105,11 +138,17 @@ void CGameStateInit::OnLButtonDown(UINT nFlags, CPoint point)
 	GotoGameState(GAME_STATE_RUN);		// 切換至GAME_STATE_RUN
 }
 
+void CGameStateInit::OnMove()
+{
+	player.OnMove();
+}
+
 void CGameStateInit::OnShow()
 {
 	//
 	// 貼上logo
 	//
+	/*
 	logo.SetTopLeft((SIZE_X - logo.Width())/2, SIZE_Y/8);
 	logo.ShowBitmap();
 	//
@@ -128,6 +167,9 @@ void CGameStateInit::OnShow()
 	pDC->TextOut(5,455,"Press Alt-F4 or ESC to Quit.");
 	pDC->SelectObject(fp);						// 放掉 font f (千萬不要漏了放掉)
 	CDDraw::ReleaseBackCDC();					// 放掉 Back Plain 的 CDC
+	*/
+
+	player.OnShow();
 }								
 
 /////////////////////////////////////////////////////////////////////////////
@@ -149,6 +191,7 @@ void CGameStateOver::OnMove()
 void CGameStateOver::OnBeginState()
 {
 	counter = 30 * 5; // 5 seconds
+
 }
 
 void CGameStateOver::OnInit()
@@ -161,7 +204,7 @@ void CGameStateOver::OnInit()
 	//
 	// 開始載入資料
 	//
-	Sleep(300);				// 放慢，以便看清楚進度，實際遊戲請刪除此Sleep
+	//Sleep(300);				// 放慢，以便看清楚進度，實際遊戲請刪除此Sleep
 	//
 	// 最終進度為100%
 	//
