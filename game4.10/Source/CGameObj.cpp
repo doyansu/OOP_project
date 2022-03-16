@@ -8,10 +8,16 @@
 
 namespace game_framework {
 
-	CGameObj::CGameObj(int id)
+	CGameObj::CGameObj()
 	{
-		_x = _y = _moveSpeed = 0;
-		this->LoadBitmap(id);
+		init();
+	}
+
+	void CGameObj::init()
+	{
+		_x = _y = 0;
+		_moveSpeed = 5;
+		_isMovingLeft = _isMovingRight = _isMovingUp = _isMovingDown = false;
 	}
 
 	int CGameObj::GetX1()
@@ -101,4 +107,15 @@ namespace game_framework {
 		if (_isMovingDown)
 			_y += _moveSpeed;
 	}
+
+	void CGameObj::OnKeyUp(char nChar)
+	{
+
+	}
+
+	void CGameObj::OnKeyDown(char nChar)
+	{
+
+	}
+
 }

@@ -3,7 +3,7 @@ namespace game_framework {
 	class CGameObj
 	{
 	public:
-		CGameObj(int);
+		CGameObj();
 		bool Collision(CGameObj *);
 		int GetX1();
 		int GetY1();
@@ -19,6 +19,8 @@ namespace game_framework {
 		virtual void LoadBitmap(int);
 		virtual void OnShow();
 		virtual void OnMove();
+		virtual void OnKeyUp(char);
+		virtual void OnKeyDown(char);
 
 	protected:
 		CMovingBitmap _initbmp;		// ªì©l¹Ï
@@ -30,5 +32,6 @@ namespace game_framework {
 
 	private:
 		bool HitRectangle(int tx1, int ty1, int tx2, int ty2);
+		void init();
 	};
 }

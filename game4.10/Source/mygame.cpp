@@ -97,18 +97,7 @@ void CGameStateInit::OnBeginState()
 
 void CGameStateInit::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
-	const char KEY_LEFT = 0x25; // keyboard左箭頭
-	const char KEY_UP = 0x26; // keyboard上箭頭
-	const char KEY_RIGHT = 0x27; // keyboard右箭頭
-	const char KEY_DOWN = 0x28; // keyboard下箭頭
-	if (nChar == KEY_LEFT)
-		player.SetMovingLeft(true);
-	if (nChar == KEY_RIGHT)
-		player.SetMovingRight(true);
-	if (nChar == KEY_UP)
-		player.SetMovingUp(true);
-	if (nChar == KEY_DOWN)
-		player.SetMovingDown(true);
+	player.OnKeyDown(nChar);
 }
 
 void CGameStateInit::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
@@ -121,18 +110,7 @@ void CGameStateInit::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 		PostMessage(AfxGetMainWnd()->m_hWnd, WM_CLOSE,0,0);	// 關閉遊戲
 		*/
 
-	const char KEY_LEFT = 0x25; // keyboard左箭頭
-	const char KEY_UP = 0x26; // keyboard上箭頭
-	const char KEY_RIGHT = 0x27; // keyboard右箭頭
-	const char KEY_DOWN = 0x28; // keyboard下箭頭
-	if (nChar == KEY_LEFT)
-		player.SetMovingLeft(false);
-	if (nChar == KEY_RIGHT)
-		player.SetMovingRight(false);
-	if (nChar == KEY_UP)
-		player.SetMovingUp(false);
-	if (nChar == KEY_DOWN)
-		player.SetMovingDown(false);
+	player.OnKeyUp(nChar);
 }
 
 void CGameStateInit::OnLButtonDown(UINT nFlags, CPoint point)

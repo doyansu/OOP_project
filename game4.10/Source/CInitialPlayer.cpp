@@ -13,33 +13,22 @@ namespace game_framework {
 		Initialize();
 	}
 
-	int CInitialPlayer::GetX1()
-	{
-		return x;
-	}
-
-	int CInitialPlayer::GetY1()
-	{
-		return y;
-	}
-
 	int CInitialPlayer::GetX2()
 	{
-		return x + animation.Width();
+		return _x + animation.Width();
 	}
 
 	int CInitialPlayer::GetY2()
 	{
-		return y + animation.Height();
+		return _y + animation.Height();
 	}
 
 	void CInitialPlayer::Initialize()
 	{
 		const int X_POS = 320;
 		const int Y_POS = 200;
-		x = X_POS;
-		y = Y_POS;
-		isMovingLeft = isMovingRight = isMovingUp = isMovingDown = false;
+		_x = X_POS;
+		_y = Y_POS;
 	}
 
 	void CInitialPlayer::LoadBitmap()
@@ -49,46 +38,53 @@ namespace game_framework {
 
 	void CInitialPlayer::OnMove()
 	{
-		const int STEP_SIZE = 2;
 		animation.OnMove();
-		if (isMovingLeft)
-			x -= STEP_SIZE;
-		if (isMovingRight)
-			x += STEP_SIZE;
-		if (isMovingUp)
-			y -= STEP_SIZE;
-		if (isMovingDown)
-			y += STEP_SIZE;
-	}
-
-	void CInitialPlayer::SetMovingDown(bool flag)
-	{
-		isMovingDown = flag;
-	}
-
-	void CInitialPlayer::SetMovingLeft(bool flag)
-	{
-		isMovingLeft = flag;
-	}
-
-	void CInitialPlayer::SetMovingRight(bool flag)
-	{
-		isMovingRight = flag;
-	}
-
-	void CInitialPlayer::SetMovingUp(bool flag)
-	{
-		isMovingUp = flag;
-	}
-
-	void CInitialPlayer::SetXY(int nx, int ny)
-	{
-		x = nx; y = ny;
+		/*if (_isMovingLeft)
+			_x -= _moveSpeed;
+		if (_isMovingRight)
+			_x += _moveSpeed;
+		if (_isMovingUp)
+			_y -= _moveSpeed;
+		if (_isMovingDown)
+			_y += _moveSpeed;*/
+		CGameObj::OnMove();
 	}
 
 	void CInitialPlayer::OnShow()
 	{
-		animation.SetTopLeft(x, y);
+		animation.SetTopLeft(_x, _y);
 		animation.OnShow();
+	}
+
+	void CInitialPlayer::OnKeyUp(char nChar)
+	{
+		const char KEY_LEFT = 0x25; // keyboard左箭頭
+		const char KEY_UP = 0x26; // keyboard上箭頭
+		const char KEY_RIGHT = 0x27; // keyboard右箭頭
+		const char KEY_DOWN = 0x28; // keyboard下箭頭
+		if (nChar == KEY_LEFT)
+			this->SetMovingLeft(false);
+		if (nChar == KEY_RIGHT)
+			this->SetMovingRight(false);
+		if (nChar == KEY_UP)
+			this->SetMovingUp(false);
+		if (nChar == KEY_DOWN)
+			this->SetMovingDown(false);
+	}
+
+	void CInitialPlayer::OnKeyDown(char nChar)
+	{
+		const char KEY_LEFT = 0x25; // keyboard左箭頭
+		const char KEY_UP = 0x26; // keyboard上箭頭
+		const char KEY_RIGHT = 0x27; // keyboard右箭頭
+		const char KEY_DOWN = 0x28; // keyboard下箭頭
+		if (nChar == KEY_LEFT)
+			this->SetMovingLeft(true);
+		if (nChar == KEY_RIGHT)
+			this->SetMovingRight(true);
+		if (nChar == KEY_UP)
+			this->SetMovingUp(true);
+		if (nChar == KEY_DOWN)
+			this->SetMovingDown(true);
 	}
 }
