@@ -16,6 +16,7 @@ namespace game_framework {
 		void SetMovingUp(bool flag);	// 設定是否正在往上移動
 		void SetXY(int, int);
 		void SetSpeed(int);
+		void Reset();
 
 		virtual int GetX2();
 		virtual int GetY2();
@@ -30,7 +31,7 @@ namespace game_framework {
 		int _x, _y, _moveSpeed;		// 位置、移動速度
 		bool _isMovingDown;			// 是否正在往下移動
 		bool _isMovingLeft;			// 是否正在往左移動
-		bool _isMovingRight;			// 是否正在往右移動
+		bool _isMovingRight;		// 是否正在往右移動
 		bool _isMovingUp;			// 是否正在往上移動
 
 	private:

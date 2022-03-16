@@ -25,6 +25,7 @@ namespace game_framework {
 
 	void CInitialPlayer::Initialize()
 	{
+		this->Reset();
 		const int X_POS = 320;
 		const int Y_POS = 200;
 		_x = X_POS;

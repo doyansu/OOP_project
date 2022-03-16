@@ -20,6 +20,11 @@ namespace game_framework {
 		_isMovingLeft = _isMovingRight = _isMovingUp = _isMovingDown = false;
 	}
 
+	void CGameObj::Reset()
+	{
+		init();
+	}
+
 	int CGameObj::GetX1()
 	{
 		return _x;

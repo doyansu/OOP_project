@@ -132,9 +132,6 @@
     <ClCompile Include="Source\CInitialPlayer.cpp">
       <Filter>MyGame</Filter>
     </ClCompile>
-    <ClCompile Include="Source\CGate.cpp">
-      <Filter>MyGame</Filter>
-    </ClCompile>
     <ClCompile Include="Source\CGameObj.cpp">
       <Filter>MyGame</Filter>
     </ClCompile>
@@ -177,9 +174,6 @@
       <Filter>MyGame</Filter>
     </ClInclude>
     <ClInclude Include="Source\CInitialPlayer.h">
-      <Filter>MyGame</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\CGate.h">
       <Filter>MyGame</Filter>
     </ClInclude>
     <ClInclude Include="Source\CGameObj.h">
