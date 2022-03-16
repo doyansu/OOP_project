@@ -110,6 +110,8 @@ IDB_ROLE_TEST           BITMAP                  "..\\RES\\ch1.bmp"
 
 IDB_GATE1               BITMAP                  "..\\RES\\gate1.bmp"
 
+IDB_CH01                BITMAP                  "..\\res\\bitmap3.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -117,6 +119,14 @@ IDB_GATE1               BITMAP                  "..\\RES\\gate1.bmp"
 //
 
 IDC_GAMECURSOR          CURSOR                  "..\\res\\gamecurs.cur"
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// PNG
+//
+
+IDB_PNG1                PNG                     "C:\\MH\\Github\\OOP_project\\解包內容\\Sprite\\c01_4.png"
 
 #endif    // 中文 (繁體，台灣) resources
 /////////////////////////////////////////////////////////////////////////////

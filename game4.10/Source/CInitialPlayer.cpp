@@ -34,7 +34,7 @@ namespace game_framework {
 
 	void CInitialPlayer::LoadBitmap()
 	{
-		animation.AddBitmap(IDB_ROLE_TEST, RGB(255, 255, 255));
+		animation.AddBitmap(IDB_CH01, RGB(255, 255, 255));
 	}
 
 	void CInitialPlayer::OnMove()
