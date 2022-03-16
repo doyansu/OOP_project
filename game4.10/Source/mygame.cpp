@@ -85,14 +85,14 @@ void CGameStateInit::OnInit()
 	// 此OnInit動作會接到CGameStaterRun::OnInit()，所以進度還沒到100%
 	//
 	player.LoadBitmap();
-	gate.LoadBitmap();
+	gate.LoadBitmap(IDB_GATE1);
 
 }
 
 void CGameStateInit::OnBeginState()
 {
 	player.Initialize();
-	gate.Initialize();
+	gate.SetXY(270, 100);
 }
 
 void CGameStateInit::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
@@ -121,7 +121,7 @@ void CGameStateInit::OnLButtonDown(UINT nFlags, CPoint point)
 void CGameStateInit::OnMove()
 {
 	player.OnMove();
-	if(gate.HitPlayer(&player))
+	if(gate.Collision(&player))
 		GotoGameState(GAME_STATE_RUN);
 }
 

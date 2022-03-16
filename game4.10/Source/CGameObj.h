@@ -1,3 +1,6 @@
+#ifndef CGAMEOBJ_H
+#define CGAMEOBJ_H
+
 namespace game_framework {
 
 	class CGameObj
@@ -35,3 +38,5 @@ namespace game_framework {
 		void init();
 	};
 }
+
+#endif
