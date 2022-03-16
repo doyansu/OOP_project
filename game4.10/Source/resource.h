@@ -40,8 +40,10 @@
 #define IDB_ROLE_TEST                   163
 #define IDB_GATE1                       165
 #define IDB_PNG1                        166
-#define IDB_BITMAP3                     172
-#define IDB_CH01                        172
+#define IDB_CH1_1                       172
+#define IDB_CH1_2                       173
+#define IDB_BITMAP3                     174
+#define IDB_CH1_3                       174
 #define IDC_README                      1001
 #define ID_FILE_PAUSE                   32771
 #define ID_TOGGLE_FULLSCREEN            32772
@@ -54,7 +56,7 @@
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_3D_CONTROLS                     1
-#define _APS_NEXT_RESOURCE_VALUE        173
+#define _APS_NEXT_RESOURCE_VALUE        175
 #define _APS_NEXT_COMMAND_VALUE         32776
 #define _APS_NEXT_CONTROL_VALUE         1003
 #define _APS_NEXT_SYMED_VALUE           101

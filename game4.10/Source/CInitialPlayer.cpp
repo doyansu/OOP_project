@@ -34,7 +34,11 @@ namespace game_framework {
 
 	void CInitialPlayer::LoadBitmap()
 	{
-		animation.AddBitmap(IDB_CH01, RGB(255, 255, 255));
+		animation.AddBitmap(IDB_CH1_1, RGB(255, 255, 255));
+		animation.AddBitmap(IDB_CH1_2, RGB(255, 255, 255));
+		animation.AddBitmap(IDB_CH1_3, RGB(255, 255, 255));
+		animation.AddBitmap(IDB_CH1_2, RGB(255, 255, 255));
+		animation.SetDelayCount(5);
 	}
 
 	void CInitialPlayer::OnMove()

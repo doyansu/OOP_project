@@ -332,6 +332,7 @@
     <Image Include="RES\3F 3F.bmp" />
     <Image Include="res\bitmap3.bmp" />
     <Image Include="res\bmp00001.bmp" />
+    <Image Include="res\bmp00002.bmp" />
     <Image Include="RES\ch1.bmp" />
     <Image Include="RES\gate1.bmp" />
   </ItemGroup>
