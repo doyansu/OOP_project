@@ -10,6 +10,7 @@ namespace game_framework {
 	CGameMap::CGameMap()
 		:_X(0), _Y(0), _MW(25), _MH(25)
 	{
+		this->SetXY(_X, _Y);
 		int map_init[5][5] = { 
 		{1, 1, 1, 1, 1},
 		{1, 1, 1, 1, 1},
@@ -17,11 +18,11 @@ namespace game_framework {
 		{1, 1, 1, 1, 1},
 		{1, 1, 1, 1, 1}
 		};
-		for (int i = 0; i < 5; i++)
+		for (int i = 0; i < 100; i++)
 		{
-			for (int j = 0; j < 5; j++)
+			for (int j = 0; j < 100; j++)
 			{
-				_map[i][j] = map_init[i][j];
+				_map[i][j] = 1;
 			}
 		}
 	}
@@ -45,9 +46,9 @@ namespace game_framework {
 
 	void CGameMap::OnShow()
 	{
-		for (int i = 0; i < 5; i++)
+		for (int i = 0; i < 100; i++)
 		{
-			for (int j = 0; j < 5; j++)
+			for (int j = 0; j < 100; j++)
 			{
 				switch (_map[i][j])
 				{
