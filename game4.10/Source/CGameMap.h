@@ -10,6 +10,7 @@ namespace game_framework {
 		void LoadBitmap();
 		void OnMove();
 		void OnShow();
+		void GenerateMap();
 
 	protected:
 		CMovingBitmap _floor;

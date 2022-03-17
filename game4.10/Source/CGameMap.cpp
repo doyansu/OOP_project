@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include "stdafx.h"
 #include "Resource.h"
 #include <mmsystem.h>
@@ -11,18 +12,11 @@ namespace game_framework {
 		:_X(0), _Y(0), _MW(25), _MH(25)
 	{
 		this->SetXY(_X, _Y);
-		int map_init[5][5] = { 
-		{1, 1, 1, 1, 1},
-		{1, 1, 1, 1, 1},
-		{1, 1, 1, 1, 1}, 
-		{1, 1, 1, 1, 1},
-		{1, 1, 1, 1, 1}
-		};
 		for (int i = 0; i < 100; i++)
 		{
 			for (int j = 0; j < 100; j++)
 			{
-				_map[i][j] = 1;
+				_map[i][j] = 0;
 			}
 		}
 	}
@@ -52,7 +46,7 @@ namespace game_framework {
 			{
 				switch (_map[i][j])
 				{
-					case 1:
+					case 0:
 						_floor.SetTopLeft(_x + (_MW * i), _y + (_MH * j));
 						_floor.ShowBitmap();
 						break;
@@ -61,5 +55,16 @@ namespace game_framework {
 				}
 			}
 		}
+	}
+
+	void CGameMap::GenerateMap()
+	{
+		bool hasRoom[5][5] = { 
+			{true, true, true, true, true},
+			{true, true, true, true, true},
+			{true, true, true, true, true},
+			{true, true, true, true, true},
+			{true, true, true, true, true}
+		};
 	}
 }
