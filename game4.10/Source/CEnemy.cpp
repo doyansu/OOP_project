@@ -4,53 +4,53 @@
 #include <ddraw.h>
 #include "audio.h"
 #include "gamelib.h"
-#include "CEraser.h"
+#include "CEnemy.h"
 
 namespace game_framework {
 	/////////////////////////////////////////////////////////////////////////////
-	// CEraser: Eraser class
+	// CEnemy: Eraser class
 	/////////////////////////////////////////////////////////////////////////////
 
-	CEraser::CEraser()
+	CEnemy::CEnemy()
 	{
 		Initialize();
 	}
 
-	int CEraser::GetX1()
+	int CEnemy::GetX1()
 	{
 		return x;
 	}
 
-	int CEraser::GetY1()
+	int CEnemy::GetY1()
 	{
 		return y;
 	}
 
-	int CEraser::GetX2()
+	int CEnemy::GetX2()
 	{
 		return x + animation.Width();
 	}
 
-	int CEraser::GetY2()
+	int CEnemy::GetY2()
 	{
 		return y + animation.Height();
 	}
 
-	void CEraser::Initialize()
+	void CEnemy::Initialize()
 	{
-		const int X_POS = 280;
-		const int Y_POS = 400;
+		const int X_POS = 10;
+		const int Y_POS = 10;
 		x = X_POS;
 		y = Y_POS;
 		isMovingLeft = isMovingRight = isMovingUp = isMovingDown = false;
 	}
 
-	void CEraser::LoadBitmap()
+	void CEnemy::LoadBitmap()
 	{
 		animation.AddBitmap(IDB_ERASER2, RGB(255, 255, 255));
 	}
 
-	void CEraser::OnMove()
+	void CEnemy::OnMove()
 	{
 		const int STEP_SIZE = 2;
 		animation.OnMove();
@@ -64,32 +64,32 @@ namespace game_framework {
 			y += STEP_SIZE;
 	}
 
-	void CEraser::SetMovingDown(bool flag)
+	void CEnemy::SetMovingDown(bool flag)
 	{
 		isMovingDown = flag;
 	}
 
-	void CEraser::SetMovingLeft(bool flag)
+	void CEnemy::SetMovingLeft(bool flag)
 	{
 		isMovingLeft = flag;
 	}
 
-	void CEraser::SetMovingRight(bool flag)
+	void CEnemy::SetMovingRight(bool flag)
 	{
 		isMovingRight = flag;
 	}
 
-	void CEraser::SetMovingUp(bool flag)
+	void CEnemy::SetMovingUp(bool flag)
 	{
 		isMovingUp = flag;
 	}
 
-	void CEraser::SetXY(int nx, int ny)
+	void CEnemy::SetXY(int nx, int ny)
 	{
 		x = nx; y = ny;
 	}
 
-	void CEraser::OnShow()
+	void CEnemy::OnShow()
 	{
 		animation.SetTopLeft(x, y);
 		animation.OnShow();

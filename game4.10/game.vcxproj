@@ -257,6 +257,7 @@
     <None Include="res\Toolbar.bmp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="source\CEnemy.cpp" />
     <ClCompile Include="Source\CGameMap.cpp" />
     <ClCompile Include="Source\CGameObj.cpp" />
     <ClCompile Include="Source\CInitialPlayer.cpp" />
@@ -306,6 +307,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="source\CEnemy.h" />
     <ClInclude Include="Source\CGameMap.h" />
     <ClInclude Include="Source\CGameObj.h" />
     <ClInclude Include="Source\CInitialPlayer.h" />

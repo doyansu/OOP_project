@@ -138,6 +138,9 @@
     <ClCompile Include="Source\CGameMap.cpp">
       <Filter>MyGame</Filter>
     </ClCompile>
+    <ClCompile Include="source\CEnemy.cpp">
+      <Filter>MyGame</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\audio.h">
@@ -183,6 +186,9 @@
       <Filter>MyGame</Filter>
     </ClInclude>
     <ClInclude Include="Source\CGameMap.h">
+      <Filter>MyGame</Filter>
+    </ClInclude>
+    <ClInclude Include="source\CEnemy.h">
       <Filter>MyGame</Filter>
     </ClInclude>
   </ItemGroup>

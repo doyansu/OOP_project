@@ -132,7 +132,6 @@ IDC_GAMECURSOR          CURSOR                  "..\\res\\gamecurs.cur"
 // PNG
 //
 
-IDB_PNG1                PNG                     "C:\\MH\\Github\\OOP_project\\解包內容\\Sprite\\c01_4.png"
 
 #endif    // 中文 (繁體，台灣) resources
 /////////////////////////////////////////////////////////////////////////////
