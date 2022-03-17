@@ -295,6 +295,7 @@ void CAudio::Play(unsigned id, bool repeat_flag)
 	//
 	// Do not play, if the file is no good
 	//
+	Pause();
 	if (!info[id].isGood)		
 		return;
 	char command[MAX_MCI_COMMAND_SIZE];
