@@ -207,9 +207,12 @@
     <Image Include="RES\gate1.bmp">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="..\解包內容\Sprite\c01_4.png" />
     <Image Include="res\bmp00002.bmp">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="res\bmp00003.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\解包內容\Sprite\c01_4.png" />
   </ItemGroup>
 </Project>

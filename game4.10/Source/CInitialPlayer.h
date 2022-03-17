@@ -13,9 +13,6 @@ namespace game_framework {
 		void OnMove();					// 移動
 		void OnShow();					// 將圖形貼到畫面
 
-		void OnKeyUp(char);
-		void OnKeyDown(char);
-
 	protected:
 		CAnimation animation;		//動畫
 	};

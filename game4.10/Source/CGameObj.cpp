@@ -115,12 +115,34 @@ namespace game_framework {
 
 	void CGameObj::OnKeyUp(char nChar)
 	{
-
+		const char KEY_LEFT = 0x25; // keyboard左箭頭
+		const char KEY_UP = 0x26; // keyboard上箭頭
+		const char KEY_RIGHT = 0x27; // keyboard右箭頭
+		const char KEY_DOWN = 0x28; // keyboard下箭頭
+		if (nChar == KEY_LEFT)
+			this->SetMovingLeft(false);
+		if (nChar == KEY_RIGHT)
+			this->SetMovingRight(false);
+		if (nChar == KEY_UP)
+			this->SetMovingUp(false);
+		if (nChar == KEY_DOWN)
+			this->SetMovingDown(false);
 	}
 
 	void CGameObj::OnKeyDown(char nChar)
 	{
-
+		const char KEY_LEFT = 0x25; // keyboard左箭頭
+		const char KEY_UP = 0x26; // keyboard上箭頭
+		const char KEY_RIGHT = 0x27; // keyboard右箭頭
+		const char KEY_DOWN = 0x28; // keyboard下箭頭
+		if (nChar == KEY_LEFT)
+			this->SetMovingLeft(true);
+		if (nChar == KEY_RIGHT)
+			this->SetMovingRight(true);
+		if (nChar == KEY_UP)
+			this->SetMovingUp(true);
+		if (nChar == KEY_DOWN)
+			this->SetMovingDown(true);
 	}
 
 }

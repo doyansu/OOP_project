@@ -1,12 +1,16 @@
 #pragma once
 
+#include "CGameObj.h"
+
 namespace game_framework {
-	class CGameMap
+	class CGameMap : public CGameObj
 	{
 	public:
 		CGameMap();
 		void LoadBitmap();
+		void OnMove();
 		void OnShow();
+
 	protected:
 		CMovingBitmap _floor;
 		int _map[100][100];
