@@ -220,5 +220,35 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="..\解包內容\Sprite\c01_4.png" />
+    <Image Include="res\bitmap5.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\c01_0.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\c01_1.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\c01_2.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\c01_3.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\c01_4.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\c01_5.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\c01_6.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\c01_7.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\c01_8.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

@@ -110,13 +110,25 @@ IDB_ROLE_TEST           BITMAP                  "..\\RES\\ch1.bmp"
 
 IDB_GATE1               BITMAP                  "..\\RES\\gate1.bmp"
 
-IDB_CH1_1               BITMAP                  "..\\res\\bitmap3.bmp"
-
-IDB_CH1_2               BITMAP                  "..\\res\\bmp00001.bmp"
-
-IDB_CH1_3               BITMAP                  "..\\res\\bmp00002.bmp"
-
 IDB_FLOOR_1             BITMAP                  "..\\res\\bmp00003.bmp"
+
+IDB_CH1_0               BITMAP                  "..\\RES\\c01_0.bmp"
+
+IDB_CH1_1               BITMAP                  "..\\RES\\c01_1.bmp"
+												 
+IDB_CH1_2               BITMAP                  "..\\RES\\c01_2.bmp"
+												 
+IDB_CH1_3               BITMAP                  "..\\RES\\c01_3.bmp"
+												 
+IDB_CH1_4               BITMAP                  "..\\RES\\c01_4.bmp"
+												 
+IDB_CH1_5               BITMAP                  "..\\RES\\c01_5.bmp"
+												 
+IDB_CH1_6               BITMAP                  "..\\RES\\c01_6.bmp"
+												 
+IDB_CH1_7               BITMAP                  "..\\RES\\c01_7.bmp"
+												 
+IDB_CH1_DIE             BITMAP                  "..\\RES\\c01_8.bmp"
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -125,13 +137,6 @@ IDB_FLOOR_1             BITMAP                  "..\\res\\bmp00003.bmp"
 //
 
 IDC_GAMECURSOR          CURSOR                  "..\\res\\gamecurs.cur"
-
-
-/////////////////////////////////////////////////////////////////////////////
-//
-// PNG
-//
-
 
 #endif    // 中文 (繁體，台灣) resources
 /////////////////////////////////////////////////////////////////////////////
