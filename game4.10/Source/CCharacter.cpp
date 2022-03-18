@@ -38,8 +38,8 @@ namespace game_framework {
 
 	void CCharacter::Initialize()
 	{
-		const int X_POS = 280;
-		const int Y_POS = 400;
+		const int X_POS = 300;
+		const int Y_POS = 240;
 		x = X_POS;
 		y = Y_POS;
 		isMovingLeft = isMovingRight = isMovingUp = isMovingDown = false;
@@ -47,7 +47,12 @@ namespace game_framework {
 
 	void CCharacter::LoadBitmap()
 	{
-		animation.AddBitmap(IDB_ERASER2, RGB(255, 255, 255));
+		animation.AddBitmap(IDB_CH1_0, RGB(255, 255, 255));
+		animation.AddBitmap(IDB_CH1_1, RGB(255, 255, 255));
+		animation.AddBitmap(IDB_CH1_2, RGB(255, 255, 255));
+		animation.AddBitmap(IDB_CH1_3, RGB(255, 255, 255));
+		animation.AddBitmap(IDB_CH1_4, RGB(255, 255, 255));
+
 	}
 
 	void CCharacter::OnMove()

@@ -141,6 +141,9 @@
     <ClCompile Include="source\CEnemy.cpp">
       <Filter>MyGame</Filter>
     </ClCompile>
+    <ClCompile Include="source\CCharacter.cpp">
+      <Filter>MyGame</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\audio.h">
@@ -191,6 +194,9 @@
     <ClInclude Include="source\CEnemy.h">
       <Filter>MyGame</Filter>
     </ClInclude>
+    <ClInclude Include="source\CCharacter.h">
+      <Filter>MyGame</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Source\game.rc">
@@ -223,8 +229,6 @@
     <Image Include="res\bitmap5.bmp">
       <Filter>Resource Files</Filter>
     </Image>
-<<<<<<< HEAD
-=======
     <Image Include="RES\c01_0.bmp">
       <Filter>Resource Files</Filter>
     </Image>
@@ -252,6 +256,5 @@
     <Image Include="RES\c01_8.bmp">
       <Filter>Resource Files</Filter>
     </Image>
->>>>>>> ff782bf5b90bfe63a0b6af1919b0abf2daad328a
   </ItemGroup>
 </Project>

@@ -252,6 +252,7 @@ void CGameStateRun::OnBeginState()
 	CAudio::Instance()->Play(AUDIO_NTUT, true);			// ¼·©ñ MIDI
 
 	test.SetXY(300, 200);
+	character.Initialize();
 	gameMap.GenerateMap();
 }
 
