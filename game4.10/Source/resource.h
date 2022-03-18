@@ -42,10 +42,9 @@
 #define IDB_PNG1                        166
 #define IDB_BITMAP3                     175
 #define IDB_FLOOR_1                     175
-<<<<<<< HEAD
 #define IDB_BITMAP5                     176
 #define IDB_WALL_1                      176
-=======
+
 #define IDB_CH1_0                       177
 #define IDB_CH1_1                       180
 #define IDB_CH1_2                       181
@@ -55,8 +54,7 @@
 #define IDB_CH1_6                       185
 #define IDB_CH1_7                       186
 #define IDB_CH1_8                       187
-#define IDB_CH1_DIE                     187
->>>>>>> ff782bf5b90bfe63a0b6af1919b0abf2daad328a
+
 #define IDC_README                      1001
 #define ID_FILE_PAUSE                   32771
 #define ID_TOGGLE_FULLSCREEN            32772
