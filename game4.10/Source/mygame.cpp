@@ -251,8 +251,6 @@ void CGameStateRun::OnBeginState()
 	CAudio::Instance()->Play(AUDIO_DING, false);		// 撥放 WAVE
 	CAudio::Instance()->Play(AUDIO_NTUT, true);			// 撥放 MIDI
 
-	test.SetXY(300, 200);
-	character.Initialize();
 	gameMap.GenerateMap();
 }
 
@@ -338,7 +336,7 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	// 此OnInit動作會接到CGameStaterOver::OnInit()，所以進度還沒到100%
 	//
 	gameMap.LoadBitmap();
-	test.LoadBitmap(IDB_CH1_1);
+	character.LoadBitmap();
 
 }
 
@@ -430,6 +428,6 @@ void CGameStateRun::OnShow()
 	corner.SetTopLeft(SIZE_X-corner.Width(), SIZE_Y-corner.Height());
 	corner.ShowBitmap();
 
-	test.OnShow();
+	character.OnShow();
 }
 }

@@ -7,42 +7,19 @@
 #include "CCharacter.h"
 
 namespace game_framework {
-	/////////////////////////////////////////////////////////////////////////////
-	// CCharacter: Eraser class
-	/////////////////////////////////////////////////////////////////////////////
-
 	CCharacter::CCharacter()
 	{
-		Initialize();
-	}
-
-	int CCharacter::GetX1()
-	{
-		return x;
-	}
-
-	int CCharacter::GetY1()
-	{
-		return y;
+		this->SetXY(300, 240);
 	}
 
 	int CCharacter::GetX2()
 	{
-		return x + animation.Width();
+		return _x + animation.Width();
 	}
 
 	int CCharacter::GetY2()
 	{
-		return y + animation.Height();
-	}
-
-	void CCharacter::Initialize()
-	{
-		const int X_POS = 300;
-		const int Y_POS = 240;
-		x = X_POS;
-		y = Y_POS;
-		isMovingLeft = isMovingRight = isMovingUp = isMovingDown = false;
+		return _y + animation.Height();
 	}
 
 	void CCharacter::LoadBitmap()
@@ -55,48 +32,9 @@ namespace game_framework {
 
 	}
 
-	void CCharacter::OnMove()
-	{
-		const int STEP_SIZE = 2;
-		animation.OnMove();
-		if (isMovingLeft)
-			x -= STEP_SIZE;
-		if (isMovingRight)
-			x += STEP_SIZE;
-		if (isMovingUp)
-			y -= STEP_SIZE;
-		if (isMovingDown)
-			y += STEP_SIZE;
-	}
-
-	void CCharacter::SetMovingDown(bool flag)
-	{
-		isMovingDown = flag;
-	}
-
-	void CCharacter::SetMovingLeft(bool flag)
-	{
-		isMovingLeft = flag;
-	}
-
-	void CCharacter::SetMovingRight(bool flag)
-	{
-		isMovingRight = flag;
-	}
-
-	void CCharacter::SetMovingUp(bool flag)
-	{
-		isMovingUp = flag;
-	}
-
-	void CCharacter::SetXY(int nx, int ny)
-	{
-		x = nx; y = ny;
-	}
-
 	void CCharacter::OnShow()
 	{
-		animation.SetTopLeft(x, y);
+		animation.SetTopLeft(_x, _y);
 		animation.OnShow();
 	}
 }
