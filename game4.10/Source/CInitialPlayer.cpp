@@ -41,11 +41,7 @@ namespace game_framework {
 		animation.SetDelayCount(5);
 	}
 
-	void CInitialPlayer::OnMove()
-	{
-		animation.OnMove();
-		CGameObj::OnMove();
-	}
+
 
 	void CInitialPlayer::OnShow()
 	{
