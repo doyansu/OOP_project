@@ -38,10 +38,14 @@ namespace game_framework {
 		animation.AddBitmap(IDB_CH1_2, RGB(255, 255, 255));
 		animation.AddBitmap(IDB_CH1_3, RGB(255, 255, 255));
 		animation.AddBitmap(IDB_CH1_2, RGB(255, 255, 255));
-		animation.SetDelayCount(5);
+		animation.SetDelayCount(500);
 	}
 
-
+	void CInitialPlayer::OnMove()
+	{
+		animation.OnMove();
+		CGameObj::OnMove();
+	}
 
 	void CInitialPlayer::OnShow()
 	{
