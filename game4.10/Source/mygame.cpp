@@ -252,6 +252,7 @@ void CGameStateRun::OnBeginState()
 	CAudio::Instance()->Play(AUDIO_NTUT, true);			// 撥放 MIDI
 
 	test.SetXY(300, 200);
+	gameMap.GenerateMap();
 }
 
 void CGameStateRun::OnMove()							// 移動遊戲元素

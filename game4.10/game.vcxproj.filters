@@ -220,5 +220,8 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="..\解包內容\Sprite\c01_4.png" />
+    <Image Include="res\bitmap5.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>
