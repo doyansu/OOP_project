@@ -24,9 +24,14 @@ namespace game_framework {
 
 	void CBouncingBall::LoadBitmap()
 	{
-		char *filename[4] = { ".\\bitmaps\\ball1.bmp",".\\bitmaps\\ball2.bmp",".\\bitmaps\\ball3.bmp",".\\bitmaps\\ball4.bmp" };
-		for (int i = 0; i < 4; i++)	// 載入動畫(由4張圖形構成)
-			animation.AddBitmap(filename[i], RGB(0, 0, 0));
+		//char *filename[4] = { ".\\bitmaps\\ball1.bmp",".\\bitmaps\\ball2.bmp",".\\bitmaps\\ball3.bmp",".\\bitmaps\\ball4.bmp" };
+		//for (int i = 0; i < 4; i++)	// 載入動畫(由4張圖形構成)
+		//	animation.AddBitmap(filename[i], RGB(0, 0, 0));
+		animation.AddBitmap(IDB_CH1_0, RGB(255, 255, 255));
+		animation.AddBitmap(IDB_CH1_1, RGB(255, 255, 255));
+		animation.AddBitmap(IDB_CH1_2, RGB(255, 255, 255));
+		animation.AddBitmap(IDB_CH1_3, RGB(255, 255, 255));
+		animation.SetDelayCount(5);
 	}
 
 	void CBouncingBall::OnMove()
@@ -59,5 +64,6 @@ namespace game_framework {
 	{
 		animation.SetTopLeft(x, y);
 		animation.OnShow();
+		animation.OnMove();
 	}
 }

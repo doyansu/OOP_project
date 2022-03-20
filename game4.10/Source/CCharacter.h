@@ -11,6 +11,6 @@ namespace game_framework {
 		void OnShow();					// 將擦子圖形貼到畫面
 
 	protected:
-		CAnimation animation;		// 擦子的動畫
+		CAnimation animation;		
 	};
 }

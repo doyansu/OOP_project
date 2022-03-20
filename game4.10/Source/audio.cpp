@@ -291,7 +291,7 @@ void CAudio::Play(unsigned id, bool repeat_flag)
 {
 	if (!isOpened)
 		return;
-	GAME_ASSERT(info.find(id) != info.end(), "Can not play back audio: incorrect Audio ID!");
+	//GAME_ASSERT(info.find(id) != info.end(), "Can not play back audio: incorrect Audio ID!");
 	//
 	// Do not play, if the file is no good
 	//
