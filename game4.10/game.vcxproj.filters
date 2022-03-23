@@ -256,5 +256,74 @@
     <Image Include="RES\c01_8.bmp">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="..\解包內容\enemy_bmp\enemy31_0.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\解包內容\enemy_bmp\enemy31_1.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\解包內容\enemy_bmp\enemy31_2.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\解包內容\enemy_bmp\enemy31_3.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\解包內容\enemy_bmp\enemy31_4.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\解包內容\enemy_bmp\enemy31_5.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\解包內容\enemy_bmp\enemy31_6.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\解包內容\enemy_bmp\enemy32_0.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\解包內容\enemy_bmp\enemy32_1.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\解包內容\enemy_bmp\enemy32_2.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\解包內容\enemy_bmp\enemy32_3.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\解包內容\enemy_bmp\enemy32_4.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\解包內容\enemy_bmp\enemy32_5.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\解包內容\enemy_bmp\enemy32_6.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\解包內容\enemy_bmp\enemy34_0.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\解包內容\enemy_bmp\enemy34_1.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\解包內容\enemy_bmp\enemy34_2.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\解包內容\enemy_bmp\enemy34_3.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\解包內容\enemy_bmp\enemy34_4.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\解包內容\enemy_bmp\enemy34_5.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\解包內容\enemy_bmp\enemy34_6.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\解包內容\enemy_bmp\enemy34_7.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\解包內容\enemy_bmp\enemy34_8.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

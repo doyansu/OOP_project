@@ -44,7 +44,6 @@
 #define IDB_FLOOR_1                     175
 #define IDB_BITMAP5                     176
 #define IDB_WALL_1                      176
-
 #define IDB_CH1_0                       177
 #define IDB_CH1_1                       180
 #define IDB_CH1_2                       181
@@ -54,7 +53,30 @@
 #define IDB_CH1_6                       185
 #define IDB_CH1_7                       186
 #define IDB_CH1_8                       187
-
+#define IDB_enemy0_0                    188
+#define IDB_enemy0_1                    189
+#define IDB_enemy0_2                    190
+#define IDB_enemy0_3                    191
+#define IDB_enemy0_4                    192
+#define IDB_enemy0_5                    193
+#define IDB_enemy0_die                  194
+#define IDB_enemy1_0                    195
+#define IDB_enemy1_1                    196
+#define IDB_enemy1_2                    197
+#define IDB_enemy1_3                    198
+#define IDB_enemy1_4                    199
+#define IDB_enemy1_5                    200
+#define IDB_enemy1_die                  201
+#define IDB_enemy2_0                    202
+#define IDB_enemy2_1                    203
+#define IDB_enemy2_2                    204
+#define IDB_enemy2_3                    205
+#define IDB_enemy2_4                    206
+#define IDB_enemy2_5                    207
+#define IDB_enemy2_6                    208
+#define IDB_enemy2_7                    209
+#define IDB_BITMAP15                    210
+#define IDB_enemy2_die                  210
 #define IDC_README                      1001
 #define ID_FILE_PAUSE                   32771
 #define ID_TOGGLE_FULLSCREEN            32772
@@ -67,11 +89,7 @@
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_3D_CONTROLS                     1
-<<<<<<< HEAD
-#define _APS_NEXT_RESOURCE_VALUE        177
-=======
-#define _APS_NEXT_RESOURCE_VALUE        188
->>>>>>> ff782bf5b90bfe63a0b6af1919b0abf2daad328a
+#define _APS_NEXT_RESOURCE_VALUE        211
 #define _APS_NEXT_COMMAND_VALUE         32776
 #define _APS_NEXT_CONTROL_VALUE         1003
 #define _APS_NEXT_SYMED_VALUE           101
