@@ -1,6 +1,8 @@
 #ifndef CGAMEOBJ_H
 #define CGAMEOBJ_H
 
+#include "CGameMap.h"
+
 namespace game_framework {
 
 	class CGameObj
@@ -21,7 +23,7 @@ namespace game_framework {
 		virtual int GetX2();
 		virtual int GetY2();
 		virtual void LoadBitmap(int);
-		virtual void OnShow();
+		virtual void OnShow(CGameMap*);
 		virtual void OnMove();
 		virtual void OnKeyUp(char);
 		virtual void OnKeyDown(char);

@@ -95,9 +95,9 @@ namespace game_framework {
 		_moveSpeed = speed;
 	}
 
-	void CGameObj::OnShow()
+	void CGameObj::OnShow(CGameMap* map)
 	{
-		_initbmp.SetTopLeft(_x, _y);
+		_initbmp.SetTopLeft(map->ScreenX(_x), map->ScreenY(_y));
 		_initbmp.ShowBitmap();
 	}
 

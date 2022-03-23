@@ -9,21 +9,17 @@
 
 namespace game_framework {
 	CGameMap::CGameMap()
-		:_X(0), _Y(0), _MW(25), _MH(25)
+		:_MW(25), _MH(25)
 	{
 		init();
 	}
 
 	void CGameMap::init()
 	{
-		this->SetXY(_X, _Y);
-		for (int i = 0; i < 200; i++)
-		{
-			for (int j = 0; j < 200; j++)
-			{
-				_map[i][j] = 0;
-			}
-		}
+		_moveSpeed = 5;
+		_sx = _sy = 0;
+		_isMovingLeft = _isMovingRight = _isMovingUp = _isMovingDown = false;
+		memset(_map, 0, sizeof(_map));
 	}
 
 	void CGameMap::LoadBitmap()
@@ -35,13 +31,13 @@ namespace game_framework {
 	void CGameMap::OnMove()
 	{
 		if (_isMovingLeft)
-			_x += _moveSpeed;
+			_sx -= _moveSpeed;
 		if (_isMovingRight)
-			_x -= _moveSpeed;
+			_sx += _moveSpeed;
 		if (_isMovingUp)
-			_y += _moveSpeed;
+			_sy -= _moveSpeed;
 		if (_isMovingDown)
-			_y -= _moveSpeed;
+			_sy += _moveSpeed;
 	}
 
 	void CGameMap::OnShow()
@@ -55,11 +51,11 @@ namespace game_framework {
 					case 0:
 						break;
 					case 1:
-						_floor.SetTopLeft(_x + (_MW * i), _y + (_MH * j));
+						_floor.SetTopLeft(ScreenX(_MW * i), ScreenY(_MH * j));
 						_floor.ShowBitmap();
 						break;
 					case 2:
-						_wall.SetTopLeft(_x + (_MW * i), _y + (_MH * j));
+						_wall.SetTopLeft(ScreenX(_MW * i), ScreenY(_MH * j));
 						_wall.ShowBitmap();
 					default:
 						ASSERT(0);
@@ -92,4 +88,68 @@ namespace game_framework {
 			}
 		}
 	}
+
+	void CGameMap::OnKeyUp(char nChar)
+	{
+		const char KEY_LEFT = 0x25; 
+		const char KEY_UP = 0x26;
+		const char KEY_RIGHT = 0x27; 
+		const char KEY_DOWN = 0x28; 
+		if (nChar == KEY_LEFT)
+			this->SetMovingLeft(false);
+		if (nChar == KEY_RIGHT)
+			this->SetMovingRight(false);
+		if (nChar == KEY_UP)
+			this->SetMovingUp(false);
+		if (nChar == KEY_DOWN)
+			this->SetMovingDown(false);
+	}
+
+	void CGameMap::OnKeyDown(char nChar)
+	{
+		const char KEY_LEFT = 0x25; 
+		const char KEY_UP = 0x26; 
+		const char KEY_RIGHT = 0x27; 
+		const char KEY_DOWN = 0x28; 
+		if (nChar == KEY_LEFT)
+			this->SetMovingLeft(true);
+		if (nChar == KEY_RIGHT)
+			this->SetMovingRight(true);
+		if (nChar == KEY_UP)
+			this->SetMovingUp(true);
+		if (nChar == KEY_DOWN)
+			this->SetMovingDown(true);
+	}
+
+	int CGameMap::ScreenX(int x)
+	{
+		return x - _sx;
+	}
+
+	int CGameMap::ScreenY(int y)
+	{
+		return y - _sy;
+	}
+
+	void CGameMap::SetMovingDown(bool flag)
+	{
+		_isMovingDown = flag;
+	}
+
+	void CGameMap::SetMovingLeft(bool flag)
+	{
+		_isMovingLeft = flag;
+	}
+
+	void CGameMap::SetMovingRight(bool flag)
+	{
+		_isMovingRight = flag;
+	}
+
+	void CGameMap::SetMovingUp(bool flag)
+	{
+		_isMovingUp = flag;
+	}
+
+
 }

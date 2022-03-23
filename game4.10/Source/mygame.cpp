@@ -151,7 +151,7 @@ void CGameStateInit::OnShow()
 	CDDraw::ReleaseBackCDC();					// ©ñ±¼ Back Plain ªº CDC
 	*/
 
-	gate.OnShow();
+	gate.OnShow(&map);
 	player.OnShow();
 	
 }								

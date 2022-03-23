@@ -77,6 +77,7 @@ namespace game_framework {
 		CMovingBitmap logo;								// csieªºlogo
 		CInitialPlayer player;
 		CGameObj gate;
+		CGameMap map;
 	};
 
 	/////////////////////////////////////////////////////////////////////////////
