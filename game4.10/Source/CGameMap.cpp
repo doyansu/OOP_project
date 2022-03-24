@@ -9,7 +9,7 @@
 
 namespace game_framework {
 	CGameMap::CGameMap()
-		:_MAPW(25), _MAPH(25), _SCREENW(640), _SCREENH(480)
+		:_MAPW(25), _MAPH(25), _SCREENW(SIZE_X), _SCREENH(SIZE_Y)
 	{
 		init();
 	}

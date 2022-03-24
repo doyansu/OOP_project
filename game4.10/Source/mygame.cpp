@@ -358,6 +358,7 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 		eraser.SetMovingDown(true);*/
 
 	gameMap.OnKeyDown(nChar);
+	character.OnKeyDown(nChar);
 }
 
 void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
@@ -376,6 +377,7 @@ void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 	if (nChar == KEY_DOWN)
 		eraser.SetMovingDown(false);*/
 	gameMap.OnKeyUp(nChar);
+	character.OnKeyUp(nChar);
 }
 
 void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的動作
