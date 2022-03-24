@@ -152,7 +152,7 @@ void CGameStateInit::OnShow()
 	*/
 
 	gate.OnShow(&map);
-	player.OnShow();
+	player.OnShow(&map);
 	
 }								
 
@@ -299,6 +299,7 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	bball.OnMove();
 
 	gameMap.OnMove();
+	character.OnMove();
 }
 
 void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
@@ -428,6 +429,6 @@ void CGameStateRun::OnShow()
 	corner.SetTopLeft(SIZE_X-corner.Width(), SIZE_Y-corner.Height());
 	corner.ShowBitmap();
 
-	character.OnShow();
+	character.OnShow(&gameMap);
 }
 }

@@ -6,6 +6,7 @@
 #include "gamelib.h"
 #include "CGameObj.h"
 
+
 namespace game_framework {
 
 	CGameObj::CGameObj()
@@ -15,9 +16,12 @@ namespace game_framework {
 
 	void CGameObj::init()
 	{
-		_x = _y = 0;
+		_mx = _my = 0;
 		_moveSpeed = 5;
 		_isMovingLeft = _isMovingRight = _isMovingUp = _isMovingDown = false;
+		CAnimation anima;
+		_animas.push_back(anima);
+		_animaIter = _animas.begin();
 	}
 
 	void CGameObj::Reset()
@@ -27,22 +31,22 @@ namespace game_framework {
 
 	int CGameObj::GetX1()
 	{
-		return _x;
+		return _mx;
 	}
 
 	int CGameObj::GetY1()
 	{
-		return _y;
+		return _my;
 	}
 
 	int CGameObj::GetX2()
 	{
-		return _x + _initbmp.Width();
+		return _mx + _animaIter->Width();
 	}
 
 	int CGameObj::GetY2()
 	{
-		return _y + _initbmp.Height();
+		return _my + _animaIter->Height();
 	}
 
 	bool CGameObj::Collision(CGameObj *other)
@@ -52,16 +56,16 @@ namespace game_framework {
 
 	bool CGameObj::HitRectangle(int tx1, int ty1, int tx2, int ty2)
 	{
-		int x1 = _x;				
-		int y1 = _y;				
-		int x2 = x1 + _initbmp.Width();
-		int y2 = y1 + _initbmp.Height();
+		int x1 = this->GetX1();				
+		int y1 = this->GetY1();
+		int x2 = this->GetX2();
+		int y2 = this->GetY2();
 		return (tx2 >= x1 && tx1 <= x2 && ty2 >= y1 && ty1 <= y2);
 	}
 
 	void CGameObj::LoadBitmap(int id)
 	{
-		_initbmp.LoadBitmap(id, RGB(255, 255, 255));			
+		_animaIter->AddBitmap(id, RGB(255, 255, 255));			
 	}
 
 	void CGameObj::SetMovingDown(bool flag)
@@ -86,8 +90,8 @@ namespace game_framework {
 
 	void CGameObj::SetXY(int x, int y)
 	{
-		_x = x;
-		_y = y;
+		_mx = x;
+		_my = y;
 	}
 
 	void CGameObj::SetSpeed(int speed)
@@ -97,20 +101,21 @@ namespace game_framework {
 
 	void CGameObj::OnShow(CGameMap* map)
 	{
-		_initbmp.SetTopLeft(map->ScreenX(_x), map->ScreenY(_y));
-		_initbmp.ShowBitmap();
+		_animaIter->SetTopLeft(map->ScreenX(_mx), map->ScreenY(_my));
+		_animaIter->OnShow();
 	}
 
 	void CGameObj::OnMove()
 	{
+		_animaIter->OnMove();
 		if (_isMovingLeft)
-			_x -= _moveSpeed;
+			_mx -= _moveSpeed;
 		if (_isMovingRight)
-			_x += _moveSpeed;
+			_mx += _moveSpeed;
 		if (_isMovingUp)
-			_y -= _moveSpeed;
+			_my -= _moveSpeed;
 		if (_isMovingDown)
-			_y += _moveSpeed;
+			_my += _moveSpeed;
 	}
 
 	void CGameObj::OnKeyUp(char nChar)

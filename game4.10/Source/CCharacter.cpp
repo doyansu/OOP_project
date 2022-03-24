@@ -12,29 +12,17 @@ namespace game_framework {
 		this->SetXY(300, 240);
 	}
 
-	int CCharacter::GetX2()
-	{
-		return _x + animation.Width();
-	}
-
-	int CCharacter::GetY2()
-	{
-		return _y + animation.Height();
-	}
-
 	void CCharacter::LoadBitmap()
 	{
-		animation.AddBitmap(IDB_CH1_0, RGB(255, 255, 255));
-		animation.AddBitmap(IDB_CH1_1, RGB(255, 255, 255));
-		animation.AddBitmap(IDB_CH1_2, RGB(255, 255, 255));
-		animation.AddBitmap(IDB_CH1_3, RGB(255, 255, 255));
-		animation.SetDelayCount(5);
+		_animaIter->AddBitmap(IDB_CH1_0, RGB(255, 255, 255));
+		_animaIter->AddBitmap(IDB_CH1_1, RGB(255, 255, 255));
+		_animaIter->AddBitmap(IDB_CH1_2, RGB(255, 255, 255));
+		_animaIter->AddBitmap(IDB_CH1_3, RGB(255, 255, 255));
+		_animaIter->SetDelayCount(5);
 	}
 
-	void CCharacter::OnShow()
+	void CCharacter::OnShow(CGameMap* map)
 	{
-		animation.SetTopLeft(_x, _y);
-		animation.OnShow();
-		animation.OnMove();
+		CGameObj::OnShow(map);
 	}
 }
