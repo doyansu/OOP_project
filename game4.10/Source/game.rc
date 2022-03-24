@@ -104,79 +104,91 @@ IDB_HELP                BITMAP                  "..\\res\\help.bmp"
 
 IDB_LOADING             BITMAP                  "..\\res\\loading.bmp"
 
-IDB_ROLE1               BITMAP                  "..\\RES\\3F 3F.bmp"
-
-IDB_ROLE_TEST           BITMAP                  "..\\RES\\ch1.bmp"
-
 IDB_GATE1               BITMAP                  "..\\RES\\gate1.bmp"
 
 IDB_FLOOR_1             BITMAP                  "..\\res\\bmp00003.bmp"
 
 IDB_WALL_1              BITMAP                  "..\\res\\bitmap5.bmp"
 
-IDB_CH1_0               BITMAP                  "..\\RES\\c01_0.bmp"
+IDB_CH1_0               BITMAP                  "..\\RES\\character1\\c01_0.bmp"
 
-IDB_CH1_1               BITMAP                  "..\\RES\\c01_1.bmp"
+IDB_CH1_1               BITMAP                  "..\\RES\\character1\\c01_1.bmp"
 
-IDB_CH1_2               BITMAP                  "..\\RES\\c01_2.bmp"
+IDB_CH1_2               BITMAP                  "..\\RES\\character1\\c01_2.bmp"
 
-IDB_CH1_3               BITMAP                  "..\\RES\\c01_3.bmp"
+IDB_CH1_3               BITMAP                  "..\\RES\\character1\\c01_3.bmp"
 
-IDB_CH1_4               BITMAP                  "..\\RES\\c01_4.bmp"
+IDB_CH1_4               BITMAP                  "..\\RES\\character1\\c01_4.bmp"
 
-IDB_CH1_5               BITMAP                  "..\\RES\\c01_5.bmp"
+IDB_CH1_5               BITMAP                  "..\\RES\\character1\\c01_5.bmp"
 
-IDB_CH1_6               BITMAP                  "..\\RES\\c01_6.bmp"
+IDB_CH1_6               BITMAP                  "..\\RES\\character1\\c01_6.bmp"
 
-IDB_CH1_7               BITMAP                  "..\\RES\\c01_7.bmp"
+IDB_CH1_7               BITMAP                  "..\\RES\\character1\\c01_7.bmp"
 
-IDB_CH1_DIE             BITMAP                  "..\\RES\\c01_8.bmp"
+IDB_CH1_DIE             BITMAP                  "..\\RES\\character1\\c01_8.bmp"
 
 IDB_enemy0_0            BITMAP                  "..\\..\\解包內容\\enemy_bmp\\enemy31_0.bmp"
 
 IDB_enemy0_1            BITMAP                  "..\\..\\解包內容\\enemy_bmp\\enemy31_1.bmp"
-												 
+
 IDB_enemy0_2            BITMAP                  "..\\..\\解包內容\\enemy_bmp\\enemy31_2.bmp"
-												 
+
 IDB_enemy0_3            BITMAP                  "..\\..\\解包內容\\enemy_bmp\\enemy31_3.bmp"
-												 
+
 IDB_enemy0_4            BITMAP                  "..\\..\\解包內容\\enemy_bmp\\enemy31_4.bmp"
-												 
+
 IDB_enemy0_5            BITMAP                  "..\\..\\解包內容\\enemy_bmp\\enemy31_5.bmp"
-												
+
 IDB_enemy0_die          BITMAP                  "..\\..\\解包內容\\enemy_bmp\\enemy31_6.bmp"
-												
+
 IDB_enemy1_0            BITMAP                  "..\\..\\解包內容\\enemy_bmp\\enemy32_0.bmp"
-												
+
 IDB_enemy1_1            BITMAP                  "..\\..\\解包內容\\enemy_bmp\\enemy32_1.bmp"
-												 
+
 IDB_enemy1_2            BITMAP                  "..\\..\\解包內容\\enemy_bmp\\enemy32_2.bmp"
-												 
+
 IDB_enemy1_3            BITMAP                  "..\\..\\解包內容\\enemy_bmp\\enemy32_3.bmp"
-												 
+
 IDB_enemy1_4            BITMAP                  "..\\..\\解包內容\\enemy_bmp\\enemy32_4.bmp"
-												 
+
 IDB_enemy1_5            BITMAP                  "..\\..\\解包內容\\enemy_bmp\\enemy32_5.bmp"
-												 
+
 IDB_enemy1_die          BITMAP                  "..\\..\\解包內容\\enemy_bmp\\enemy32_6.bmp"
-												 
+
 IDB_enemy2_0            BITMAP                  "..\\..\\解包內容\\enemy_bmp\\enemy34_0.bmp"
-												 
+
 IDB_enemy2_1            BITMAP                  "..\\..\\解包內容\\enemy_bmp\\enemy34_1.bmp"
-												 
+
 IDB_enemy2_2            BITMAP                  "..\\..\\解包內容\\enemy_bmp\\enemy34_2.bmp"
-												
+
 IDB_enemy2_3            BITMAP                  "..\\..\\解包內容\\enemy_bmp\\enemy34_3.bmp"
-												
+
 IDB_enemy2_4            BITMAP                  "..\\..\\解包內容\\enemy_bmp\\enemy34_4.bmp"
-												 
+
 IDB_enemy2_5            BITMAP                  "..\\..\\解包內容\\enemy_bmp\\enemy34_5.bmp"
-												
+
 IDB_enemy2_6            BITMAP                  "..\\..\\解包內容\\enemy_bmp\\enemy34_6.bmp"
-												 
+
 IDB_enemy2_7            BITMAP                  "..\\..\\解包內容\\enemy_bmp\\enemy34_7.bmp"
-												 
+
 IDB_enemy2_die          BITMAP                  "..\\..\\解包內容\\enemy_bmp\\enemy34_8.bmp"
+
+IDB_CH1_0_L             BITMAP                  "..\\RES\\character1\\c01_0_l.bmp"
+											
+IDB_CH1_1_L             BITMAP                  "..\\RES\\character1\\c01_1_l.bmp"
+											
+IDB_CH1_2_L             BITMAP                  "..\\RES\\character1\\c01_2_l.bmp"
+											
+IDB_CH1_3_L             BITMAP                  "..\\RES\\character1\\c01_3_l.bmp"
+											
+IDB_CH1_4_L             BITMAP                  "..\\RES\\character1\\c01_4_l.bmp"
+												
+IDB_CH1_5_L             BITMAP                  "..\\RES\\character1\\c01_5_l.bmp"
+												
+IDB_CH1_6_L             BITMAP                  "..\\RES\\character1\\c01_6_l.bmp"
+												 
+IDB_CH1_7_L             BITMAP                  "..\\RES\\character1\\c01_7_l.bmp"
 
 
 /////////////////////////////////////////////////////////////////////////////

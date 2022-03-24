@@ -17,17 +17,35 @@ namespace game_framework {
 		this->SetXY(300, 240);
 		CAnimation run;
 		_animas.push_back(run);
+		_animas.push_back(run);
+		_animas.push_back(run);
 		_animaIter = _animas.begin();
 	}
 
 	void CCharacter::LoadBitmap()
 	{
+		_animas.at(3).AddBitmap(IDB_CH1_4_L, RGB(255, 255, 255));
+		_animas.at(3).AddBitmap(IDB_CH1_5_L, RGB(255, 255, 255));
+		_animas.at(3).AddBitmap(IDB_CH1_6_L, RGB(255, 255, 255));
+		_animas.at(3).AddBitmap(IDB_CH1_7_L, RGB(255, 255, 255));
+		_animas.at(3).AddBitmap(IDB_CH1_6_L, RGB(255, 255, 255));
+		_animas.at(3).AddBitmap(IDB_CH1_5_L, RGB(255, 255, 255));
+
 		_animas.at(0).AddBitmap(IDB_CH1_4, RGB(255, 255, 255));
+		_animas.at(0).AddBitmap(IDB_CH1_5, RGB(255, 255, 255));
+		_animas.at(0).AddBitmap(IDB_CH1_6, RGB(255, 255, 255));
+		_animas.at(0).AddBitmap(IDB_CH1_7, RGB(255, 255, 255));
+		_animas.at(0).AddBitmap(IDB_CH1_6, RGB(255, 255, 255));
+		_animas.at(0).AddBitmap(IDB_CH1_5, RGB(255, 255, 255));
+
 		_animas.at(1).AddBitmap(IDB_CH1_0, RGB(255, 255, 255));
 		_animas.at(1).AddBitmap(IDB_CH1_1, RGB(255, 255, 255));
 		_animas.at(1).AddBitmap(IDB_CH1_2, RGB(255, 255, 255));
 		_animas.at(1).AddBitmap(IDB_CH1_3, RGB(255, 255, 255));
-
+		_animas.at(2).AddBitmap(IDB_CH1_0_L, RGB(255, 255, 255));
+		_animas.at(2).AddBitmap(IDB_CH1_1_L, RGB(255, 255, 255));
+		_animas.at(2).AddBitmap(IDB_CH1_2_L, RGB(255, 255, 255));
+		_animas.at(2).AddBitmap(IDB_CH1_3_L, RGB(255, 255, 255));
 	}
 
 	void CCharacter::OnShow(CGameMap* map)
@@ -37,10 +55,21 @@ namespace game_framework {
 
 	void CCharacter::OnMove()
 	{
-		if (_isMovingDown || _isMovingLeft || _isMovingRight || _isMovingUp)
-			_animaIter = GetAnima(Anima::RUN);
+		if (_isMovingRight) {
+			_animaIter = GetAnima(Anima::RUN_R);
+			DT = 1;
+		} else if (_isMovingLeft) {
+			_animaIter = GetAnima(Anima::RUN_L);
+			DT = 0;
+		} else if (DT && (_isMovingDown || _isMovingUp))
+			_animaIter = GetAnima(Anima::RUN_R);
+		else if (!DT && (_isMovingDown || _isMovingUp))
+			_animaIter = GetAnima(Anima::RUN_L);
 		else
-			_animaIter = GetAnima(Anima::INIT);
+			if (DT)
+				_animaIter = GetAnima(Anima::INIT_R);
+			else
+				_animaIter = GetAnima(Anima::INIT_L);
 
 		CGameObj::OnMove();
 	}
@@ -50,11 +79,17 @@ namespace game_framework {
 		vector<CAnimation>::iterator anima = _animas.begin();
 		switch (type)
 		{
-		case game_framework::CCharacter::Anima::INIT:
+		case game_framework::CCharacter::Anima::INIT_R:
 			anima = _animas.begin();
 			break;
-		case game_framework::CCharacter::Anima::RUN:
+		case game_framework::CCharacter::Anima::INIT_L:
+			anima = _animas.begin() + 3;
+			break;
+		case game_framework::CCharacter::Anima::RUN_R:
 			anima = _animas.begin() + 1;
+			break;
+		case game_framework::CCharacter::Anima::RUN_L:
+			anima = _animas.begin() + 2;
 			break;
 		default:
 			break;

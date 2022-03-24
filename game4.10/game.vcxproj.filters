@@ -204,22 +204,7 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="res\bitmap3.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="res\bmp00001.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\3F 3F.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\ch1.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="RES\gate1.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="res\bmp00002.bmp">
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="res\bmp00003.bmp">
@@ -229,31 +214,7 @@
     <Image Include="res\bitmap5.bmp">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="RES\c01_0.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="RES\c01_1.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\c01_2.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\c01_3.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\c01_4.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\c01_5.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\c01_6.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\c01_7.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\c01_8.bmp">
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="..\解包內容\enemy_bmp\enemy31_0.bmp">
@@ -323,6 +284,57 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="..\解包內容\enemy_bmp\enemy34_8.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\character1\c01_0_l.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\character1\c01_1_l.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\character1\c01_2_l.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\character1\c01_3_l.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\character1\c01_4_l.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\character1\c01_5_l.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\character1\c01_6_l.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\character1\c01_7_l.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\character1\c01_0.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\character1\c01_1.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\character1\c01_2.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\character1\c01_3.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\character1\c01_4.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\character1\c01_5.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\character1\c01_6.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\character1\c01_7.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\character1\c01_8.bmp">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
