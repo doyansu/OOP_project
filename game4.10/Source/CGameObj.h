@@ -30,7 +30,7 @@ namespace game_framework {
 
 	protected:
 		CMovingBitmap _initbmp;		// 初始圖
-		int _x, _y, _moveSpeed;		// 位置、移動速度
+		int _x, _y, _moveSpeed;		// 地圖點座標、移動速度
 		bool _isMovingDown;			// 是否正在往下移動
 		bool _isMovingLeft;			// 是否正在往左移動
 		bool _isMovingRight;		// 是否正在往右移動

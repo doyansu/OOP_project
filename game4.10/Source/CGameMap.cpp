@@ -9,7 +9,7 @@
 
 namespace game_framework {
 	CGameMap::CGameMap()
-		:_MW(25), _MH(25)
+		:_MAPW(25), _MAPH(25), _SCREENW(640), _SCREENH(480)
 	{
 		init();
 	}
@@ -20,6 +20,11 @@ namespace game_framework {
 		_sx = _sy = 0;
 		_isMovingLeft = _isMovingRight = _isMovingUp = _isMovingDown = false;
 		memset(_map, 0, sizeof(_map));
+	}
+
+	void CGameMap::Reset()
+	{
+		this->init();
 	}
 
 	void CGameMap::LoadBitmap()
@@ -38,6 +43,7 @@ namespace game_framework {
 			_sy -= _moveSpeed;
 		if (_isMovingDown)
 			_sy += _moveSpeed;
+
 	}
 
 	void CGameMap::OnShow()
@@ -46,19 +52,22 @@ namespace game_framework {
 		{
 			for (int j = 0; j < 200; j++)
 			{
+				int mx = _MAPW * i, my = _MAPH * j;
+				if (!(this->InScreen(mx, my, mx + _MAPW, my + _MAPH)))
+					continue;
 				switch (_map[i][j])
 				{
-					case 0:
-						break;
-					case 1:
-						_floor.SetTopLeft(ScreenX(_MW * i), ScreenY(_MH * j));
-						_floor.ShowBitmap();
-						break;
-					case 2:
-						_wall.SetTopLeft(ScreenX(_MW * i), ScreenY(_MH * j));
-						_wall.ShowBitmap();
-					default:
-						ASSERT(0);
+				case 0:
+					break;
+				case 1:
+					_floor.SetTopLeft(ScreenX(mx), ScreenY(my));
+					_floor.ShowBitmap();
+					break;
+				case 2:
+					_wall.SetTopLeft(ScreenX(mx), ScreenY(my));
+					_wall.ShowBitmap();
+				default:
+					ASSERT(0);
 				}
 			}
 		}
@@ -76,8 +85,8 @@ namespace game_framework {
 			for (int j = 0; j < NROOMS; j++)
 			{
 				int height = 16 + (rand() % 6), weight = 16 + (rand() % 6);
-				int orgx = (INTERNAL >> 1) + INTERNAL * i - (height>>1), orgy = (INTERNAL>>1) + INTERNAL * j - (weight >> 1);
-				
+				int orgx = (INTERNAL >> 1) + INTERNAL * i - (height >> 1), orgy = (INTERNAL >> 1) + INTERNAL * j - (weight >> 1);
+
 				for (int x = 0; x < height; x++)
 				{
 					for (int y = 0; y < weight; y++)
@@ -91,10 +100,10 @@ namespace game_framework {
 
 	void CGameMap::OnKeyUp(char nChar)
 	{
-		const char KEY_LEFT = 0x25; 
+		const char KEY_LEFT = 0x25;
 		const char KEY_UP = 0x26;
-		const char KEY_RIGHT = 0x27; 
-		const char KEY_DOWN = 0x28; 
+		const char KEY_RIGHT = 0x27;
+		const char KEY_DOWN = 0x28;
 		if (nChar == KEY_LEFT)
 			this->SetMovingLeft(false);
 		if (nChar == KEY_RIGHT)
@@ -107,10 +116,10 @@ namespace game_framework {
 
 	void CGameMap::OnKeyDown(char nChar)
 	{
-		const char KEY_LEFT = 0x25; 
-		const char KEY_UP = 0x26; 
-		const char KEY_RIGHT = 0x27; 
-		const char KEY_DOWN = 0x28; 
+		const char KEY_LEFT = 0x25;
+		const char KEY_UP = 0x26;
+		const char KEY_RIGHT = 0x27;
+		const char KEY_DOWN = 0x28;
 		if (nChar == KEY_LEFT)
 			this->SetMovingLeft(true);
 		if (nChar == KEY_RIGHT)
@@ -129,6 +138,15 @@ namespace game_framework {
 	int CGameMap::ScreenY(int y)
 	{
 		return y - _sy;
+	}
+
+	bool CGameMap::InScreen(int x, int y, int mw, int mh)
+	{
+		int x1 = _sx;
+		int y1 = _sy;
+		int x2 = x1 + _SCREENW;
+		int y2 = y1 + _SCREENH;
+		return (mw >= x1 && x <= x2 && mh >= y1 && y <= y2);
 	}
 
 	void CGameMap::SetMovingDown(bool flag)
@@ -150,6 +168,5 @@ namespace game_framework {
 	{
 		_isMovingUp = flag;
 	}
-
 
 }
