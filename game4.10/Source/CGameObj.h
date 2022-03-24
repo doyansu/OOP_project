@@ -30,8 +30,8 @@ namespace game_framework {
 		virtual void OnKeyDown(char);
 
 	protected:
-		list<CAnimation> _animas;						// list of CAnimation
-		list<CAnimation>::iterator _animaIter;			// list iterator
+		vector<CAnimation> _animas;						// list of CAnimation
+		vector<CAnimation>::iterator _animaIter;			// list iterator
 		int _mx, _my, _moveSpeed;						// 地圖點座標、移動速度
 		bool _isMovingDown;								// 是否正在往下移動
 		bool _isMovingLeft;								// 是否正在往左移動

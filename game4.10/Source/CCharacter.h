@@ -7,9 +7,12 @@ namespace game_framework {
 		CCharacter();
 		void LoadBitmap();				// 載入圖形
 		void OnShow(CGameMap*);					// 將圖形貼到畫面
-		//void OnMove();
+		void OnMove();
 
 	protected:
-		CAnimation animation;		
+		int hp;
+
+	private:
+		void init();
 	};
 }
