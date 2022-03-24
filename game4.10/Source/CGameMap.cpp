@@ -76,17 +76,34 @@ namespace game_framework {
 	void CGameMap::GenerateMap()
 	{
 		init();
-		//int Room[5][5];
+		
 		const int INTERNAL = 40;
 		const int NROOMS = 200 / INTERNAL;
+		int Room[NROOMS][NROOMS][4];
+		bool mask[NROOMS][NROOMS];
+		memset(mask, false, sizeof(mask));
+
+		for (int i = 0; i < NROOMS; i++) 
+		{
+			int r = 1 + (rand() % (NROOMS - 1));
+			for (int j = 0; j < r; j++)
+			{
+				mask[i][j] = true;
+			}
+		}
 
 		for (int i = 0; i < NROOMS; i++)
 		{
 			for (int j = 0; j < NROOMS; j++)
 			{
+				if (!mask[i][j])
+					continue;
 				int height = 16 + (rand() % 6), weight = 16 + (rand() % 6);
 				int orgx = (INTERNAL >> 1) + INTERNAL * i - (height >> 1), orgy = (INTERNAL >> 1) + INTERNAL * j - (weight >> 1);
-
+				Room[i][j][0] = (INTERNAL >> 1) + INTERNAL * i;
+				Room[i][j][1] = (INTERNAL >> 1) + INTERNAL * j;
+				Room[i][j][2] = weight;
+				Room[i][j][3] = height;
 				for (int x = 0; x < height; x++)
 				{
 					for (int y = 0; y < weight; y++)
