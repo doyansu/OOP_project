@@ -3,6 +3,7 @@ namespace game_framework {
 
 	class CCharacter : public CGameObj
 	{
+		enum class Anima {INIT, RUN};
 	public:
 		CCharacter();
 		void LoadBitmap();				// ¸ü¤J¹Ï§Î
@@ -14,5 +15,6 @@ namespace game_framework {
 
 	private:
 		void init();
+		vector<CAnimation>::iterator GetAnima(Anima);
 	};
 }
