@@ -47,7 +47,12 @@ namespace game_framework {
 
 	void CEnemy::LoadBitmap()
 	{
-		animation.AddBitmap(IDB_ERASER2, RGB(255, 255, 255));
+		animation.AddBitmap(IDB_enemy0_0, RGB(255, 255, 255));
+		animation.AddBitmap(IDB_enemy0_1, RGB(255, 255, 255));
+		animation.AddBitmap(IDB_enemy0_2, RGB(255, 255, 255));
+		animation.AddBitmap(IDB_enemy0_3, RGB(255, 255, 255));
+		animation.AddBitmap(IDB_enemy0_4, RGB(255, 255, 255));
+
 	}
 
 	void CEnemy::OnMove()
