@@ -10,6 +10,7 @@ namespace game_framework {
 		int ScreenX(int x);
 		int ScreenY(int y);
 		bool InScreen(int x, int y, int mw, int mh);
+		bool isEmpty(int x, int y);
 		int GetScreenX();
 		int GetScreenY();
 		void SetScreen(int x, int y);

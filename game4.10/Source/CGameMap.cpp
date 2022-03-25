@@ -110,14 +110,26 @@ namespace game_framework {
 				int orgx = (INTERNAL >> 1) + INTERNAL * i - (height >> 1), orgy = (INTERNAL >> 1) + INTERNAL * j - (weight >> 1);
 				Room[i][j][0] = (INTERNAL >> 1) + INTERNAL * i;
 				Room[i][j][1] = (INTERNAL >> 1) + INTERNAL * j;
-				Room[i][j][2] = weight;
-				Room[i][j][3] = height;
+				Room[i][j][2] = height;
+				Room[i][j][3] = weight;
 				for (int x = 0; x < height; x++)
 				{
 					for (int y = 0; y < weight; y++)
 					{
 						_map[orgx + x][orgy + y] = MapContent::FLOOR;
 					}
+				}
+
+				for (int x = 0; x < height; x++)
+				{
+					_map[orgx + x][orgy - 1] = MapContent::WALL;
+					_map[orgx + x][orgy + weight] = MapContent::WALL;
+				}
+
+				for (int y = -1; y < weight + 1; y++)
+				{
+					_map[orgx - 1][orgy + y] = MapContent::WALL;
+					_map[orgx + height][orgy + y] = MapContent::WALL;
 				}
 
 			}
@@ -164,6 +176,13 @@ namespace game_framework {
 	int CGameMap::ScreenY(int y)
 	{
 		return y - _sy;
+	}
+
+	bool CGameMap::isEmpty(int x, int y)
+	{
+		x /= _MAPW;
+		y /= _MAPH;
+		return _map[x][y] == MapContent::FLOOR;
 	}
 
 	bool CGameMap::InScreen(int x, int y, int mw, int mh)
