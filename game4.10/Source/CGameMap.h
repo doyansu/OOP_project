@@ -4,6 +4,7 @@ namespace game_framework {
 	class CGameMap
 	{
 	public:
+		enum class MapContent {NENO, FLOOR, WALL};
 		CGameMap();
 		void LoadBitmap();
 		int ScreenX(int x);
@@ -22,10 +23,11 @@ namespace game_framework {
 
 	protected:
 
-		CMovingBitmap _floor, _wall;
+		vector<CMovingBitmap> _bmp;
+		vector<CMovingBitmap>::iterator _bmpIterator;
 		const int _MAPW, _MAPH;				//地圖每格寬高
 		const int _SCREENW, _SCREENH;				//螢幕寬高
-		int _map[200][200];				//地圖每格內容
+		MapContent _map[200][200];				//地圖每格內容
 		int _sx, _sy, _moveSpeed;		//螢幕點座標、移動速度
 		
 		bool _isMovingDown;			
@@ -35,5 +37,6 @@ namespace game_framework {
 	
 	private:
 		void init();
+		vector<CMovingBitmap>::iterator GetBmp(MapContent);
 	};
 }
