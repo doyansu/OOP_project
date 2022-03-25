@@ -16,87 +16,46 @@ namespace game_framework {
 		Initialize();
 	}
 
-	int CEnemy::GetX1()
-	{
-		return x;
-	}
-
-	int CEnemy::GetY1()
-	{
-		return y;
-	}
-
-	int CEnemy::GetX2()
-	{
-		return x + animation.Width();
-	}
-
-	int CEnemy::GetY2()
-	{
-		return y + animation.Height();
-	}
-
 	void CEnemy::Initialize()
 	{
-		const int X_POS = 10;
-		const int Y_POS = 10;
-		x = X_POS;
-		y = Y_POS;
-		isMovingLeft = isMovingRight = isMovingUp = isMovingDown = false;
+		this->SetXY(300, 240);
+		CAnimation enemy0;
+		_animas.push_back(enemy0);
+		_animaIter = _animas.begin();
 	}
 
 	void CEnemy::LoadBitmap()
 	{
-		animation.AddBitmap(IDB_enemy0_0, RGB(255, 255, 255));
-		animation.AddBitmap(IDB_enemy0_1, RGB(255, 255, 255));
-		animation.AddBitmap(IDB_enemy0_2, RGB(255, 255, 255));
-		animation.AddBitmap(IDB_enemy0_3, RGB(255, 255, 255));
-		animation.AddBitmap(IDB_enemy0_4, RGB(255, 255, 255));
+		_animas.at(0).AddBitmap(IDB_enemy0_0, RGB(255, 255, 255));
+		_animas.at(0).AddBitmap(IDB_enemy0_1, RGB(255, 255, 255));
+		_animas.at(0).AddBitmap(IDB_enemy0_2, RGB(255, 255, 255));
+		_animas.at(0).AddBitmap(IDB_enemy0_3, RGB(255, 255, 255));
+		_animas.at(0).AddBitmap(IDB_enemy0_4, RGB(255, 255, 255));
 
+	}
+
+	void CEnemy::OnShow(CGameMap* map)
+	{
+		CGameObj::OnShow(map);
 	}
 
 	void CEnemy::OnMove()
 	{
-		const int STEP_SIZE = 2;
-		animation.OnMove();
-		if (isMovingLeft)
-			x -= STEP_SIZE;
-		if (isMovingRight)
-			x += STEP_SIZE;
-		if (isMovingUp)
-			y -= STEP_SIZE;
-		if (isMovingDown)
-			y += STEP_SIZE;
+		_animaIter = GetAnima(Anima::INIT_R);
+		CGameObj::OnMove();
 	}
 
-	void CEnemy::SetMovingDown(bool flag)
+	vector<CAnimation>::iterator CEnemy::GetAnima(Anima type)
 	{
-		isMovingDown = flag;
-	}
-
-	void CEnemy::SetMovingLeft(bool flag)
-	{
-		isMovingLeft = flag;
-	}
-
-	void CEnemy::SetMovingRight(bool flag)
-	{
-		isMovingRight = flag;
-	}
-
-	void CEnemy::SetMovingUp(bool flag)
-	{
-		isMovingUp = flag;
-	}
-
-	void CEnemy::SetXY(int nx, int ny)
-	{
-		x = nx; y = ny;
-	}
-
-	void CEnemy::OnShow()
-	{
-		animation.SetTopLeft(x, y);
-		animation.OnShow();
+		vector<CAnimation>::iterator anima = _animas.begin();
+		switch (type)
+		{
+		case game_framework::CEnemy::Anima::INIT_R:
+			anima = _animas.begin();
+			break;
+		default:
+			break;
+		}
+		return anima;
 	}
 }

@@ -97,5 +97,6 @@ namespace game_framework {
 	{
 		animation.SetTopLeft(x, y);
 		animation.OnShow();
+		animation.OnMove();
 	}
 }

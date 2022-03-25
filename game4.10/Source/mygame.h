@@ -45,6 +45,8 @@
 #include "CGameObj.h"
 #include "CGameMap.h"
 #include "CCharacter.h"
+#include "CEnemy.h"
+
 
 namespace game_framework {
 	/////////////////////////////////////////////////////////////////////////////
@@ -113,6 +115,7 @@ namespace game_framework {
 
 		CGameMap gameMap;
 		CCharacter character;
+		CEnemy enemy0;
 	};
 
 	/////////////////////////////////////////////////////////////////////////////

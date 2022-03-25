@@ -338,6 +338,7 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	//
 	gameMap.LoadBitmap();
 	character.LoadBitmap();
+	enemy0.LoadBitmap();
 
 }
 
@@ -432,5 +433,6 @@ void CGameStateRun::OnShow()
 	corner.ShowBitmap();
 
 	character.OnShow(&gameMap);
+	enemy0.OnShow(&gameMap);
 }
 }
