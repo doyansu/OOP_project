@@ -39,11 +39,13 @@ namespace game_framework {
 		CGameObj::OnShow(map);
 	}
 
-	void CEnemy::OnMove()
+	void CEnemy::OnMove(CGameMap *map)
 	{
 		_animaIter = GetAnima(Anima::INIT_R);
 		CGameObj::OnMove();
 	}
+
+
 
 	vector<CAnimation>::iterator CEnemy::GetAnima(Anima type)
 	{

@@ -105,6 +105,14 @@ namespace game_framework {
 		_animaIter->OnShow();
 	}
 
+	void CGameObj::EnemyOnMove(){
+		_animaIter->OnMove();
+		_mx += rand();
+		_mx -= rand();
+		_my += rand();
+		_my -= rand();
+	}
+
 	void CGameObj::OnMove()
 	{
 		_animaIter->OnMove();

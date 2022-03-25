@@ -26,6 +26,7 @@ namespace game_framework {
 		virtual void LoadBitmap(int);
 		virtual void OnShow(CGameMap*);	// 在地圖顯示物件
 		virtual void OnMove();
+		virtual void EnemyOnMove();
 		virtual void OnKeyUp(char);
 		virtual void OnKeyDown(char);
 

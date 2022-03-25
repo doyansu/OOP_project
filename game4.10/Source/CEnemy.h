@@ -9,7 +9,8 @@ namespace game_framework {
 		void Initialize();				// 設定擦子為初始值
 		void LoadBitmap();				// 載入圖形
 		void OnShow(CGameMap*);					// 將圖形貼到畫面
-		void OnMove();
+		void OnMove(CGameMap*);
+		//void EnemyOnMove(CGameMap *);
 
 	protected:
 		int x, y;

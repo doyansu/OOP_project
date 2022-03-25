@@ -300,7 +300,7 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 
 	gameMap.OnMove(character.GetX1(), character.GetY1());
 	character.OnMove(&gameMap);
-	enemy0.OnMove();
+	enemy0.OnMove(&gameMap);
 }
 
 void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
@@ -418,7 +418,7 @@ void CGameStateRun::OnShow()
 	//
 	//  貼上背景圖、撞擊數、球、擦子、彈跳的球
 	//
-	background.ShowBitmap();			// 貼上背景圖
+	//background.ShowBitmap();			// 貼上背景圖
 	help.ShowBitmap();					// 貼上說明圖
 	hits_left.ShowBitmap();
 	for (int i=0; i < NUMBALLS; i++)
