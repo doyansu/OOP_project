@@ -24,28 +24,35 @@ namespace game_framework {
 
 	void CCharacter::LoadBitmap()
 	{
-		_animas.at(3).AddBitmap(IDB_CH1_4_L, RGB(255, 255, 255));
-		_animas.at(3).AddBitmap(IDB_CH1_5_L, RGB(255, 255, 255));
-		_animas.at(3).AddBitmap(IDB_CH1_6_L, RGB(255, 255, 255));
-		_animas.at(3).AddBitmap(IDB_CH1_7_L, RGB(255, 255, 255));
-		_animas.at(3).AddBitmap(IDB_CH1_6_L, RGB(255, 255, 255));
-		_animas.at(3).AddBitmap(IDB_CH1_5_L, RGB(255, 255, 255));
+		_animaIter = GetAnima(Anima::INIT_L);
+		_animaIter->AddBitmap(IDB_CH1_4_L, RGB(255, 255, 255));
+		_animaIter->AddBitmap(IDB_CH1_5_L, RGB(255, 255, 255));
+		_animaIter->AddBitmap(IDB_CH1_6_L, RGB(255, 255, 255));
+		_animaIter->AddBitmap(IDB_CH1_7_L, RGB(255, 255, 255));
+		_animaIter->AddBitmap(IDB_CH1_6_L, RGB(255, 255, 255));
+		_animaIter->AddBitmap(IDB_CH1_5_L, RGB(255, 255, 255));
 
-		_animas.at(0).AddBitmap(IDB_CH1_4, RGB(255, 255, 255));
-		_animas.at(0).AddBitmap(IDB_CH1_5, RGB(255, 255, 255));
-		_animas.at(0).AddBitmap(IDB_CH1_6, RGB(255, 255, 255));
-		_animas.at(0).AddBitmap(IDB_CH1_7, RGB(255, 255, 255));
-		_animas.at(0).AddBitmap(IDB_CH1_6, RGB(255, 255, 255));
-		_animas.at(0).AddBitmap(IDB_CH1_5, RGB(255, 255, 255));
+		_animaIter = GetAnima(Anima::INIT_R);
+		_animaIter->AddBitmap(IDB_CH1_4, RGB(255, 255, 255));
+		_animaIter->AddBitmap(IDB_CH1_5, RGB(255, 255, 255));
+		_animaIter->AddBitmap(IDB_CH1_6, RGB(255, 255, 255));
+		_animaIter->AddBitmap(IDB_CH1_7, RGB(255, 255, 255));
+		_animaIter->AddBitmap(IDB_CH1_6, RGB(255, 255, 255));
+		_animaIter->AddBitmap(IDB_CH1_5, RGB(255, 255, 255));
 
-		_animas.at(1).AddBitmap(IDB_CH1_0, RGB(255, 255, 255));
-		_animas.at(1).AddBitmap(IDB_CH1_1, RGB(255, 255, 255));
-		_animas.at(1).AddBitmap(IDB_CH1_2, RGB(255, 255, 255));
-		_animas.at(1).AddBitmap(IDB_CH1_3, RGB(255, 255, 255));
-		_animas.at(2).AddBitmap(IDB_CH1_0_L, RGB(255, 255, 255));
-		_animas.at(2).AddBitmap(IDB_CH1_1_L, RGB(255, 255, 255));
-		_animas.at(2).AddBitmap(IDB_CH1_2_L, RGB(255, 255, 255));
-		_animas.at(2).AddBitmap(IDB_CH1_3_L, RGB(255, 255, 255));
+		_animaIter = GetAnima(Anima::RUN_R);
+		_animaIter->AddBitmap(IDB_CH1_0, RGB(255, 255, 255));
+		_animaIter->AddBitmap(IDB_CH1_1, RGB(255, 255, 255));
+		_animaIter->AddBitmap(IDB_CH1_2, RGB(255, 255, 255));
+		_animaIter->AddBitmap(IDB_CH1_3, RGB(255, 255, 255));
+
+		_animaIter = GetAnima(Anima::RUN_L);
+		_animaIter->AddBitmap(IDB_CH1_0_L, RGB(255, 255, 255));
+		_animaIter->AddBitmap(IDB_CH1_1_L, RGB(255, 255, 255));
+		_animaIter->AddBitmap(IDB_CH1_2_L, RGB(255, 255, 255));
+		_animaIter->AddBitmap(IDB_CH1_3_L, RGB(255, 255, 255));
+
+		_animaIter = _animas.begin();
 	}
 
 	void CCharacter::OnShow(CGameMap* map)
@@ -113,13 +120,13 @@ namespace game_framework {
 			anima = _animas.begin();
 			break;
 		case game_framework::CCharacter::Anima::INIT_L:
-			anima = _animas.begin() + 3;
-			break;
-		case game_framework::CCharacter::Anima::RUN_R:
 			anima = _animas.begin() + 1;
 			break;
-		case game_framework::CCharacter::Anima::RUN_L:
+		case game_framework::CCharacter::Anima::RUN_R:
 			anima = _animas.begin() + 2;
+			break;
+		case game_framework::CCharacter::Anima::RUN_L:
+			anima = _animas.begin() + 3;
 			break;
 		default:
 			break;
