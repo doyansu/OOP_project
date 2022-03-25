@@ -30,7 +30,6 @@ namespace game_framework {
 		vector<CMovingBitmap> _bmp;						// 地圖圖片
 		vector<CMovingBitmap>::iterator _bmpIterator;	// 操作用
 		const int _MAPW, _MAPH;							// 地圖每格寬高
-		const int _SCREENW, _SCREENH;					// 螢幕寬高								//
 		MapContent _map[200][200];						// 地圖每格內容
 		int _sx, _sy, _moveSpeed;						// 螢幕點座標、移動速度
 		

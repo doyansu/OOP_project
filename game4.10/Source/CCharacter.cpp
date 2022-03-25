@@ -14,7 +14,7 @@ namespace game_framework {
 
 	void CCharacter::init()
 	{
-		this->SetXY(300, 300);
+		this->SetXY(500, 500);
 		CAnimation run;
 		_animas.push_back(run);
 		_animas.push_back(run);

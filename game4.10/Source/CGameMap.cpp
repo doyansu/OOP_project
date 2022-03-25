@@ -10,7 +10,7 @@
 
 namespace game_framework {
 	CGameMap::CGameMap()
-		:_MAPW(25), _MAPH(25), _SCREENW(SIZE_X), _SCREENH(SIZE_Y)
+		:_MAPW(25), _MAPH(25)
 	{
 		init();
 	}
@@ -61,7 +61,7 @@ namespace game_framework {
 			_sy -= _moveSpeed;
 		if (_isMovingDown)
 			_sy += _moveSpeed;*/
-		this->SetScreen(px - (_SCREENW>>1), py - (_SCREENH>>1));
+		this->SetScreen(px - (SIZE_X >>1), py - (SIZE_Y>>1));
 	}
 
 	void CGameMap::OnShow()
@@ -87,7 +87,7 @@ namespace game_framework {
 		
 		const int INTERNAL = 40;
 		const int NROOMS = 200 / INTERNAL;
-		int Room[NROOMS][NROOMS][4];
+		int Room[NROOMS][NROOMS][2];
 		bool mask[NROOMS][NROOMS];
 		memset(mask, false, sizeof(mask));
 
@@ -107,12 +107,11 @@ namespace game_framework {
 			{
 				if (!mask[i][j])
 					continue;
-				int height = 16 + (rand() % 6), weight = 16 + (rand() % 6);
-				int orgx = (INTERNAL >> 1) + INTERNAL * i - (height >> 1), orgy = (INTERNAL >> 1) + INTERNAL * j - (weight >> 1);
-				Room[i][j][0] = (INTERNAL >> 1) + INTERNAL * i;
-				Room[i][j][1] = (INTERNAL >> 1) + INTERNAL * j;
-				Room[i][j][2] = height;
-				Room[i][j][3] = weight;
+				int height = 15 + (rand() % 3) * 2, weight = 15 + (rand() % 3) * 2;
+				int orgx = (INTERNAL >> 1) + INTERNAL * i - (height >> 1);
+				int orgy = (INTERNAL >> 1) + INTERNAL * j - (weight >> 1);
+				Room[i][j][0] = height;
+				Room[i][j][1] = weight;
 				for (int x = 0; x < height; x++)
 				{
 					for (int y = 0; y < weight; y++)
@@ -133,6 +132,44 @@ namespace game_framework {
 					_map[orgx + height][orgy + y] = MapContent::WALL;
 				}
 
+			}
+		}
+
+		for (int i = 0; i < NROOMS - 1; i++)
+		{
+
+			for (int j = 0; j < NROOMS - 1; j++)
+			{
+				int h1 = Room[i][j][0], h2;
+				int w1 = Room[i][j][1], w2;
+				int cx = (INTERNAL >> 1) + INTERNAL * i;
+				int cy = (INTERNAL >> 1) + INTERNAL * j;
+				if (mask[i + 1][j]) {
+					h2 = Room[i + 1][j][0];
+					w2 = Room[i + 1][j][1];
+					for (int x = cx + h1 / 2 + 1 ; x < cx + INTERNAL - h2 / 2; x++)
+					{
+						_map[x][cy + 3] = MapContent::WALL;
+						_map[x][cy - 3] = MapContent::WALL;
+						for (int y = -2; y < 3; y++)
+						{
+							_map[x][cy + y] = MapContent::FLOOR;
+						}
+					}
+				}
+				if (mask[i][j + 1]) {
+					h2 = Room[i][j + 1][0];
+					w2 = Room[i][j + 1][1];
+					for (int y = cy + w1 / 2 + 1; y < cy + INTERNAL - w2 / 2; y++)
+					{
+						_map[cx + 3][y] = MapContent::WALL;
+						_map[cx - 3][y] = MapContent::WALL;
+						for (int x = -2; x < 3; x++)
+						{
+							_map[cx + x][y] = MapContent::FLOOR;
+						}
+					}
+				}
 			}
 		}
 	}
@@ -190,8 +227,8 @@ namespace game_framework {
 	{
 		int x1 = _sx;
 		int y1 = _sy;
-		int x2 = x1 + _SCREENW;
-		int y2 = y1 + _SCREENH;
+		int x2 = x1 + SIZE_X;
+		int y2 = y1 + SIZE_Y;
 		return (mw >= x1 && x <= x2 && mh >= y1 && y <= y2);
 	}
 
