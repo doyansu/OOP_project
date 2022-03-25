@@ -116,8 +116,11 @@ namespace game_framework {
 			if (map->IsEmpty(x1, y1 + _moveSpeed) && map->IsEmpty(x1, y2 + _moveSpeed) && map->IsEmpty(x2, y1 + _moveSpeed) && map->IsEmpty(x2, y2 + _moveSpeed))
 				_my += _moveSpeed;
 		}
-			
-		
+	}
+
+	void CCharacter::Shoot()
+	{
+
 	}
 
 	vector<CAnimation>::iterator CCharacter::GetAnima(Anima type)

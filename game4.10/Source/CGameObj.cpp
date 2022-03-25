@@ -18,7 +18,7 @@ namespace game_framework {
 	{
 		CAnimation anima;
 		_animas.push_back(anima);
-
+		_tag = "null";
 		Reset();
 	}
 
