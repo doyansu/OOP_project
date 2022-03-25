@@ -214,9 +214,6 @@
     <Image Include="res\bitmap5.bmp">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="RES\c01_1.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="..\解包內容\enemy_bmp\enemy31_0.bmp">
       <Filter>Resource Files</Filter>
     </Image>
