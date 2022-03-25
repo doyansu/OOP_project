@@ -10,6 +10,7 @@ namespace game_framework {
 	public:
 		CGameObj();
 		bool Collision(CGameObj *);
+
 		int GetX1();
 		int GetY1();
 		int GetX2();
@@ -21,14 +22,16 @@ namespace game_framework {
 		void SetMovingUp(bool flag);	// 設定是否正在往上移動
 		void SetXY(int, int);
 		void SetSpeed(int);
-		void Reset();
+		
+		void LoadBitmap(int);
 
-		virtual void LoadBitmap(int);
+		virtual void LoadBitmap() {};
 		virtual void OnShow(CGameMap*);	// 在地圖顯示物件
 		virtual void OnMove();
 		virtual void EnemyOnMove();
 		virtual void OnKeyUp(char);
 		virtual void OnKeyDown(char);
+		virtual void Reset();
 
 	protected:
 		vector<CAnimation> _animas;						// list of CAnimation

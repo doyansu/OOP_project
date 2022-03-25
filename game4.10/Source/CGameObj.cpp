@@ -16,17 +16,18 @@ namespace game_framework {
 
 	void CGameObj::init()
 	{
+		CAnimation anima;
+		_animas.push_back(anima);
+
+		Reset();
+	}
+
+	void CGameObj::Reset() 
+	{
 		_mx = _my = 0;
 		_moveSpeed = 5;
 		_isMovingLeft = _isMovingRight = _isMovingUp = _isMovingDown = false;
-		CAnimation anima;
-		_animas.push_back(anima);
 		_animaIter = _animas.begin();
-	}
-
-	void CGameObj::Reset()
-	{
-		init();
 	}
 
 	int CGameObj::GetX1()

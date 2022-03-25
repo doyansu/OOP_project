@@ -14,12 +14,21 @@ namespace game_framework {
 
 	void CCharacter::init()
 	{
+		const int AnimaSize = 4;
+		CAnimation addAnima;
+		_animas.clear();
+		for(int i = 0; i < AnimaSize; i++)
+			_animas.push_back(addAnima);
+
+		this->Reset();
 		this->SetXY(500, 500);
-		CAnimation run;
-		_animas.push_back(run);
-		_animas.push_back(run);
-		_animas.push_back(run);
+		
+	}
+
+	void CCharacter::Reset()
+	{
 		_animaIter = _animas.begin();
+		CGameObj::Reset();
 	}
 
 	void CCharacter::LoadBitmap()
