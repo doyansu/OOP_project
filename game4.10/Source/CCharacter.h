@@ -8,12 +8,12 @@ namespace game_framework {
 		CCharacter();
 		void LoadBitmap();				// 載入圖形
 		void OnShow(CGameMap*);			// 將圖形貼到畫面
-		void OnMove(CGameMap *);		// 移動
+		void OnMove(CGameMap*);			// 移動
 		void Reset();					// 重置狀態
-		int DT;
-
+	
 	protected:
-		int hp;
+		int DT;
+		int _hp;
 
 	private:
 		void init();					//初始化

@@ -30,25 +30,7 @@ namespace game_framework {
 		_animaIter = _animas.begin();
 	}
 
-	int CGameObj::GetX1()
-	{
-		return _mx;
-	}
-
-	int CGameObj::GetY1()
-	{
-		return _my;
-	}
-
-	int CGameObj::GetX2()
-	{
-		return _mx + _animaIter->Width();
-	}
-
-	int CGameObj::GetY2()
-	{
-		return _my + _animaIter->Height();
-	}
+	
 
 	bool CGameObj::Collision(CGameObj *other)
 	{
@@ -67,37 +49,6 @@ namespace game_framework {
 	void CGameObj::LoadBitmap(int id)
 	{
 		_animaIter->AddBitmap(id, RGB(255, 255, 255));			
-	}
-
-	void CGameObj::SetMovingDown(bool flag)
-	{
-		_isMovingDown = flag;
-	}
-
-	void CGameObj::SetMovingLeft(bool flag)
-	{
-		_isMovingLeft = flag;
-	}
-
-	void CGameObj::SetMovingRight(bool flag)
-	{
-		_isMovingRight = flag;
-	}
-
-	void CGameObj::SetMovingUp(bool flag)
-	{
-		_isMovingUp = flag;
-	}
-
-	void CGameObj::SetXY(int x, int y)
-	{
-		_mx = x;
-		_my = y;
-	}
-
-	void CGameObj::SetSpeed(int speed)
-	{
-		_moveSpeed = speed;
 	}
 
 	void CGameObj::OnShow(CGameMap* map)
@@ -157,6 +108,67 @@ namespace game_framework {
 			this->SetMovingUp(true);
 		if (nChar == KEY_DOWN)
 			this->SetMovingDown(true);
+	}
+
+	int CGameObj::GetX1()
+	{
+		return _mx;
+	}
+
+	int CGameObj::GetY1()
+	{
+		return _my;
+	}
+
+	int CGameObj::GetX2()
+	{
+		return _mx + _animaIter->Width();
+	}
+
+	int CGameObj::GetY2()
+	{
+		return _my + _animaIter->Height();
+	}
+
+	string CGameObj::GetTag()
+	{
+		return _tag;
+	}
+
+	void CGameObj::SetMovingDown(bool flag)
+	{
+		_isMovingDown = flag;
+	}
+
+	void CGameObj::SetMovingLeft(bool flag)
+	{
+		_isMovingLeft = flag;
+	}
+
+	void CGameObj::SetMovingRight(bool flag)
+	{
+		_isMovingRight = flag;
+	}
+
+	void CGameObj::SetMovingUp(bool flag)
+	{
+		_isMovingUp = flag;
+	}
+
+	void CGameObj::SetXY(int x, int y)
+	{
+		_mx = x;
+		_my = y;
+	}
+
+	void CGameObj::SetSpeed(int speed)
+	{
+		_moveSpeed = speed;
+	}
+
+	void CGameObj::SetTag(string tag)
+	{
+		_tag = tag;
 	}
 
 }

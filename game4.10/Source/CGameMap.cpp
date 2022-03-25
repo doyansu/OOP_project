@@ -61,7 +61,7 @@ namespace game_framework {
 			_sy -= _moveSpeed;
 		if (_isMovingDown)
 			_sy += _moveSpeed;*/
-		this->SetScreen(px - (SIZE_X >>1), py - (SIZE_Y>>1));
+		this->SetScreen(px - (SIZE_X>>1), py - (SIZE_Y>>1));
 	}
 
 	void CGameMap::OnShow()
