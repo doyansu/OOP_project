@@ -19,7 +19,21 @@ namespace game_framework {
 		_moveSpeed = 5;
 		_sx = _sy = 0;
 		_isMovingLeft = _isMovingRight = _isMovingUp = _isMovingDown = false;
-		memset(_map, 0, sizeof(_map));
+		CMovingBitmap add_bmp;
+		for (int i = 0; i < 3; i++)
+		{
+			_bmp.push_back(add_bmp);
+		}
+		
+		for (int i = 0; i < 200; i++)
+		{
+			for (int j = 0; j < 200; j++)
+			{
+				_map[i][j] = MapContent::NENO;
+			}
+		}
+
+		_bmpIterator = _bmp.begin();
 	}
 
 	void CGameMap::Reset()
@@ -29,12 +43,15 @@ namespace game_framework {
 
 	void CGameMap::LoadBitmap()
 	{
-		_floor.LoadBitmap(IDB_FLOOR_1);
-		_wall.LoadBitmap(IDB_WALL_1);
+		_bmpIterator = GetBmp(MapContent::FLOOR);
+		_bmpIterator->LoadBitmap(IDB_FLOOR_1);
+		_bmpIterator = GetBmp(MapContent::WALL);
+		_bmpIterator->LoadBitmap(IDB_WALL_1);
 	}
 
 	void CGameMap::OnMove()
 	{
+		//²¾°Ê¿Ã¹õ
 		if (_isMovingLeft)
 			_sx -= _moveSpeed;
 		if (_isMovingRight)
@@ -53,21 +70,11 @@ namespace game_framework {
 			for (int j = 0; j < 200; j++)
 			{
 				int mx = _MAPW * i, my = _MAPH * j;
-				if (!(this->InScreen(mx, my, mx + _MAPW, my + _MAPH)))
-					continue;
-				switch (_map[i][j])
+				if ((this->InScreen(mx, my, mx + _MAPW, my + _MAPH)) && _map[i][j] != MapContent::NENO)
 				{
-				case 0:
-					break;
-				case 1:
-					_floor.SetTopLeft(ScreenX(mx), ScreenY(my));
-					_floor.ShowBitmap();
-					break;
-				case 2:
-					_wall.SetTopLeft(ScreenX(mx), ScreenY(my));
-					_wall.ShowBitmap();
-				default:
-					ASSERT(0);
+					_bmpIterator = GetBmp(_map[i][j]);
+					_bmpIterator->SetTopLeft(ScreenX(mx), ScreenY(my));
+					_bmpIterator->ShowBitmap();
 				}
 			}
 		}
@@ -86,6 +93,7 @@ namespace game_framework {
 		for (int i = 0; i < NROOMS; i++) 
 		{
 			int r = 1 + (rand() % (NROOMS - 1));
+			r = 5;
 			for (int j = 0; j < r; j++)
 			{
 				mask[i][j] = true;
@@ -108,9 +116,10 @@ namespace game_framework {
 				{
 					for (int y = 0; y < weight; y++)
 					{
-						_map[orgx + x][orgy + y] = 1;
+						_map[orgx + x][orgy + y] = MapContent::FLOOR;
 					}
 				}
+
 			}
 		}
 	}
@@ -185,5 +194,43 @@ namespace game_framework {
 	{
 		_isMovingUp = flag;
 	}
+
+	void CGameMap::SetScreen(int x, int y)
+	{
+		_sx = x;
+		_sy = y;
+	}
+
+	vector<CMovingBitmap>::iterator CGameMap::GetBmp(MapContent bmpType)
+	{
+		vector<CMovingBitmap>::iterator iterator;
+		switch (bmpType)
+		{
+		case game_framework::CGameMap::MapContent::NENO:
+			iterator = _bmp.begin();
+			break;
+		case game_framework::CGameMap::MapContent::FLOOR:
+			iterator = _bmp.begin() + 1;
+			break;
+		case game_framework::CGameMap::MapContent::WALL:
+			iterator = _bmp.begin() + 2;
+			break;
+		default:
+			ASSERT(0);
+		}
+		return iterator;
+	}
+
+	int CGameMap::GetScreenX()
+	{
+		return _sx;
+	}
+
+	int CGameMap::GetScreenY()
+	{
+		return _sy;
+	}
+
+	
 
 }
