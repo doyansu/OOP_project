@@ -8,7 +8,7 @@ namespace game_framework {
 		CCharacter();
 		void LoadBitmap();				// 載入圖形
 		void OnShow(CGameMap*);					// 將圖形貼到畫面
-		void OnMove();
+		void OnMove(CGameMap *);
 		int DT;
 
 	protected:
@@ -17,5 +17,6 @@ namespace game_framework {
 	private:
 		void init();
 		vector<CAnimation>::iterator GetAnima(Anima);
+		
 	};
 }

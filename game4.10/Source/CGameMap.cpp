@@ -7,6 +7,7 @@
 #include "gamelib.h"
 #include "CGameMap.h"
 
+
 namespace game_framework {
 	CGameMap::CGameMap()
 		:_MAPW(25), _MAPH(25), _SCREENW(SIZE_X), _SCREENH(SIZE_Y)
@@ -49,7 +50,7 @@ namespace game_framework {
 		_bmpIterator->LoadBitmap(IDB_WALL_1);
 	}
 
-	void CGameMap::OnMove()
+	void CGameMap::OnMove(int px, int py)
 	{
 		//²¾°Ê¿Ã¹õ
 		if (_isMovingLeft)
@@ -178,7 +179,7 @@ namespace game_framework {
 		return y - _sy;
 	}
 
-	bool CGameMap::isEmpty(int x, int y)
+	bool CGameMap::IsEmpty(int x, int y)
 	{
 		x /= _MAPW;
 		y /= _MAPH;

@@ -10,7 +10,7 @@ namespace game_framework {
 		int ScreenX(int x);
 		int ScreenY(int y);
 		bool InScreen(int x, int y, int mw, int mh);
-		bool isEmpty(int x, int y);
+		bool IsEmpty(int x, int y);
 		int GetScreenX();
 		int GetScreenY();
 		void SetScreen(int x, int y);
@@ -18,7 +18,7 @@ namespace game_framework {
 		void SetMovingLeft(bool flag);	
 		void SetMovingRight(bool flag);
 		void SetMovingUp(bool flag);	
-		void OnMove();
+		void OnMove(int x, int y);
 		void OnShow();
 		void OnKeyUp(char nChar);
 		void OnKeyDown(char nChar);

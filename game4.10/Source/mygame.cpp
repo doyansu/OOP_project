@@ -298,8 +298,8 @@ void CGameStateRun::OnMove()							// ²¾°Ê¹CÀ¸¤¸¯À
 	//
 	bball.OnMove();
 
-	gameMap.OnMove();
-	character.OnMove();
+	gameMap.OnMove(character.GetX1(), character.GetY1());
+	character.OnMove(&gameMap);
 	enemy0.OnMove();
 }
 

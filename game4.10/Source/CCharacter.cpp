@@ -14,7 +14,7 @@ namespace game_framework {
 
 	void CCharacter::init()
 	{
-		this->SetXY(300, 240);
+		this->SetXY(300, 300);
 		CAnimation run;
 		_animas.push_back(run);
 		_animas.push_back(run);
@@ -53,7 +53,7 @@ namespace game_framework {
 		CGameObj::OnShow(map);
 	}
 
-	void CCharacter::OnMove()
+	void CCharacter::OnMove(CGameMap *map)
 	{
 		if (_isMovingRight) {
 			_animaIter = GetAnima(Anima::RUN_R);
@@ -70,8 +70,38 @@ namespace game_framework {
 				_animaIter = GetAnima(Anima::INIT_R);
 			else
 				_animaIter = GetAnima(Anima::INIT_L);
+		_animaIter->OnMove();
 
-		CGameObj::OnMove();
+		int x1 = GetX1();
+		int y1 = GetY1();
+		int x2 = GetX2();
+		int y2 = GetY2();
+		
+		if (_isMovingLeft) 
+		{
+			if (map->IsEmpty(x1 - _moveSpeed, y1) && map->IsEmpty(x1 - _moveSpeed, y2) && map->IsEmpty(x2 - _moveSpeed, y1) && map->IsEmpty(x2 - _moveSpeed, y2))
+				_mx -= _moveSpeed;
+		}
+				
+		if (_isMovingRight)
+		{
+			if (map->IsEmpty(x1 + _moveSpeed, y1) && map->IsEmpty(x1 + _moveSpeed, y2) && map->IsEmpty(x2 + _moveSpeed, y1) && map->IsEmpty(x2 + _moveSpeed, y2))
+				_mx += _moveSpeed;
+		}
+			
+		if (_isMovingUp)
+		{
+			if (map->IsEmpty(x1, y1 - _moveSpeed) && map->IsEmpty(x1, y2 - _moveSpeed) && map->IsEmpty(x2, y1 - _moveSpeed) && map->IsEmpty(x2, y2 - _moveSpeed))
+				_my -= _moveSpeed;
+		}
+			
+		if (_isMovingDown)
+		{
+			if (map->IsEmpty(x1, y1 + _moveSpeed) && map->IsEmpty(x1, y2 + _moveSpeed) && map->IsEmpty(x2, y1 + _moveSpeed) && map->IsEmpty(x2, y2 + _moveSpeed))
+				_my += _moveSpeed;
+		}
+			
+		
 	}
 
 	vector<CAnimation>::iterator CCharacter::GetAnima(Anima type)
