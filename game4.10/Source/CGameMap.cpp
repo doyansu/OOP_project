@@ -53,15 +53,15 @@ namespace game_framework {
 	void CGameMap::OnMove(int px, int py)
 	{
 		//²¾°Ê¿Ã¹õ
-		if (_isMovingLeft)
+		/*if (_isMovingLeft)
 			_sx -= _moveSpeed;
 		if (_isMovingRight)
 			_sx += _moveSpeed;
 		if (_isMovingUp)
 			_sy -= _moveSpeed;
 		if (_isMovingDown)
-			_sy += _moveSpeed;
-
+			_sy += _moveSpeed;*/
+		this->SetScreen(px - (_SCREENW>>1), py - (_SCREENH>>1));
 	}
 
 	void CGameMap::OnShow()
