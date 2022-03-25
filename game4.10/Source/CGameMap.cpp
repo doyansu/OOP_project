@@ -51,6 +51,7 @@ namespace game_framework {
 
 	void CGameMap::OnMove()
 	{
+		//²¾°Ê¿Ã¹õ
 		if (_isMovingLeft)
 			_sx -= _moveSpeed;
 		if (_isMovingRight)
@@ -194,6 +195,12 @@ namespace game_framework {
 		_isMovingUp = flag;
 	}
 
+	void CGameMap::SetScreen(int x, int y)
+	{
+		_sx = x;
+		_sy = y;
+	}
+
 	vector<CMovingBitmap>::iterator CGameMap::GetBmp(MapContent bmpType)
 	{
 		vector<CMovingBitmap>::iterator iterator;
@@ -213,5 +220,17 @@ namespace game_framework {
 		}
 		return iterator;
 	}
+
+	int CGameMap::GetScreenX()
+	{
+		return _sx;
+	}
+
+	int CGameMap::GetScreenY()
+	{
+		return _sy;
+	}
+
+	
 
 }
