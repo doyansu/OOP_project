@@ -11,7 +11,7 @@ namespace game_framework
 		void LoadBitmap();
 		void OnMove(CGameMap* map);
 		//void OnShow(CGameMap* map);
-		void ObjFuntion(CGameObj*);
+		void Shoot(CGameObj*);
 		void Reset();
 
 	protected:

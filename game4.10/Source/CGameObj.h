@@ -35,7 +35,6 @@ namespace game_framework {
 		virtual void EnemyOnMove(CGameMap*);
 		virtual void OnKeyUp(char);
 		virtual void OnKeyDown(char);
-		virtual void ObjFuntion(CGameObj*) {};
 		virtual void Reset();
 
 	protected:

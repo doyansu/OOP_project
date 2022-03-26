@@ -20,8 +20,8 @@ namespace game_framework {
 	protected:
 		int DT;		// 左右朝向控制
 		int _hp;
-		vector<CGameObj*> _weapon;
-		vector<CGameObj*>::iterator _nowWeapon;
+		vector<CGameWeapon> _weapon;
+		vector<CGameWeapon>::iterator _nowWeapon;
 
 	private:
 		void init();					//初始化

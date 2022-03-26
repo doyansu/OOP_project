@@ -26,7 +26,8 @@ namespace game_framework
 
 	void CGameWeapon::LoadBitmap()
 	{
-		CGameObj::LoadBitmap(IDB_ERASER1); //test
+		//CGameObj::LoadBitmap(IDB_ERASER1); //test
+		CGameWeapon::CGameObj::LoadBitmap(IDB_ERASER1);
 	}
 
 	void CGameWeapon::OnMove(CGameMap* map)
@@ -39,7 +40,7 @@ namespace game_framework
 
 	}*/
 
-	void CGameWeapon::ObjFuntion(CGameObj* other)
+	void CGameWeapon::Shoot(CGameObj* player)
 	{
 
 	}

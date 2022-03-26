@@ -35,15 +35,14 @@ namespace game_framework {
 		_animaIter = _animas.begin();
 		free();
 		_weapon.clear();
-		_weapon.push_back(new CGameWeapon());
+		_weapon.push_back(CGameWeapon());
 		_nowWeapon = _weapon.begin();
-		CGameObj::Reset();
+		CCharacter::CGameObj::Reset();
 	}
 
 	void CCharacter::free()
 	{
-		for (CGameObj *p : _weapon)
-			delete p;
+
 	}
 
 	void CCharacter::LoadBitmap()
@@ -78,13 +77,13 @@ namespace game_framework {
 
 		_animaIter = _animas.begin();
 
-		(*_nowWeapon)->LoadBitmap();
+		_nowWeapon->LoadBitmap();
 	}
 
 	void CCharacter::OnShow(CGameMap* map)
 	{
-		CGameObj::OnShow(map);
-		(*_nowWeapon)->OnShow(map);
+		CCharacter::CGameObj::OnShow(map);
+		_nowWeapon->OnShow(map);
 	}
 
 	void CCharacter::OnMove(CGameMap *map)
@@ -115,7 +114,7 @@ namespace game_framework {
 		{
 			_mx += _moveSpeed;
 		}
-		if (CGameObj::Collision(map))
+		if (CCharacter::CGameObj::Collision(map))
 			_mx = tempx;
 		
 		if (_isMovingUp)
@@ -127,16 +126,16 @@ namespace game_framework {
 			_my += _moveSpeed;
 		}
 
-		if (CGameObj::Collision(map))
+		if (CCharacter::CGameObj::Collision(map))
 			_my = tempy;
 		
-		(*_nowWeapon)->SetXY((GetX1() + GetX2()) >> 1, (GetY1() + GetY2()) >> 1);
+		_nowWeapon->SetXY((GetX1() + GetX2()) >> 1, (GetY1() + GetY2()) >> 1);
 		
 	}
 
 	void CCharacter::Shoot()
 	{
-		(*_nowWeapon)->ObjFuntion(this);
+		_nowWeapon->Shoot(this);
 	}
 
 	vector<CAnimation>::iterator CCharacter::GetAnima(Anima type)
