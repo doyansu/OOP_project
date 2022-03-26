@@ -10,7 +10,8 @@ namespace game_framework {
 	{
 	public:
 		CGameObj();
-		bool Collision(CGameObj *);		// 物件碰撞
+		bool Collision(CGameObj*);		// 物件碰撞
+		bool Collision(CGameMap*);		// 地圖碰撞
 
 		int GetX1();
 		int GetY1();

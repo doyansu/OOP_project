@@ -37,6 +37,16 @@ namespace game_framework {
 		return HitRectangle(other->GetX1(), other->GetY1(), other->GetX2(), other->GetY2());
 	}
 
+	bool CGameObj::Collision(CGameMap *map)
+	{
+		int x1 = GetX1();
+		int y1 = GetY1();
+		int x2 = GetX2();
+		int y2 = GetY2();
+
+		return (map->IsEmpty(x1 - _moveSpeed, y1) && map->IsEmpty(x1 - _moveSpeed, y2) && map->IsEmpty(x2 - _moveSpeed, y1) && map->IsEmpty(x2 - _moveSpeed, y2));
+	}
+
 	bool CGameObj::HitRectangle(int tx1, int ty1, int tx2, int ty2)
 	{
 		int x1 = this->GetX1();				
@@ -53,7 +63,7 @@ namespace game_framework {
 
 	void CGameObj::OnShow(CGameMap* map)
 	{
-		_animaIter->SetTopLeft(map->ScreenX(_mx), map->ScreenY(_my));
+		_animaIter->SetTopLeft(map->ScreenX(_mx), map->ScreenY(_my));	
 		_animaIter->OnShow();
 	}
 

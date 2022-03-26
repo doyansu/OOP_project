@@ -87,34 +87,22 @@ namespace game_framework {
 			else
 				_animaIter = GetAnima(Anima::INIT_L);
 		_animaIter->OnMove();
-
-		int x1 = GetX1();
-		int y1 = GetY1();
-		int x2 = GetX2();
-		int y2 = GetY2();
 		
-		if (_isMovingLeft) 
+		if (_isMovingLeft && CGameObj::Collision(map))
 		{
-			if (map->IsEmpty(x1 - _moveSpeed, y1) && map->IsEmpty(x1 - _moveSpeed, y2) && map->IsEmpty(x2 - _moveSpeed, y1) && map->IsEmpty(x2 - _moveSpeed, y2))
-				_mx -= _moveSpeed;
+			_mx -= _moveSpeed;
 		}
-				
-		if (_isMovingRight)
+		if (_isMovingRight && CGameObj::Collision(map))
 		{
-			if (map->IsEmpty(x1 + _moveSpeed, y1) && map->IsEmpty(x1 + _moveSpeed, y2) && map->IsEmpty(x2 + _moveSpeed, y1) && map->IsEmpty(x2 + _moveSpeed, y2))
-				_mx += _moveSpeed;
+			_mx += _moveSpeed;
 		}
-			
-		if (_isMovingUp)
+		if (_isMovingUp && CGameObj::Collision(map))
 		{
-			if (map->IsEmpty(x1, y1 - _moveSpeed) && map->IsEmpty(x1, y2 - _moveSpeed) && map->IsEmpty(x2, y1 - _moveSpeed) && map->IsEmpty(x2, y2 - _moveSpeed))
-				_my -= _moveSpeed;
+			_my -= _moveSpeed;
 		}
-			
-		if (_isMovingDown)
+		if (_isMovingDown && CGameObj::Collision(map))
 		{
-			if (map->IsEmpty(x1, y1 + _moveSpeed) && map->IsEmpty(x1, y2 + _moveSpeed) && map->IsEmpty(x2, y1 + _moveSpeed) && map->IsEmpty(x2, y2 + _moveSpeed))
-				_my += _moveSpeed;
+			_my += _moveSpeed;
 		}
 	}
 

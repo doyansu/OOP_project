@@ -42,7 +42,8 @@ namespace game_framework {
 	void CEnemy::OnMove(CGameMap *map)
 	{
 		_animaIter = GetAnima(Anima::INIT_R);
-		CGameObj::EnemyOnMove();
+		if(CGameObj::Collision(map))
+			CGameObj::EnemyOnMove();
 	}
 
 
