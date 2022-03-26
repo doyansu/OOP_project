@@ -68,7 +68,7 @@ namespace game_framework {
 	}
 
 	void CGameObj::EnemyOnMove(){
-		const int delay = 10;
+		/*const int delay = 10;
 		static int counter = delay, dx = 0, dy = 0;
 
 		_animaIter->OnMove();
@@ -80,7 +80,7 @@ namespace game_framework {
 			dx = -(_moveSpeed >> 1) + (rand() % _moveSpeed);
 			dy = -(_moveSpeed >> 1) + (rand() % _moveSpeed);
 			counter = delay;
-		}
+		}*/
 	}
 
 	void CGameObj::OnMove()
