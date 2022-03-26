@@ -21,7 +21,7 @@ namespace game_framework
 		
 	void CGameWeapon::Reset()
 	{
-		CGameObj::Reset();
+		CGameWeapon::CGameObj::Reset();
 	}
 
 	void CGameWeapon::LoadBitmap()

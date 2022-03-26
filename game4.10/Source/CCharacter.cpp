@@ -108,10 +108,12 @@ namespace game_framework {
 		int tempx = _mx, tempy = _my;
 		if (_isMovingLeft)
 		{
+			ModifyVector(0, -2);
 			_mx -= _moveSpeed;
 		}
 		if (_isMovingRight)
 		{
+			ModifyVector(0, 2);
 			_mx += _moveSpeed;
 		}
 		if (CCharacter::CGameObj::Collision(map))
@@ -119,10 +121,12 @@ namespace game_framework {
 		
 		if (_isMovingUp)
 		{
+			ModifyVector(1, -2);
 			_my -= _moveSpeed;
 		}
 		if (_isMovingDown)
 		{
+			ModifyVector(1, 2);
 			_my += _moveSpeed;
 		}
 
@@ -133,9 +137,29 @@ namespace game_framework {
 		
 	}
 
+	void CCharacter::OnKeyUp(char nChar)
+	{
+		CCharacter::CGameObj::OnKeyUp(nChar);
+	}
+	void CCharacter::OnKeyDown(char nChar)
+	{
+		CCharacter::CGameObj::OnKeyDown(nChar);
+	}
+
 	void CCharacter::Shoot()
 	{
 		_nowWeapon->Shoot(this);
+	}
+
+	void  CCharacter::ModifyVector(int index, int plus)
+	{
+		if (index > 1 || index < 0)
+			return;
+		_vector[index] += plus;
+		if (_vector[index] > 1)
+			_vector[index] = 1;
+		else if (_vector[index] < -1)
+			_vector[index] = -1;
 	}
 
 	vector<CAnimation>::iterator CCharacter::GetAnima(Anima type)

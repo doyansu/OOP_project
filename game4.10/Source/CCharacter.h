@@ -13,12 +13,15 @@ namespace game_framework {
 		void LoadBitmap();				// 載入圖形
 		void OnShow(CGameMap*);			// 將圖形貼到畫面
 		void OnMove(CGameMap*);			// 移動
+		void OnKeyUp(char);				
+		void OnKeyDown(char);		
+		void ModifyVector(int index, int plus);
 		void Shoot();
 		void Reset();					// 重置狀態
 
 	
 	protected:
-		int DT;		// 左右朝向控制
+		int DT;		// 朝向控制
 		int _hp;
 		vector<CGameWeapon> _weapon;
 		vector<CGameWeapon>::iterator _nowWeapon;
