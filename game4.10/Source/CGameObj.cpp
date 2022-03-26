@@ -58,11 +58,19 @@ namespace game_framework {
 	}
 
 	void CGameObj::EnemyOnMove(){
+		const int delay = 10;
+		static int counter = delay, dx = 0, dy = 0;
+
 		_animaIter->OnMove();
-		_mx += rand();
-		_mx -= rand();
-		_my += rand();
-		_my -= rand();
+		_mx += dx;
+		_my += dy;
+
+		if (--counter == 0)
+		{
+			dx = -(_moveSpeed >> 1) + (rand() % _moveSpeed);
+			dy = -(_moveSpeed >> 1) + (rand() % _moveSpeed);
+			counter = delay;
+		}
 	}
 
 	void CGameObj::OnMove()
