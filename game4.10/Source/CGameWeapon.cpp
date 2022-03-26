@@ -38,4 +38,9 @@ namespace game_framework
 	{
 
 	}*/
+
+	void CGameWeapon::ObjFuntion(CGameObj* other)
+	{
+
+	}
 }

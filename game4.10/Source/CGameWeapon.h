@@ -11,10 +11,12 @@ namespace game_framework
 		void LoadBitmap();
 		void OnMove(CGameMap* map);
 		//void OnShow(CGameMap* map);
+		void ObjFuntion(CGameObj*);
 		void Reset();
 
 	protected:
 		int _atk, _cost;		// 攻擊力、消耗能量
+		CGameObj bullet;
 
 	private:
 		void init();

@@ -136,7 +136,7 @@ namespace game_framework {
 
 	void CCharacter::Shoot()
 	{
-
+		(*_nowWeapon)->ObjFuntion(this);
 	}
 
 	vector<CAnimation>::iterator CCharacter::GetAnima(Anima type)
