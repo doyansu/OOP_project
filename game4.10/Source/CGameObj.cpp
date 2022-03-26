@@ -24,13 +24,11 @@ namespace game_framework {
 
 	void CGameObj::Reset() 
 	{
-		_mx = _my = 0;
+		_mx = _my = _vector[0] = _vector[1] = 0;
 		_moveSpeed = 5;
 		_isMovingLeft = _isMovingRight = _isMovingUp = _isMovingDown = false;
 		_animaIter = _animas.begin();
 	}
-
-	
 
 	bool CGameObj::Collision(CGameObj *other)
 	{
@@ -44,7 +42,7 @@ namespace game_framework {
 		int x2 = GetX2();
 		int y2 = GetY2();
 
-		return (map->IsEmpty(x1 - _moveSpeed, y1) && map->IsEmpty(x1 - _moveSpeed, y2) && map->IsEmpty(x2 - _moveSpeed, y1) && map->IsEmpty(x2 - _moveSpeed, y2));
+		return (!map->IsEmpty(x1, y1) || !map->IsEmpty(x1, y2) || !map->IsEmpty(x2, y1) || !map->IsEmpty(x2, y2));
 	}
 
 	bool CGameObj::HitRectangle(int tx1, int ty1, int tx2, int ty2)
@@ -67,23 +65,29 @@ namespace game_framework {
 		_animaIter->OnShow();
 	}
 
-	void CGameObj::EnemyOnMove(){
-		/*const int delay = 10;
-		static int counter = delay, dx = 0, dy = 0;
+	void CGameObj::EnemyOnMove(CGameMap* map){
+		const int range = 20;
 
 		_animaIter->OnMove();
-		_mx += dx;
-		_my += dy;
+		_mx += _vector[0];
+		_my += _vector[1];
 
-		if (--counter == 0)
+		if (CGameObj::Collision(map))
 		{
-			dx = -(_moveSpeed >> 1) + (rand() % _moveSpeed);
-			dy = -(_moveSpeed >> 1) + (rand() % _moveSpeed);
-			counter = delay;
-		}*/
+			_mx -= _vector[0];
+			_my -= _vector[1];
+		}
+
+		if ((rand() % range) == 0)
+		{
+			_vector[0] = -(_moveSpeed >> 1) + (rand() % _moveSpeed);
+			_vector[1] = -(_moveSpeed >> 1) + (rand() % _moveSpeed);
+		}
+
+		
 	}
 
-	void CGameObj::OnMove()
+	void CGameObj::OnMove(CGameMap* map)
 	{
 		_animaIter->OnMove();
 		if (_isMovingLeft)

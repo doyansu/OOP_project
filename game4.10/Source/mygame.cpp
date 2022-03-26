@@ -120,7 +120,7 @@ void CGameStateInit::OnLButtonDown(UINT nFlags, CPoint point)
 
 void CGameStateInit::OnMove()
 {
-	player.OnMove();
+	player.OnMove(&map);
 	if(gate.Collision(&player))
 		GotoGameState(GAME_STATE_RUN);
 }
@@ -301,6 +301,7 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	gameMap.OnMove(character.GetX1(), character.GetY1());
 	character.OnMove(&gameMap);
 	enemy0.OnMove(&gameMap);
+	enemy1.OnMove(&gameMap);
 }
 
 void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
@@ -340,7 +341,7 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	gameMap.LoadBitmap();
 	character.LoadBitmap();
 	enemy0.LoadBitmap();
-
+	enemy1.LoadBitmap();
 }
 
 void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
@@ -433,7 +434,9 @@ void CGameStateRun::OnShow()
 	corner.SetTopLeft(SIZE_X-corner.Width(), SIZE_Y-corner.Height());
 	corner.ShowBitmap();
 
-	character.OnShow(&gameMap);
 	enemy0.OnShow(&gameMap);
+	enemy1.OnShow(&gameMap);
+
+	character.OnShow(&gameMap);
 }
 }

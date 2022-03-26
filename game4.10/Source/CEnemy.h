@@ -13,8 +13,6 @@ namespace game_framework {
 		//void EnemyOnMove(CGameMap *);
 
 	protected:
-		int x, y;
-		CAnimation animation;		// 擦子的動畫
 		vector<CAnimation>::iterator GetAnima(Anima);
 	};
 }

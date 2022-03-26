@@ -87,23 +87,33 @@ namespace game_framework {
 			else
 				_animaIter = GetAnima(Anima::INIT_L);
 		_animaIter->OnMove();
-		
-		if (_isMovingLeft && CGameObj::Collision(map))
+
+		int tempx = _mx, tempy = _my;
+		if (_isMovingLeft)
 		{
 			_mx -= _moveSpeed;
 		}
-		if (_isMovingRight && CGameObj::Collision(map))
+		if (_isMovingRight)
 		{
 			_mx += _moveSpeed;
 		}
-		if (_isMovingUp && CGameObj::Collision(map))
+		if (CGameObj::Collision(map))
+			_mx = tempx;
+		
+		if (_isMovingUp)
 		{
 			_my -= _moveSpeed;
 		}
-		if (_isMovingDown && CGameObj::Collision(map))
+		if (_isMovingDown)
 		{
 			_my += _moveSpeed;
 		}
+
+		if (CGameObj::Collision(map))
+			_my = tempy;
+		
+		
+		
 	}
 
 	void CCharacter::Shoot()

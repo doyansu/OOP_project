@@ -31,8 +31,8 @@ namespace game_framework {
 
 		virtual void LoadBitmap() {};
 		virtual void OnShow(CGameMap*);	// 在地圖顯示物件
-		virtual void OnMove();
-		virtual void EnemyOnMove();
+		virtual void OnMove(CGameMap*);
+		virtual void EnemyOnMove(CGameMap*);
 		virtual void OnKeyUp(char);
 		virtual void OnKeyDown(char);
 		virtual void Reset();
@@ -41,6 +41,7 @@ namespace game_framework {
 		vector<CAnimation> _animas;						// 動畫清單
 		vector<CAnimation>::iterator _animaIter;		// vector iterator
 		int _mx, _my, _moveSpeed;						// 地圖點座標、移動速度
+		int _vector[2];
 		bool _isMovingDown;								// 是否正在往下移動
 		bool _isMovingLeft;								// 是否正在往左移動
 		bool _isMovingRight;							// 是否正在往右移動

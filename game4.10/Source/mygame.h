@@ -115,7 +115,7 @@ namespace game_framework {
 
 		CGameMap gameMap;
 		CCharacter character;
-		CEnemy enemy0;
+		CEnemy enemy0, enemy1;
 	};
 
 	/////////////////////////////////////////////////////////////////////////////
