@@ -10,6 +10,32 @@ namespace game_framework
 {
 	CGameWeapon::CGameWeapon()
 	{
-		
+		init();
 	}
+
+	void CGameWeapon::init()
+	{
+		_atk, _cost = 0;
+		Reset();
+	}
+		
+	void CGameWeapon::Reset()
+	{
+		CGameObj::Reset();
+	}
+
+	void CGameWeapon::LoadBitmap()
+	{
+		CGameObj::LoadBitmap(IDB_ERASER1); //test
+	}
+
+	void CGameWeapon::OnMove(CGameMap* map)
+	{
+
+	}
+
+	/*void CGameWeapon::OnShow(CGameMap* map)
+	{
+
+	}*/
 }

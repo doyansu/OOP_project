@@ -12,6 +12,11 @@ namespace game_framework {
 		init();
 	}
 
+	CCharacter::~CCharacter()
+	{
+		free();
+	}
+
 	void CCharacter::init()
 	{
 		const int AnimaSize = 4;
@@ -28,7 +33,17 @@ namespace game_framework {
 	void CCharacter::Reset()
 	{
 		_animaIter = _animas.begin();
+		free();
+		_weapon.clear();
+		_weapon.push_back(new CGameWeapon());
+		_nowWeapon = _weapon.begin();
 		CGameObj::Reset();
+	}
+
+	void CCharacter::free()
+	{
+		for (CGameObj *p : _weapon)
+			delete p;
 	}
 
 	void CCharacter::LoadBitmap()
@@ -62,11 +77,14 @@ namespace game_framework {
 		_animaIter->AddBitmap(IDB_CH1_3_L, RGB(255, 255, 255));
 
 		_animaIter = _animas.begin();
+
+		(*_nowWeapon)->LoadBitmap();
 	}
 
 	void CCharacter::OnShow(CGameMap* map)
 	{
 		CGameObj::OnShow(map);
+		(*_nowWeapon)->OnShow(map);
 	}
 
 	void CCharacter::OnMove(CGameMap *map)
@@ -112,7 +130,7 @@ namespace game_framework {
 		if (CGameObj::Collision(map))
 			_my = tempy;
 		
-		
+		(*_nowWeapon)->SetXY((GetX1() + GetX2()) >> 1, (GetY1() + GetY2()) >> 1);
 		
 	}
 

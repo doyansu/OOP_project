@@ -175,7 +175,6 @@ void CGameStateOver::OnMove()
 void CGameStateOver::OnBeginState()
 {
 	counter = 30 * 1; // 5 seconds
-
 }
 
 void CGameStateOver::OnInit()

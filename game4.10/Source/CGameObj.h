@@ -41,7 +41,7 @@ namespace game_framework {
 		vector<CAnimation> _animas;						// 動畫清單
 		vector<CAnimation>::iterator _animaIter;		// vector iterator
 		int _mx, _my, _moveSpeed;						// 地圖點座標、移動速度
-		int _vector[2];
+		int _vector[2];									// 移動用向量
 		bool _isMovingDown;								// 是否正在往下移動
 		bool _isMovingLeft;								// 是否正在往左移動
 		bool _isMovingRight;							// 是否正在往右移動
