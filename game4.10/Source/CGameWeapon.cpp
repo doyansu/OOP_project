@@ -38,11 +38,10 @@ namespace game_framework
 			else
 				_bullets.erase(_bullets.begin() + i);
 		}
-		if (--_fireCounter == 0)
-		{
-			_fireCounter = _shootGap;
+
+		if (!_fire && --_fireCounter == 0)
 			_fire = true;
-		}
+		
 	}
 
 	void CGameWeapon::OnShow(CGameMap* map)
@@ -63,8 +62,8 @@ namespace game_framework
 			newBullet.SetVector(player->GetVectorX(), player->GetVectorY());
 			_bullets.push_back(newBullet);
 			_fire = false;
+			_fireCounter = _shootGap;
 		}
-		
 	}
 
 	bool CGameWeapon::isFire()

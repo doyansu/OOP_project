@@ -152,7 +152,8 @@ namespace game_framework {
 	void CCharacter::OnKeyUp(char nChar)
 	{
 		const char KEY_SPACE = 0x20;
-		if (nChar == KEY_SPACE)
+		const char KEY_Q = 0x51;
+		if (nChar == KEY_SPACE || nChar == KEY_Q)
 		{
 			_fire = false;
 		}
@@ -162,7 +163,8 @@ namespace game_framework {
 	void CCharacter::OnKeyDown(char nChar)
 	{
 		const char KEY_SPACE = 0x20;
-		if (nChar == KEY_SPACE)
+		const char KEY_Q = 0x51;
+		if (nChar == KEY_SPACE || nChar == KEY_Q)
 		{
 			_fire = true;
 		}
