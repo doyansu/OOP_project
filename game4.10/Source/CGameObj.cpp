@@ -27,6 +27,7 @@ namespace game_framework {
 		_mx = _my = _vector[0] = _vector[1] = 0;
 		_moveSpeed = 5;
 		_isMovingLeft = _isMovingRight = _isMovingUp = _isMovingDown = false;
+		_enable = true;
 		_animaIter = _animas.begin();
 	}
 
@@ -155,6 +156,11 @@ namespace game_framework {
 	string CGameObj::GetTag()
 	{
 		return _tag;
+	}
+
+	void CGameObj::SetEnable(bool enable)
+	{
+		_enable = enable;
 	}
 
 	void CGameObj::SetMovingDown(bool flag)
