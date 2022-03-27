@@ -139,6 +139,12 @@ namespace game_framework {
 
 	void CCharacter::OnKeyUp(char nChar)
 	{
+		const char KEY_SPACE = 0x20;
+		if (nChar == KEY_SPACE)
+		{
+			Shoot();
+		}
+
 		CCharacter::CGameObj::OnKeyUp(nChar);
 	}
 	void CCharacter::OnKeyDown(char nChar)

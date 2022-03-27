@@ -259,6 +259,7 @@
   <ItemGroup>
     <ClCompile Include="source\CCharacter.cpp" />
     <ClCompile Include="source\CEnemy.cpp" />
+    <ClCompile Include="Source\CGameBullet.cpp" />
     <ClCompile Include="Source\CGameMap.cpp" />
     <ClCompile Include="Source\CGameObj.cpp" />
     <ClCompile Include="Source\CGameWeapon.cpp" />
@@ -311,6 +312,7 @@
   <ItemGroup>
     <ClInclude Include="source\CCharacter.h" />
     <ClInclude Include="source\CEnemy.h" />
+    <ClInclude Include="Source\CGameBullet.h" />
     <ClInclude Include="Source\CGameMap.h" />
     <ClInclude Include="Source\CGameObj.h" />
     <ClInclude Include="Source\CGameWeapon.h" />
