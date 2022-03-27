@@ -27,6 +27,7 @@ namespace game_framework {
 			_animas.push_back(addAnima);
 		this->Reset();
 		this->SetXY(500, 500);
+		this->SetTag("character");
 		
 	}
 
@@ -109,14 +110,16 @@ namespace game_framework {
 		//	動畫移動
 		_animaIter->OnMove();
 
-		//	角色移動
+		//	角色移動、變更 vector 給子彈用
 		int tempx = _mx, tempy = _my;
 		if (_isMovingLeft)
 		{
+			ModifyVector(0, -2);
 			_mx -= _moveSpeed;
 		}
 		if (_isMovingRight)
 		{
+			ModifyVector(0, 2);
 			_mx += _moveSpeed;
 		}
 		
@@ -125,17 +128,22 @@ namespace game_framework {
 		
 		if (_isMovingUp)
 		{
+			ModifyVector(1, -2);
 			_my -= _moveSpeed;
 		}
 		if (_isMovingDown)
 		{
+			ModifyVector(1, 2);
 			_my += _moveSpeed;
 		}
 
 		if (CCharacter::CGameObj::Collision(map))
 			_my = tempy;
-
-		//	變更 vector 給子彈用
+		
+		if ((_isMovingLeft != _isMovingRight) && !_isMovingDown  && !_isMovingUp && _vector[0] != 0)
+			_vector[1] = 0;
+		else if ((_isMovingDown != !_isMovingUp) && !_isMovingLeft && !_isMovingRight && _vector[1] != 0)
+			_vector[0] = 0;
 		
 		
 		//	武器、移動
@@ -172,7 +180,7 @@ namespace game_framework {
 		CCharacter::CGameObj::OnKeyDown(nChar);
 	}
 
-	/*void  CCharacter::ModifyVector(int index, int plus)//	暫時註解
+	void  CCharacter::ModifyVector(int index, int plus)
 	{
 		if (index > 1 || index < 0)
 			return;
@@ -181,7 +189,7 @@ namespace game_framework {
 			_vector[index] = 1;
 		else if (_vector[index] < -1)
 			_vector[index] = -1;
-	}*/
+	}
 
 	vector<CAnimation>::iterator CCharacter::GetAnima(Anima type)
 	{

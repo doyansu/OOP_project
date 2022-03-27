@@ -16,6 +16,7 @@ namespace game_framework
 	void CGameBullet::init()
 	{
 		_damage = 0;
+		CGameBullet::CGameObj::SetTag("bullet");
 	}
 
 

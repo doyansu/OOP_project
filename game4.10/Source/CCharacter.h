@@ -28,7 +28,7 @@ namespace game_framework {
 	private:
 		void init();					//初始化
 		void free();
-		//void ModifyVector(int index, int plus);
+		void ModifyVector(int index, int plus);
 		vector<CAnimation>::iterator GetAnima(Anima);	// 取得動畫
 		
 	};

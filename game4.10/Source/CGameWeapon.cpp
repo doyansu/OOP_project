@@ -16,10 +16,11 @@ namespace game_framework
 	void CGameWeapon::init()
 	{
 		_atk, _cost = 0;
-		_shootGap = 20;
+		_shootGap = 10;
 		_bulletSpeed = 20;	
 		_bullet.SetSpeed(_bulletSpeed);
 		_fire = true;
+		CGameWeapon::CGameObj::SetTag("weapon");
 	}
 
 	void CGameWeapon::LoadBitmap()

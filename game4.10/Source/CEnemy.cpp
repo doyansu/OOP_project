@@ -22,6 +22,7 @@ namespace game_framework {
 		CAnimation enemy0;
 		_animas.push_back(enemy0);
 		_animaIter = _animas.begin();
+		CEnemy::CGameObj::SetTag("enemy");
 	}
 
 	void CEnemy::LoadBitmap()
