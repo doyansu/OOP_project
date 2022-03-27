@@ -15,7 +15,6 @@ namespace game_framework {
 		void OnMove(CGameMap*);			// 移動
 		void OnKeyUp(char);				
 		void OnKeyDown(char);		
-		void ModifyVector(int index, int plus);
 		void Reset();					// 重置狀態
 
 	
@@ -29,6 +28,7 @@ namespace game_framework {
 	private:
 		void init();					//初始化
 		void free();
+		//void ModifyVector(int index, int plus);
 		vector<CAnimation>::iterator GetAnima(Anima);	// 取得動畫
 		
 	};

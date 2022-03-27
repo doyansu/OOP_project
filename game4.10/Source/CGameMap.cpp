@@ -61,6 +61,7 @@ namespace game_framework {
 			_sy -= _moveSpeed;
 		if (_isMovingDown)
 			_sy += _moveSpeed;*/
+		//	螢幕跟隨角色
 		this->SetScreen(px - (SIZE_X>>1), py - (SIZE_Y>>1));
 	}
 
@@ -91,6 +92,7 @@ namespace game_framework {
 		bool mask[NROOMS][NROOMS];
 		memset(mask, false, sizeof(mask));
 
+		//	決定房間有無
 		for (int i = 0; i < NROOMS; i++) 
 		{
 			int r = 1 + (rand() % (NROOMS - 1));
@@ -101,6 +103,7 @@ namespace game_framework {
 			}
 		}
 
+		//	決定房間寬高、設定中心區域
 		for (int i = 0; i < NROOMS; i++)
 		{
 			for (int j = 0; j < NROOMS; j++)
@@ -135,6 +138,7 @@ namespace game_framework {
 			}
 		}
 
+		//	設定房間之間的通道
 		for (int i = 0; i < NROOMS - 1; i++)
 		{
 

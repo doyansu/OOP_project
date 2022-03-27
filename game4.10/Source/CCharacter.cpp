@@ -90,6 +90,7 @@ namespace game_framework {
 
 	void CCharacter::OnMove(CGameMap *map)
 	{
+		//	動畫判斷
 		if (_isMovingRight) {
 			_animaIter = GetAnima(Anima::RUN_R);
 			DT = 1;
@@ -105,52 +106,50 @@ namespace game_framework {
 				_animaIter = GetAnima(Anima::INIT_R);
 			else
 				_animaIter = GetAnima(Anima::INIT_L);
+		//	動畫移動
 		_animaIter->OnMove();
 
+		//	角色移動
 		int tempx = _mx, tempy = _my;
 		if (_isMovingLeft)
 		{
-			ModifyVector(0, -2);
 			_mx -= _moveSpeed;
 		}
 		if (_isMovingRight)
 		{
-			ModifyVector(0, 2);
 			_mx += _moveSpeed;
 		}
-
-		/*if ((_isMovingLeft || _isMovingRight) && !_isMovingUp && !_isMovingDown)
-			ModifyVector(1, -_vector[1]);*/
 		
 		if (CCharacter::CGameObj::Collision(map))
 			_mx = tempx;
 		
 		if (_isMovingUp)
 		{
-			ModifyVector(1, -2);
 			_my -= _moveSpeed;
 		}
 		if (_isMovingDown)
 		{
-			ModifyVector(1, 2);
 			_my += _moveSpeed;
 		}
 
-		/*if ((_isMovingUp || _isMovingDown) && !_isMovingLeft && !_isMovingRight)
-			ModifyVector(0, -_vector[0]);*/
-
 		if (CCharacter::CGameObj::Collision(map))
 			_my = tempy;
+
+		//	變更 vector 給子彈用
 		
+		
+		//	武器、移動
 		_nowWeapon->SetXY((GetX1() + GetX2()) >> 1, (GetY1() + GetY2()) >> 1);
 		_nowWeapon->OnMove(map);
+		//	射擊判斷
 		if (_fire && _nowWeapon->isFire())
-			_nowWeapon->Shoot(map, this);
+			_nowWeapon->Shoot(map, this);	// 子彈方向使用 vector[] 給定
 		
 	}
 
 	void CCharacter::OnKeyUp(char nChar)
 	{
+		//	Q 或 空白 射擊
 		const char KEY_SPACE = 0x20;
 		const char KEY_Q = 0x51;
 		if (nChar == KEY_SPACE || nChar == KEY_Q)
@@ -162,6 +161,7 @@ namespace game_framework {
 	}
 	void CCharacter::OnKeyDown(char nChar)
 	{
+		//	Q 或 空白 射擊
 		const char KEY_SPACE = 0x20;
 		const char KEY_Q = 0x51;
 		if (nChar == KEY_SPACE || nChar == KEY_Q)
@@ -172,7 +172,7 @@ namespace game_framework {
 		CCharacter::CGameObj::OnKeyDown(nChar);
 	}
 
-	void  CCharacter::ModifyVector(int index, int plus)
+	/*void  CCharacter::ModifyVector(int index, int plus)//	暫時註解
 	{
 		if (index > 1 || index < 0)
 			return;
@@ -181,7 +181,7 @@ namespace game_framework {
 			_vector[index] = 1;
 		else if (_vector[index] < -1)
 			_vector[index] = -1;
-	}
+	}*/
 
 	vector<CAnimation>::iterator CCharacter::GetAnima(Anima type)
 	{
