@@ -153,14 +153,35 @@ namespace game_framework {
 		return _my + _animaIter->Height();
 	}
 
+	int CGameObj::GetVectorX()
+	{
+		return _vector[0];
+	}
+
+	int CGameObj::GetVectorY()
+	{
+		return _vector[1];
+	}
+
 	string CGameObj::GetTag()
 	{
 		return _tag;
 	}
 
+	bool CGameObj::IsEnable()
+	{
+		return _enable;
+	}
+
 	void CGameObj::SetEnable(bool enable)
 	{
 		_enable = enable;
+	}
+
+	void CGameObj::SetVector(int vx, int vy)
+	{
+		_vector[0] = vx;
+		_vector[1] = vy;
 	}
 
 	void CGameObj::SetMovingDown(bool flag)

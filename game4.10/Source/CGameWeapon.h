@@ -1,5 +1,6 @@
 #pragma once
 #include "CGameObj.h"
+#include "CGameBullet.h"
 
 namespace game_framework
 {
@@ -8,15 +9,19 @@ namespace game_framework
 	public:
 		CGameWeapon();
 
+		bool isFire();
+
 		void LoadBitmap();
 		void OnMove(CGameMap* map);
-		//void OnShow(CGameMap* map);
-		void Shoot(CGameObj*);
-		void Reset();
+		void OnShow(CGameMap* map);
+		void Shoot(CGameMap*, CGameObj*);
 
 	protected:
-		int _atk, _cost;		// 攻擊力、消耗能量
-		CGameObj bullet;
+		bool _fire;
+		int _atk, _cost, _bulletSpeed, _shootGap;		// 攻擊力、消耗能量、子彈速度、攻擊速度
+		int _fireCounter;
+		CGameBullet _bullet;				// 子彈設定
+		vector<CGameBullet> _bullets;		// 管理子彈
 
 	private:
 		void init();

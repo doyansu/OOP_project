@@ -16,32 +16,59 @@ namespace game_framework
 	void CGameWeapon::init()
 	{
 		_atk, _cost = 0;
-		Reset();
-	}
-		
-	void CGameWeapon::Reset()
-	{
-		CGameWeapon::CGameObj::Reset();
+		_shootGap = 20;
+		_bulletSpeed = 20;	
+		_bullet.SetSpeed(_bulletSpeed);
+		_fire = true;
 	}
 
 	void CGameWeapon::LoadBitmap()
 	{
-		//CGameObj::LoadBitmap(IDB_ERASER1); //test
-		CGameWeapon::CGameObj::LoadBitmap(IDB_ERASER1);
+		CGameWeapon::CGameObj::LoadBitmap(IDB_ERASER1);//test
+		_bullet.LoadBitmap();
+
 	}
 
 	void CGameWeapon::OnMove(CGameMap* map)
 	{
-
+		for (int i = 0; i < (int)_bullets.size(); i++)
+		{
+			if (_bullets.at(i).IsEnable())
+				_bullets.at(i).OnMove(map);
+			else
+				_bullets.erase(_bullets.begin() + i);
+		}
+		if (--_fireCounter == 0)
+		{
+			_fireCounter = _shootGap;
+			_fire = true;
+		}
 	}
 
-	/*void CGameWeapon::OnShow(CGameMap* map)
+	void CGameWeapon::OnShow(CGameMap* map)
 	{
+		for (int i = 0; i < (int)_bullets.size(); i++)
+		{
+			_bullets.at(i).OnShow(map);
+		}
+		CGameWeapon::CGameObj::OnShow(map);
+	}
 
-	}*/
-
-	void CGameWeapon::Shoot(CGameObj* player)
+	void CGameWeapon::Shoot(CGameMap* map, CGameObj* player)
 	{
+		if (_fire)
+		{
+			CGameBullet newBullet = _bullet;
+			newBullet.SetXY(_mx, _my);
+			newBullet.SetVector(player->GetVectorX(), player->GetVectorY());
+			_bullets.push_back(newBullet);
+			_fire = false;
+		}
+		
+	}
 
+	bool CGameWeapon::isFire()
+	{
+		return _fire;
 	}
 }

@@ -7,13 +7,13 @@ namespace game_framework
 	{
 	public:
 		CGameBullet();
-		~CGameBullet();
 
 		void LoadBitmap();
 		void OnMove(CGameMap* map);
 		//void OnShow(CGameMap* map);
 
 	protected:
+		int _damage;		//¤l¼u§ðÀ»¤O
 
 	private:
 		void init();

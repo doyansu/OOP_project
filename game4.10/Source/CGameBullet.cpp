@@ -15,7 +15,7 @@ namespace game_framework
 
 	void CGameBullet::init()
 	{
-		Reset();
+		_damage = 0;
 	}
 
 
@@ -26,7 +26,11 @@ namespace game_framework
 
 	void CGameBullet::OnMove(CGameMap* map)
 	{
+		_mx += _moveSpeed * _vector[0];
+		_my += _moveSpeed * _vector[1];
 
+		if (CGameBullet::CGameObj::Collision(map))
+			CGameBullet::CGameObj::SetEnable(false);
 	}
 
 	/*void CGameBullet::OnShow(CGameMap* map)

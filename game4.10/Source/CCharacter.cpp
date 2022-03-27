@@ -22,9 +22,9 @@ namespace game_framework {
 		const int AnimaSize = 4;
 		CAnimation addAnima;
 		_animas.clear();
+		_animas.reserve(AnimaSize);
 		for(int i = 0; i < AnimaSize; i++)
 			_animas.push_back(addAnima);
-
 		this->Reset();
 		this->SetXY(500, 500);
 		
@@ -33,11 +33,13 @@ namespace game_framework {
 	void CCharacter::Reset()
 	{
 		_animaIter = _animas.begin();
+		_fire = false;
 		free();
 		_weapon.clear();
 		_weapon.push_back(CGameWeapon());
 		_nowWeapon = _weapon.begin();
 		CCharacter::CGameObj::Reset();
+		_vector[0] = 1;	//¹w³]´Â¥k
 	}
 
 	void CCharacter::free()
@@ -116,6 +118,10 @@ namespace game_framework {
 			ModifyVector(0, 2);
 			_mx += _moveSpeed;
 		}
+
+		/*if ((_isMovingLeft || _isMovingRight) && !_isMovingUp && !_isMovingDown)
+			ModifyVector(1, -_vector[1]);*/
+		
 		if (CCharacter::CGameObj::Collision(map))
 			_mx = tempx;
 		
@@ -130,10 +136,16 @@ namespace game_framework {
 			_my += _moveSpeed;
 		}
 
+		/*if ((_isMovingUp || _isMovingDown) && !_isMovingLeft && !_isMovingRight)
+			ModifyVector(0, -_vector[0]);*/
+
 		if (CCharacter::CGameObj::Collision(map))
 			_my = tempy;
 		
 		_nowWeapon->SetXY((GetX1() + GetX2()) >> 1, (GetY1() + GetY2()) >> 1);
+		_nowWeapon->OnMove(map);
+		if (_fire && _nowWeapon->isFire())
+			_nowWeapon->Shoot(map, this);
 		
 	}
 
@@ -142,19 +154,20 @@ namespace game_framework {
 		const char KEY_SPACE = 0x20;
 		if (nChar == KEY_SPACE)
 		{
-			Shoot();
+			_fire = false;
 		}
 
 		CCharacter::CGameObj::OnKeyUp(nChar);
 	}
 	void CCharacter::OnKeyDown(char nChar)
 	{
-		CCharacter::CGameObj::OnKeyDown(nChar);
-	}
+		const char KEY_SPACE = 0x20;
+		if (nChar == KEY_SPACE)
+		{
+			_fire = true;
+		}
 
-	void CCharacter::Shoot()
-	{
-		_nowWeapon->Shoot(this);
+		CCharacter::CGameObj::OnKeyDown(nChar);
 	}
 
 	void  CCharacter::ModifyVector(int index, int plus)

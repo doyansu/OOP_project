@@ -16,13 +16,13 @@ namespace game_framework {
 		void OnKeyUp(char);				
 		void OnKeyDown(char);		
 		void ModifyVector(int index, int plus);
-		void Shoot();
 		void Reset();					// ­«¸mª¬ºA
 
 	
 	protected:
 		int DT;		// ´Â¦V±±¨î
 		int _hp;
+		bool _fire;		// ®gÀ»§PÂ_
 		vector<CGameWeapon> _weapon;
 		vector<CGameWeapon>::iterator _nowWeapon;
 
