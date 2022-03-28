@@ -7,6 +7,8 @@ namespace game_framework
 	class CGameWeapon : public CGameObj
 	{
 	public:
+		enum class Anima { Right, Left };	//動畫種類
+
 		CGameWeapon();
 
 		bool CanFire();						//	武器是否可射擊
@@ -15,6 +17,7 @@ namespace game_framework
 		void OnMove(CGameMap* map);
 		void OnShow(CGameMap* map);
 		void Shoot(CGameMap*, CGameObj*);	//	武器射擊
+		void DT_D(int dt);
 
 	protected:
 		bool _fire;
@@ -25,5 +28,7 @@ namespace game_framework
 
 	private:
 		void init();
+		vector<CAnimation>::iterator GetAnima(Anima);	// 取得動畫
+
 	};
 }

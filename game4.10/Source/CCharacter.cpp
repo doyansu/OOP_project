@@ -15,6 +15,7 @@ namespace game_framework {
 	void CCharacter::init()
 	{
 		//	°Êµe¸ü¤J
+		_hp = 5;
 		const int AnimaSize = 4;
 		//CAnimation addAnima;
 		_animas.clear();
@@ -76,7 +77,7 @@ namespace game_framework {
 
 		_animaIter = _animas.begin();
 
-		_nowWeapon->LoadBitmap();
+		_nowWeapon->DT_D(1);
 	}
 
 	void CCharacter::OnShow(CGameMap* map)
@@ -91,9 +92,11 @@ namespace game_framework {
 		if (_isMovingRight) {
 			_animaIter = GetAnima(Anima::RUN_R);
 			DT = 1;
+			_nowWeapon -> DT_D(DT);
 		} else if (_isMovingLeft) {
 			_animaIter = GetAnima(Anima::RUN_L);
 			DT = 0;
+			_nowWeapon -> DT_D(DT);
 		} else if (DT && (_isMovingDown || _isMovingUp))
 			_animaIter = GetAnima(Anima::RUN_R);
 		else if (!DT && (_isMovingDown || _isMovingUp))
@@ -209,4 +212,6 @@ namespace game_framework {
 		}
 		return anima;
 	}
+	
+
 }

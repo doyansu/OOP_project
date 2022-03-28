@@ -5,7 +5,7 @@ namespace game_framework {
 	class CGameMap
 	{
 	public:
-		enum class MapContent {NENO, FLOOR, WALL};		//地圖內容物
+		enum class MapContent {NULLPTR, FLOOR, WALL};		//地圖內容物
 		CGameMap();
 		void LoadBitmap();
 		int ScreenX(int x);				//	地圖點座標在螢幕位置

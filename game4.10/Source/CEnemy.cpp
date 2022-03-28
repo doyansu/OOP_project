@@ -32,7 +32,6 @@ namespace game_framework {
 		_animas.at(0).AddBitmap(IDB_enemy0_2, RGB(255, 255, 255));
 		_animas.at(0).AddBitmap(IDB_enemy0_3, RGB(255, 255, 255));
 		_animas.at(0).AddBitmap(IDB_enemy0_4, RGB(255, 255, 255));
-
 	}
 
 	void CEnemy::OnShow(CGameMap* map)

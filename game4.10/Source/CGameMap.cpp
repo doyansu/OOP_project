@@ -31,7 +31,7 @@ namespace game_framework {
 		{
 			for (int j = 0; j < 200; j++)
 			{
-				_map[i][j] = MapContent::NENO;
+				_map[i][j] = MapContent::NULLPTR;
 			}
 		}
 		_animaIterator = _animas.begin();
@@ -39,8 +39,8 @@ namespace game_framework {
 
 	void CGameMap::LoadBitmap()
 	{
-		_animaIterator = GetAnima(MapContent::NENO);
-		_animaIterator->AddBitmap(IDB_CH1_4_L, RGB(255, 255, 255));
+		_animaIterator = GetAnima(MapContent::NULLPTR);
+		_animaIterator->AddBitmap(IDB_FLOOR_1, RGB(255, 255, 255));
 		_animaIterator = GetAnima(MapContent::FLOOR);
 		_animaIterator->AddBitmap(IDB_FLOOR_1, RGB(255, 255, 255));
 		_animaIterator = GetAnima(MapContent::WALL);
@@ -65,7 +65,7 @@ namespace game_framework {
 			for (int j = 0; j < 200; j++)
 			{
 				int mx = _MAPW * i, my = _MAPH * j;
-				if ((this->InScreen(mx, my, mx + _MAPW, my + _MAPH)) && _map[i][j] != MapContent::NENO)
+				if ((this->InScreen(mx, my, mx + _MAPW, my + _MAPH)) && _map[i][j] != MapContent::NULLPTR)
 				{
 					_animaIterator = GetAnima(_map[i][j]);
 					_animaIterator->SetTopLeft(ScreenX(mx), ScreenY(my));
@@ -79,8 +79,8 @@ namespace game_framework {
 	{
 		Reset();
 		
-		const int INTERNAL = 40;
-		const int NROOMS = 200 / INTERNAL;
+		const int INTERNAL = 35;
+		const int NROOMS = 4;
 		int Room[NROOMS][NROOMS][2];
 		bool mask[NROOMS][NROOMS];
 		memset(mask, false, sizeof(mask));
@@ -218,7 +218,7 @@ namespace game_framework {
 		vector<CAnimation>::iterator iterator;
 		switch (Type)
 		{
-		case game_framework::CGameMap::MapContent::NENO:
+		case game_framework::CGameMap::MapContent::NULLPTR:
 			iterator = _animas.begin();
 			break;
 		case game_framework::CGameMap::MapContent::FLOOR:
