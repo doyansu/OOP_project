@@ -25,7 +25,7 @@ namespace game_framework
 
 	void CGameWeapon::LoadBitmap()
 	{
-		CGameWeapon::CGameObj::LoadBitmap(IDB_ERASER1);//test image
+		CGameWeapon::LoadBitmap(IDB_ERASER1);//test image
 		_bullet.LoadBitmap();
 
 	}

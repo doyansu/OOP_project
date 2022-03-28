@@ -86,7 +86,7 @@ void CGameStateInit::OnInit()
 	//
 	player.LoadBitmap();
 	gate.LoadBitmap(IDB_GATE1);
-
+	map.LoadBitmap();
 }
 
 void CGameStateInit::OnBeginState()

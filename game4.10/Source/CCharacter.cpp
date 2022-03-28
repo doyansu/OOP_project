@@ -16,11 +16,11 @@ namespace game_framework {
 	{
 		//	動畫載入
 		const int AnimaSize = 4;
-		CAnimation addAnima;
+		//CAnimation addAnima;
 		_animas.clear();
 		_animas.reserve(AnimaSize);
 		for(int i = 0; i < AnimaSize; i++)
-			_animas.push_back(addAnima);
+			_animas.push_back(CAnimation());
 		//	屬性設定
 		this->Reset();
 		this->SetXY(500, 500);

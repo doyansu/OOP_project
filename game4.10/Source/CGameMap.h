@@ -16,11 +16,7 @@ namespace game_framework {
 		int GetScreenX();
 		int GetScreenY();
 
-		void SetScreen(int x, int y);
-		void SetMovingDown(bool flag);	
-		void SetMovingLeft(bool flag);	
-		void SetMovingRight(bool flag);
-		void SetMovingUp(bool flag);	
+		void SetScreen(int x, int y);	
 
 		void OnMove(int x, int y);
 		void OnShow();
@@ -31,19 +27,14 @@ namespace game_framework {
 
 	protected:
 
-		vector<CMovingBitmap> _bmp;						// 地圖圖片
-		vector<CMovingBitmap>::iterator _bmpIterator;	// 操作用
+		vector<CAnimation> _animas;						// 地圖圖片
+		vector<CAnimation>::iterator _animaIterator;	// 操作用
 		const int _MAPW, _MAPH;							// 地圖每格寬高
 		MapContent _map[200][200];						// 地圖每格內容
-		int _sx, _sy, _moveSpeed;						// 螢幕點座標、移動速度
-		
-		bool _isMovingDown;			
-		bool _isMovingLeft;			
-		bool _isMovingRight;		
-		bool _isMovingUp;			
+		int _sx, _sy, _moveSpeed;						// 螢幕點座標、移動速度			
 	
 	private:
 		void init();
-		vector<CMovingBitmap>::iterator GetBmp(MapContent);
+		vector<CAnimation>::iterator GetAnima(MapContent);
 	};
 }

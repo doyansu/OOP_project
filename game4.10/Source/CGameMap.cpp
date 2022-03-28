@@ -1,4 +1,3 @@
-#include <stdlib.h>
 #include "stdafx.h"
 #include "Resource.h"
 #include <mmsystem.h>
@@ -17,15 +16,17 @@ namespace game_framework {
 
 	void CGameMap::init()
 	{
+		int AnimaSize = 3;
+		_animas.reserve(AnimaSize);
+		for (int i = 0; i < AnimaSize; i++)
+			_animas.push_back(CAnimation());
+		Reset();
+	}
+
+	void CGameMap::Reset()
+	{
 		_moveSpeed = 5;
 		_sx = _sy = 0;
-		_isMovingLeft = _isMovingRight = _isMovingUp = _isMovingDown = false;
-		CMovingBitmap add_bmp;
-		for (int i = 0; i < 3; i++)
-		{
-			_bmp.push_back(add_bmp);
-		}
-		
 		for (int i = 0; i < 200; i++)
 		{
 			for (int j = 0; j < 200; j++)
@@ -33,34 +34,26 @@ namespace game_framework {
 				_map[i][j] = MapContent::NENO;
 			}
 		}
-
-		_bmpIterator = _bmp.begin();
-	}
-
-	void CGameMap::Reset()
-	{
-		this->init();
+		_animaIterator = _animas.begin();
 	}
 
 	void CGameMap::LoadBitmap()
 	{
-		_bmpIterator = GetBmp(MapContent::FLOOR);
-		_bmpIterator->LoadBitmap(IDB_FLOOR_1);
-		_bmpIterator = GetBmp(MapContent::WALL);
-		_bmpIterator->LoadBitmap(IDB_WALL_1);
+		_animaIterator = GetAnima(MapContent::NENO);
+		_animaIterator->AddBitmap(IDB_CH1_4_L, RGB(255, 255, 255));
+		_animaIterator = GetAnima(MapContent::FLOOR);
+		_animaIterator->AddBitmap(IDB_FLOOR_1, RGB(255, 255, 255));
+		_animaIterator = GetAnima(MapContent::WALL);
+		_animaIterator->AddBitmap(IDB_WALL_1, RGB(255, 255, 255));
+		_animaIterator = _animas.begin();
 	}
 
 	void CGameMap::OnMove(int px, int py)
 	{
-		//移動螢幕
-		/*if (_isMovingLeft)
-			_sx -= _moveSpeed;
-		if (_isMovingRight)
-			_sx += _moveSpeed;
-		if (_isMovingUp)
-			_sy -= _moveSpeed;
-		if (_isMovingDown)
-			_sy += _moveSpeed;*/
+		//	動畫移動
+		for (int i = 0; i < (int)_animas.size(); i++)
+			_animas.at(i).OnMove();
+			
 		//	螢幕跟隨角色
 		this->SetScreen(px - (SIZE_X>>1), py - (SIZE_Y>>1));
 	}
@@ -74,9 +67,9 @@ namespace game_framework {
 				int mx = _MAPW * i, my = _MAPH * j;
 				if ((this->InScreen(mx, my, mx + _MAPW, my + _MAPH)) && _map[i][j] != MapContent::NENO)
 				{
-					_bmpIterator = GetBmp(_map[i][j]);
-					_bmpIterator->SetTopLeft(ScreenX(mx), ScreenY(my));
-					_bmpIterator->ShowBitmap();
+					_animaIterator = GetAnima(_map[i][j]);
+					_animaIterator->SetTopLeft(ScreenX(mx), ScreenY(my));
+					_animaIterator->OnShow();
 				}
 			}
 		}
@@ -84,7 +77,7 @@ namespace game_framework {
 
 	void CGameMap::GenerateMap()
 	{
-		init();
+		Reset();
 		
 		const int INTERNAL = 40;
 		const int NROOMS = 200 / INTERNAL;
@@ -96,7 +89,7 @@ namespace game_framework {
 		for (int i = 0; i < NROOMS; i++) 
 		{
 			int r = 1 + (rand() % (NROOMS - 1));
-			r = 5;
+			//r = 5;
 			for (int j = 0; j < r; j++)
 			{
 				mask[i][j] = true;
@@ -180,34 +173,12 @@ namespace game_framework {
 
 	void CGameMap::OnKeyUp(char nChar)
 	{
-		const char KEY_LEFT = 0x25;
-		const char KEY_UP = 0x26;
-		const char KEY_RIGHT = 0x27;
-		const char KEY_DOWN = 0x28;
-		if (nChar == KEY_LEFT)
-			this->SetMovingLeft(false);
-		if (nChar == KEY_RIGHT)
-			this->SetMovingRight(false);
-		if (nChar == KEY_UP)
-			this->SetMovingUp(false);
-		if (nChar == KEY_DOWN)
-			this->SetMovingDown(false);
+
 	}
 
 	void CGameMap::OnKeyDown(char nChar)
 	{
-		const char KEY_LEFT = 0x25;
-		const char KEY_UP = 0x26;
-		const char KEY_RIGHT = 0x27;
-		const char KEY_DOWN = 0x28;
-		if (nChar == KEY_LEFT)
-			this->SetMovingLeft(true);
-		if (nChar == KEY_RIGHT)
-			this->SetMovingRight(true);
-		if (nChar == KEY_UP)
-			this->SetMovingUp(true);
-		if (nChar == KEY_DOWN)
-			this->SetMovingDown(true);
+
 	}
 
 	int CGameMap::ScreenX(int x)
@@ -236,45 +207,25 @@ namespace game_framework {
 		return (mw >= x1 && x <= x2 && mh >= y1 && y <= y2);
 	}
 
-	void CGameMap::SetMovingDown(bool flag)
-	{
-		_isMovingDown = flag;
-	}
-
-	void CGameMap::SetMovingLeft(bool flag)
-	{
-		_isMovingLeft = flag;
-	}
-
-	void CGameMap::SetMovingRight(bool flag)
-	{
-		_isMovingRight = flag;
-	}
-
-	void CGameMap::SetMovingUp(bool flag)
-	{
-		_isMovingUp = flag;
-	}
-
 	void CGameMap::SetScreen(int x, int y)
 	{
 		_sx = x;
 		_sy = y;
 	}
 
-	vector<CMovingBitmap>::iterator CGameMap::GetBmp(MapContent bmpType)
+	vector<CAnimation>::iterator CGameMap::GetAnima(MapContent Type)
 	{
-		vector<CMovingBitmap>::iterator iterator;
-		switch (bmpType)
+		vector<CAnimation>::iterator iterator;
+		switch (Type)
 		{
 		case game_framework::CGameMap::MapContent::NENO:
-			iterator = _bmp.begin();
+			iterator = _animas.begin();
 			break;
 		case game_framework::CGameMap::MapContent::FLOOR:
-			iterator = _bmp.begin() + 1;
+			iterator = _animas.begin() + 1;
 			break;
 		case game_framework::CGameMap::MapContent::WALL:
-			iterator = _bmp.begin() + 2;
+			iterator = _animas.begin() + 2;
 			break;
 		default:
 			ASSERT(0);
