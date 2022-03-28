@@ -303,6 +303,7 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	character.OnMove(&gameMap);
 	enemy0.OnMove(&gameMap);
 	enemy1.OnMove(&gameMap);
+	gameObjCenter.OnMove(&gameMap);
 }
 
 void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
@@ -413,7 +414,7 @@ void CGameStateRun::OnShow()
 
 	enemy0.OnShow(&gameMap);
 	enemy1.OnShow(&gameMap);
-
+	gameObjCenter.OnShow(&gameMap);
 	character.OnShow(&gameMap);
 }
 }

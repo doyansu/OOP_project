@@ -46,7 +46,7 @@
 #include "CGameMap.h"
 #include "CCharacter.h"
 #include "CEnemy.h"
-//#include "CGameObjCenter.h"
+#include "CGameObjCenter.h"
 
 
 
@@ -116,7 +116,7 @@ namespace game_framework {
 		CInteger		hits_left;	// 剩下的撞擊數
 		CBouncingBall   bball;		// 反覆彈跳的球
 
-		//CGameObjCenter objCenter;
+		CGameObjCenter gameObjCenter;
 		CGameMap gameMap;
 		CCharacter character;
 		CEnemy enemy0, enemy1;

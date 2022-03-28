@@ -40,7 +40,11 @@ namespace game_framework
 	void CGameObjCenter::OnShow(CGameMap* map)
 	{
 		for (CGameObj* obj : _allObj)
-			obj->OnShow(map);
+		{
+			if(map->InScreen(obj->GetX1(), obj->GetY1(), obj->GetX2(), obj->GetY2()))
+				obj->OnShow(map);
+		}
+			
 	}
 
 	void CGameObjCenter::FreeALLObj()
@@ -58,5 +62,5 @@ namespace game_framework
 	
 
 	
-
+	vector<CGameObj*> CGameObjCenter::_allObj;
 }

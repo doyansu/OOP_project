@@ -21,12 +21,12 @@ namespace game_framework
 
 
 	protected:
-		static vector<CGameObj*> _allObj;
-
+		
 	private:
+		static vector<CGameObj*> _allObj;
 		void init();
 		void freeObj();
 		
 	};
-	vector<CGameObj*> CGameObjCenter::_allObj;
+	
 }
