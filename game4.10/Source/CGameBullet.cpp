@@ -41,4 +41,10 @@ namespace game_framework
 
 	}*/
 
+	void CGameBullet::OnObjCollision(CGameObj* other)
+	{
+		if (other->GetTag() == "enemy")
+			this->SetEnable(false);
+	}
+
 }

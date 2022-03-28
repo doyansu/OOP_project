@@ -25,14 +25,27 @@ namespace game_framework
 
 	void CGameObjCenter::OnMove(CGameMap* map)
 	{
-		for (CGameObj* obj : _allObj)
-			obj->OnMove(map);
-		for (CGameObj* obj : _allObj)
-			for (CGameObj* other : _allObj)
-				if (obj->Collision(other))
+
+		for (int i = 0; i < (int)_allObj.size(); i++)
+		{
+			if (_allObj.at(i)->IsEnable())
+			{
+				_allObj.at(i)->OnMove(map);
+			}
+			else
+			{
+				delete _allObj.at(i);
+				_allObj.erase(_allObj.begin() + i);
+			}
+				
+		}
+			
+		for (int i = 0; i < (int)_allObj.size(); i++)
+			for (int j = i + 1; j < (int)_allObj.size(); j++)
+				if (_allObj.at(i)->Collision(_allObj.at(j)))
 				{
-					obj->OnObjCollision(other);
-					other->OnObjCollision(obj);
+					_allObj.at(i)->OnObjCollision(_allObj.at(j));
+					_allObj.at(j)->OnObjCollision(_allObj.at(i));
 				}
 
 	}

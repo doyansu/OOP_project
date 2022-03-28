@@ -18,7 +18,7 @@ namespace game_framework {
 
 	void CEnemy::Initialize()
 	{
-		this->SetXY(500, 500);
+		this->SetXY(400, 400);
 		CAnimation enemy0;
 		_animas.push_back(enemy0);
 		_animaIter = _animas.begin();
