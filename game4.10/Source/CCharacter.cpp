@@ -77,7 +77,7 @@ namespace game_framework {
 
 		_animaIter = _animas.begin();
 
-		_nowWeapon->DT_D(1);
+		_nowWeapon->LoadBitmap();
 	}
 
 	void CCharacter::OnShow(CGameMap* map)
