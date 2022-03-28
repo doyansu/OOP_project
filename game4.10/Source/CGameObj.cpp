@@ -16,27 +16,26 @@ namespace game_framework {
 
 	void CGameObj::init()
 	{
-		CAnimation anima;
-		_animas.push_back(anima);
+		_animas.push_back(CAnimation());
 		_tag = "null";
+		_moveSpeed = 5;
 		Reset();
 	}
 
 	void CGameObj::Reset() 
 	{
 		_mx = _my = _vector[0] = _vector[1] = 0;
-		_moveSpeed = 5;
 		_isMovingLeft = _isMovingRight = _isMovingUp = _isMovingDown = false;
 		_enable = true;
 		_animaIter = _animas.begin();
 	}
 
-	bool CGameObj::Collision(CGameObj *other)
+	bool CGameObj::Collision(CGameObj *other)	//	物件碰撞
 	{
 		return HitRectangle(other->GetX1(), other->GetY1(), other->GetX2(), other->GetY2());
 	}
 
-	bool CGameObj::Collision(CGameMap *map)
+	bool CGameObj::Collision(CGameMap *map)	//	碰到地圖邊牆
 	{
 		int x1 = GetX1();
 		int y1 = GetY1();
@@ -46,7 +45,7 @@ namespace game_framework {
 		return (!map->IsEmpty(x1, y1) || !map->IsEmpty(x1, y2) || !map->IsEmpty(x2, y1) || !map->IsEmpty(x2, y2));
 	}
 
-	bool CGameObj::HitRectangle(int tx1, int ty1, int tx2, int ty2)
+	bool CGameObj::HitRectangle(int tx1, int ty1, int tx2, int ty2)	//	矩形碰撞
 	{
 		int x1 = this->GetX1();				
 		int y1 = this->GetY1();

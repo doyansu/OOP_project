@@ -250,7 +250,9 @@ void CGameStateRun::OnBeginState()
 	CAudio::Instance()->Play(AUDIO_DING, false);		// 撥放 WAVE
 	CAudio::Instance()->Play(AUDIO_NTUT, true);			// 撥放 MIDI
 
-	gameMap.GenerateMap();
+	gameMap.GenerateMap();		//	生成地圖
+	character.Reset();			//	重設角色屬性
+	character.SetXY(500, 500);	//	暫時設定初始位置
 }
 
 void CGameStateRun::OnMove()							// 移動遊戲元素

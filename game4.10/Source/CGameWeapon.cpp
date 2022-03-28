@@ -25,13 +25,14 @@ namespace game_framework
 
 	void CGameWeapon::LoadBitmap()
 	{
-		CGameWeapon::CGameObj::LoadBitmap(IDB_ERASER1);//test
+		CGameWeapon::CGameObj::LoadBitmap(IDB_ERASER1);//test image
 		_bullet.LoadBitmap();
 
 	}
 
 	void CGameWeapon::OnMove(CGameMap* map)
 	{
+
 		for (int i = 0; i < (int)_bullets.size(); i++)
 		{
 			if (_bullets.at(i).IsEnable())
@@ -40,6 +41,7 @@ namespace game_framework
 				_bullets.erase(_bullets.begin() + i);
 		}
 
+		//	®gÀ»¶¡¹j­p¼Æ
 		if (!_fire && --_fireCounter == 0)
 			_fire = true;
 		
@@ -56,6 +58,7 @@ namespace game_framework
 
 	void CGameWeapon::Shoot(CGameMap* map, CGameObj* player)
 	{
+
 		if (_fire)
 		{
 			CGameBullet newBullet = _bullet;
@@ -67,7 +70,7 @@ namespace game_framework
 		}
 	}
 
-	bool CGameWeapon::isFire()
+	bool CGameWeapon::CanFire()
 	{
 		return _fire;
 	}

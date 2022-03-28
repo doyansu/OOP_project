@@ -8,7 +8,7 @@ namespace game_framework {
 		enum class MapContent {NENO, FLOOR, WALL};		//地圖內容物
 		CGameMap();
 		void LoadBitmap();
-		int ScreenX(int x);
+		int ScreenX(int x);				//	地圖點座標在螢幕位置
 		int ScreenY(int y);
 		bool InScreen(int x, int y, int mw, int mh);
 		bool IsEmpty(int x, int y);
@@ -26,7 +26,7 @@ namespace game_framework {
 		void OnShow();
 		void OnKeyUp(char nChar);
 		void OnKeyDown(char nChar);
-		void GenerateMap();
+		void GenerateMap();				//	生成地圖
 		void Reset();
 
 	protected:

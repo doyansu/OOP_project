@@ -12,33 +12,29 @@ namespace game_framework {
 		init();
 	}
 
-	CCharacter::~CCharacter()
-	{
-		free();
-	}
-
 	void CCharacter::init()
 	{
+		//	動畫載入
 		const int AnimaSize = 4;
 		CAnimation addAnima;
 		_animas.clear();
 		_animas.reserve(AnimaSize);
 		for(int i = 0; i < AnimaSize; i++)
 			_animas.push_back(addAnima);
+		//	屬性設定
 		this->Reset();
 		this->SetXY(500, 500);
 		this->SetTag("character");
+		//	武器載入
+		_weapon.clear();
+		_weapon.push_back(CGameWeapon());
+		_nowWeapon = _weapon.begin();
 		
 	}
 
 	void CCharacter::Reset()
 	{
-		_animaIter = _animas.begin();
 		_fire = false;
-		free();
-		_weapon.clear();
-		_weapon.push_back(CGameWeapon());
-		_nowWeapon = _weapon.begin();
 		CCharacter::CGameObj::Reset();
 		_vector[0] = 1;	//預設朝右
 	}
@@ -146,11 +142,11 @@ namespace game_framework {
 			_vector[0] = 0;
 		
 		
-		//	武器、移動
+		//	武器移動
 		_nowWeapon->SetXY((GetX1() + GetX2()) >> 1, (GetY1() + GetY2()) >> 1);
 		_nowWeapon->OnMove(map);
 		//	射擊判斷
-		if (_fire && _nowWeapon->isFire())
+		if (_fire && _nowWeapon->CanFire())
 			_nowWeapon->Shoot(map, this);	// 子彈方向使用 vector[] 給定
 		
 	}
@@ -180,7 +176,7 @@ namespace game_framework {
 		CCharacter::CGameObj::OnKeyDown(nChar);
 	}
 
-	void  CCharacter::ModifyVector(int index, int plus)
+	void  CCharacter::ModifyVector(int index, int plus) //	調整向量範圍
 	{
 		if (index > 1 || index < 0)
 			return;
