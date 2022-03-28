@@ -92,11 +92,9 @@ namespace game_framework {
 		if (_isMovingRight) {
 			_animaIter = GetAnima(Anima::RUN_R);
 			DT = 1;
-			_nowWeapon -> DT_D(DT);
 		} else if (_isMovingLeft) {
 			_animaIter = GetAnima(Anima::RUN_L);
 			DT = 0;
-			_nowWeapon -> DT_D(DT);
 		} else if (DT && (_isMovingDown || _isMovingUp))
 			_animaIter = GetAnima(Anima::RUN_R);
 		else if (!DT && (_isMovingDown || _isMovingUp))
@@ -146,7 +144,11 @@ namespace game_framework {
 		
 		
 		//	ªZ¾¹²¾°Ê
-		_nowWeapon->SetXY((GetX1() + GetX2()) >> 1, (GetY1() + GetY2()) >> 1);
+		_nowWeapon->DT_D(DT);
+		if(DT)
+			_nowWeapon->SetXY((GetX1() + GetX2()) >> 1, (GetY1() + GetY2()) >> 1);
+		else
+			_nowWeapon->SetXY(((GetX1() + GetX2()) >> 1) - (_nowWeapon->GetX2() - _nowWeapon->GetX1()), (GetY1() + GetY2()) >> 1);
 		_nowWeapon->OnMove(map);
 		//	®gÀ»§PÂ_
 		if (_fire && _nowWeapon->CanFire())

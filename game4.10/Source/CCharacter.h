@@ -18,7 +18,7 @@ namespace game_framework {
 
 	
 	protected:
-		int DT;		// ´Â¦V±±¨î
+		int DT;		// direction ´Â¦V±±¨î 1 ´Â¥k 0 ´Â¥ª
 		int _hp;
 		bool _fire;		// ®gÀ»§PÂ_
 		vector<CGameWeapon> _weapon;
