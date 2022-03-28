@@ -17,7 +17,7 @@ namespace game_framework
 		void OnMove(CGameMap* map);
 		void OnShow(CGameMap* map);
 		void Shoot(CGameMap*, CGameObj*);	//	武器射擊
-		void DT_D(int dt);
+		void DT_D(int dt);					//	根據朝向更改動畫
 
 	protected:
 		bool _fire;
