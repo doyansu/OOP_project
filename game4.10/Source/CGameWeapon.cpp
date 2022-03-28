@@ -95,6 +95,7 @@ namespace game_framework
 		}
 		else if (dt == 0) {
 			CGameWeapon::CGameObj::_animaIter = CGameWeapon::GetAnima(Anima::Left);
+			this -> _mx -= 30;
 		}
 		CGameWeapon::CGameObj::_animaIter->OnMove();
 	}
