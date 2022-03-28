@@ -46,6 +46,8 @@
 #include "CGameMap.h"
 #include "CCharacter.h"
 #include "CEnemy.h"
+//#include "CGameObjCenter.h"
+
 
 
 namespace game_framework {
@@ -114,6 +116,7 @@ namespace game_framework {
 		CInteger		hits_left;	// 剩下的撞擊數
 		CBouncingBall   bball;		// 反覆彈跳的球
 
+		//CGameObjCenter objCenter;
 		CGameMap gameMap;
 		CCharacter character;
 		CEnemy enemy0, enemy1;
@@ -136,4 +139,5 @@ namespace game_framework {
 		int counter;	// 倒數之計數器
 	};
 
+	
 }

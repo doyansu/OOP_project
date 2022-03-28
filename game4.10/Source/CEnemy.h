@@ -1,3 +1,4 @@
+#pragma once
 #include "CGameObj.h"
 namespace game_framework {
 
