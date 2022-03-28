@@ -346,5 +346,11 @@
     <Image Include="RES\character1\c01_8.bmp">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="RES\character1\weapons1.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\character1\weapons1_l.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

@@ -381,6 +381,8 @@
     <Image Include="RES\character1\c01_7.bmp" />
     <Image Include="RES\character1\c01_7_l.bmp" />
     <Image Include="RES\character1\c01_8.bmp" />
+    <Image Include="RES\character1\weapons1.bmp" />
+    <Image Include="RES\character1\weapons1_l.bmp" />
     <Image Include="RES\gate1.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

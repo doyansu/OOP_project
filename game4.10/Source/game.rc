@@ -175,20 +175,24 @@ IDB_enemy2_7            BITMAP                  "..\\..\\解包內容\\enemy_bmp\\en
 IDB_enemy2_die          BITMAP                  "..\\..\\解包內容\\enemy_bmp\\enemy34_8.bmp"
 
 IDB_CH1_0_L             BITMAP                  "..\\RES\\character1\\c01_0_l.bmp"
-											
+
 IDB_CH1_1_L             BITMAP                  "..\\RES\\character1\\c01_1_l.bmp"
-											
+
 IDB_CH1_2_L             BITMAP                  "..\\RES\\character1\\c01_2_l.bmp"
-											
+
 IDB_CH1_3_L             BITMAP                  "..\\RES\\character1\\c01_3_l.bmp"
-											
+
 IDB_CH1_4_L             BITMAP                  "..\\RES\\character1\\c01_4_l.bmp"
-												
+
 IDB_CH1_5_L             BITMAP                  "..\\RES\\character1\\c01_5_l.bmp"
-												
+
 IDB_CH1_6_L             BITMAP                  "..\\RES\\character1\\c01_6_l.bmp"
-												 
+
 IDB_CH1_7_L             BITMAP                  "..\\RES\\character1\\c01_7_l.bmp"
+
+IDB_weapon1             BITMAP                  "..\\RES\\character1\\weapons1.bmp"
+												 
+IDB_weapon1_l           BITMAP                  "..\\RES\\character1\\weapons1_l.bmp"
 
 
 /////////////////////////////////////////////////////////////////////////////

@@ -30,7 +30,7 @@ namespace game_framework {
 		{
 			for (int j = 0; j < 200; j++)
 			{
-				_map[i][j] = MapContent::NENO;
+				_map[i][j] = MapContent::NULLPTR;
 			}
 		}
 
@@ -72,7 +72,7 @@ namespace game_framework {
 			for (int j = 0; j < 200; j++)
 			{
 				int mx = _MAPW * i, my = _MAPH * j;
-				if ((this->InScreen(mx, my, mx + _MAPW, my + _MAPH)) && _map[i][j] != MapContent::NENO)
+				if ((this->InScreen(mx, my, mx + _MAPW, my + _MAPH)) && _map[i][j] != MapContent::NULLPTR)
 				{
 					_bmpIterator = GetBmp(_map[i][j]);
 					_bmpIterator->SetTopLeft(ScreenX(mx), ScreenY(my));
@@ -86,8 +86,8 @@ namespace game_framework {
 	{
 		init();
 		
-		const int INTERNAL = 40;
-		const int NROOMS = 200 / INTERNAL;
+		const int INTERNAL = 35;
+		const int NROOMS = 4;
 		int Room[NROOMS][NROOMS][2];
 		bool mask[NROOMS][NROOMS];
 		memset(mask, false, sizeof(mask));
@@ -96,7 +96,7 @@ namespace game_framework {
 		for (int i = 0; i < NROOMS; i++) 
 		{
 			int r = 1 + (rand() % (NROOMS - 1));
-			r = 5;
+			//r = 5;
 			for (int j = 0; j < r; j++)
 			{
 				mask[i][j] = true;
@@ -267,7 +267,7 @@ namespace game_framework {
 		vector<CMovingBitmap>::iterator iterator;
 		switch (bmpType)
 		{
-		case game_framework::CGameMap::MapContent::NENO:
+		case game_framework::CGameMap::MapContent::NULLPTR:
 			iterator = _bmp.begin();
 			break;
 		case game_framework::CGameMap::MapContent::FLOOR:
