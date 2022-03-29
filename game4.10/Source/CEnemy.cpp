@@ -45,6 +45,12 @@ namespace game_framework {
 		CEnemy::CGameObj::EnemyOnMove(map);
 	}
 
+	void CEnemy::OnObjCollision(CGameObj* other)
+	{
+		if (other->GetTag() == "player")
+			this->SetEnable(false);
+	}
+
 
 
 	vector<CAnimation>::iterator CEnemy::GetAnima(Anima type)

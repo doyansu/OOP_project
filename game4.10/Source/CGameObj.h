@@ -10,6 +10,7 @@ namespace game_framework {
 	{
 	public:
 		CGameObj();
+		CGameObj(const CGameObj& other);
 		bool Collision(CGameObj*);		// 物件碰撞
 		bool Collision(CGameMap*);		// 地圖碰撞
 		bool IsEnable();
@@ -43,6 +44,8 @@ namespace game_framework {
 		virtual void OnKeyDown(char);
 		virtual void Reset();
 
+		CGameObj& operator=(const CGameObj& other);
+
 	protected:
 		vector<CAnimation> _animas;						//	動畫清單
 		vector<CAnimation>::iterator _animaIter;		//	vector iterator
@@ -58,7 +61,7 @@ namespace game_framework {
 
 	private:
 		bool HitRectangle(int tx1, int ty1, int tx2, int ty2);
-		void init();
+		void init(const CGameObj&);
 	};
 }
 

@@ -11,15 +11,36 @@ namespace game_framework {
 
 	CGameObj::CGameObj()
 	{
-		init();
-	}
-
-	void CGameObj::init()
-	{
 		_animas.push_back(CAnimation());
 		_tag = "null";
 		_moveSpeed = 5;
 		Reset();
+	}
+
+	CGameObj::CGameObj(const CGameObj& other)
+	{
+		init(other);
+	}
+
+	CGameObj& CGameObj::operator=(const CGameObj& other)
+	{
+		if (this != &other) 
+			init(other);
+		return *this;
+	}
+
+	void CGameObj::init(const CGameObj& other)	//	for copy construct¡Bcopy assigment
+	{
+		this->_animas = other._animas;
+		this->_tag = other._tag;
+		this->_moveSpeed = other._moveSpeed;
+		this->_mx = other._mx;
+		this->_my = other._my;
+		this->_vector[0] = other._vector[0];
+		this->_vector[1] = other._vector[1];
+		this->_isMovingLeft = this->_isMovingRight = this->_isMovingUp = this->_isMovingDown = false;
+		this->_enable = other._enable;
+		this->_animaIter = this->_animas.begin();
 	}
 
 	void CGameObj::Reset() 

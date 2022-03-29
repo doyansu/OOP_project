@@ -352,9 +352,11 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	enemy0.LoadBitmap();
 	enemy1.LoadBitmap();
 
-	CEnemy test;
+	/*CEnemy test;
 	test.LoadBitmap();
-	CGameObjCenter::AddObj(new CEnemy(test));
+	CGameObj* p = new CEnemy(test);
+	CGameObjCenter::AddObj(p);*/
+	
 }
 
 void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)

@@ -47,17 +47,17 @@ namespace game_framework
 					_allObj.at(i)->OnObjCollision(_allObj.at(j));
 					_allObj.at(j)->OnObjCollision(_allObj.at(i));
 				}
-
+				
 	}
 
 	void CGameObjCenter::OnShow(CGameMap* map)
 	{
-		for (CGameObj* obj : _allObj)
+		for (int i = 0; i < (int)_allObj.size(); i++)
 		{
+			CGameObj* obj = _allObj.at(i);
 			if(map->InScreen(obj->GetX1(), obj->GetY1(), obj->GetX2(), obj->GetY2()))
 				obj->OnShow(map);
 		}
-			
 	}
 
 	void CGameObjCenter::FreeALLObj()
