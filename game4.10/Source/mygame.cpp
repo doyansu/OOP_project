@@ -258,7 +258,7 @@ void CGameStateRun::OnBeginState()
 	//test
 	//CEnemy test;
 	//test.LoadBitmap();
-	//CGameObjCenter::AddObj(new CEnemy(enemy1));
+	//CGameObjCenter::AddObj(new CEnemy(test));
 	//gameObjCenter.AddObj(new CEnemy(enemy1));
 }
 

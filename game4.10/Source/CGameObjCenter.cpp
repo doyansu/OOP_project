@@ -25,7 +25,6 @@ namespace game_framework
 
 	void CGameObjCenter::OnMove(CGameMap* map)
 	{
-
 		for (int i = 0; i < (int)_allObj.size(); i++)
 		{
 			if (_allObj.at(i)->IsEnable())
@@ -39,6 +38,7 @@ namespace game_framework
 			}
 				
 		}
+
 			
 		for (int i = 0; i < (int)_allObj.size(); i++)
 			for (int j = i + 1; j < (int)_allObj.size(); j++)

@@ -32,17 +32,18 @@ namespace game_framework {
 		_animas.at(0).AddBitmap(IDB_enemy0_2, RGB(255, 255, 255));
 		_animas.at(0).AddBitmap(IDB_enemy0_3, RGB(255, 255, 255));
 		_animas.at(0).AddBitmap(IDB_enemy0_4, RGB(255, 255, 255));
+		_animaIter = _animas.begin();
 	}
 
 	void CEnemy::OnShow(CGameMap* map)
 	{
-		CGameObj::OnShow(map);
+		CEnemy::CGameObj::OnShow(map);
 	}
 
 	void CEnemy::OnMove(CGameMap *map)
 	{
-		_animaIter = GetAnima(Anima::INIT_R);
-		CGameObj::EnemyOnMove(map);
+		CEnemy::_animaIter = GetAnima(Anima::INIT_R);
+		CEnemy::CGameObj::EnemyOnMove(map);
 	}
 
 
