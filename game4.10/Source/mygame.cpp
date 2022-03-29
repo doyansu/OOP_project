@@ -250,14 +250,14 @@ void CGameStateRun::OnBeginState()
 	CAudio::Instance()->Play(AUDIO_DING, false);		// 撥放 WAVE
 	CAudio::Instance()->Play(AUDIO_NTUT, true);			// 撥放 MIDI*/
 
-	gameObjCenter.FreeALLObj();	//	清空地圖物件
+	//gameObjCenter.FreeALLObj();	//	清空地圖物件
 	gameMap.GenerateMap();		//	生成地圖
 	character.Reset();			//	重設角色屬性
 	character.SetXY(500, 500);	//	暫時設定初始位置
 
 	//test
-	CGameBullet test;
-	test.LoadBitmap();
+	//CGameBullet test;
+	//test.LoadBitmap();
 	//CGameObjCenter::AddObj(new CGameBullet(test));
 	//gameObjCenter.AddObj(new CEnemy(enemy1));
 }
@@ -351,6 +351,10 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	character.LoadBitmap();
 	enemy0.LoadBitmap();
 	enemy1.LoadBitmap();
+
+	CEnemy test;
+	test.LoadBitmap();
+	CGameObjCenter::AddObj(new CEnemy(test));
 }
 
 void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
