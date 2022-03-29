@@ -6,6 +6,7 @@
 #include "gamelib.h"
 #include "CGameObjCenter.h"
 
+
 namespace game_framework
 {
 	CGameObjCenter::CGameObjCenter()
@@ -38,7 +39,6 @@ namespace game_framework
 			}
 				
 		}
-
 			
 		for (int i = 0; i < (int)_allObj.size(); i++)
 			for (int j = i + 1; j < (int)_allObj.size(); j++)
