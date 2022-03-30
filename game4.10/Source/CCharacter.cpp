@@ -36,7 +36,7 @@ namespace game_framework {
 
 	void CCharacter::Reset()
 	{
-		_fire = false;
+		_doFire = false;
 		CCharacter::CGameObj::Reset();
 		_vector[0] = 1;	//預設朝右
 		DT = 1;
@@ -152,10 +152,48 @@ namespace game_framework {
 		else
 			_nowWeapon->SetXY(((GetX1() + GetX2()) >> 1) - (_nowWeapon->GetX2() - _nowWeapon->GetX1()), (GetY1() + GetY2()) >> 1);
 		_nowWeapon->OnMove(map);
-		//	射擊判斷
-		if (_fire && _nowWeapon->CanFire())
-			_nowWeapon->Shoot(map, this);	// 子彈方向使用 vector[] 給定
-		
+
+		//	武器射擊判斷
+		if (_doFire)
+		{
+			const double MAXSEARCH = 600.0;	// 最大搜索範圍 
+			const double MINSEARCH = 80.0;	// 最小搜索範圍 
+			const double MAXMAPDISTANCE = 10000.0;	//	極限距離 玩家敵人間距離不超過
+			// 找到最近的敵人
+			vector<CGameObj*> enemys = CGameObjCenter::FindObjsBy(
+				[](CGameObj* obj)
+				{
+					return obj->GetTag() == "enemy";
+				}
+			);
+			double d = MAXMAPDISTANCE;
+			CGameObj* target = nullptr;
+			for (CGameObj* enemy : enemys)
+			{
+				if (d > this->Distance(enemy))
+				{
+					d = this->Distance(enemy);
+					target = enemy;
+				}
+			}
+
+			// 射擊
+			if (_nowWeapon->CanFire() && target != nullptr && d >= MINSEARCH && d <= MAXSEARCH)// 找到敵人朝敵人射擊
+			{
+				double vx = (double)(target->CenterX() - this->CenterX()) / d;
+				double vy = (double)(target->CenterY() - this->CenterY()) / d;
+				_nowWeapon->Shoot(vx, vy);
+			}
+			else if(target != nullptr && Collision(target)) // 近戰攻擊
+			{
+				d = 0;
+				
+			}
+			else if (_nowWeapon->CanFire()) // 沒找到敵人朝 vector 射擊
+			{
+				_nowWeapon->Shoot(_vector[0], _vector[1]);
+			}
+		}
 	}
 
 	void CCharacter::OnKeyUp(char nChar)
@@ -165,7 +203,7 @@ namespace game_framework {
 		const char KEY_Q = 0x51;
 		if (nChar == KEY_SPACE || nChar == KEY_Q)
 		{
-			_fire = false;
+			_doFire = false;
 		}
 
 		CCharacter::CGameObj::OnKeyUp(nChar);
@@ -177,7 +215,7 @@ namespace game_framework {
 		const char KEY_Q = 0x51;
 		if (nChar == KEY_SPACE || nChar == KEY_Q)
 		{
-			_fire = true;
+			_doFire = true;
 		}
 
 		CCharacter::CGameObj::OnKeyDown(nChar);

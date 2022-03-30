@@ -24,15 +24,15 @@ namespace game_framework {
 		int GetY1();					
 		virtual int GetX2();			// 右下地圖點座標
 		virtual int GetY2();
-		int GetVectorX();				// 拿取方向
-		int GetVectorY();
+		double GetVectorX();				// 拿取方向
+		double GetVectorY();
 		string GetTag();
 
 		// Setter
 		void SetEnable(bool);
 		void SetFree(bool);
 		void SetDie(bool);
-		void SetVector(int, int);
+		void SetVector(double, double);
 		void SetMovingDown(bool flag);	// 設定是否正在往下移動
 		void SetMovingLeft(bool flag);	// 設定是否正在往左移動
 		void SetMovingRight(bool flag); // 設定是否正在往右移動
@@ -52,7 +52,7 @@ namespace game_framework {
 		virtual void OnKeyUp(char);
 		virtual void OnKeyDown(char);
 		virtual void Reset();
-		int Distance(CGameObj*);
+		double Distance(CGameObj*);
 		int CenterX();
 		int CenterY();
 
@@ -63,7 +63,7 @@ namespace game_framework {
 		vector<CAnimation> _animas;						//	動畫清單
 		vector<CAnimation>::iterator _animaIter;		//	vector iterator
 		int _mx, _my, _moveSpeed;						//	地圖點座標、移動速度
-		int _vector[2];									//	移動用向量
+		double _vector[2];									//	移動用向量
 		bool _isEnable, _needFree, _isDie;				//	是否啟用、釋放、死亡
 		bool _isMovingDown;								//	是否正在往下移動
 		bool _isMovingLeft;								//	是否正在往左移動

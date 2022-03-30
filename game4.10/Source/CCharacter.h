@@ -1,6 +1,7 @@
 #pragma once
 #include "CGameObj.h"
 #include "CGameWeapon.h"
+#include "CGameObjCenter.h"
 
 namespace game_framework {
 
@@ -21,7 +22,7 @@ namespace game_framework {
 	protected:
 		int DT;		// direction ´Â¦V±±¨î 1 ´Â¥k 0 ´Â¥ª
 		int _hp;
-		bool _fire;		// ®gÀ»§PÂ_
+		bool _doFire;			// ®gÀ»§PÂ_
 		vector<CGameWeapon> _weapon;
 		vector<CGameWeapon>::iterator _nowWeapon;
 

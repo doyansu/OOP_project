@@ -59,12 +59,12 @@ namespace game_framework
 		CGameWeapon::CGameObj::OnShow(map);
 	}
 
-	void CGameWeapon::Shoot(CGameMap* map, CGameObj* user)
+	void CGameWeapon::Shoot(double x, double y)
 	{
 		if (_fire)
 		{
 			_bullet.SetXY(_mx, _my);
-			_bullet.SetVector(user->GetVectorX(), user->GetVectorY());
+			_bullet.SetVector(x, y);
 			CGameObjCenter::AddObj(new CGameBullet(_bullet));
 			_fire = false;
 			_fireCounter = _shootGap;

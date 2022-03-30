@@ -50,7 +50,8 @@ namespace game_framework {
 
 	void CGameObj::Reset() 
 	{
-		_mx = _my = _vector[0] = _vector[1] = 0;
+		_mx = _my = 0;
+		_vector[0] = _vector[1] = 0.0;
 		_isMovingLeft = _isMovingRight = _isMovingUp = _isMovingDown = false;
 		_isEnable = true;
 		_isDie = false;
@@ -96,13 +97,13 @@ namespace game_framework {
 		const int range = 20;
 
 		//_animaIter->OnMove();
-		_mx += _vector[0];
-		_my += _vector[1];
+		_mx += (int)_vector[0];
+		_my += (int)_vector[1];
 
 		if (CGameObj::Collision(map))
 		{
-			_mx -= _vector[0];
-			_my -= _vector[1];
+			_mx -= (int)_vector[0];
+			_my -= (int)_vector[1];
 		}
 
 		if ((rand() % range) == 0)
@@ -161,19 +162,19 @@ namespace game_framework {
 
 	int CGameObj::CenterX()
 	{
-		return ((this->GetX1() + this->GetX2()) >> 1);
+		return (this->GetX1() + ((this->GetX2() + this->GetX1()) >> 1));	
 	}
 
 	int CGameObj::CenterY()
 	{
-		return ((this->GetY1() + this->GetY2()) >> 1);
+		return (this->GetY1() + ((this->GetY2() + this->GetY1()) >> 1));
 	}
 
-	int CGameObj::Distance(CGameObj* other)
+	double CGameObj::Distance(CGameObj* other)
 	{
 		const int centerx = CenterX() - other->CenterX();
 		const int centery = CenterY() - other->CenterY();
-		return centerx * centerx + centery * centery;
+		return sqrt((double)(centerx * centerx + centery * centery));
 	}
 
 	int CGameObj::GetX1()
@@ -196,12 +197,12 @@ namespace game_framework {
 		return _my + _animaIter->Height();
 	}
 
-	int CGameObj::GetVectorX()
+	double CGameObj::GetVectorX()
 	{
 		return _vector[0];
 	}
 
-	int CGameObj::GetVectorY()
+	double CGameObj::GetVectorY()
 	{
 		return _vector[1];
 	}
@@ -241,7 +242,7 @@ namespace game_framework {
 		_needFree = free;
 	}
 
-	void CGameObj::SetVector(int vx, int vy)
+	void CGameObj::SetVector(double vx, double vy)
 	{
 		_vector[0] = vx;
 		_vector[1] = vy;

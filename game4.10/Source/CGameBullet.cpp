@@ -28,8 +28,8 @@ namespace game_framework
 	void CGameBullet::OnMove(CGameMap* map)
 	{
 		//	根據 _vector 進行移動
-		_mx += _moveSpeed * _vector[0];
-		_my += _moveSpeed * _vector[1];
+		_mx += (int)((double)_moveSpeed * _vector[0]);
+		_my += (int)((double)_moveSpeed * _vector[1]);
 
 		//	接觸到地圖圍牆停止
 		if (CGameBullet::CGameObj::Collision(map))
