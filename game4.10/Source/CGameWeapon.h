@@ -2,6 +2,7 @@
 #include "CGameObj.h"
 #include "CGameBullet.h"
 #include "CGameObjCenter.h"
+#include "CEnemy.h"
 
 namespace game_framework
 {
@@ -25,6 +26,7 @@ namespace game_framework
 		int _atk, _cost, _bulletSpeed, _shootGap;		//	攻擊力、消耗能量、子彈速度、攻擊速度
 		int _fireCounter;					//	射擊間格計數
 		CGameBullet _bullet;				//	子彈設定
+		CEnemy test;
 		vector<CGameBullet> _bullets;		//	管理子彈 (可能更改)
 
 	private:

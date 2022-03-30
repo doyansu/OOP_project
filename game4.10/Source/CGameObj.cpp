@@ -11,27 +11,29 @@ namespace game_framework {
 
 	CGameObj::CGameObj()
 	{
+		_animas.reserve(20);
 		_animas.push_back(CAnimation());
 		_tag = "null";
 		_moveSpeed = 5;
+		_needFree = false;
 		Reset();
 	}
 
 	CGameObj::CGameObj(const CGameObj& other)
 	{
-		init(other);
+		copy(other);
 	}
 
 	CGameObj& CGameObj::operator=(const CGameObj& other)
 	{
 		if (this != &other) 
-			init(other);
+			copy(other);
 		return *this;
 	}
 
-	void CGameObj::init(const CGameObj& other)	//	for copy construct¡Bcopy assigment
+	void CGameObj::copy(const CGameObj& other)	//	for copy construct¡Bcopy assigment
 	{
-		this->_animas = other._animas;
+		this->_animas.assign(other._animas.begin(), other._animas.end());
 		this->_tag = other._tag;
 		this->_moveSpeed = other._moveSpeed;
 		this->_mx = other._mx;
@@ -39,7 +41,8 @@ namespace game_framework {
 		this->_vector[0] = other._vector[0];
 		this->_vector[1] = other._vector[1];
 		this->_isMovingLeft = this->_isMovingRight = this->_isMovingUp = this->_isMovingDown = false;
-		this->_enable = other._enable;
+		this->_isEnable = other._isEnable;
+		this->_needFree = other._needFree;
 		this->_animaIter = this->_animas.begin();
 	}
 
@@ -47,7 +50,7 @@ namespace game_framework {
 	{
 		_mx = _my = _vector[0] = _vector[1] = 0;
 		_isMovingLeft = _isMovingRight = _isMovingUp = _isMovingDown = false;
-		_enable = true;
+		_isEnable = true;
 		_animaIter = _animas.begin();
 	}
 
@@ -89,7 +92,7 @@ namespace game_framework {
 	void CGameObj::EnemyOnMove(CGameMap* map){
 		const int range = 20;
 
-		_animaIter->OnMove();
+		//_animaIter->OnMove();
 		_mx += _vector[0];
 		_my += _vector[1];
 
@@ -188,14 +191,24 @@ namespace game_framework {
 		return _tag;
 	}
 
+	bool CGameObj::NeedFree()	
+	{
+		return _needFree;
+	}
+
 	bool CGameObj::IsEnable()
 	{
-		return _enable;
+		return _isEnable;
 	}
 
 	void CGameObj::SetEnable(bool enable)
 	{
-		_enable = enable;
+		_isEnable = enable;
+	}
+
+	void CGameObj::SetFree(bool free)
+	{
+		_needFree = free;
 	}
 
 	void CGameObj::SetVector(int vx, int vy)

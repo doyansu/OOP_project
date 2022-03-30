@@ -5,7 +5,7 @@
 #include "audio.h"
 #include "gamelib.h"
 #include "CGameWeapon.h"
-#include "CEnemy.h"
+
 
 
 namespace game_framework
@@ -27,6 +27,8 @@ namespace game_framework
 		_shootGap = 10;
 		_bulletSpeed = 20;	
 		_bullet.SetSpeed(_bulletSpeed);
+		_bullet.SetFree(true);
+		test.SetFree(true);
 		_fire = true;
 		CGameWeapon::CGameObj::SetTag("weapon");
 	}
@@ -42,19 +44,11 @@ namespace game_framework
 		CGameWeapon::CGameObj::_animaIter = _animas.begin();
 
 		_bullet.LoadBitmap();
-
+		test.LoadBitmap();
 	}
 
 	void CGameWeapon::OnMove(CGameMap* map)
 	{
-
-		/*for (int i = 0; i < (int)_bullets.size(); i++)
-		{
-			if (_bullets.at(i).IsEnable())
-				_bullets.at(i).OnMove(map);
-			else
-				_bullets.erase(_bullets.begin() + i);
-		}*/
 
 		//	®gÀ»¶¡¹j­p¼Æ
 		if (!_fire && --_fireCounter == 0)
@@ -64,29 +58,18 @@ namespace game_framework
 
 	void CGameWeapon::OnShow(CGameMap* map)
 	{
-		/*for (int i = 0; i < (int)_bullets.size(); i++)
-		{
-			_bullets.at(i).OnShow(map);
-		}*/
 		CGameWeapon::CGameObj::OnShow(map);
 	}
 
 	void CGameWeapon::Shoot(CGameMap* map, CGameObj* player)
 	{
-		/*if (_fire)
-		{
-			CGameBullet newBullet = _bullet;
-			newBullet.SetXY(_mx, _my);
-			newBullet.SetVector(player->GetVectorX(), player->GetVectorY());
-			_bullets.push_back(newBullet);
-			_fire = false;
-			_fireCounter = _shootGap;
-		}*/
 		if (_fire)
 		{
 			_bullet.SetXY(_mx, _my);
 			_bullet.SetVector(player->GetVectorX(), player->GetVectorY());
 			CGameObjCenter::AddObj(new CGameBullet(_bullet));
+			test.SetXY(_mx, _my);
+			CGameObjCenter::AddObj(new CEnemy(test));
 			_fire = false;
 			_fireCounter = _shootGap;
 		}

@@ -68,7 +68,13 @@ namespace game_framework
 	void CGameObjCenter::freeObj()
 	{
 		for (CGameObj* p : _allObj)
-			delete p;
+		{
+			if (p->NeedFree())
+			{
+				delete p;
+			}
+		}
+			
 		_allObj.clear();
 	}
 

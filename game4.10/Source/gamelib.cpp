@@ -142,6 +142,35 @@ CAnimation::CAnimation(int count)
 	x = y = bmp_counter = 0;
 }
 
+CAnimation::CAnimation(const CAnimation& other)
+{
+	this->bmp = other.bmp;
+	this->bmp_iter = bmp.begin();
+	this->bmp_counter = other.bmp_counter;
+	this->delay_counter = other.delay_counter;
+	this->delay_count = other.delay_count;
+	this->x = other.x;
+	this->y = other.y;
+}
+
+CAnimation& CAnimation::operator=(const CAnimation& other)
+{
+	if(this != &other)
+		copy(other);
+	return *this;
+}
+
+void CAnimation::copy(const CAnimation& other)
+{
+	this->bmp = other.bmp;
+	this->bmp_iter = bmp.begin();
+	this->bmp_counter = other.bmp_counter;
+	this->delay_counter = other.delay_counter;
+	this->delay_count = other.delay_count;
+	this->x = other.x;
+	this->y = other.y;
+}
+
 void CAnimation::AddBitmap(int IDB_BITMAP, COLORREF colorkey) 
 {
 	CMovingBitmap add_bmp;

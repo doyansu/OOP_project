@@ -14,6 +14,7 @@ namespace game_framework {
 		bool Collision(CGameObj*);		// 物件碰撞
 		bool Collision(CGameMap*);		// 地圖碰撞
 		bool IsEnable();
+		bool NeedFree();
 
 		int GetX1();
 		int GetY1();
@@ -24,6 +25,7 @@ namespace game_framework {
 		string GetTag();
 
 		void SetEnable(bool);
+		void SetFree(bool);
 		void SetVector(int, int);
 		void SetMovingDown(bool flag);	// 設定是否正在往下移動
 		void SetMovingLeft(bool flag);	// 設定是否正在往左移動
@@ -51,7 +53,7 @@ namespace game_framework {
 		vector<CAnimation>::iterator _animaIter;		//	vector iterator
 		int _mx, _my, _moveSpeed;						//	地圖點座標、移動速度
 		int _vector[2];									//	移動用向量
-		bool _enable;									//	是否啟用
+		bool _isEnable, _needFree;						//	是否啟用、釋放
 		bool _isMovingDown;								//	是否正在往下移動
 		bool _isMovingLeft;								//	是否正在往左移動
 		bool _isMovingRight;							//	是否正在往右移動
@@ -61,7 +63,7 @@ namespace game_framework {
 
 	private:
 		bool HitRectangle(int tx1, int ty1, int tx2, int ty2);
-		void init(const CGameObj&);
+		void copy(const CGameObj&);
 	};
 }
 

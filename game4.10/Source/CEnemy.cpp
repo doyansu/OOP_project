@@ -19,30 +19,32 @@ namespace game_framework {
 	void CEnemy::Initialize()
 	{
 		this->SetXY(400, 400);
-		//_animas.clear();
-		//_animas.push_back(CAnimation());
+		_animas.clear();
+		_animas.push_back(CAnimation());
 		_animaIter = _animas.begin();
 		CEnemy::CGameObj::SetTag("enemy");
 	}
 
 	void CEnemy::LoadBitmap()
 	{
-		_animas.at(0).AddBitmap(IDB_enemy0_0, RGB(255, 255, 255));
-		_animas.at(0).AddBitmap(IDB_enemy0_1, RGB(255, 255, 255));
-		_animas.at(0).AddBitmap(IDB_enemy0_2, RGB(255, 255, 255));
-		_animas.at(0).AddBitmap(IDB_enemy0_3, RGB(255, 255, 255));
-		_animas.at(0).AddBitmap(IDB_enemy0_4, RGB(255, 255, 255));
+		_animaIter = GetAnima(CEnemy::Anima::INIT_R);
+		_animaIter->AddBitmap(IDB_enemy0_0, RGB(255, 255, 255));
+		_animaIter->AddBitmap(IDB_enemy0_1, RGB(255, 255, 255));
+		_animaIter->AddBitmap(IDB_enemy0_2, RGB(255, 255, 255));
+		_animaIter->AddBitmap(IDB_enemy0_3, RGB(255, 255, 255));
+		_animaIter->AddBitmap(IDB_enemy0_4, RGB(255, 255, 255));
+
 		_animaIter = _animas.begin();
 	}
 
-	/*void CEnemy::OnShow(CGameMap* map)
+	void CEnemy::OnShow(CGameMap* map)
 	{
 		CEnemy::CGameObj::OnShow(map);
-	}*/
+	}
 
 	void CEnemy::OnMove(CGameMap *map)
 	{
-		CEnemy::_animaIter = GetAnima(Anima::INIT_R);
+		CEnemy::CGameObj::_animaIter = GetAnima(Anima::INIT_R);
 		CEnemy::CGameObj::EnemyOnMove(map);
 	}
 

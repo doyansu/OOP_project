@@ -264,6 +264,7 @@ void CGameStateRun::OnBeginState()
 	test.LoadBitmap();
 	CGameObj* p = new CEnemy(test);
 	CGameObjCenter::AddObj(p);*/
+	CGameObjCenter::AddObj(&character);
 }
 
 void CGameStateRun::OnMove()							// 移動遊戲元素
@@ -311,7 +312,7 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	bball.OnMove();*/
 
 	gameMap.OnMove(character.GetX1(), character.GetY1());
-	character.OnMove(&gameMap);
+	//character.OnMove(&gameMap);
 	enemy0.OnMove(&gameMap);
 	enemy1.OnMove(&gameMap);
 	gameObjCenter.OnMove(&gameMap);
@@ -432,6 +433,6 @@ void CGameStateRun::OnShow()
 	enemy0.OnShow(&gameMap);
 	enemy1.OnShow(&gameMap);
 	gameObjCenter.OnShow(&gameMap);
-	character.OnShow(&gameMap);
+	//character.OnShow(&gameMap);
 }
 }

@@ -9,7 +9,7 @@ namespace game_framework {
 		CEnemy();
 		void Initialize();				// 初始值
 		void LoadBitmap();				// 載入圖形
-		//void OnShow(CGameMap*);					// 將圖形貼到畫面
+		void OnShow(CGameMap*);					// 將圖形貼到畫面
 		void OnMove(CGameMap*);
 		void OnObjCollision(CGameObj*);
 		//void EnemyOnMove(CGameMap *);
