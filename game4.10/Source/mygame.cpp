@@ -263,9 +263,9 @@ void CGameStateRun::OnBeginState()
 	//gameObjCenter.AddObj(new CEnemy(enemy1));
 	CEnemy test;
 	test.LoadBitmap();
-	CGameObj* p = new CEnemy(test);
-	CGameObjCenter::AddObj(p);
-	
+	CGameObjCenter::AddObj(new CEnemy(test));
+	CGameObjCenter::AddObj(new CEnemy(enemy0));
+	CGameObjCenter::AddObj(new CEnemy(enemy1));
 }
 
 void CGameStateRun::OnMove()							// 移動遊戲元素
@@ -313,9 +313,6 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	bball.OnMove();*/
 
 	gameMap.OnMove(character.GetX1(), character.GetY1());
-	//character.OnMove(&gameMap);
-	enemy0.OnMove(&gameMap);
-	enemy1.OnMove(&gameMap);
 	gameObjCenter.OnMove(&gameMap);
 }
 
@@ -378,12 +375,12 @@ void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 
 void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的動作
 {
-	//eraser.SetMovingLeft(true);
+	
 }
 
 void CGameStateRun::OnLButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動作
 {
-	//eraser.SetMovingLeft(false);
+	
 }
 
 void CGameStateRun::OnMouseMove(UINT nFlags, CPoint point)	// 處理滑鼠的動作
@@ -393,12 +390,12 @@ void CGameStateRun::OnMouseMove(UINT nFlags, CPoint point)	// 處理滑鼠的動作
 
 void CGameStateRun::OnRButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的動作
 {
-	//eraser.SetMovingRight(true);
+	
 }
 
 void CGameStateRun::OnRButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動作
 {
-	//eraser.SetMovingRight(false);
+	
 }
 
 void CGameStateRun::OnShow()
@@ -427,8 +424,6 @@ void CGameStateRun::OnShow()
 	corner.ShowBitmap();*/
 
 	gameMap.OnShow();
-	enemy0.OnShow(&gameMap);
-	enemy1.OnShow(&gameMap);
 	gameObjCenter.OnShow(&gameMap);
 	//character.OnShow(&gameMap);
 }

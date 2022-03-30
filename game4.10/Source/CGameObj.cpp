@@ -33,7 +33,8 @@ namespace game_framework {
 
 	void CGameObj::copy(const CGameObj& other)	//	for copy construct¡Bcopy assigment
 	{
-		this->_animas.assign(other._animas.begin(), other._animas.end());
+		//this->_animas.assign(other._animas.begin(), other._animas.end());
+		this->_animas = other._animas;
 		this->_tag = other._tag;
 		this->_moveSpeed = other._moveSpeed;
 		this->_mx = other._mx;

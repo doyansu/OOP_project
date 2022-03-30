@@ -17,7 +17,6 @@ namespace game_framework
 		static void CGameObjCenter::AddObj(CGameObj* obj)
 		{
 			CGameObjCenter::_allObj.push_back(obj);
-			//_allObj.insert(_allObj.end(), obj);
 		}
 
 
