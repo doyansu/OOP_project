@@ -214,14 +214,14 @@ void CGameStateOver::OnShow()
 /////////////////////////////////////////////////////////////////////////////
 
 CGameStateRun::CGameStateRun(CGame *g)
-: CGameState(g), NUMBALLS(28)
+: CGameState(g)//, NUMBALLS(28)
 {
-	ball = new CBall [NUMBALLS];
+	//ball = new CBall [NUMBALLS];
 }
 
 CGameStateRun::~CGameStateRun()
 {
-	delete [] ball;
+	//delete [] ball;
 }
 
 void CGameStateRun::OnBeginState()
@@ -250,16 +250,20 @@ void CGameStateRun::OnBeginState()
 	CAudio::Instance()->Play(AUDIO_DING, false);		// 撥放 WAVE
 	CAudio::Instance()->Play(AUDIO_NTUT, true);			// 撥放 MIDI*/
 
-	//gameObjCenter.FreeALLObj();	//	清空地圖物件
+	gameObjCenter.FreeALLObj();	//	清空地圖物件
 	gameMap.GenerateMap();		//	生成地圖
 	character.Reset();			//	重設角色屬性
 	character.SetXY(500, 500);	//	暫時設定初始位置
 
 	//test
-	//CGameBullet test;
-	//test.LoadBitmap();
-	//CGameObjCenter::AddObj(new CGameBullet(test));
+	/*CGameBullet test;
+	test.LoadBitmap();
+	CGameObjCenter::AddObj(new CGameBullet(test));*/
 	//gameObjCenter.AddObj(new CEnemy(enemy1));
+	/*CEnemy test;
+	test.LoadBitmap();
+	CGameObj* p = new CEnemy(test);
+	CGameObjCenter::AddObj(p);*/
 }
 
 void CGameStateRun::OnMove()							// 移動遊戲元素
@@ -348,6 +352,7 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	// 此OnInit動作會接到CGameStaterOver::OnInit()，所以進度還沒到100%
 	//
 	gameMap.LoadBitmap();
+	gameMap.GenerateMap();
 	character.LoadBitmap();
 	enemy0.LoadBitmap();
 	enemy1.LoadBitmap();
@@ -356,7 +361,6 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	test.LoadBitmap();
 	CGameObj* p = new CEnemy(test);
 	CGameObjCenter::AddObj(p);*/
-	
 }
 
 void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
@@ -401,7 +405,6 @@ void CGameStateRun::OnRButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動作
 
 void CGameStateRun::OnShow()
 {
-	gameMap.OnShow();
 	//
 	//  注意：Show裡面千萬不要移動任何物件的座標，移動座標的工作應由Move做才對，
 	//        否則當視窗重新繪圖時(OnDraw)，物件就會移動，看起來會很怪。換個術語
@@ -425,6 +428,7 @@ void CGameStateRun::OnShow()
 	corner.SetTopLeft(SIZE_X-corner.Width(), SIZE_Y-corner.Height());
 	corner.ShowBitmap();*/
 
+	gameMap.OnShow();
 	enemy0.OnShow(&gameMap);
 	enemy1.OnShow(&gameMap);
 	gameObjCenter.OnShow(&gameMap);

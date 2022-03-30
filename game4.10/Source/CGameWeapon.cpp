@@ -5,7 +5,7 @@
 #include "audio.h"
 #include "gamelib.h"
 #include "CGameWeapon.h"
-#include "CGameObjCenter.h"
+
 
 namespace game_framework
 {

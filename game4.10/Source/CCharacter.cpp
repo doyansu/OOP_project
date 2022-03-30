@@ -9,27 +9,27 @@
 namespace game_framework {
 	CCharacter::CCharacter()
 	{
-		init();
-	}
-
-	void CCharacter::init()
-	{
 		//	動畫載入
-		_hp = 5;
 		const int AnimaSize = 4;
-		//CAnimation addAnima;
 		_animas.clear();
 		_animas.reserve(AnimaSize);
-		for(int i = 0; i < AnimaSize; i++)
+		for (int i = 0; i < AnimaSize; i++)
 			_animas.push_back(CAnimation());
+
 		//	屬性設定
+		_hp = 5;
 		this->Reset();
 		this->SetXY(500, 500);
 		this->SetTag("character");
+
 		//	武器載入
 		_weapon.clear();
 		_weapon.push_back(CGameWeapon());
 		_nowWeapon = _weapon.begin();
+	}
+
+	void CCharacter::init()
+	{
 		
 	}
 
@@ -38,6 +38,7 @@ namespace game_framework {
 		_fire = false;
 		CCharacter::CGameObj::Reset();
 		_vector[0] = 1;	//預設朝右
+		DT = 1;
 	}
 
 	void CCharacter::free()
