@@ -15,6 +15,7 @@ namespace game_framework {
 		bool Collision(CGameMap*);		// 地圖碰撞
 		bool IsEnable();
 		bool NeedFree();
+		bool IsDie();
 
 		int GetX1();
 		int GetY1();
@@ -26,6 +27,7 @@ namespace game_framework {
 
 		void SetEnable(bool);
 		void SetFree(bool);
+		void SetDie(bool);
 		void SetVector(int, int);
 		void SetMovingDown(bool flag);	// 設定是否正在往下移動
 		void SetMovingLeft(bool flag);	// 設定是否正在往左移動
@@ -42,6 +44,7 @@ namespace game_framework {
 		virtual void OnMove(CGameMap*);
 		virtual void EnemyOnMove(CGameMap*);
 		virtual void OnObjCollision(CGameObj*) {};
+		virtual void OnDie() {};
 		virtual void OnKeyUp(char);
 		virtual void OnKeyDown(char);
 		virtual void Reset();
@@ -53,7 +56,7 @@ namespace game_framework {
 		vector<CAnimation>::iterator _animaIter;		//	vector iterator
 		int _mx, _my, _moveSpeed;						//	地圖點座標、移動速度
 		int _vector[2];									//	移動用向量
-		bool _isEnable, _needFree;						//	是否啟用、釋放
+		bool _isEnable, _needFree, _isDie;				//	是否啟用、釋放、死亡
 		bool _isMovingDown;								//	是否正在往下移動
 		bool _isMovingLeft;								//	是否正在往左移動
 		bool _isMovingRight;							//	是否正在往右移動

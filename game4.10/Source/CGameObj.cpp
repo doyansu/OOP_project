@@ -44,6 +44,7 @@ namespace game_framework {
 		this->_isMovingLeft = this->_isMovingRight = this->_isMovingUp = this->_isMovingDown = false;
 		this->_isEnable = other._isEnable;
 		this->_needFree = other._needFree;
+		this->_isDie = other._isDie;
 		this->_animaIter = this->_animas.begin();
 	}
 
@@ -52,6 +53,7 @@ namespace game_framework {
 		_mx = _my = _vector[0] = _vector[1] = 0;
 		_isMovingLeft = _isMovingRight = _isMovingUp = _isMovingDown = false;
 		_isEnable = true;
+		_isDie = false;
 		_animaIter = _animas.begin();
 	}
 
@@ -202,9 +204,19 @@ namespace game_framework {
 		return _isEnable;
 	}
 
+	bool CGameObj::IsDie()
+	{
+		return _isDie;
+	}
+
 	void CGameObj::SetEnable(bool enable)
 	{
 		_isEnable = enable;
+	}
+
+	void CGameObj::SetDie(bool die)
+	{
+		_isDie = die;
 	}
 
 	void CGameObj::SetFree(bool free)

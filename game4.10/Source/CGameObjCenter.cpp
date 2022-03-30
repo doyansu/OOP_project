@@ -28,13 +28,18 @@ namespace game_framework
 	{
 		for (int i = 0; i < (int)_allObj.size(); i++)
 		{
-			if (_allObj.at(i)->IsEnable())
+			CGameObj* obj = _allObj.at(i);
+			if (obj->IsEnable())
 			{
-				_allObj.at(i)->OnMove(map);
+				obj->OnMove(map);
+			}
+			else if(obj->IsDie())
+			{
+				obj->OnDie();
 			}
 			else
 			{
-				delete _allObj.at(i);
+				delete obj;
 				_allObj.erase(_allObj.begin() + i);
 			}
 				
