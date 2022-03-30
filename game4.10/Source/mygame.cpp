@@ -352,7 +352,7 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	// 此OnInit動作會接到CGameStaterOver::OnInit()，所以進度還沒到100%
 	//
 	gameMap.LoadBitmap();
-	gameMap.GenerateMap();
+	//gameMap.GenerateMap();
 	character.LoadBitmap();
 	enemy0.LoadBitmap();
 	enemy1.LoadBitmap();

@@ -19,7 +19,8 @@ namespace game_framework {
 	void CEnemy::Initialize()
 	{
 		this->SetXY(400, 400);
-		_animas.push_back(CAnimation());
+		//_animas.clear();
+		//_animas.push_back(CAnimation());
 		_animaIter = _animas.begin();
 		CEnemy::CGameObj::SetTag("enemy");
 	}
@@ -34,10 +35,10 @@ namespace game_framework {
 		_animaIter = _animas.begin();
 	}
 
-	void CEnemy::OnShow(CGameMap* map)
+	/*void CEnemy::OnShow(CGameMap* map)
 	{
 		CEnemy::CGameObj::OnShow(map);
-	}
+	}*/
 
 	void CEnemy::OnMove(CGameMap *map)
 	{
@@ -55,11 +56,11 @@ namespace game_framework {
 
 	vector<CAnimation>::iterator CEnemy::GetAnima(Anima type)
 	{
-		vector<CAnimation>::iterator anima = _animas.begin();
+		vector<CAnimation>::iterator anima = CEnemy::_animas.begin();
 		switch (type)
 		{
 		case game_framework::CEnemy::Anima::INIT_R:
-			anima = _animas.begin();
+			anima = CEnemy::_animas.begin();
 			break;
 		default:
 			break;
