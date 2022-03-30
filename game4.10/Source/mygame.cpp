@@ -254,17 +254,18 @@ void CGameStateRun::OnBeginState()
 	gameMap.GenerateMap();		//	生成地圖
 	character.Reset();			//	重設角色屬性
 	character.SetXY(500, 500);	//	暫時設定初始位置
+	CGameObjCenter::AddObj(&character);
 
 	//test
 	/*CGameBullet test;
 	test.LoadBitmap();
 	CGameObjCenter::AddObj(new CGameBullet(test));*/
 	//gameObjCenter.AddObj(new CEnemy(enemy1));
-	/*CEnemy test;
+	CEnemy test;
 	test.LoadBitmap();
 	CGameObj* p = new CEnemy(test);
-	CGameObjCenter::AddObj(p);*/
-	CGameObjCenter::AddObj(&character);
+	CGameObjCenter::AddObj(p);
+	
 }
 
 void CGameStateRun::OnMove()							// 移動遊戲元素
@@ -358,10 +359,6 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	enemy0.LoadBitmap();
 	enemy1.LoadBitmap();
 
-	/*CEnemy test;
-	test.LoadBitmap();
-	CGameObj* p = new CEnemy(test);
-	CGameObjCenter::AddObj(p);*/
 }
 
 void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)

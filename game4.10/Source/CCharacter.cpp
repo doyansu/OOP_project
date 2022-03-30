@@ -21,6 +21,7 @@ namespace game_framework {
 		this->Reset();
 		this->SetXY(500, 500);
 		this->SetTag("character");
+		this->SetFree(false);
 
 		//	ªZ¾¹¸ü¤J
 		_weapon.clear();

@@ -28,7 +28,6 @@ namespace game_framework
 		_bulletSpeed = 20;	
 		_bullet.SetSpeed(_bulletSpeed);
 		_bullet.SetFree(true);
-		test.SetFree(true);
 		_fire = true;
 		CGameWeapon::CGameObj::SetTag("weapon");
 	}
@@ -44,7 +43,6 @@ namespace game_framework
 		CGameWeapon::CGameObj::_animaIter = _animas.begin();
 
 		_bullet.LoadBitmap();
-		test.LoadBitmap();
 	}
 
 	void CGameWeapon::OnMove(CGameMap* map)
@@ -68,8 +66,6 @@ namespace game_framework
 			_bullet.SetXY(_mx, _my);
 			_bullet.SetVector(player->GetVectorX(), player->GetVectorY());
 			CGameObjCenter::AddObj(new CGameBullet(_bullet));
-			test.SetXY(_mx, _my);
-			CGameObjCenter::AddObj(new CEnemy(test));
 			_fire = false;
 			_fireCounter = _shootGap;
 		}

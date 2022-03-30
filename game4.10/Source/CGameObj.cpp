@@ -15,7 +15,7 @@ namespace game_framework {
 		_animas.push_back(CAnimation());
 		_tag = "null";
 		_moveSpeed = 5;
-		_needFree = false;
+		_needFree = true;
 		Reset();
 	}
 
