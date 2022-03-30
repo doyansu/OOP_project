@@ -159,6 +159,23 @@ namespace game_framework {
 			this->SetMovingDown(true);
 	}
 
+	int CGameObj::CenterX()
+	{
+		return ((this->GetX1() + this->GetX2()) >> 1);
+	}
+
+	int CGameObj::CenterY()
+	{
+		return ((this->GetY1() + this->GetY2()) >> 1);
+	}
+
+	int CGameObj::Distance(CGameObj* other)
+	{
+		const int centerx = CenterX() - other->CenterX();
+		const int centery = CenterY() - other->CenterY();
+		return centerx * centerx + centery * centery;
+	}
+
 	int CGameObj::GetX1()
 	{
 		return _mx;

@@ -11,20 +11,24 @@ namespace game_framework {
 	public:
 		CGameObj();
 		CGameObj(const CGameObj& other);
+
+		// 判斷
 		bool Collision(CGameObj*);		// 物件碰撞
 		bool Collision(CGameMap*);		// 地圖碰撞
-		bool IsEnable();
-		bool NeedFree();
-		bool IsDie();
+		bool IsEnable();				// 是否啟用
+		bool NeedFree();				// 是否釋放
+		bool IsDie();					// 是否死亡
 
-		int GetX1();
-		int GetY1();
-		virtual int GetX2();
+		// Getter
+		int GetX1();					// 左上地圖點座標
+		int GetY1();					
+		virtual int GetX2();			// 右下地圖點座標
 		virtual int GetY2();
-		int GetVectorX();
+		int GetVectorX();				// 拿取方向
 		int GetVectorY();
 		string GetTag();
 
+		// Setter
 		void SetEnable(bool);
 		void SetFree(bool);
 		void SetDie(bool);
@@ -37,8 +41,8 @@ namespace game_framework {
 		void SetSpeed(int);
 		void SetTag(string);
 		
+		// member function
 		void LoadBitmap(int);
-
 		virtual void LoadBitmap() {};
 		virtual void OnShow(CGameMap*);	// 在地圖顯示物件
 		virtual void OnMove(CGameMap*);
@@ -48,7 +52,11 @@ namespace game_framework {
 		virtual void OnKeyUp(char);
 		virtual void OnKeyDown(char);
 		virtual void Reset();
+		int Distance(CGameObj*);
+		int CenterX();
+		int CenterY();
 
+		// operator
 		CGameObj& operator=(const CGameObj& other);
 
 	protected:
