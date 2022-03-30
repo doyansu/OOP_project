@@ -7,7 +7,7 @@
 #include "CCharacter.h"
 
 namespace game_framework {
-	CCharacter::CCharacter()
+	CCharacter::CCharacter():_ATTDELAY(10)
 	{
 		//	動畫載入
 		const int AnimaSize = 4;
@@ -17,7 +17,10 @@ namespace game_framework {
 			_animas.push_back(CAnimation());
 
 		//	屬性設定
-		_hp = 5;
+		_hp = _maxHp = 6;
+		_mp = _maxMp = 180;
+		_shield = _maxShield = 5;
+		_damage = 2;
 		this->Reset();
 		this->SetXY(500, 500);
 		this->SetTag("character");
@@ -37,6 +40,8 @@ namespace game_framework {
 	void CCharacter::Reset()
 	{
 		_doFire = false;
+		_canAttack = true;
+		_attCounter = 0;
 		CCharacter::CGameObj::Reset();
 		_vector[0] = 1;	//預設朝右
 		DT = 1;
@@ -159,13 +164,14 @@ namespace game_framework {
 			const double MAXSEARCH = 600.0;	// 最大搜索範圍 
 			const double MINSEARCH = 80.0;	// 最小搜索範圍 
 			const double MAXMAPDISTANCE = 10000.0;	//	極限距離 玩家敵人間距離不超過
-			// 找到最近的敵人
+			// 找到存活的敵人
 			vector<CGameObj*> enemys = CGameObjCenter::FindObjsBy(
 				[](CGameObj* obj)
 				{
-					return obj->GetTag() == "enemy";
+					return obj->IsEnable() && obj->GetTag() == "enemy";
 				}
 			);
+			// 找到最近的敵人
 			double d = MAXMAPDISTANCE;
 			CGameObj* target = nullptr;
 			for (CGameObj* enemy : enemys)
@@ -184,16 +190,20 @@ namespace game_framework {
 				double vy = (double)(target->CenterY() - this->CenterY()) / d;
 				_nowWeapon->Shoot(vx, vy);
 			}
-			else if(target != nullptr && Collision(target)) // 近戰攻擊
+			else if(target != nullptr && _attCounter == 0 && Collision(target)) // 近戰攻擊
 			{
-				d = 0;
-				
+				_attCounter = _ATTDELAY;
+				target->TakeDmg(_damage);
 			}
 			else if (_nowWeapon->CanFire()) // 沒找到敵人朝 vector 射擊
 			{
 				_nowWeapon->Shoot(_vector[0], _vector[1]);
 			}
 		}
+
+		//	計數
+		if (_attCounter > 0)
+			_attCounter--;
 	}
 
 	void CCharacter::OnKeyUp(char nChar)
@@ -219,6 +229,22 @@ namespace game_framework {
 		}
 
 		CCharacter::CGameObj::OnKeyDown(nChar);
+	}
+
+	void CCharacter::TakeDmg(int dmg)
+	{
+		if (_shield)
+		{
+			_shield -= dmg;
+			if (_shield < 0)
+			{
+				CGameObj::TakeDmg(-_shield);
+			}
+		}
+		else
+		{
+			CGameObj::TakeDmg(dmg);
+		}
 	}
 
 	void  CCharacter::ModifyVector(int index, int plus) //	調整向量範圍

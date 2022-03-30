@@ -23,7 +23,7 @@ namespace game_framework
 
 	protected:
 		bool _fire;
-		int _atk, _cost, _bulletSpeed, _shootGap;		//	攻擊力、消耗能量、子彈速度、攻擊速度
+		int _atk, _cost, _bulletSpeed, _shootDelay;		//	攻擊力、消耗能量、子彈速度、攻擊速度
 		int _fireCounter;					//	射擊間格計數
 		CGameBullet _bullet;				//	子彈設定
 		vector<CGameBullet> _bullets;		//	管理子彈 (可能更改)

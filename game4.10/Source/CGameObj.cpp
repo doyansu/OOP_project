@@ -16,6 +16,7 @@ namespace game_framework {
 		_tag = "null";
 		_moveSpeed = 5;
 		_needFree = true;
+		_hp = _maxHp = 5;
 		Reset();
 	}
 
@@ -35,17 +36,20 @@ namespace game_framework {
 	{
 		//this->_animas.assign(other._animas.begin(), other._animas.end());
 		this->_animas = other._animas;
+		this->_animaIter = this->_animas.begin();
 		this->_tag = other._tag;
 		this->_moveSpeed = other._moveSpeed;
 		this->_mx = other._mx;
 		this->_my = other._my;
+		this->_hp = other._hp;
+		this->_maxHp = other._maxHp;
 		this->_vector[0] = other._vector[0];
 		this->_vector[1] = other._vector[1];
-		this->_isMovingLeft = this->_isMovingRight = this->_isMovingUp = this->_isMovingDown = false;
 		this->_isEnable = other._isEnable;
 		this->_needFree = other._needFree;
 		this->_isDie = other._isDie;
-		this->_animaIter = this->_animas.begin();
+		this->_isMovingLeft = this->_isMovingRight = this->_isMovingUp = this->_isMovingDown = false;
+		
 	}
 
 	void CGameObj::Reset() 
@@ -177,6 +181,18 @@ namespace game_framework {
 		return sqrt((double)(centerx * centerx + centery * centery));
 	}
 
+	void CGameObj::TakeDmg(int damage)
+	{
+		if (_hp <= damage)
+		{
+			_hp = 0;
+			_isDie = true;
+			_isEnable = false;
+		}
+		else
+			_hp -= damage;
+	}
+
 	int CGameObj::GetX1()
 	{
 		return _mx;
@@ -277,6 +293,17 @@ namespace game_framework {
 	void CGameObj::SetSpeed(int speed)
 	{
 		_moveSpeed = speed;
+	}
+
+	void CGameObj::SetHp(int hp)
+	{
+		if (hp >= 0 && hp <= _maxHp)
+			_hp = hp;
+	}
+
+	void CGameObj::SetMaxHp(int maxhp)
+	{
+		_maxHp = maxhp;
 	}
 
 	void CGameObj::SetTag(string tag)

@@ -24,7 +24,7 @@ namespace game_framework
 		for (int i = 0; i < AnimaSize; i++)
 			_animas.push_back(addAnima);
 		_atk, _cost = 0;
-		_shootGap = 10;
+		_shootDelay = 10;
 		_bulletSpeed = 20;	
 		_bullet.SetSpeed(_bulletSpeed);
 		_bullet.SetFree(true);
@@ -67,11 +67,11 @@ namespace game_framework
 			_bullet.SetVector(x, y);
 			CGameObjCenter::AddObj(new CGameBullet(_bullet));
 			_fire = false;
-			_fireCounter = _shootGap;
+			_fireCounter = _shootDelay;
 		}
 	}
 
-	bool CGameWeapon::CanFire()
+	bool CGameWeapon::CanFire() 
 	{
 		return _fire;
 	}
@@ -83,7 +83,6 @@ namespace game_framework
 		}
 		else if (dt == 0) {
 			CGameWeapon::CGameObj::_animaIter = CGameWeapon::GetAnima(Anima::Left);
-			this -> _mx -= 30;
 		}
 		CGameWeapon::CGameObj::_animaIter->OnMove();
 	}

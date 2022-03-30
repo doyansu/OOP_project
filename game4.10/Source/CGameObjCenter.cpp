@@ -46,20 +46,24 @@ namespace game_framework
 		}
 			
 		for (int i = 0; i < (int)_allObj.size(); i++)
+		{
+			if (!_allObj.at(i)->IsEnable())
+				continue;
 			for (int j = i + 1; j < (int)_allObj.size(); j++)
-				if (_allObj.at(i)->Collision(_allObj.at(j)))
+				if (_allObj.at(j)->IsEnable() && _allObj.at(i)->Collision(_allObj.at(j)))
 				{
 					_allObj.at(i)->OnObjCollision(_allObj.at(j));
 					_allObj.at(j)->OnObjCollision(_allObj.at(i));
 				}
+		}
+			
 				
 	}
 
 	void CGameObjCenter::OnShow(CGameMap* map)
 	{
-		for (int i = 0; i < (int)_allObj.size(); i++)
+		for (CGameObj* obj : _allObj)
 		{
-			CGameObj* obj = _allObj.at(i);
 			if(map->InScreen(obj->GetX1(), obj->GetY1(), obj->GetX2(), obj->GetY2()))
 				obj->OnShow(map);
 		}

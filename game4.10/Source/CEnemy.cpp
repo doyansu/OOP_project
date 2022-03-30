@@ -13,15 +13,11 @@ namespace game_framework {
 
 	CEnemy::CEnemy()
 	{
-		Initialize();
-	}
-
-	void CEnemy::Initialize()
-	{
 		this->SetXY(400, 400);
 		_animas.clear();
 		_animas.push_back(CAnimation());
 		_animaIter = _animas.begin();
+		_hp = 10;
 		CEnemy::CGameObj::SetTag("enemy");
 	}
 
@@ -50,8 +46,8 @@ namespace game_framework {
 
 	void CEnemy::OnObjCollision(CGameObj* other)
 	{
-		if (other->GetTag() == "player")
-			this->SetEnable(false);
+		/*if (other->GetTag() == "player")
+			this->SetEnable(false);*/
 	}
 
 

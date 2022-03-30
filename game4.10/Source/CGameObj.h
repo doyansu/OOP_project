@@ -39,6 +39,8 @@ namespace game_framework {
 		void SetMovingUp(bool flag);	// 設定是否正在往上移動
 		void SetXY(int, int);
 		void SetSpeed(int);
+		void SetHp(int);
+		void SetMaxHp(int);
 		void SetTag(string);
 		
 		// member function
@@ -52,6 +54,7 @@ namespace game_framework {
 		virtual void OnKeyUp(char);
 		virtual void OnKeyDown(char);
 		virtual void Reset();
+		virtual void TakeDmg(int);
 		double Distance(CGameObj*);
 		int CenterX();
 		int CenterY();
@@ -63,7 +66,8 @@ namespace game_framework {
 		vector<CAnimation> _animas;						//	動畫清單
 		vector<CAnimation>::iterator _animaIter;		//	vector iterator
 		int _mx, _my, _moveSpeed;						//	地圖點座標、移動速度
-		double _vector[2];									//	移動用向量
+		int _hp, _maxHp;								//	血量值、最大血量值
+		double _vector[2];								//	移動、方向判別用向量
 		bool _isEnable, _needFree, _isDie;				//	是否啟用、釋放、死亡
 		bool _isMovingDown;								//	是否正在往下移動
 		bool _isMovingLeft;								//	是否正在往左移動
