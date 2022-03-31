@@ -10,7 +10,7 @@ namespace game_framework {
 		void LoadBitmap();
 		int ScreenX(int x);				//	地圖點座標在螢幕位置
 		int ScreenY(int y);
-		bool InScreen(int x, int y, int mw, int mh);
+		bool InScreen(int x, int y, int mw, int mh);	// 座標範圍在螢幕內
 		bool IsEmpty(int x, int y);
 
 		int GetScreenX();

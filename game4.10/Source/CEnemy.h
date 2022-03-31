@@ -1,5 +1,7 @@
 #pragma once
 #include "CGameObj.h"
+#include "CGameWeapon.h"
+
 namespace game_framework {
 
 	class CEnemy : public CGameObj
@@ -11,9 +13,11 @@ namespace game_framework {
 		void OnShow(CGameMap*);					// 將圖形貼到畫面
 		void OnMove(CGameMap*);
 		void OnObjCollision(CGameObj*);
-		//void EnemyOnMove(CGameMap *);
+		void OnDie();
 
 	protected:
+		//CGameWeapon _weapon;
+		//CGameBullet _test;
 		vector<CAnimation>::iterator GetAnima(Anima);
 	};
 }

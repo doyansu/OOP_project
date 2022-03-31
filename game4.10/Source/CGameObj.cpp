@@ -99,28 +99,6 @@ namespace game_framework {
 		_animaIter->OnShow();
 	}
 
-	void CGameObj::EnemyOnMove(CGameMap* map){
-		const int range = 20;
-
-		//_animaIter->OnMove();
-		_mx += (int)_vector[0];
-		_my += (int)_vector[1];
-
-		if (CGameObj::Collision(map))
-		{
-			_mx -= (int)_vector[0];
-			_my -= (int)_vector[1];
-		}
-
-		if ((rand() % range) == 0)
-		{
-			_vector[0] = -(_moveSpeed >> 1) + (rand() % _moveSpeed);
-			_vector[1] = -(_moveSpeed >> 1) + (rand() % _moveSpeed);
-		}
-
-		
-	}
-
 	void CGameObj::OnMove(CGameMap* map)
 	{
 		_animaIter->OnMove();
@@ -168,12 +146,12 @@ namespace game_framework {
 
 	int CGameObj::CenterX()
 	{
-		return (this->GetX1() + ((this->GetX2() + this->GetX1()) >> 1));	
+		return ((this->GetX1() + this->GetX2()) >> 1);	
 	}
 
 	int CGameObj::CenterY()
 	{
-		return (this->GetY1() + ((this->GetY2() + this->GetY1()) >> 1));
+		return ((this->GetY1() + this->GetY2()) >> 1);
 	}
 
 	double CGameObj::Distance(CGameObj* other)

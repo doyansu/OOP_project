@@ -8,6 +8,7 @@ namespace game_framework
 	public:
 		CGameBullet();
 
+		//void SetTarget(string);
 		void LoadBitmap();
 		void OnMove(CGameMap* map);
 		//void OnShow(CGameMap* map);
@@ -15,6 +16,7 @@ namespace game_framework
 
 	protected:
 		int _damage;		//¤l¼u§ðÀ»¤O
+		//string _target;
 
 	private:
 		void init();

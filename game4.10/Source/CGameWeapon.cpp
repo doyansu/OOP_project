@@ -5,7 +5,7 @@
 #include "audio.h"
 #include "gamelib.h"
 #include "CGameWeapon.h"
-
+#include "CGameObjCenter.h"
 
 
 namespace game_framework
@@ -18,26 +18,24 @@ namespace game_framework
 	void CGameWeapon::init()
 	{
 		const int AnimaSize = 2;
-		CAnimation addAnima;
 		_animas.clear();
 		_animas.reserve(AnimaSize);
 		for (int i = 0; i < AnimaSize; i++)
-			_animas.push_back(addAnima);
+			_animas.push_back(CAnimation());
 		_atk, _cost = 0;
 		_shootDelay = 10;
 		_bulletSpeed = 20;	
 		_bullet.SetSpeed(_bulletSpeed);
-		_bullet.SetFree(true);
 		_fire = true;
 		CGameWeapon::CGameObj::SetTag("weapon");
 	}
 
 	void CGameWeapon::LoadBitmap()
 	{
-		CGameWeapon::CGameObj::_animaIter = GetAnima(Anima::Right);
+		CGameWeapon::CGameObj::_animaIter = GetAnima(CGameWeapon::Anima::Right);
 		CGameWeapon::CGameObj::_animaIter->AddBitmap(IDB_weapon1, RGB(255, 255, 255));
 				
-		CGameWeapon::CGameObj::_animaIter = GetAnima(Anima::Left);
+		CGameWeapon::CGameObj::_animaIter = GetAnima(CGameWeapon::Anima::Left);
 		CGameWeapon::CGameObj::_animaIter->AddBitmap(IDB_weapon1_l, RGB(255, 255, 255));
 
 		CGameWeapon::CGameObj::_animaIter = _animas.begin();
@@ -79,10 +77,10 @@ namespace game_framework
 	void CGameWeapon::DT_D(int dt)
 	{
 		if (dt == 1) {
-			CGameWeapon::CGameObj::_animaIter = CGameWeapon::GetAnima(Anima::Right);
+			CGameWeapon::CGameObj::_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima::Right);
 		}
 		else if (dt == 0) {
-			CGameWeapon::CGameObj::_animaIter = CGameWeapon::GetAnima(Anima::Left);
+			CGameWeapon::CGameObj::_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima::Left);
 		}
 		CGameWeapon::CGameObj::_animaIter->OnMove();
 	}

@@ -154,9 +154,9 @@ namespace game_framework {
 		//	ªZ¾¹²¾°Ê
 		_nowWeapon->DT_D(DT);
 		if(DT)
-			_nowWeapon->SetXY((GetX1() + GetX2()) >> 1, (GetY1() + GetY2()) >> 1);
+			_nowWeapon->SetXY(this->CenterX(), this->CenterY());
 		else
-			_nowWeapon->SetXY(((GetX1() + GetX2()) >> 1) - (_nowWeapon->GetX2() - _nowWeapon->GetX1()), (GetY1() + GetY2()) >> 1);
+			_nowWeapon->SetXY(this->CenterX() - (_nowWeapon->GetX2() - _nowWeapon->GetX1()), this->CenterY());
 		_nowWeapon->OnMove(map);
 		
 		//	ªZ¾¹®gÀ»§PÂ_

@@ -92,8 +92,6 @@ namespace game_framework
 		_allObj.clear();
 	}
 
-	
 
-	
 	vector<CGameObj*> CGameObjCenter::_allObj;
 }

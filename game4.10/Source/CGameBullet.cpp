@@ -16,6 +16,7 @@ namespace game_framework
 	void CGameBullet::init()
 	{
 		_damage = 4;
+		//_target = "";
 		_showPriority = 5;
 		CGameBullet::CGameObj::SetTag("bullet");
 	}
@@ -50,5 +51,10 @@ namespace game_framework
 			other->TakeDmg(_damage);
 		}
 	}
+
+	/*void CGameBullet::SetTarget(string target)
+	{
+		_target = target;
+	}*/
 
 }

@@ -50,7 +50,6 @@ namespace game_framework {
 		virtual void LoadBitmap() {};
 		virtual void OnShow(CGameMap*);	// 在地圖顯示物件
 		virtual void OnMove(CGameMap*);
-		virtual void EnemyOnMove(CGameMap*);
 		virtual void OnObjCollision(CGameObj*) {};
 		virtual void OnDie() {};
 		virtual void OnKeyUp(char);
