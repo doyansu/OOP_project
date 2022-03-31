@@ -20,7 +20,8 @@ namespace game_framework {
 		_hp = _maxHp = 6;
 		_mp = _maxMp = 180;
 		_shield = _maxShield = 5;
-		_damage = 2;
+		_damage = 4;
+		_showPriority = 10;
 		this->Reset();
 		this->SetXY(500, 500);
 		this->SetTag("character");

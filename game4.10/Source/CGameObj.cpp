@@ -15,6 +15,7 @@ namespace game_framework {
 		_animas.push_back(CAnimation());
 		_tag = "null";
 		_moveSpeed = 5;
+		_showPriority = 0;
 		_needFree = true;
 		_hp = _maxHp = 5;
 		Reset();
@@ -45,6 +46,7 @@ namespace game_framework {
 		this->_maxHp = other._maxHp;
 		this->_vector[0] = other._vector[0];
 		this->_vector[1] = other._vector[1];
+		this->_showPriority = other._showPriority;
 		this->_isEnable = other._isEnable;
 		this->_needFree = other._needFree;
 		this->_isDie = other._isDie;
@@ -223,6 +225,11 @@ namespace game_framework {
 		return _vector[1];
 	}
 
+	int CGameObj::GetShowPriority()
+	{
+		return _showPriority;
+	}
+
 	string CGameObj::GetTag()
 	{
 		return _tag;
@@ -256,6 +263,11 @@ namespace game_framework {
 	void CGameObj::SetFree(bool free)
 	{
 		_needFree = free;
+	}
+
+	void CGameObj::SetShowPriority(int level)
+	{
+		_showPriority = level;
 	}
 
 	void CGameObj::SetVector(double vx, double vy)

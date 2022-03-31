@@ -1,5 +1,5 @@
 #pragma once
-
+#include <algorithm>
 #include "CGameObj.h"
 
 namespace game_framework
@@ -16,7 +16,13 @@ namespace game_framework
 
 		static void CGameObjCenter::AddObj(CGameObj* obj)
 		{
-			CGameObjCenter::_allObj.push_back(obj);
+			//CGameObjCenter::_allObj.push_back(obj);
+			CGameObjCenter::_allObj.insert(lower_bound(_allObj.begin(), _allObj.end(), obj,
+				[](CGameObj* a, CGameObj* b)
+				{
+					return a->GetShowPriority() < b->GetShowPriority();
+				}
+			), obj);
 		}
 
 		template<typename condition>
