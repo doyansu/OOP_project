@@ -26,6 +26,7 @@ namespace game_framework
 
 	void CGameObjCenter::OnMove(CGameMap* map)
 	{
+		// 刪除物件
 		for (int i = 0; i < (int)_allObj.size(); i++)
 		{
 			if (!_allObj.at(i)->IsEnable() && !_allObj.at(i)->IsDie())
@@ -35,6 +36,7 @@ namespace game_framework
 			}
 		}
 
+		// 移動物件
 		for (CGameObj* obj : _allObj)
 		{
 			if (obj->IsEnable())
@@ -46,7 +48,8 @@ namespace game_framework
 				obj->OnDie();
 			}
 		}
-			
+		
+		// 處理碰撞
 		for (int i = 0; i < (int)_allObj.size(); i++)
 		{
 			if (!_allObj.at(i)->IsEnable())

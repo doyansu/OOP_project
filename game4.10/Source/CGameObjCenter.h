@@ -12,9 +12,9 @@ namespace game_framework
 
 		void OnMove(CGameMap* map);
 		void OnShow(CGameMap* map);
-		void FreeALLObj();
+		void FreeALLObj();				// 釋放需釋放的物件
 
-		static void CGameObjCenter::AddObj(CGameObj* obj)
+		static void CGameObjCenter::AddObj(CGameObj* obj)	// 將物件加入,依優先級插入
 		{
 			//CGameObjCenter::_allObj.push_back(obj);
 			CGameObjCenter::_allObj.insert(lower_bound(_allObj.begin(), _allObj.end(), obj,
@@ -25,7 +25,7 @@ namespace game_framework
 			), obj);
 		}
 
-		template<typename condition>
+		template<typename condition>	// 依條件尋找單個物件
 		static CGameObj* FindObjBy(condition function)
 		{
 			for (CGameObj* obj : _allObj)
@@ -36,7 +36,7 @@ namespace game_framework
 			return nullptr;
 		}
 
-		template<typename condition>
+		template<typename condition>	// 依條件尋找多個物件
 		static vector<CGameObj*> FindObjsBy(condition function)
 		{
 			vector<CGameObj*> objs;
@@ -49,7 +49,7 @@ namespace game_framework
 			return objs;
 		}
 
-		template<typename compare>
+		template<typename compare>	//	依比較函式找到最符合物件
 		static vector<CGameObj*> FindMaxObjBy(compare cmp)
 		{
 			CGameObj* maxObj = _allObj.begin();
