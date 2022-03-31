@@ -158,7 +158,7 @@ namespace game_framework {
 		else
 			_nowWeapon->SetXY(((GetX1() + GetX2()) >> 1) - (_nowWeapon->GetX2() - _nowWeapon->GetX1()), (GetY1() + GetY2()) >> 1);
 		_nowWeapon->OnMove(map);
-
+		
 		//	ªZ¾¹®gÀ»§PÂ_
 		if (_doFire)
 		{
