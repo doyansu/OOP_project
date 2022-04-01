@@ -318,8 +318,8 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	{
 		GotoGameState(GAME_STATE_OVER);
 	}
-	/*if (rand() % 50 == 0)
-		CGameObjCenter::AddObj(new CEnemy(enemy0));*/
+	if (rand() % 100 == 0)
+		CGameObjCenter::AddObj(new CEnemy(enemy0));
 }
 
 void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
