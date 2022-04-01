@@ -26,7 +26,8 @@ namespace game_framework {
 		CEnemy::CGameObj::SetTag("enemy");
 
 		// 武器設定
-		
+		_weapon.SetUser(this);
+		_weapon.SetAttributes(1, 0, 1, 20);
 	}
 
 	void CEnemy::LoadBitmap()
@@ -40,13 +41,13 @@ namespace game_framework {
 
 		_animaIter = _animas.begin();
 
-		//_weapon.LoadBitmap();
+		_weapon.LoadBitmap();
 	}
 
 	void CEnemy::OnShow(CGameMap* map)
 	{
 		CEnemy::CGameObj::OnShow(map);
-		//_weapon.OnShow(map);
+		_weapon.OnShow(map);
 	}
 
 	void CEnemy::OnMove(CGameMap *map)
@@ -71,16 +72,16 @@ namespace game_framework {
 		}
 
 		// 武器移動
-		//_weapon.SetXY(this->CenterX(), this->CenterY());
-		//_weapon.OnMove(map);
+		_weapon.SetXY(this->CenterX(), this->CenterY());
+		_weapon.OnMove(map);
 
 		// 武器射擊
-		/*if (_weapon.CanFire() && (rand() % randomRange) == 0)
+		if (_weapon.CanFire() && (rand() % randomRange) == 0)
 		{
 			CGameObj* player= CGameObjCenter::FindObjBy(
 				[](CGameObj* obj)
 				{
-					return obj->GetTag() == "character";
+					return obj->GetTag() == "player";
 				}
 			);
 
@@ -92,7 +93,7 @@ namespace game_framework {
 				_weapon.Shoot(vx, vy);
 			}
 			
-		}*/
+		}
 	}
 
 	void CEnemy::OnObjCollision(CGameObj* other)

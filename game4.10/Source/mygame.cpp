@@ -314,7 +314,10 @@ void CGameStateRun::OnMove()							// ²¾°Ê¹CÀ¸¤¸¯À
 
 	gameMap.OnMove(character.GetX1(), character.GetY1());
 	gameObjCenter.OnMove(&gameMap);
-
+	if (!character.IsEnable() && !character.IsDie())
+	{
+		GotoGameState(GAME_STATE_OVER);
+	}
 	/*if (rand() % 50 == 0)
 		CGameObjCenter::AddObj(new CEnemy(enemy0));*/
 }

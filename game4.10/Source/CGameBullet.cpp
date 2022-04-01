@@ -16,7 +16,7 @@ namespace game_framework
 	void CGameBullet::init()
 	{
 		_damage = 4;
-		//_target = "";
+		_target = "";
 		_showPriority = 5;
 		CGameBullet::CGameObj::SetTag("bullet");
 	}
@@ -45,16 +45,16 @@ namespace game_framework
 
 	void CGameBullet::OnObjCollision(CGameObj* other)
 	{
-		if (other->GetTag() == "enemy")
+		if (other->GetTag() == _target)
 		{
 			this->SetEnable(false);
 			other->TakeDmg(_damage);
 		}
 	}
 
-	/*void CGameBullet::SetTarget(string target)
+	void CGameBullet::SetTarget(string target)
 	{
 		_target = target;
-	}*/
+	}
 
 }

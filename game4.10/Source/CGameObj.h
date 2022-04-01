@@ -11,6 +11,7 @@ namespace game_framework {
 	public:
 		CGameObj();
 		CGameObj(const CGameObj& other);
+		virtual ~CGameObj();
 
 		// 判斷
 		bool Collision(CGameObj*);		// 物件碰撞
@@ -48,10 +49,10 @@ namespace game_framework {
 		// member function
 		void LoadBitmap(int);
 		virtual void LoadBitmap() {};
-		virtual void OnShow(CGameMap*);	// 在地圖顯示物件
+		virtual void OnShow(CGameMap*);				// 在地圖顯示物件
 		virtual void OnMove(CGameMap*);
 		virtual void OnObjCollision(CGameObj*) {};
-		virtual void OnDie() {};
+		virtual void OnDie() {};					// 死亡需做
 		virtual void OnKeyUp(char);
 		virtual void OnKeyDown(char);
 		virtual void Reset();
