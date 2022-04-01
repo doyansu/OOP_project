@@ -16,8 +16,8 @@ namespace game_framework {
 		void OnDie();
 
 	protected:
-		//CGameWeapon _weapon;
-		//CGameBullet _test;
+		CGameWeapon _weapon;
 		vector<CAnimation>::iterator GetAnima(Anima);
+	private:
 	};
 }

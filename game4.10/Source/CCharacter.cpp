@@ -24,13 +24,14 @@ namespace game_framework {
 		_showPriority = 10;
 		this->Reset();
 		this->SetXY(500, 500);
-		this->SetTag("character");
+		this->SetTag("player");
 		this->SetFree(false);
 
 		//	武器載入
 		_weapon.clear();
 		_weapon.push_back(CGameWeapon());
 		_nowWeapon = _weapon.begin();
+		_nowWeapon->SetUser(this);
 	}
 
 	void CCharacter::init()
@@ -205,6 +206,11 @@ namespace game_framework {
 		//	計數
 		if (_attCounter > 0)
 			_attCounter--;
+	}
+
+	void CCharacter::OnDie()
+	{
+		this->SetDie(false);
 	}
 
 	void CCharacter::OnKeyUp(char nChar)

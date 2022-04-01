@@ -21,6 +21,16 @@ namespace game_framework {
 		Reset();
 	}
 
+	void CGameObj::Reset() 
+	{
+		_mx = _my = 0;
+		_vector[0] = _vector[1] = 0.0;
+		_isMovingLeft = _isMovingRight = _isMovingUp = _isMovingDown = false;
+		_isEnable = true;
+		_isDie = false;
+		_animaIter = _animas.begin();
+	}
+
 	CGameObj::CGameObj(const CGameObj& other)
 	{
 		copy(other);
@@ -54,14 +64,9 @@ namespace game_framework {
 		
 	}
 
-	void CGameObj::Reset() 
+	CGameObj::~CGameObj()
 	{
-		_mx = _my = 0;
-		_vector[0] = _vector[1] = 0.0;
-		_isMovingLeft = _isMovingRight = _isMovingUp = _isMovingDown = false;
-		_isEnable = true;
-		_isDie = false;
-		_animaIter = _animas.begin();
+
 	}
 
 	bool CGameObj::Collision(CGameObj *other)	//	ª«¥ó¸I¼²

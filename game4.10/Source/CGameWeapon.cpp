@@ -27,7 +27,25 @@ namespace game_framework
 		_bulletSpeed = 20;	
 		_bullet.SetSpeed(_bulletSpeed);
 		_fire = true;
+		_user = nullptr;
 		CGameWeapon::CGameObj::SetTag("weapon");
+	}
+
+	void CGameWeapon::SetUser(CGameObj* user)
+	{
+		_user = user;
+		if (_user->GetTag() == "player")
+			_bullet.SetTarget("enemy");
+		else
+			_bullet.SetTarget("player");
+	}
+
+	void CGameWeapon::SetAttributes(int atk, int cost, int bulletSpeed, int shootDelay)
+	{
+		_atk = atk;
+		_cost = cost;
+		_bulletSpeed = bulletSpeed;
+		_shootDelay = shootDelay;
 	}
 
 	void CGameWeapon::LoadBitmap()
@@ -80,7 +98,6 @@ namespace game_framework
 			CGameWeapon::CGameObj::_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima::Right);
 		}
 		else if (dt == 0) {
-
 			CGameWeapon::CGameObj::_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima::Left);
 		}
 		CGameWeapon::CGameObj::_animaIter->OnMove();
