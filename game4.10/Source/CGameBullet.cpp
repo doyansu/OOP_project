@@ -24,7 +24,7 @@ namespace game_framework
 
 	void CGameBullet::LoadBitmap()
 	{
-		CGameBullet::CGameObj::_animaIter->AddBitmap(IDB_BALL, RGB(0, 0, 0)); //test image
+		CGameBullet::CGameObj::_animaIter->AddBitmap(IDB_Bullet0, RGB(255, 255, 255)); //test image
 	}
 
 	void CGameBullet::OnMove(CGameMap* map)
