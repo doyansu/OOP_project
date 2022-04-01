@@ -57,4 +57,9 @@ namespace game_framework
 		_target = target;
 	}
 
+	void CGameBullet::SetDamage(int damage)
+	{
+		_damage = damage;
+	}
+
 }

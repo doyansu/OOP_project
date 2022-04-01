@@ -9,6 +9,7 @@ namespace game_framework
 		CGameBullet();
 
 		void SetTarget(string);
+		void SetDamage(int);
 
 		void LoadBitmap();
 		void OnMove(CGameMap* map);

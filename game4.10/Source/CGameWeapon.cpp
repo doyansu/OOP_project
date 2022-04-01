@@ -46,6 +46,8 @@ namespace game_framework
 		_cost = cost;
 		_bulletSpeed = bulletSpeed;
 		_shootDelay = shootDelay;
+		_bullet.SetSpeed(_bulletSpeed);
+		_bullet.SetDamage(_atk);
 	}
 
 	void CGameWeapon::LoadBitmap()

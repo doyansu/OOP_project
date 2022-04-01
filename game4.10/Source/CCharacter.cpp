@@ -44,6 +44,9 @@ namespace game_framework {
 		_doFire = false;
 		_canAttack = true;
 		_attCounter = 0;
+		_hp = _maxHp;
+		_mp = _maxMp;
+		_shield = _maxShield;
 		CCharacter::CGameObj::Reset();
 		_vector[0] = 1;	//¹w³]´Â¥k
 		DT = 1;
