@@ -194,15 +194,15 @@ IDB_weapon1             BITMAP                  "..\\RES\\character1\\weapons1.b
 
 IDB_weapon1_l           BITMAP                  "..\\RES\\character1\\weapons1_l.bmp"
 
-IDB_Bullet1             BITMAP                  "C:\\Users\\kerue\\OOP_project\\game4.10\\RES\\bullet\\bullet_6.bmp"
-
-IDB_Bullet_e            BITMAP                  "C:\\Users\\kerue\\OOP_project\\game4.10\\RES\\bullet\\bullet_115.bmp"
-
-IDB_Bullet2             BITMAP                  "C:\\Users\\kerue\\OOP_project\\game4.10\\RES\\bullet\\bullet2_52.bmp"
-
-IDB_Bullet3             BITMAP                  "C:\\Users\\kerue\\OOP_project\\game4.10\\RES\\bullet\\bullet2_53.bmp"
-
-IDB_Bullet0             BITMAP                  "C:\\Users\\kerue\\OOP_project\\game4.10\\RES\\bullet\\bullet2_82.bmp"
+IDB_Bullet1             BITMAP                  "..\\RES\\bullet\\bullet_6.bmp"
+												 
+IDB_Bullet_e            BITMAP                  "..\\RES\\bullet\\bullet_115.bmp"
+												 
+IDB_Bullet2             BITMAP                  "..\\RES\\bullet\\bullet2_52.bmp"
+												 
+IDB_Bullet3             BITMAP                  "..\\RES\\bullet\\bullet2_53.bmp"
+												 
+IDB_Bullet0             BITMAP                  "..\\RES\\bullet\\bullet2_82.bmp"
 
 
 /////////////////////////////////////////////////////////////////////////////
