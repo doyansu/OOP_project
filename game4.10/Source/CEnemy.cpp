@@ -30,6 +30,7 @@ namespace game_framework {
 		// ªZ¾¹³]©w
 		_weapon.SetUser(this);
 		_weapon.SetAttributes(1, 0, 5, 50);
+		_weapon.SetDT(1);
 	}
 
 	void CEnemy::LoadBitmap()

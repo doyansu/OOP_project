@@ -156,10 +156,8 @@ namespace game_framework {
 		
 		
 		//	ªZ¾¹²¾°Ê
-		if (!_doFire)
-			_nowWeapon->SetDT(DT);
 		_nowWeapon->OnMove(map);
-		
+		_nowWeapon->SetDT(DT);
 		//	ªZ¾¹®gÀ»§PÂ_
 		if (_doFire)
 		{
