@@ -17,12 +17,13 @@ namespace game_framework
 		static void CGameObjCenter::AddObj(CGameObj* obj)	// 將物件加入,依優先級插入
 		{
 			//CGameObjCenter::_allObj.push_back(obj);
-			CGameObjCenter::_allObj.insert(lower_bound(_allObj.begin(), _allObj.end(), obj,
+			/*CGameObjCenter::_allObj.insert(lower_bound(_allObj.begin(), _allObj.end(), obj,
 				[](CGameObj* a, CGameObj* b)
 				{
 					return a->GetShowPriority() < b->GetShowPriority();
 				}
-			), obj);
+			), obj);*/
+			_temp.push_back(obj);
 		}
 
 		template<typename condition>	// 依條件尋找單個物件
@@ -65,6 +66,7 @@ namespace game_framework
 
 	private:
 		static vector<CGameObj*> _allObj;
+		static vector<CGameObj*> _temp;
 		void init();
 		void freeObj();
 		

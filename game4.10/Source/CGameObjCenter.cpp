@@ -22,10 +22,21 @@ namespace game_framework
 	void CGameObjCenter::init()
 	{
 		_allObj.reserve(1024);
+		_temp.reserve(1024);
 	}
 
 	void CGameObjCenter::OnMove(CGameMap* map)
 	{
+		// 加入物件
+		for (CGameObj* obj : _temp)
+			_allObj.push_back(obj);
+		std::sort(_allObj.begin(), _allObj.end(),
+			[](CGameObj* a, CGameObj* b)
+		{
+			return a->GetShowPriority() < b->GetShowPriority();
+		});
+		_temp.clear();
+
 		// 刪除物件
 		for (int i = 0; i < (int)_allObj.size(); i++)
 		{
@@ -36,7 +47,7 @@ namespace game_framework
 			}
 		}
 
-		// 移動物件
+		// 移動、新增物件
 		for (int i = 0; i < (int)_allObj.size(); i++)
 		{
 			CGameObj* obj = _allObj.at(i);
@@ -89,10 +100,10 @@ namespace game_framework
 				delete p;
 			}
 		}
-			
+		_temp.clear();
 		_allObj.clear();
 	}
 
 
-	vector<CGameObj*> CGameObjCenter::_allObj;
+	vector<CGameObj*> CGameObjCenter::_allObj, CGameObjCenter::_temp;
 }
