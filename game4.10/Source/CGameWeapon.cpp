@@ -12,11 +12,6 @@ namespace game_framework
 {
 	CGameWeapon::CGameWeapon()
 	{
-		init();
-	}
-
-	void CGameWeapon::init()
-	{
 		const int AnimaSize = 2;
 		_animas.clear();
 		_animas.reserve(AnimaSize);
@@ -24,7 +19,8 @@ namespace game_framework
 			_animas.push_back(CAnimation());
 		_atk, _cost = 0;
 		_shootDelay = 10;
-		_bulletSpeed = 20;	
+		_bulletSpeed = 20;
+		_DT = 1;
 		_bullet.SetSpeed(_bulletSpeed);
 		_fire = true;
 		_user = nullptr;
@@ -65,6 +61,18 @@ namespace game_framework
 
 	void CGameWeapon::OnMove(CGameMap* map)
 	{
+		CGameWeapon::CGameObj::_animaIter->OnMove();
+		if (_user == nullptr)
+			return;
+		// 動畫判斷
+		if (_DT == 1) {
+			CGameWeapon::CGameObj::_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima::Right);
+			this->SetXY(_user->CenterX(), _user->CenterY());
+		}
+		else if (_DT == 0) {
+			CGameWeapon::CGameObj::_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima::Left);
+			this->SetXY(_user->CenterX() - (this->GetX2() - this->GetX1()), _user->CenterY());
+		}
 
 		//	射擊間隔計數
 		if (!_fire && --_fireCounter == 0)
@@ -81,7 +89,10 @@ namespace game_framework
 	{
 		if (_fire)
 		{
-			_bullet.SetXY(_mx, _my);
+			if (_user)
+				_bullet.SetXY(_user->CenterX(), _user->CenterY());
+			else 
+				_bullet.SetXY(_mx, _my);
 			_bullet.SetVector(x, y);
 			CGameObjCenter::AddObj(new CGameBullet(_bullet));
 			_fire = false;
@@ -92,17 +103,6 @@ namespace game_framework
 	bool CGameWeapon::CanFire() 
 	{
 		return _fire;
-	}
-
-	void CGameWeapon::DT_D(int dt)
-	{
-		if (dt == 1) {
-			CGameWeapon::CGameObj::_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima::Right);
-		}
-		else if (dt == 0) {
-			CGameWeapon::CGameObj::_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima::Left);
-		}
-		CGameWeapon::CGameObj::_animaIter->OnMove();
 	}
 
 	vector<CAnimation>::iterator CGameWeapon::GetAnima(Anima type)
@@ -120,5 +120,10 @@ namespace game_framework
 			break;
 		}
 		return anima;
+	}
+
+	void CGameWeapon::SetDT(int DT)
+	{
+		_DT = DT;
 	}
 }

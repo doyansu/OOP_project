@@ -156,11 +156,8 @@ namespace game_framework {
 		
 		
 		//	武器移動
-		_nowWeapon->DT_D(DT);
-		if(DT)
-			_nowWeapon->SetXY(this->CenterX(), this->CenterY());
-		else
-			_nowWeapon->SetXY(this->CenterX() - (_nowWeapon->GetX2() - _nowWeapon->GetX1()), this->CenterY());
+		if (!_doFire)
+			_nowWeapon->SetDT(DT);
 		_nowWeapon->OnMove(map);
 		
 		//	武器射擊判斷
@@ -194,6 +191,12 @@ namespace game_framework {
 				double vx = (double)(target->CenterX() - this->CenterX()) / d;
 				double vy = (double)(target->CenterY() - this->CenterY()) / d;
 				_nowWeapon->Shoot(vx, vy);
+				if(vx > 0)
+					_nowWeapon->SetDT(1);
+				else if(vx < 0)
+					_nowWeapon->SetDT(0);
+				else
+					_nowWeapon->SetDT(DT);
 			}
 			else if(target != nullptr && _attCounter == 0 && Collision(target)) // 近戰攻擊
 			{
