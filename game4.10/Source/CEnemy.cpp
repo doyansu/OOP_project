@@ -15,9 +15,11 @@ namespace game_framework {
 	CEnemy::CEnemy()
 	{
 		// 動畫載入
+		const int AnimaSize = 2;
 		_animas.clear();
-		_animas.push_back(CAnimation());
-		_animaIter = _animas.begin();
+		_animas.reserve(AnimaSize);
+		for (int i = 0; i < AnimaSize; i++)
+			_animas.push_back(CAnimation());
 
 		// 屬性設定
 		this->SetXY(400, 400);
@@ -38,6 +40,9 @@ namespace game_framework {
 		_animaIter->AddBitmap(IDB_enemy0_2, RGB(255, 255, 255));
 		_animaIter->AddBitmap(IDB_enemy0_3, RGB(255, 255, 255));
 		_animaIter->AddBitmap(IDB_enemy0_4, RGB(255, 255, 255));
+
+		_animaIter = GetAnima(CEnemy::Anima::DIE);
+		_animaIter->AddBitmap(IDB_enemy0_die, RGB(255, 255, 255));
 
 		_animaIter = _animas.begin();
 
@@ -105,6 +110,8 @@ namespace game_framework {
 	void CEnemy::OnDie()
 	{
 		this->SetShowPriority(0);
+		_animaIter = GetAnima(CEnemy::Anima::DIE);
+		_animaIter->OnMove();
 	}
 
 
@@ -116,6 +123,9 @@ namespace game_framework {
 		{
 		case game_framework::CEnemy::Anima::INIT_R:
 			anima = CEnemy::_animas.begin();
+			break;
+		case game_framework::CEnemy::Anima::DIE:
+			anima = CEnemy::_animas.begin() + 1;
 			break;
 		default:
 			break;
