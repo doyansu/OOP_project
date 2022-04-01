@@ -366,6 +366,11 @@
     <Image Include="..\解包內容\Sprite\c01_4.png" />
     <Image Include="res\bitmap5.bmp" />
     <Image Include="res\bmp00003.bmp" />
+    <Image Include="RES\bullet\bullet2_52.bmp" />
+    <Image Include="RES\bullet\bullet2_53.bmp" />
+    <Image Include="RES\bullet\bullet2_82.bmp" />
+    <Image Include="RES\bullet\bullet_115.bmp" />
+    <Image Include="RES\bullet\bullet_6.bmp" />
     <Image Include="RES\character1\c01_0.bmp" />
     <Image Include="RES\character1\c01_0_l.bmp" />
     <Image Include="RES\character1\c01_1.bmp" />
