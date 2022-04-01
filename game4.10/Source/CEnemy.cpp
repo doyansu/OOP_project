@@ -91,12 +91,14 @@ namespace game_framework {
 				}
 			);
 
+			const double MAXSEARCH = 600.0;	// ³Ì¤j·j¯Á½d³ò
 			if (player)
 			{
 				double d = this->Distance(player);
 				double vx = (double)(player->CenterX() - this->CenterX()) / d;
 				double vy = (double)(player->CenterY() - this->CenterY()) / d;
-				_weapon.Shoot(vx, vy);
+				if (d <= MAXSEARCH)
+					_weapon.Shoot(vx, vy);
 			}
 			
 		}

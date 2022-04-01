@@ -37,8 +37,9 @@ namespace game_framework
 		}
 
 		// ²¾°Êª«¥ó
-		for (CGameObj* obj : _allObj)
+		for (int i = 0; i < (int)_allObj.size(); i++)
 		{
+			CGameObj* obj = _allObj.at(i);
 			if (obj->IsEnable())
 			{
 				obj->OnMove(map);

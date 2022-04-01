@@ -45,6 +45,8 @@ namespace game_framework {
 		_animaIterator->AddBitmap(IDB_FLOOR_1, RGB(255, 255, 255));
 		_animaIterator = GetAnima(MapContent::WALL);
 		_animaIterator->AddBitmap(IDB_WALL_1, RGB(255, 255, 255));
+		//_animaIterator = GetAnima(MapContent::BULLETWALL);
+		//_animaIterator->AddBitmap(, RGB(255, 255, 255));
 		_animaIterator = _animas.begin();
 	}
 
@@ -227,6 +229,9 @@ namespace game_framework {
 			break;
 		case game_framework::CGameMap::MapContent::WALL:
 			iterator = _animas.begin() + 2;
+			break;
+		case game_framework::CGameMap::MapContent::BULLETWALL:
+			iterator = _animas.begin() + 3;
 			break;
 		default:
 			ASSERT(0);
