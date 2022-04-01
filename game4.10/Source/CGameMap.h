@@ -5,13 +5,13 @@ namespace game_framework {
 	class CGameMap
 	{
 	public:
-		enum class MapContent {NULLPTR, FLOOR, WALL, BULLETWALL};		//地圖內容物
+		enum class MapContent {NULLPTR, FLOOR, WALL, AISLEWALL};		//地圖內容物
 		CGameMap();
 		void LoadBitmap();
 		int ScreenX(int x);				//	地圖點座標在螢幕位置
 		int ScreenY(int y);
 		bool InScreen(int x, int y, int mw, int mh);	// 座標範圍在螢幕內
-		bool IsEmpty(int x, int y);
+		bool IsContent(int x, int y, CGameMap::MapContent = MapContent::FLOOR);
 
 		int GetScreenX();
 		int GetScreenY();

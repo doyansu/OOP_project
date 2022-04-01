@@ -16,7 +16,7 @@ namespace game_framework {
 
 	void CGameMap::init()
 	{
-		int AnimaSize = 3;
+		int AnimaSize = 4;
 		_animas.reserve(AnimaSize);
 		for (int i = 0; i < AnimaSize; i++)
 			_animas.push_back(CAnimation());
@@ -45,8 +45,8 @@ namespace game_framework {
 		_animaIterator->AddBitmap(IDB_FLOOR_1, RGB(255, 255, 255));
 		_animaIterator = GetAnima(MapContent::WALL);
 		_animaIterator->AddBitmap(IDB_WALL_1, RGB(255, 255, 255));
-		//_animaIterator = GetAnima(MapContent::BULLETWALL);
-		//_animaIterator->AddBitmap(, RGB(255, 255, 255));
+		_animaIterator = GetAnima(MapContent::AISLEWALL);
+		_animaIterator->AddBitmap(IDB_WALL_1, RGB(255, 255, 255));
 		_animaIterator = _animas.begin();
 	}
 
@@ -147,6 +147,7 @@ namespace game_framework {
 				if (mask[i + 1][j] && (i + 1) != NROOMS) {
 					h2 = Room[i + 1][j][0];
 					w2 = Room[i + 1][j][1];
+					// 主通道
 					for (int x = cx + h1 / 2 + 1 ; x < cx + INTERNAL - h2 / 2; x++)
 					{
 						_map[x][cy + 3] = MapContent::WALL;
@@ -156,6 +157,9 @@ namespace game_framework {
 							_map[x][cy + y] = MapContent::FLOOR;
 						}
 					}
+					// 進房間區隔
+					for (int y = -2; y < 3; y++)
+						_map[cx + h1 / 2 + 1][cy + y] = MapContent::AISLEWALL;
 				}
 				if (mask[i][j + 1] && (j + 1) != NROOMS) {
 					h2 = Room[i][j + 1][0];
@@ -168,6 +172,10 @@ namespace game_framework {
 						{
 							_map[cx + x][y] = MapContent::FLOOR;
 						}
+					}
+					for (int x = -2; x < 3; x++)
+					{
+						_map[cx + x][cy + w1 / 2 + 1] = MapContent::AISLEWALL;
 					}
 				}
 			}
@@ -194,11 +202,11 @@ namespace game_framework {
 		return y - _sy;
 	}
 
-	bool CGameMap::IsEmpty(int x, int y)
+	bool CGameMap::IsContent(int x, int y, CGameMap::MapContent content)
 	{
 		x /= _MAPW;
 		y /= _MAPH;
-		return _map[x][y] == MapContent::FLOOR;
+		return _map[x][y] == content;
 	}
 
 	bool CGameMap::InScreen(int x, int y, int mw, int mh)
@@ -230,7 +238,7 @@ namespace game_framework {
 		case game_framework::CGameMap::MapContent::WALL:
 			iterator = _animas.begin() + 2;
 			break;
-		case game_framework::CGameMap::MapContent::BULLETWALL:
+		case game_framework::CGameMap::MapContent::AISLEWALL:
 			iterator = _animas.begin() + 3;
 			break;
 		default:

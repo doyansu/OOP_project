@@ -74,14 +74,14 @@ namespace game_framework {
 		return HitRectangle(other->GetX1(), other->GetY1(), other->GetX2(), other->GetY2());
 	}
 
-	bool CGameObj::Collision(CGameMap *map)	//	碰到地圖邊牆
+	bool CGameObj::Collision(CGameMap *map, CGameMap::MapContent coll)	//	碰到地圖邊牆
 	{
 		int x1 = GetX1();
 		int y1 = GetY1();
 		int x2 = GetX2();
 		int y2 = GetY2();
 
-		return (!map->IsEmpty(x1, y1) || !map->IsEmpty(x1, y2) || !map->IsEmpty(x2, y1) || !map->IsEmpty(x2, y2));
+		return (map->IsContent(x1, y1, coll) || map->IsContent(x1, y2, coll) || map->IsContent(x2, y1, coll) || map->IsContent(x2, y2, coll));
 	}
 
 	bool CGameObj::HitRectangle(int tx1, int ty1, int tx2, int ty2)	//	矩形碰撞

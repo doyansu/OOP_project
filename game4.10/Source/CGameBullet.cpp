@@ -33,8 +33,8 @@ namespace game_framework
 		_mx += (int)((double)_moveSpeed * _vector[0]);
 		_my += (int)((double)_moveSpeed * _vector[1]);
 
-		//	接觸到地圖圍牆停止
-		if (CGameBullet::CGameObj::Collision(map))
+		//	接觸到地圖圍牆停止或房間通道連接處
+		if (CGameBullet::CGameObj::Collision(map) || CGameBullet::CGameObj::Collision(map, CGameMap::MapContent::AISLEWALL))
 			CGameBullet::CGameObj::SetEnable(false);
 	}
 

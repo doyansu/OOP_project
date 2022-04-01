@@ -15,7 +15,7 @@ namespace game_framework {
 
 		// 判斷
 		bool Collision(CGameObj*);		// 物件碰撞
-		bool Collision(CGameMap*);		// 地圖碰撞
+		bool Collision(CGameMap*, CGameMap::MapContent = CGameMap::MapContent::WALL);		// 地圖碰撞
 		bool IsEnable();				// 是否啟用
 		bool NeedFree();				// 是否釋放
 		bool IsDie();					// 是否死亡
