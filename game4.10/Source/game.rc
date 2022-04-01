@@ -173,6 +173,14 @@ IDB_enemy2_5_l          BITMAP                  "..\\RES\\enemy\\enemy34_5_l.bmp
 IDB_enemy2_6_l          BITMAP                  "..\\RES\\enemy\\enemy34_6_l.bmp"
 IDB_enemy2_7_l          BITMAP                  "..\\RES\\enemy\\enemy34_7_l.bmp"
 
+IDB_Wall0_0				BITMAP					"..\\RES\\other\\Wall0_0.bmp"
+
+IDB_Wall0_1				BITMAP					"..\\RES\\other\\Wall0_1.bmp"
+
+IDB_Wall0_2				BITMAP					"..\\RES\\other\\Wall0_2.bmp"
+
+IDB_UI_hp0				BITMAP					"..\\RES\\UI_hp.bmp"
+
 IDB_CH1_0_L             BITMAP                  "..\\RES\\character1\\c01_0_l.bmp"
 
 IDB_CH1_1_L             BITMAP                  "..\\RES\\character1\\c01_1_l.bmp"
