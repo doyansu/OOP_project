@@ -52,7 +52,8 @@ namespace game_framework {
 	void CEnemy::OnShow(CGameMap* map)
 	{
 		CEnemy::CGameObj::OnShow(map);
-		_weapon.OnShow(map);
+		if(!_isDie)
+			_weapon.OnShow(map);
 	}
 
 	void CEnemy::OnMove(CGameMap *map)
@@ -81,7 +82,7 @@ namespace game_framework {
 		_weapon.OnMove(map);
 
 		// ªZ¾¹®gÀ»
-		if (_weapon.CanFire() && (rand() % randomRange) == 0)
+		if (_weapon.CanFire())
 		{
 			CGameObj* player= CGameObjCenter::FindObjBy(
 				[](CGameObj* obj)
