@@ -11,22 +11,56 @@ namespace game_framework {
 
 	CGameObj::CGameObj()
 	{
-		init();
-	}
-
-	void CGameObj::init()
-	{
+		_animas.reserve(20);
 		_animas.push_back(CAnimation());
 		_tag = "null";
 		_moveSpeed = 5;
+		_showPriority = 0;
+		_needFree = true;
+		_hp = _maxHp = 5;
 		Reset();
+	}
+
+	CGameObj::CGameObj(const CGameObj& other)
+	{
+		copy(other);
+	}
+
+	CGameObj& CGameObj::operator=(const CGameObj& other)
+	{
+		if (this != &other) 
+			copy(other);
+		return *this;
+	}
+
+	void CGameObj::copy(const CGameObj& other)	//	for copy construct¡Bcopy assigment
+	{
+		//this->_animas.assign(other._animas.begin(), other._animas.end());
+		this->_animas = other._animas;
+		this->_animaIter = this->_animas.begin();
+		this->_tag = other._tag;
+		this->_moveSpeed = other._moveSpeed;
+		this->_mx = other._mx;
+		this->_my = other._my;
+		this->_hp = other._hp;
+		this->_maxHp = other._maxHp;
+		this->_vector[0] = other._vector[0];
+		this->_vector[1] = other._vector[1];
+		this->_showPriority = other._showPriority;
+		this->_isEnable = other._isEnable;
+		this->_needFree = other._needFree;
+		this->_isDie = other._isDie;
+		this->_isMovingLeft = this->_isMovingRight = this->_isMovingUp = this->_isMovingDown = false;
+		
 	}
 
 	void CGameObj::Reset() 
 	{
-		_mx = _my = _vector[0] = _vector[1] = 0;
+		_mx = _my = 0;
+		_vector[0] = _vector[1] = 0.0;
 		_isMovingLeft = _isMovingRight = _isMovingUp = _isMovingDown = false;
-		_enable = true;
+		_isEnable = true;
+		_isDie = false;
 		_animaIter = _animas.begin();
 	}
 
@@ -63,28 +97,6 @@ namespace game_framework {
 	{
 		_animaIter->SetTopLeft(map->ScreenX(_mx), map->ScreenY(_my));	
 		_animaIter->OnShow();
-	}
-
-	void CGameObj::EnemyOnMove(CGameMap* map){
-		const int range = 20;
-
-		_animaIter->OnMove();
-		_mx += _vector[0];
-		_my += _vector[1];
-
-		if (CGameObj::Collision(map))
-		{
-			_mx -= _vector[0];
-			_my -= _vector[1];
-		}
-
-		if ((rand() % range) == 0)
-		{
-			_vector[0] = -(_moveSpeed >> 1) + (rand() % _moveSpeed);
-			_vector[1] = -(_moveSpeed >> 1) + (rand() % _moveSpeed);
-		}
-
-		
 	}
 
 	void CGameObj::OnMove(CGameMap* map)
@@ -132,6 +144,35 @@ namespace game_framework {
 			this->SetMovingDown(true);
 	}
 
+	int CGameObj::CenterX()
+	{
+		return ((this->GetX1() + this->GetX2()) >> 1);	
+	}
+
+	int CGameObj::CenterY()
+	{
+		return ((this->GetY1() + this->GetY2()) >> 1);
+	}
+
+	double CGameObj::Distance(CGameObj* other)
+	{
+		const int centerx = CenterX() - other->CenterX();
+		const int centery = CenterY() - other->CenterY();
+		return sqrt((double)(centerx * centerx + centery * centery));
+	}
+
+	void CGameObj::TakeDmg(int damage)
+	{
+		if (_hp <= damage)
+		{
+			_hp = 0;
+			_isDie = true;
+			_isEnable = false;
+		}
+		else
+			_hp -= damage;
+	}
+
 	int CGameObj::GetX1()
 	{
 		return _mx;
@@ -152,14 +193,19 @@ namespace game_framework {
 		return _my + _animaIter->Height();
 	}
 
-	int CGameObj::GetVectorX()
+	double CGameObj::GetVectorX()
 	{
 		return _vector[0];
 	}
 
-	int CGameObj::GetVectorY()
+	double CGameObj::GetVectorY()
 	{
 		return _vector[1];
+	}
+
+	int CGameObj::GetShowPriority()
+	{
+		return _showPriority;
 	}
 
 	string CGameObj::GetTag()
@@ -167,17 +213,42 @@ namespace game_framework {
 		return _tag;
 	}
 
+	bool CGameObj::NeedFree()	
+	{
+		return _needFree;
+	}
+
 	bool CGameObj::IsEnable()
 	{
-		return _enable;
+		return _isEnable;
+	}
+
+	bool CGameObj::IsDie()
+	{
+		return _isDie;
 	}
 
 	void CGameObj::SetEnable(bool enable)
 	{
-		_enable = enable;
+		_isEnable = enable;
 	}
 
-	void CGameObj::SetVector(int vx, int vy)
+	void CGameObj::SetDie(bool die)
+	{
+		_isDie = die;
+	}
+
+	void CGameObj::SetFree(bool free)
+	{
+		_needFree = free;
+	}
+
+	void CGameObj::SetShowPriority(int level)
+	{
+		_showPriority = level;
+	}
+
+	void CGameObj::SetVector(double vx, double vy)
 	{
 		_vector[0] = vx;
 		_vector[1] = vy;
@@ -212,6 +283,17 @@ namespace game_framework {
 	void CGameObj::SetSpeed(int speed)
 	{
 		_moveSpeed = speed;
+	}
+
+	void CGameObj::SetHp(int hp)
+	{
+		if (hp >= 0 && hp <= _maxHp)
+			_hp = hp;
+	}
+
+	void CGameObj::SetMaxHp(int maxhp)
+	{
+		_maxHp = maxhp;
 	}
 
 	void CGameObj::SetTag(string tag)

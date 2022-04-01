@@ -15,21 +15,23 @@ namespace game_framework
 
 	void CGameBullet::init()
 	{
-		_damage = 0;
+		_damage = 4;
+		//_target = "";
+		_showPriority = 5;
 		CGameBullet::CGameObj::SetTag("bullet");
 	}
 
 
 	void CGameBullet::LoadBitmap()
 	{
-		CGameBullet::CGameObj::LoadBitmap(IDB_BALL); //test image
+		CGameBullet::CGameObj::_animaIter->AddBitmap(IDB_BALL, RGB(0, 0, 0)); //test image
 	}
 
 	void CGameBullet::OnMove(CGameMap* map)
 	{
 		//	根據 _vector 進行移動
-		_mx += _moveSpeed * _vector[0];
-		_my += _moveSpeed * _vector[1];
+		_mx += (int)((double)_moveSpeed * _vector[0]);
+		_my += (int)((double)_moveSpeed * _vector[1]);
 
 		//	接觸到地圖圍牆停止
 		if (CGameBullet::CGameObj::Collision(map))
@@ -39,6 +41,20 @@ namespace game_framework
 	/*void CGameBullet::OnShow(CGameMap* map)
 	{
 
+	}*/
+
+	void CGameBullet::OnObjCollision(CGameObj* other)
+	{
+		if (other->GetTag() == "enemy")
+		{
+			this->SetEnable(false);
+			other->TakeDmg(_damage);
+		}
+	}
+
+	/*void CGameBullet::SetTarget(string target)
+	{
+		_target = target;
 	}*/
 
 }

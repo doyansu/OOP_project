@@ -88,8 +88,7 @@ namespace game_framework {
 		//	決定房間有無
 		for (int i = 0; i < NROOMS; i++) 
 		{
-			int r = 1 + (rand() % (NROOMS - 1));
-			//r = 5;
+			int r = 1 + (rand() % (NROOMS));
 			for (int j = 0; j < r; j++)
 			{
 				mask[i][j] = true;
@@ -132,16 +131,18 @@ namespace game_framework {
 		}
 
 		//	設定房間之間的通道
-		for (int i = 0; i < NROOMS - 1; i++)
+		for (int i = 0; i < NROOMS; i++)
 		{
 
-			for (int j = 0; j < NROOMS - 1; j++)
+			for (int j = 0; j < NROOMS; j++)
 			{
+				if (mask[i][j] == false)
+					continue;
 				int h1 = Room[i][j][0], h2;
 				int w1 = Room[i][j][1], w2;
 				int cx = (INTERNAL >> 1) + INTERNAL * i;
 				int cy = (INTERNAL >> 1) + INTERNAL * j;
-				if (mask[i + 1][j]) {
+				if (mask[i + 1][j] && (i + 1) != NROOMS) {
 					h2 = Room[i + 1][j][0];
 					w2 = Room[i + 1][j][1];
 					for (int x = cx + h1 / 2 + 1 ; x < cx + INTERNAL - h2 / 2; x++)
@@ -154,7 +155,7 @@ namespace game_framework {
 						}
 					}
 				}
-				if (mask[i][j + 1]) {
+				if (mask[i][j + 1] && (j + 1) != NROOMS) {
 					h2 = Room[i][j + 1][0];
 					w2 = Room[i][j + 1][1];
 					for (int y = cy + w1 / 2 + 1; y < cy + INTERNAL - w2 / 2; y++)

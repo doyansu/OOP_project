@@ -65,7 +65,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // 定義遊戲可設定的環境與條件
 /////////////////////////////////////////////////////////////////////////////
-
+#pragma once
 #define SIZE_X				 640		// 設定遊戲畫面的解析度為640x480
 #define SIZE_Y				 480		// 註：若不使用標準的解析度，則不能切換到全螢幕
 #define OPEN_AS_FULLSCREEN	 false		// 是否以全螢幕方式開啟遊戲
@@ -219,6 +219,9 @@ protected:
 class CAnimation {
 public:
 	CAnimation(int=10);				// Constructor (預設動畫播放頻率每1/3秒換一張圖)
+	CAnimation(const CAnimation&);	// Copy Construct
+	CAnimation& operator=(const CAnimation& other);	// Copy Assigment
+
 	void  AddBitmap(int,COLORREF=CLR_INVALID);
 									// 增加一張圖形至動畫(圖的編號及透明色)
 	void  AddBitmap(char *,COLORREF=CLR_INVALID);
@@ -241,6 +244,7 @@ private:
 	int								delay_counter;	// 延緩動畫播放速度的計數器
 	int								delay_count;	// 動畫播放速度的常數
 	int								x, y;			// 動畫的座標
+	void copy(const CAnimation&);
 };
 
 /////////////////////////////////////////////////////////////////////////////

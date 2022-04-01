@@ -5,6 +5,8 @@
 #include "audio.h"
 #include "gamelib.h"
 #include "CGameWeapon.h"
+#include "CGameObjCenter.h"
+
 
 namespace game_framework
 {
@@ -16,13 +18,12 @@ namespace game_framework
 	void CGameWeapon::init()
 	{
 		const int AnimaSize = 2;
-		CAnimation addAnima;
 		_animas.clear();
 		_animas.reserve(AnimaSize);
 		for (int i = 0; i < AnimaSize; i++)
-			_animas.push_back(addAnima);
+			_animas.push_back(CAnimation());
 		_atk, _cost = 0;
-		_shootGap = 10;
+		_shootDelay = 10;
 		_bulletSpeed = 20;	
 		_bullet.SetSpeed(_bulletSpeed);
 		_fire = true;
@@ -31,28 +32,19 @@ namespace game_framework
 
 	void CGameWeapon::LoadBitmap()
 	{
-		CGameWeapon::CGameObj::_animaIter = GetAnima(Anima::Right);
+		CGameWeapon::CGameObj::_animaIter = GetAnima(CGameWeapon::Anima::Right);
 		CGameWeapon::CGameObj::_animaIter->AddBitmap(IDB_weapon1, RGB(255, 255, 255));
 				
-		CGameWeapon::CGameObj::_animaIter = GetAnima(Anima::Left);
+		CGameWeapon::CGameObj::_animaIter = GetAnima(CGameWeapon::Anima::Left);
 		CGameWeapon::CGameObj::_animaIter->AddBitmap(IDB_weapon1_l, RGB(255, 255, 255));
 
 		CGameWeapon::CGameObj::_animaIter = _animas.begin();
 
 		_bullet.LoadBitmap();
-
 	}
 
 	void CGameWeapon::OnMove(CGameMap* map)
 	{
-
-		for (int i = 0; i < (int)_bullets.size(); i++)
-		{
-			if (_bullets.at(i).IsEnable())
-				_bullets.at(i).OnMove(map);
-			else
-				_bullets.erase(_bullets.begin() + i);
-		}
 
 		//	®gÀ»¶¡¹j­p¼Æ
 		if (!_fire && --_fireCounter == 0)
@@ -62,28 +54,22 @@ namespace game_framework
 
 	void CGameWeapon::OnShow(CGameMap* map)
 	{
-		for (int i = 0; i < (int)_bullets.size(); i++)
-		{
-			_bullets.at(i).OnShow(map);
-		}
 		CGameWeapon::CGameObj::OnShow(map);
 	}
 
-	void CGameWeapon::Shoot(CGameMap* map, CGameObj* player)
+	void CGameWeapon::Shoot(double x, double y)
 	{
-
 		if (_fire)
 		{
-			CGameBullet newBullet = _bullet;
-			newBullet.SetXY(_mx, _my);
-			newBullet.SetVector(player->GetVectorX(), player->GetVectorY());
-			_bullets.push_back(newBullet);
+			_bullet.SetXY(_mx, _my);
+			_bullet.SetVector(x, y);
+			CGameObjCenter::AddObj(new CGameBullet(_bullet));
 			_fire = false;
-			_fireCounter = _shootGap;
+			_fireCounter = _shootDelay;
 		}
 	}
 
-	bool CGameWeapon::CanFire()
+	bool CGameWeapon::CanFire() 
 	{
 		return _fire;
 	}
@@ -91,10 +77,14 @@ namespace game_framework
 	void CGameWeapon::DT_D(int dt)
 	{
 		if (dt == 1) {
-			CGameWeapon::CGameObj::_animaIter = CGameWeapon::GetAnima(Anima::Right);
+			CGameWeapon::CGameObj::_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima::Right);
 		}
 		else if (dt == 0) {
+<<<<<<< HEAD
 			CGameWeapon::CGameObj::_animaIter = CGameWeapon::GetAnima(Anima::Left);
+=======
+			CGameWeapon::CGameObj::_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima::Left);
+>>>>>>> 7b19c05e5c5f8250c1b48a3d37d4de87bfd438df
 		}
 		CGameWeapon::CGameObj::_animaIter->OnMove();
 	}
