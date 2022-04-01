@@ -80,11 +80,8 @@ namespace game_framework
 			CGameWeapon::CGameObj::_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima::Right);
 		}
 		else if (dt == 0) {
-<<<<<<< HEAD
-			CGameWeapon::CGameObj::_animaIter = CGameWeapon::GetAnima(Anima::Left);
-=======
+
 			CGameWeapon::CGameObj::_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima::Left);
->>>>>>> 7b19c05e5c5f8250c1b48a3d37d4de87bfd438df
 		}
 		CGameWeapon::CGameObj::_animaIter->OnMove();
 	}
