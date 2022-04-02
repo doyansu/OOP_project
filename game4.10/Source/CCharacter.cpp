@@ -33,11 +33,6 @@ namespace game_framework {
 		_nowWeapon->SetTarget("enemy");
 	}
 
-	void CCharacter::init()
-	{
-		
-	}
-
 	void CCharacter::Reset()
 	{
 		_doFire = false;
@@ -193,7 +188,7 @@ namespace game_framework {
 				}
 			}
 
-			// 變更角色、武器朝向
+			// 射擊時變更角色、武器朝向
 			if (target)
 			{
 				if (target->CenterX() - this->CenterX() > 0)
