@@ -187,6 +187,21 @@ namespace game_framework {
 				}
 			}
 
+			// 變更武器朝向
+			if (target)
+			{
+				if (target->CenterX() - this->CenterX() > 0)
+				{
+					_nowWeapon->SetDT(1);
+					_nowWeapon->SetXY(this->CenterX(), this->CenterY());
+				}
+				else
+				{
+					_nowWeapon->SetDT(0);
+					_nowWeapon->SetXY(this->CenterX() - (_nowWeapon->GetX2() - _nowWeapon->GetX1()), this->CenterY());
+				}	
+			}
+
 			// 射擊
 			if (_nowWeapon->CanFire() && target != nullptr && d >= MINSEARCH && d <= MAXSEARCH)// 找到敵人朝敵人射擊
 			{
