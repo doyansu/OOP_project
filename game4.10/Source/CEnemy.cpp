@@ -28,9 +28,9 @@ namespace game_framework {
 		CEnemy::CGameObj::SetTag("enemy");
 
 		// ªZ¾¹³]©w
-		_weapon.SetUser(this);
 		_weapon.SetAttributes(1, 0, 5, 50);
 		_weapon.SetDT(1);
+		_weapon.SetTarget("player");
 	}
 
 	void CEnemy::LoadBitmap()

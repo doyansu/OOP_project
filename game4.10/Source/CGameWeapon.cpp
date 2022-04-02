@@ -12,39 +12,45 @@ namespace game_framework
 {
 	CGameWeapon::CGameWeapon()
 	{
+		// 動畫載入
 		const int AnimaSize = 2;
 		_animas.clear();
 		_animas.reserve(AnimaSize);
 		for (int i = 0; i < AnimaSize; i++)
 			_animas.push_back(CAnimation());
-		_atk, _cost = 0;
+		// 屬性設定
+		_fire = true;
+		_cost = 0;
 		_shootDelay = 10;
 		_bulletSpeed = 20;
 		_DT = 1;
-		_bullet.SetSpeed(_bulletSpeed);
-		_fire = true;
-		_user = nullptr;
 		CGameWeapon::CGameObj::SetTag("weapon");
-	}
-
-	void CGameWeapon::SetUser(CGameObj* user)
-	{
-		_user = user;
-		if (_user->GetTag() == "player")
-			_bullet.SetTarget("enemy");
-		else
-			_bullet.SetTarget("player");
-	}
-
-	void CGameWeapon::SetAttributes(int atk, int cost, int bulletSpeed, int shootDelay)
-	{
-		_atk = atk;
-		_cost = cost;
-		_bulletSpeed = bulletSpeed;
-		_shootDelay = shootDelay;
+		// 子彈設定
 		_bullet.SetSpeed(_bulletSpeed);
-		_bullet.SetDamage(_atk);
 	}
+
+	/*CGameWeapon::CGameWeapon(const CGameWeapon& other)
+	{
+		copy(other);
+	}
+
+	CGameWeapon& CGameWeapon::operator=(const CGameWeapon& other)
+	{
+		if (this != &other)
+			copy(other);
+		return *this;
+	}*/
+
+	/*void CGameWeapon::copy(const CGameWeapon& other)
+	{
+		this->_fire = other._fire;
+		this->_cost = other._cost;
+		this->_bulletSpeed = other._bulletSpeed;
+		this->_shootDelay = other._shootDelay;
+		this->_fireCounter = other._fireCounter;
+		this->_DT = other._DT;
+		this->_bullet = other._bullet;
+	}*/
 
 	void CGameWeapon::LoadBitmap()
 	{
@@ -62,16 +68,13 @@ namespace game_framework
 	void CGameWeapon::OnMove(CGameMap* map)
 	{
 		CGameWeapon::CGameObj::_animaIter->OnMove();
-		if (_user == nullptr)
-			return;
+
 		// 動畫判斷
 		if (_DT == 1) {
 			CGameWeapon::CGameObj::_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima::Right);
-			this->SetXY(_user->CenterX(), _user->CenterY());
 		}
 		else if (_DT == 0) {
 			CGameWeapon::CGameObj::_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima::Left);
-			this->SetXY(_user->CenterX() - (this->GetX2() - this->GetX1()), _user->CenterY());
 		}
 
 		//	射擊間隔計數
@@ -89,10 +92,11 @@ namespace game_framework
 	{
 		if (_fire)
 		{
-			if (_user)
-				_bullet.SetXY(_user->CenterX(), _user->CenterY());
-			else 
-				_bullet.SetXY(_mx, _my);
+			if(_DT == 0)
+				_bullet.SetXY(this->GetX1(), this->CenterY());
+			else if (_DT == 1)
+				_bullet.SetXY(this->GetX2(), this->CenterY());
+
 			_bullet.SetVector(x, y);
 			CGameObjCenter::AddObj(new CGameBullet(_bullet));
 			_fire = false;
@@ -125,5 +129,19 @@ namespace game_framework
 	void CGameWeapon::SetDT(int DT)
 	{
 		_DT = DT;
+	}
+
+	void CGameWeapon::SetTarget(string target)
+	{
+		_bullet.SetTarget(target);
+	}
+
+	void CGameWeapon::SetAttributes(int atk, int cost, int bulletSpeed, int shootDelay)
+	{
+		_cost = cost;
+		_bulletSpeed = bulletSpeed;
+		_shootDelay = shootDelay;
+		_bullet.SetSpeed(_bulletSpeed);
+		_bullet.SetDamage(atk);
 	}
 }

@@ -27,11 +27,10 @@ namespace game_framework {
 		this->SetTag("player");
 		this->SetFree(false);
 
-		//	武器載入
-		_weapon.clear();
+		//	武器設定
 		_weapon.push_back(CGameWeapon());
 		_nowWeapon = _weapon.begin();
-		_nowWeapon->SetUser(this);
+		_nowWeapon->SetTarget("enemy");
 	}
 
 	void CCharacter::init()
@@ -158,6 +157,11 @@ namespace game_framework {
 		//	武器移動
 		_nowWeapon->OnMove(map);
 		_nowWeapon->SetDT(DT);
+		if(DT)
+			_nowWeapon->SetXY(this->CenterX(), this->CenterY());
+		else 
+			_nowWeapon->SetXY(this->CenterX() - (_nowWeapon->GetX2() - _nowWeapon->GetX1()), this->CenterY());
+
 		//	武器射擊判斷
 		if (_doFire)
 		{
@@ -189,12 +193,6 @@ namespace game_framework {
 				double vx = (double)(target->CenterX() - this->CenterX()) / d;
 				double vy = (double)(target->CenterY() - this->CenterY()) / d;
 				_nowWeapon->Shoot(vx, vy);
-				if(vx > 0)
-					_nowWeapon->SetDT(1);
-				else if(vx < 0)
-					_nowWeapon->SetDT(0);
-				else
-					_nowWeapon->SetDT(DT);
 			}
 			else if(target != nullptr && _attCounter == 0 && Collision(target)) // 近戰攻擊
 			{
@@ -206,6 +204,7 @@ namespace game_framework {
 				_nowWeapon->Shoot(_vector[0], _vector[1]);
 			}
 		}
+		
 
 		//	計數
 		if (_attCounter > 0)
@@ -229,6 +228,7 @@ namespace game_framework {
 
 		CCharacter::CGameObj::OnKeyUp(nChar);
 	}
+
 	void CCharacter::OnKeyDown(char nChar)
 	{
 		//	Q 或 空白 射擊
