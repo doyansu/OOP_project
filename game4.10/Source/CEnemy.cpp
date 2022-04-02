@@ -108,7 +108,15 @@ namespace game_framework {
 	void CEnemy::OnObjCollision(CGameObj* other)
 	{
 		/*if (other->GetTag() == "player")
-			this->SetEnable(false);*/
+		{
+			double vx = _vector[0], vy = _vector[1];
+			_vector[0] += other->GetVectorX();
+			_vector[1] += other->GetVectorY();
+			if (abs(_vector[0]) > 5)
+				_vector[0] = vx;
+			if (abs(_vector[1]) > 5)
+				_vector[1] = vy;
+		}*/
 	}
 
 	void CEnemy::OnDie()

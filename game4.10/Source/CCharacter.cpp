@@ -243,6 +243,14 @@ namespace game_framework {
 			this->SetDie(false);
 	}
 
+	void CCharacter::OnObjCollision(CGameObj* other)
+	{
+		/*if (other->GetTag() == "enemy")
+		{
+			other->SetVector(other->GetVectorX() + this->GetVectorX(), other->GetVectorY() + this->GetVectorY());
+		}*/
+	}
+
 	void CCharacter::OnKeyUp(char nChar)
 	{
 		//	Q ©Î ªÅ¥Õ ®gÀ»
