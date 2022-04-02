@@ -21,6 +21,7 @@ namespace game_framework {
 		_mp = _maxMp = 180;
 		_shield = _maxShield = 5;
 		_damage = 4;
+		_moveSpeed = 8;
 		_showPriority = 10;
 		this->Reset();
 		this->SetXY(500, 500);
@@ -120,16 +121,14 @@ namespace game_framework {
 			_animaIter = GetAnima(Anima::INIT_L);
 				
 
-		//	角色移動、變更 vector 給子彈用
+		//	角色移動
 		int tempx = _mx, tempy = _my;
 		if (_isMovingLeft)
 		{
-			ModifyVector(0, -2);
 			_mx -= _moveSpeed;
 		}
 		if (_isMovingRight)
 		{
-			ModifyVector(0, 2);
 			_mx += _moveSpeed;
 		}
 		
@@ -138,22 +137,35 @@ namespace game_framework {
 		
 		if (_isMovingUp)
 		{
-			ModifyVector(1, -2);
 			_my -= _moveSpeed;
 		}
 		if (_isMovingDown)
 		{
-			ModifyVector(1, 2);
 			_my += _moveSpeed;
 		}
 
 		if (CCharacter::CGameObj::Collision(map))
 			_my = tempy;
 		
-		if ((_isMovingLeft != _isMovingRight) && !_isMovingDown  && !_isMovingUp && _vector[0] != 0)
+
+		//變更 vector 給子彈用
+		if(!(_isMovingUp && _isMovingDown) && !_isMovingLeft && _isMovingRight)
+			_vector[0] = 1;
+		else if(!(_isMovingUp && _isMovingDown) && _isMovingLeft && !_isMovingRight)
+			_vector[0] = -1;
+		else if((_isMovingUp ^ _isMovingDown) && !_isMovingLeft && !_isMovingRight)
+			_vector[0] = 0;
+
+		if (!_isMovingUp && _isMovingDown && !(_isMovingLeft && _isMovingRight))
+			_vector[1] = 1;
+		else if (_isMovingUp && !_isMovingDown && !(_isMovingLeft && _isMovingRight))
+			_vector[1] = -1;
+		else if (!_isMovingUp && !_isMovingDown && (_isMovingLeft ^ _isMovingRight))
+			_vector[1] = 0;
+		/*if ((_isMovingLeft != _isMovingRight) && !_isMovingDown  && !_isMovingUp && _vector[0] != 0)
 			_vector[1] = 0;
 		else if ((_isMovingDown != !_isMovingUp) && !_isMovingLeft && !_isMovingRight && _vector[1] != 0)
-			_vector[0] = 0;
+			_vector[0] = 0;*/
 
 		//	武器移動
 		_nowWeapon->OnMove(map);
@@ -189,7 +201,7 @@ namespace game_framework {
 			}
 
 			// 射擊時變更角色、武器朝向
-			if (target)
+			if (target != nullptr && d <= MAXSEARCH)
 			{
 				if (target->CenterX() - this->CenterX() > 0)
 				{

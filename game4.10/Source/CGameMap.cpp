@@ -88,10 +88,11 @@ namespace game_framework {
 		memset(mask, false, sizeof(mask));
 
 		//	決定房間有無
-		for (int i = 0; i < NROOMS; i++) 
+		int rx = 2 + (rand() % (NROOMS - 1));
+		for (int i = 0; i < rx; i++)
 		{
-			int r = 1 + (rand() % (NROOMS));
-			for (int j = 0; j < r; j++)
+			int ry = 1 + (rand() % (NROOMS));
+			for (int j = 0; j < ry; j++)
 			{
 				mask[i][j] = true;
 			}
@@ -104,7 +105,7 @@ namespace game_framework {
 			{
 				if (!mask[i][j])
 					continue;
-				int height = 15 + (rand() % 3) * 2, weight = 15 + (rand() % 3) * 2;
+				int height = 15 + (rand() % 5) * 2, weight = 15 + (rand() % 5) * 2;
 				int orgx = (INTERNAL >> 1) + INTERNAL * i - (height >> 1);
 				int orgy = (INTERNAL >> 1) + INTERNAL * j - (weight >> 1);
 				Room[i][j][0] = height;
@@ -158,8 +159,10 @@ namespace game_framework {
 						}
 					}
 					// 進房間區隔
-					for (int y = -2; y < 3; y++)
+					for (int y = -2; y < 3; y++) {
 						_map[cx + h1 / 2 + 1][cy + y] = MapContent::AISLEWALL;
+						_map[cx + INTERNAL - h2 / 2 - 1][cy + y] = MapContent::AISLEWALL;
+					}
 				}
 				if (mask[i][j + 1] && (j + 1) != NROOMS) {
 					h2 = Room[i][j + 1][0];
@@ -176,6 +179,7 @@ namespace game_framework {
 					for (int x = -2; x < 3; x++)
 					{
 						_map[cx + x][cy + w1 / 2 + 1] = MapContent::AISLEWALL;
+						_map[cx + x][cy + INTERNAL - w2 / 2 - 1] = MapContent::AISLEWALL;
 					}
 				}
 			}
