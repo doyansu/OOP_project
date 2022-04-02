@@ -21,7 +21,7 @@ namespace game_framework {
 		_mp = _maxMp = 180;
 		_shield = _maxShield = 5;
 		_damage = 4;
-		_moveSpeed = 8;
+		_moveSpeed = 5;
 		_showPriority = 10;
 		this->Reset();
 		this->SetXY(500, 500);

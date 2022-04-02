@@ -1,5 +1,5 @@
 #pragma once
-
+#include "CGameRoom.h"
 
 namespace game_framework {
 	class CGameMap
@@ -26,15 +26,15 @@ namespace game_framework {
 		void Reset();
 
 	protected:
-
+		MapContent _map[200][200];						// 地圖每格內容
+		int _sx, _sy, _moveSpeed;						// 螢幕點座標、移動速度			
 		vector<CAnimation> _animas;						// 地圖圖片
 		vector<CAnimation>::iterator _animaIterator;	// 操作用
 		const int _MAPW, _MAPH;							// 地圖每格寬高
-		MapContent _map[200][200];						// 地圖每格內容
-		int _sx, _sy, _moveSpeed;						// 螢幕點座標、移動速度			
+		const int _MAXNOFROOM = 4;						// 最大房間數 _MAXNOFROOM * _MAXNOFROOM
+		
 	
 	private:
-		void init();
 		vector<CAnimation>::iterator GetAnima(MapContent);
 	};
 }

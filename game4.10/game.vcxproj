@@ -263,6 +263,7 @@
     <ClCompile Include="Source\CGameMap.cpp" />
     <ClCompile Include="Source\CGameObj.cpp" />
     <ClCompile Include="Source\CGameObjCenter.cpp" />
+    <ClCompile Include="Source\CGameRoom.cpp" />
     <ClCompile Include="Source\CGameWeapon.cpp" />
     <ClCompile Include="Source\CInitialPlayer.cpp" />
     <ClCompile Include="Source\audio.cpp" />
@@ -317,6 +318,7 @@
     <ClInclude Include="Source\CGameMap.h" />
     <ClInclude Include="Source\CGameObj.h" />
     <ClInclude Include="Source\CGameObjCenter.h" />
+    <ClInclude Include="Source\CGameRoom.h" />
     <ClInclude Include="Source\CGameWeapon.h" />
     <ClInclude Include="Source\CInitialPlayer.h" />
     <ClInclude Include="Source\audio.h" />

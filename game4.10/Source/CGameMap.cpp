@@ -11,11 +11,6 @@ namespace game_framework {
 	CGameMap::CGameMap()
 		:_MAPW(25), _MAPH(25)
 	{
-		init();
-	}
-
-	void CGameMap::init()
-	{
 		int AnimaSize = 4;
 		_animas.reserve(AnimaSize);
 		for (int i = 0; i < AnimaSize; i++)

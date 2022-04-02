@@ -153,6 +153,9 @@
     <ClCompile Include="Source\CGameObjCenter.cpp">
       <Filter>MyGame</Filter>
     </ClCompile>
+    <ClCompile Include="Source\CGameRoom.cpp">
+      <Filter>MyGame</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\audio.h">
@@ -213,6 +216,9 @@
       <Filter>MyGame</Filter>
     </ClInclude>
     <ClInclude Include="Source\CGameObjCenter.h">
+      <Filter>MyGame</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CGameRoom.h">
       <Filter>MyGame</Filter>
     </ClInclude>
   </ItemGroup>
@@ -356,6 +362,21 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="RES\character1\weapons1_l.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\bullet\bullet2_52.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\bullet\bullet2_53.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\bullet\bullet2_82.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\bullet\bullet_115.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\bullet\bullet_6.bmp">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
