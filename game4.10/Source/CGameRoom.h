@@ -7,9 +7,14 @@ namespace game_framework
 	public:
 		enum class RoomType {NULLANY, NORMAL, TREASURE};
 		CGameRoom();
+		int CenterX();
+		int CenterY();
+		int Width();
+		int High();
+
 	protected:
 		int _centerX, _centerY;
-		int _weight, _height;
+		int _width, _high;
 	private:
 
 	};
