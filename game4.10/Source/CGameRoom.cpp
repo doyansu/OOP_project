@@ -50,11 +50,14 @@ namespace game_framework
 	{
 		if (_isStrat)
 		{
+			// 檢查房間內怪物是否已經全部死亡
 			for (CGameObj* obj : _roomObjs)
 			{
 				if (obj->IsEnable())
 					return;
 			}
+
+			// 全部死亡重新生成
 			if (_reGenerate > 0)
 			{
 				_roomObjs.clear();
@@ -68,6 +71,11 @@ namespace game_framework
 				}
 				_reGenerate--;
 			}
+			else
+			{
+				this->SetEnable(false);
+				this->SetDie(true);
+			}
 		}
 	}
 
@@ -76,7 +84,8 @@ namespace game_framework
 		if (!_isStrat)
 		{
 			for (CGameObj* obj : _roomObjs)
-				obj->OnShow(map);
+				if(map->InScreen(obj->GetX1(), obj->GetY1(), obj->GetX2(), obj->GetY2()))
+					obj->OnShow(map);
 		}
 	}
 
@@ -91,6 +100,7 @@ namespace game_framework
 				obj->SetFree(true);
 				CGameObjCenter::AddObj(obj);
 			}
+
 		}
 			
 	}

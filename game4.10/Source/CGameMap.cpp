@@ -65,7 +65,7 @@ namespace game_framework {
 		_animaIterator = GetAnima(MapContent::WALL);
 		_animaIterator->AddBitmap(IDB_WALL_1, RGB(255, 255, 255));
 		_animaIterator = GetAnima(MapContent::AISLEWALL);
-		_animaIterator->AddBitmap(IDB_WALL_1, RGB(255, 255, 255));
+		_animaIterator->AddBitmap(IDB_FLOOR_1, RGB(255, 255, 255));
 		_animaIterator = _animas.begin();
 	}
 
