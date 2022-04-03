@@ -153,6 +153,9 @@
     <ClCompile Include="Source\CGameObjCenter.cpp">
       <Filter>MyGame</Filter>
     </ClCompile>
+    <ClCompile Include="Source\CGameRoom.cpp">
+      <Filter>MyGame</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\audio.h">
@@ -213,6 +216,9 @@
       <Filter>MyGame</Filter>
     </ClInclude>
     <ClInclude Include="Source\CGameObjCenter.h">
+      <Filter>MyGame</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CGameRoom.h">
       <Filter>MyGame</Filter>
     </ClInclude>
   </ItemGroup>
@@ -373,6 +379,7 @@
     <Image Include="RES\bullet\bullet_6.bmp">
       <Filter>Resource Files</Filter>
     </Image>
+<<<<<<< HEAD
     <Image Include="RES\enemy\enemy31_0_l.bmp">
       <Filter>Resource Files</Filter>
     </Image>
@@ -514,5 +521,7 @@
     <Image Include="RES\UI_hp.bmp">
       <Filter>Resource Files</Filter>
     </Image>
+=======
+>>>>>>> 867352f244ad86983a74ae94bc787bfcc3ca5709
   </ItemGroup>
 </Project>

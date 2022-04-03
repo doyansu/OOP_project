@@ -19,6 +19,7 @@ namespace game_framework {
 		bool IsEnable();				// 是否啟用
 		bool NeedFree();				// 是否釋放
 		bool IsDie();					// 是否死亡
+		bool IsMoveing();
 
 		// Getter
 		int GetX1();					// 左上地圖點座標

@@ -8,7 +8,7 @@ namespace game_framework {
 	class CCharacter : public CGameObj
 	{
 	public:
-		enum class Anima {INIT_R, INIT_L, RUN_R, RUN_L};	//動畫種類
+		enum class Anima {INIT_R, INIT_L, RUN_R, RUN_L, DIE};	//動畫種類
 		CCharacter();
 
 		void TakeDmg(int);
@@ -16,13 +16,14 @@ namespace game_framework {
 		void OnShow(CGameMap*);			// 將圖形貼到畫面
 		void OnMove(CGameMap*);			// 移動
 		void OnDie();
+		void OnObjCollision(CGameObj*);
 		void OnKeyUp(char);				
 		void OnKeyDown(char);		
 		void Reset();					// 重置狀態
 
 	
 	protected:
-		const int _ATTDELAY;
+		const int _ATTDELAY;						// 近戰攻擊間隔
 		int DT;										// direction 朝向控制 1 朝右 0 朝左
 		int _mp, _maxMp, _shield, _maxShield;		// 魔力值、最大魔力值、護盾、最大護盾值
 		int _damage;								// 近戰傷害
@@ -33,7 +34,7 @@ namespace game_framework {
 
 	private:
 		int _attCounter;				// 近戰計數器
-		void init();					// 初始化
+		int _deathCounter;				// 死亡倒數
 		void free();
 		void ModifyVector(int index, int plus);
 		vector<CAnimation>::iterator GetAnima(Anima);	// 取得動畫

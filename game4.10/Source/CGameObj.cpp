@@ -233,6 +233,11 @@ namespace game_framework {
 		return _isDie;
 	}
 
+	bool CGameObj::IsMoveing()
+	{
+		return _isMovingDown || _isMovingLeft || _isMovingRight || _isMovingUp;
+	}
+
 	void CGameObj::SetEnable(bool enable)
 	{
 		_isEnable = enable;
