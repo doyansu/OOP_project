@@ -73,6 +73,7 @@ namespace game_framework
 			}
 			else
 			{
+				_roomObjs.clear();
 				this->SetEnable(false);
 				this->SetDie(true);
 			}
@@ -94,9 +95,13 @@ namespace game_framework
 		// 玩家進入房間怪物開始動作
 		if (other->GetTag() == "player" && _isStrat == false)
 		{
+			int x1 = other->GetX1(), x2 = other->GetX2(), y1 = other->GetY1(), y2 = other->GetY2();
+			if (this->GetX1() >= x1 || this->GetX2() <= x2 || this->GetY1() >= y1 || this->GetY2() <= y2)
+				return;
 			_isStrat = true;				
 			for (CGameObj* obj : _roomObjs)
 			{
+				
 				obj->SetFree(true);
 				CGameObjCenter::AddObj(obj);
 			}
