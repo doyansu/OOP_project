@@ -117,10 +117,31 @@
 #define IDB_BITMAP29                    245
 #define IDB_ENEMY0_4_L                  246
 #define IDB_ENEMY0_0_L                  247
+#define IDB_enemy0_0_                   247
 #define IDB_CH1_DIE                     248
 #define IDB_ENEMY0_1_L                  249
 #define IDB_ENEMY0_2_L                  250
 #define IDB_ENEMY0_3_L                  251
+#define IDB_BITMAP31                    253
+#define IDB_enemy0_1_                   253
+#define IDB_BITMAP32                    254
+#define IDB_BITMAP33                    255
+#define IDB_BITMAP34                    256
+#define IDB_BITMAP35                    257
+#define IDB_BITMAP36                    258
+#define IDB_BITMAP37                    259
+#define IDB_BITMAP38                    260
+#define IDB_BITMAP39                    261
+#define IDB_BITMAP40                    262
+#define IDB_BITMAP41                    263
+#define IDB_BITMAP42                    264
+#define IDB_BITMAP43                    265
+#define IDB_BITMAP44                    266
+#define IDB_BITMAP45                    267
+#define IDB_BITMAP46                    268
+#define IDB_BITMAP47                    269
+#define IDB_BITMAP48                    270
+#define IDB_BITMAP49                    271
 #define IDC_README                      1001
 #define ID_FILE_PAUSE                   32771
 #define ID_TOGGLE_FULLSCREEN            32772
@@ -133,7 +154,7 @@
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_3D_CONTROLS                     1
-#define _APS_NEXT_RESOURCE_VALUE        252
+#define _APS_NEXT_RESOURCE_VALUE        272
 #define _APS_NEXT_COMMAND_VALUE         32776
 #define _APS_NEXT_CONTROL_VALUE         1003
 #define _APS_NEXT_SYMED_VALUE           101
