@@ -17,18 +17,20 @@ namespace game_framework
 		_isStrat = false;
 		_maxEnemy = 5;
 		_reGenerate = 3;
+		_generateDelay = 60;
 		_roomObjs.reserve(_maxEnemy);
+		_tag = "Room";
 
 		// 新增怪物
 		CEnemy enemy;
 		enemy.LoadBitmap();
 		_enemys.reserve(10);
-		_enemys.push_back(enemy);
+		_enemys.push_back(new CEnemy(enemy));
 		
 		// 第一批怪物
 		for (int i = 0; i < _maxEnemy; i++)
 		{
-			CEnemy* newEnemy = new CEnemy(_enemys.at(rand() % (int)_enemys.size()));
+			CEnemy* newEnemy = new CEnemy(*(_enemys.at(rand() % (int)_enemys.size())));
 			newEnemy->SetXY(_mx + MYMAPWIDTH * (2 + rand() % (_room.Width() - 4)), _my + MYMAPHIGH * (2 + rand() % (_room.High() - 4)));
 			newEnemy->SetFree(false);
 			_roomObjs.push_back(newEnemy);
@@ -43,6 +45,10 @@ namespace game_framework
 			if (!obj->NeedFree())
 				delete obj;
 		}
+		for (CEnemy* enemy : _enemys)
+		{
+			delete enemy;
+		}
 			
 	}
 
@@ -50,11 +56,27 @@ namespace game_framework
 	{
 		if (_isStrat)
 		{
+			if (_generateDelay > 0)
+				_generateDelay--;
+			else if (_generateDelay == 0)
+			{
+				for (CGameObj* obj : _roomObjs)
+				{
+					obj->SetFree(true);
+					CGameObjCenter::AddObj(obj);
+				}	
+			}
+
 			// 檢查房間內怪物是否已經全部死亡
 			for (CGameObj* obj : _roomObjs)
 			{
 				if (obj->IsEnable())
+				{
+					if(obj->NeedFree())
+						_generateDelay = 60;
 					return;
+				}
+					
 			}
 
 			// 全部死亡重新生成
@@ -64,14 +86,14 @@ namespace game_framework
 				int r = 1 + (rand() % (_maxEnemy - 1));
 				for (int i = 0; i < r; i++)
 				{
-					CEnemy* newEnemy = new CEnemy(_enemys.at(rand() % (int)_enemys.size()));
+					CEnemy* newEnemy = new CEnemy(*(_enemys.at(rand() % (int)_enemys.size())));
 					newEnemy->SetXY(_mx + MYMAPWIDTH * (2 + rand() % (_room.Width() - 4)), _my + MYMAPHIGH * (2 + rand() % (_room.High() - 4)));
+					newEnemy->SetFree(false);
 					_roomObjs.push_back(newEnemy);
-					CGameObjCenter::AddObj(newEnemy);
 				}
 				_reGenerate--;
 			}
-			else
+			else if(_reGenerate <= 0)
 			{
 				_roomObjs.clear();
 				this->SetEnable(false);
@@ -82,12 +104,12 @@ namespace game_framework
 
 	void CGameRoom::OnShow(CGameMap* map)
 	{
-		if (!_isStrat)
-		{
-			for (CGameObj* obj : _roomObjs)
-				if(map->InScreen(obj->GetX1(), obj->GetY1(), obj->GetX2(), obj->GetY2()))
-					obj->OnShow(map);
-		}
+		// 這邊有 bug 會在左上顯示物件還沒找出問題
+		for (CGameObj* obj : _roomObjs)
+			if(!obj->NeedFree() && map->InScreen(obj->GetX1(), obj->GetY1(), obj->GetX2(), obj->GetY2()))
+				obj->OnShow(map);
+		//
+		
 	}
 
 	void CGameRoom::OnObjCollision(CGameObj* other)

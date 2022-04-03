@@ -36,7 +36,7 @@ namespace game_framework
 						
 
 	private:
-		void copy(const CGameWeapon&);
+		//void copy(const CGameWeapon&);
 		vector<CAnimation>::iterator GetAnima(Anima);	// 取得動畫
 
 	};

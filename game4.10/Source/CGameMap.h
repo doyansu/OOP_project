@@ -26,7 +26,7 @@ namespace game_framework {
 	class CGameMap
 	{
 	public:
-		enum class MapContent {NULLPTR, FLOOR, WALL, AISLEWALL};		//地圖內容物
+		enum MapContent {NULLPTR, FLOOR, WALL, AISLEWALL};		//地圖內容物
 		CGameMap();
 		~CGameMap();
 		void LoadBitmap();

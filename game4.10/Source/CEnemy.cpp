@@ -33,6 +33,23 @@ namespace game_framework {
 		_weapon.SetTarget("player");
 	}
 
+	/*CEnemy::CEnemy(const CEnemy& other):CGameObj(*this)
+	{
+		copy(other);
+	}
+
+	CEnemy& CEnemy::operator=(const CEnemy& other)
+	{
+		if (this != &other)
+			CEnemy(other);
+		return *this;
+	}
+
+	void CEnemy::copy(const CEnemy& other)
+	{
+
+	}*/
+
 	void CEnemy::LoadBitmap()
 	{
 		_animaIter = GetAnima(CEnemy::Anima::INIT_R);

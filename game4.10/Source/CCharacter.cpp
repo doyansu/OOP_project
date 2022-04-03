@@ -94,7 +94,8 @@ namespace game_framework {
 	void CCharacter::OnShow(CGameMap* map)
 	{
 		CCharacter::CGameObj::OnShow(map);
-		_nowWeapon->OnShow(map);
+		if(!_isDie)
+			_nowWeapon->OnShow(map);
 	}
 
 	void CCharacter::OnMove(CGameMap *map)

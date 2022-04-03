@@ -20,10 +20,11 @@ namespace game_framework
 
 	protected:
 		int _maxEnemy, _reGenerate;			//生成敵人數、重新生成數
+		int _generateDelay;
 		bool _isStrat;
 		RoomData _room;
 		vector<CGameObj*> _roomObjs;
-		vector<CEnemy> _enemys;
+		vector<CEnemy*> _enemys;
 
 	private:
 
