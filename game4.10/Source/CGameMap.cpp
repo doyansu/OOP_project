@@ -9,7 +9,7 @@
 
 namespace game_framework {
 	CGameMap::CGameMap()
-		:_MAPW(25), _MAPH(25), _MAXNOFROOM(5)
+		:_MAPW(MYMAPWIDTH), _MAPH(MYMAPHIGH), _MAXNOFROOM(MYMAXNOFROOM)
 	{
 		// 動畫載入
 		const int AnimaSize = 4;
@@ -40,9 +40,9 @@ namespace game_framework {
 		_animaIterator = _animas.begin();
 
 		free();
-		_Rooms = new CGameMap::RoomData*[_MAXNOFROOM];
+		_Rooms = new RoomData*[_MAXNOFROOM];
 		for (int i = 0; i < _MAXNOFROOM; i++)
-			_Rooms[i] = new CGameMap::RoomData[_MAXNOFROOM];
+			_Rooms[i] = new RoomData[_MAXNOFROOM];
 	}
 
 	void CGameMap::free()
@@ -101,7 +101,7 @@ namespace game_framework {
 		Reset();
 		
 		const int INTERNAL = 35;
-		const int NROOMS = _MAXNOFROOM - 1;
+		const int NROOMS = _MAXNOFROOM;
 		/*int Room[NROOMS][NROOMS][2];
 		bool mask[NROOMS][NROOMS];
 		memset(mask, false, sizeof(mask));*/
@@ -122,7 +122,7 @@ namespace game_framework {
 		{
 			for (int j = 0; j < NROOMS; j++)
 			{
-				if (!_Rooms[i][j].HasRoom())
+				if (!_Rooms[i][j].__hasRoom)
 					continue;
 				int height = 15 + (rand() % 5) * 2, weight = 15 + (rand() % 5) * 2;// 打成身高體重QQ 應該是寬高
 				int orgx = (INTERNAL >> 1) + INTERNAL * i - (height >> 1);
@@ -161,13 +161,13 @@ namespace game_framework {
 
 			for (int j = 0; j < NROOMS; j++)
 			{
-				if (_Rooms[i][j].HasRoom() == false)
+				if (_Rooms[i][j].__hasRoom == false)
 					continue;
 				int h1 = _Rooms[i][j].__width, h2; // 寬高好像用反了
 				int w1 = _Rooms[i][j].__high, w2;
 				int cx = _Rooms[i][j].__centerX;
 				int cy = _Rooms[i][j].__centerY;
-				if (_Rooms[i + 1][j].HasRoom() && (i + 1) != NROOMS) {
+				if ((i + 1) != NROOMS && _Rooms[i + 1][j].__hasRoom) {
 					_Rooms[i][j].__hasRoad[3] = true;
 					_Rooms[i + 1][j].__hasRoad[2] = true;
 					h2 = _Rooms[i + 1][j].__width;
@@ -188,7 +188,7 @@ namespace game_framework {
 						_map[cx + INTERNAL - h2 / 2 - 1][cy + y] = MapContent::AISLEWALL;
 					}
 				}
-				if (_Rooms[i][j + 1].HasRoom() && (j + 1) != NROOMS) {
+				if ((j + 1) != NROOMS && _Rooms[i][j + 1].__hasRoom) {
 					_Rooms[i][j].__hasRoad[1] = true;
 					_Rooms[i][j + 1].__hasRoad[0] = true;
 					h2 = _Rooms[i][j + 1].__width;
@@ -277,6 +277,13 @@ namespace game_framework {
 		return iterator;
 	}
 
+	RoomData CGameMap::GetRoom(int i, int j)
+	{
+		if(i < 0 && i >= _MAXNOFROOM && j < 0 && j >= _MAXNOFROOM)
+			ASSERT(0);
+		return _Rooms[i][j];
+	}
+
 	int CGameMap::GetScreenX()
 	{
 		return _sx;
@@ -288,8 +295,8 @@ namespace game_framework {
 	}
 
 
-	// CGameMap 內部 class
-	CGameMap::RoomData::RoomData()
+	// RoomData class
+	RoomData::RoomData()
 	{
 		__centerX = 0;
 		__centerY = 0;
@@ -298,27 +305,22 @@ namespace game_framework {
 		__hasRoom = false;
 	}
 
-	bool CGameMap::RoomData::HasRoom()
-	{
-		return __hasRoom;
-	}
-
-	int CGameMap::RoomData::CenterX()
+	int RoomData::CenterX()
 	{
 		return __centerX;
 	}
 
-	int CGameMap::RoomData::CenterY()
+	int RoomData::CenterY()
 	{
 		return __centerY;
 	}
 
-	int CGameMap::RoomData::Width()
+	int RoomData::Width()
 	{
 		return __width;
 	}
 
-	int CGameMap::RoomData::High()
+	int RoomData::High()
 	{
 		return __high;
 	}

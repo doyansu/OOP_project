@@ -255,6 +255,11 @@ void CGameStateRun::OnBeginState()
 	character.Reset();			//	重設角色屬性
 	character.SetXY(500, 500);	//	暫時設定初始位置
 	CGameObjCenter::AddObj(&character);
+	
+	for (int i = 0; i < MYMAXNOFROOM; i++)
+		for (int j = 0; j < MYMAXNOFROOM; j++)
+			CGameObjCenter::AddObj(new CGameRoom(gameMap.GetRoom(i, j)));
+	
 
 	//test
 	/*CGameBullet test;
@@ -264,8 +269,8 @@ void CGameStateRun::OnBeginState()
 	/*CEnemy test;
 	test.LoadBitmap();*/
 	
-	CGameObjCenter::AddObj(new CEnemy(enemy0));
-	CGameObjCenter::AddObj(new CEnemy(enemy1));
+	/*CGameObjCenter::AddObj(new CEnemy(enemy0));
+	CGameObjCenter::AddObj(new CEnemy(enemy1));*/
 }
 
 void CGameStateRun::OnMove()							// 移動遊戲元素
@@ -318,8 +323,8 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	{
 		GotoGameState(GAME_STATE_OVER);
 	}
-	if (rand() % 100 == 0)
-		CGameObjCenter::AddObj(new CEnemy(enemy0));
+	/*if (rand() % 100 == 0)
+		CGameObjCenter::AddObj(new CEnemy(enemy0));*/
 }
 
 void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定

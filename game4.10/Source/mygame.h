@@ -47,6 +47,7 @@
 #include "CCharacter.h"
 #include "CEnemy.h"
 #include "CGameObjCenter.h"
+#include "CGameRoom.h"
 
 
 
@@ -115,11 +116,12 @@ namespace game_framework {
 		CEraser			eraser;		// 拍子
 		CInteger		hits_left;	// 剩下的撞擊數
 		CBouncingBall   bball;		// 反覆彈跳的球*/
-
-		CGameObjCenter gameObjCenter;
-		CGameMap gameMap;
-		CCharacter character;
 		CEnemy enemy0, enemy1;
+
+		CGameMap gameMap;
+		CGameObjCenter gameObjCenter;
+		CCharacter character;
+		
 	};
 
 	/////////////////////////////////////////////////////////////////////////////
