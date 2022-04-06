@@ -15,7 +15,7 @@ namespace game_framework {
 	CEnemy::CEnemy()
 	{
 		// 動畫載入
-		const int AnimaSize = 2;
+		const int AnimaSize = 3;
 		_animas.clear();
 		_animas.reserve(AnimaSize);
 		for (int i = 0; i < AnimaSize; i++)
@@ -53,12 +53,19 @@ namespace game_framework {
 
 	void CEnemy::LoadBitmap()
 	{
-		_animaIter = GetAnima(CEnemy::Anima::INIT_R);
+		_animaIter = GetAnima(CEnemy::Anima::RUN_R);
 		_animaIter->AddBitmap(IDB_enemy0_0, RGB(255, 255, 255));
 		_animaIter->AddBitmap(IDB_enemy0_1, RGB(255, 255, 255));
 		_animaIter->AddBitmap(IDB_enemy0_2, RGB(255, 255, 255));
 		_animaIter->AddBitmap(IDB_enemy0_3, RGB(255, 255, 255));
 		_animaIter->AddBitmap(IDB_enemy0_4, RGB(255, 255, 255));
+
+		_animaIter = GetAnima(CEnemy::Anima::RUN_L);
+		_animaIter->AddBitmap(IDB_ENEMY0_0_L, RGB(255, 255, 255));
+		_animaIter->AddBitmap(IDB_ENEMY0_1_L, RGB(255, 255, 255));
+		_animaIter->AddBitmap(IDB_ENEMY0_2_L, RGB(255, 255, 255));
+		_animaIter->AddBitmap(IDB_ENEMY0_3_L, RGB(255, 255, 255));
+		_animaIter->AddBitmap(IDB_ENEMY0_4_L, RGB(255, 255, 255));
 
 		_animaIter = GetAnima(CEnemy::Anima::DIE);
 		_animaIter->AddBitmap(IDB_enemy0_die, RGB(255, 255, 255));
@@ -97,9 +104,8 @@ namespace game_framework {
 		}
 
 		// 武器移動
-		_weapon.SetXY(this->CenterX(), this->CenterY());
 		_weapon.OnMove(map);
-
+		
 		// 武器射擊
 		if (_weapon.CanFire() && (rand() % 10 == 0))
 		{
@@ -118,9 +124,27 @@ namespace game_framework {
 				double vy = (double)(player->CenterY() - this->CenterY()) / d;
 				if (d <= MAXSEARCH)
 					_weapon.Shoot(vx, vy);
+
+				// 切換動畫
+				if (vx > 0)
+				{
+					_animaIter = GetAnima(CEnemy::Anima::RUN_R);	
+					_weapon.SetDT(1);
+				}
+				else
+				{
+					_animaIter = GetAnima(CEnemy::Anima::RUN_L);
+					_weapon.SetDT(0);
+				}
+					
 			}
-			
 		}
+
+		// 武器動畫
+		if (_animaIter == GetAnima(CEnemy::Anima::RUN_R))
+			_weapon.SetXY(this->CenterX(), this->CenterY());
+		else
+			_weapon.SetXY(this->CenterX() - (_weapon.GetX2() - _weapon.GetX1()), this->CenterY());
 	}
 
 	void CEnemy::OnObjCollision(CGameObj* other)
@@ -151,11 +175,14 @@ namespace game_framework {
 		vector<CAnimation>::iterator anima = CEnemy::_animas.begin();
 		switch (type)
 		{
-		case game_framework::CEnemy::Anima::INIT_R:
+		case game_framework::CEnemy::Anima::RUN_R:
 			anima = CEnemy::_animas.begin();
 			break;
-		case game_framework::CEnemy::Anima::DIE:
+		case game_framework::CEnemy::Anima::RUN_L:
 			anima = CEnemy::_animas.begin() + 1;
+			break;
+		case game_framework::CEnemy::Anima::DIE:
+			anima = CEnemy::_animas.begin() + 2;
 			break;
 		default:
 			break;
