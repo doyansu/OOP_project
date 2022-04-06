@@ -250,16 +250,15 @@ void CGameStateRun::OnBeginState()
 	CAudio::Instance()->Play(AUDIO_DING, false);		// 撥放 WAVE
 	CAudio::Instance()->Play(AUDIO_NTUT, true);			// 撥放 MIDI*/
 
+
 	// UI
-	/*HP.SetTopLeft(0, 0);
+	HP.SetTopLeft(0, 0);
 	SP.SetTopLeft(0, 30);
 	MP.SetTopLeft(0, 60);
 	MAXHP.SetTopLeft(30, 0);
 	MAXMP.SetTopLeft(30, 30);
-	MAXSP.SetTopLeft(30, 60);*/
+	MAXSP.SetTopLeft(30, 60);
 	
-	
-
 	// Game
 	gameObjCenter.FreeALLObj();	//	清空地圖物件
 	gameMap.GenerateMap();		//	生成地圖
@@ -341,12 +340,12 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	}
 
 	// UI
-	/*HP.SetInteger(character.GetHP());
+	HP.SetInteger(character.GetHP());
 	SP.SetInteger(character.GetShield());
 	MP.SetInteger(character.GetMP());
 	MAXHP.SetInteger(character.GetMAXHP());
 	MAXSP.SetInteger(character.GetMAXShield());
-	MAXMP.SetInteger(character.GetMAXMP());*/
+	MAXMP.SetInteger(character.GetMAXMP());
 }
 
 void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
@@ -389,8 +388,8 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 
 	// UI
 	HP.LoadBitmap();
-	/*MP.LoadBitmap();
-	SP.LoadBitmap();
+	//MP.LoadBitmap();
+	/*SP.LoadBitmap();
 	MAXHP.LoadBitmap();
 	MAXMP.LoadBitmap();
 	MAXSP.LoadBitmap();*/
@@ -467,11 +466,11 @@ void CGameStateRun::OnShow()
 	gameObjCenter.OnShow(&gameMap);
 
 	// UI
-	/*HP.ShowBitmap();
+	HP.ShowBitmap();
 	MP.ShowBitmap();
 	SP.ShowBitmap();
 	MAXHP.ShowBitmap();
 	MAXMP.ShowBitmap();
-	MAXSP.ShowBitmap();*/
+	MAXSP.ShowBitmap();
 }
 }

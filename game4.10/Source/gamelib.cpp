@@ -270,11 +270,11 @@ int CAnimation::Width()
 /////////////////////////////////////////////////////////////////////////////
 
 CMovingBitmap CInteger::digit[11];
+bool CInteger::isBmpLoaded = false;
 
 CInteger::CInteger(int digits)
 : NUMDIGITS(digits)
 {
-	isBmpLoaded = false;
 }
 
 void CInteger::Add(int x)

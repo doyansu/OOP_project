@@ -266,7 +266,7 @@ private:
 	static CMovingBitmap digit[11]; // 儲存0..9及負號之圖形(bitmap)
 	int x, y;						// 顯示的座標
 	int n;							// 整數值
-	bool isBmpLoaded;				// 是否已經載入圖形
+	static bool isBmpLoaded;				// 是否已經載入圖形
 };
 
 /////////////////////////////////////////////////////////////////////////////
