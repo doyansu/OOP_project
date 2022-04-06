@@ -100,7 +100,7 @@ namespace game_framework {
 		_weapon.OnMove(map);
 
 		// ªZ¾¹®gÀ»
-		if (_weapon.CanFire())
+		if (_weapon.CanFire() && (rand() % 10 == 0))
 		{
 			CGameObj* player= CGameObjCenter::FindObjBy(
 				[](CGameObj* obj)

@@ -18,7 +18,7 @@ namespace game_framework
 		_maxEnemy = 4 + (rand() % 3);
 		_reGenerate = 3 + (rand() % 3);
 		_generateDelay = 60;
-		_roomObjs.reserve(_maxEnemy);
+		_roomEnemys.reserve(_maxEnemy);
 		_tag = "Room";
 
 		// 新增怪物
@@ -33,14 +33,57 @@ namespace game_framework
 			CEnemy* newEnemy = new CEnemy(*(_enemys.at(rand() % (int)_enemys.size())));
 			newEnemy->SetXY(_mx + MYMAPWIDTH * (2 + rand() % (_room.Width() - 4)), _my + MYMAPHIGH * (2 + rand() % (_room.High() - 4)));
 			newEnemy->SetFree(false);
-			_roomObjs.push_back(newEnemy);
+			_roomEnemys.push_back(newEnemy);
 		}
-			
+
+		// 通道牆創建
+		RoomWall wall;
+		wall.LoadBitmap();
+		wall.SetFree(false);
+		int cx = _room.CenterX(), cy = _room.CenterY();
+		int w = _room.Width(), h = _room.High();
+		// 上方有通道
+		if (_room.HasRoad(0))
+		{
+			for (int x = -2; x < 3; x++)
+			{
+				wall.SetXY(MYMAPWIDTH * (cx + x), MYMAPHIGH * (cy - (h / 2) - 1));
+				_roomWalls.push_back(new RoomWall(wall));
+			}
+		}
+		// 下方有通道
+		if (_room.HasRoad(1))
+		{
+			for (int x = -2; x < 3; x++)
+			{
+				wall.SetXY(MYMAPWIDTH * (cx + x), MYMAPHIGH * (cy + (h / 2) + 1));
+				_roomWalls.push_back(new RoomWall(wall));
+			}
+		}
+		// 左方有通道
+		if (_room.HasRoad(2))
+		{
+			for (int y = -2; y < 3; y++)
+			{
+				wall.SetXY(MYMAPWIDTH * (cx - (w / 2) - 1), MYMAPHIGH * (cy + y));
+				_roomWalls.push_back(new RoomWall(wall));
+			}
+		}
+		// 右方有通道
+		if (_room.HasRoad(3))
+		{
+			for (int y = -2; y < 3; y++)
+			{
+				wall.SetXY(MYMAPWIDTH * (cx + (w / 2) + 1), MYMAPHIGH * (cy + y));
+				_roomWalls.push_back(new RoomWall(wall));
+			}
+		}
+
 	}
 
 	CGameRoom::~CGameRoom()
 	{
-		for (CGameObj* obj : _roomObjs)
+		for (CGameObj* obj : _roomEnemys)
 		{
 			if (!obj->NeedFree())
 				delete obj;
@@ -48,6 +91,11 @@ namespace game_framework
 		for (CEnemy* enemy : _enemys)
 		{
 			delete enemy;
+		}
+		for (CGameObj* obj : _roomWalls)
+		{
+			if (!obj->NeedFree())
+				delete obj;
 		}
 			
 	}
@@ -60,7 +108,7 @@ namespace game_framework
 				_generateDelay--;
 			else if (_generateDelay == 0)
 			{
-				for (CGameObj* obj : _roomObjs)
+				for (CGameObj* obj : _roomEnemys)
 				{
 					obj->SetFree(true);
 					CGameObjCenter::AddObj(obj);
@@ -68,7 +116,7 @@ namespace game_framework
 			}
 
 			// 檢查房間內怪物是否已經全部死亡
-			for (CGameObj* obj : _roomObjs)
+			for (CGameObj* obj : _roomEnemys)
 			{
 				if (obj->IsEnable())
 				{
@@ -82,20 +130,20 @@ namespace game_framework
 			// 全部死亡重新生成
 			if (_reGenerate > 0)
 			{
-				_roomObjs.clear();
+				_roomEnemys.clear();
 				int r = 1 + (rand() % (_maxEnemy - 1));
 				for (int i = 0; i < r; i++)
 				{
 					CEnemy* newEnemy = new CEnemy(*(_enemys.at(rand() % (int)_enemys.size())));
 					newEnemy->SetXY(_mx + MYMAPWIDTH * (2 + rand() % (_room.Width() - 4)), _my + MYMAPHIGH * (2 + rand() % (_room.High() - 4)));
 					newEnemy->SetFree(false);
-					_roomObjs.push_back(newEnemy);
+					_roomEnemys.push_back(newEnemy);
 				}
 				_reGenerate--;
 			}
 			else if(_reGenerate <= 0)
 			{
-				_roomObjs.clear();
+				_roomEnemys.clear();
 				this->SetEnable(false);
 				this->SetDie(true);
 			}
@@ -105,7 +153,7 @@ namespace game_framework
 	void CGameRoom::OnShow(CGameMap* map)
 	{
 		// 這邊有 bug 會在左上顯示物件還沒找出問題
-		for (CGameObj* obj : _roomObjs)
+		for (CGameObj* obj : _roomEnemys)
 			if(!obj->NeedFree() && map->InScreen(obj->GetX1(), obj->GetY1(), obj->GetX2(), obj->GetY2()))
 				obj->OnShow(map);
 		//
@@ -115,15 +163,22 @@ namespace game_framework
 	void CGameRoom::OnObjCollision(CGameObj* other)
 	{
 		// 玩家進入房間怪物開始動作
-		if (other->GetTag() == "player" && _isStrat == false)
+		if (_isStrat == false && other->GetTag() == "player")
 		{
+			// 完全進入才開始
 			int x1 = other->GetX1(), x2 = other->GetX2(), y1 = other->GetY1(), y2 = other->GetY2();
 			if (this->GetX1() >= x1 || this->GetX2() <= x2 || this->GetY1() >= y1 || this->GetY2() <= y2)
 				return;
-			_isStrat = true;				
-			for (CGameObj* obj : _roomObjs)
+			_isStrat = true;	
+			// 第一批怪物開始動作
+			for (CGameObj* obj : _roomEnemys)
 			{
-				
+				obj->SetFree(true);
+				CGameObjCenter::AddObj(obj);
+			}
+			// 通道牆開始動作
+			for (CGameObj* obj : _roomWalls)
+			{
 				obj->SetFree(true);
 				CGameObjCenter::AddObj(obj);
 			}
@@ -134,7 +189,12 @@ namespace game_framework
 
 	void CGameRoom::OnDie() 
 	{
-
+		for (CGameObj* obj : _roomWalls)
+		{
+			obj->SetEnable(false);
+			obj->SetDie(true);
+		}
+		this->SetDie(false);
 	}
 	
 	int CGameRoom::GetX2()
@@ -145,6 +205,52 @@ namespace game_framework
 	int CGameRoom::GetY2()
 	{
 		return _my + MYMAPHIGH * _room.High();
+	}
+
+	// 間隔通道物件
+	CGameRoom::RoomWall::RoomWall()
+	{
+		// 動畫載入
+		const int AnimaSize = 2;
+		_animas.clear();
+		_animas.reserve(AnimaSize);
+		for (int i = 0; i < AnimaSize; i++)
+			_animas.push_back(CAnimation());
+
+		// 屬性設定
+		this->SetTag("roomwall");
+	}
+
+	void CGameRoom::RoomWall::LoadBitmap()
+	{
+		_animaIter = _animas.begin();
+		_animaIter->AddBitmap(IDB_Wall1, RGB(255, 255, 255));
+		_animaIter->AddBitmap(IDB_Wall2, RGB(255, 255, 255));
+
+		_animaIter = _animas.begin() + 1;
+		_animaIter->AddBitmap(IDB_Wall2, RGB(255, 255, 255));
+		_animaIter->AddBitmap(IDB_Wall1, RGB(255, 255, 255));
+		_animaIter->AddBitmap(IDB_Wall0, RGB(255, 255, 255));
+	}
+
+	void CGameRoom::RoomWall::OnMove(CGameMap* map)
+	{
+		if(!_animaIter->IsFinalBitmap())
+			_animaIter->OnMove();
+	}
+
+	void CGameRoom::RoomWall::OnDie()
+	{
+		_animaIter = _animas.begin() + 1;
+		if (!_animaIter->IsFinalBitmap())
+			_animaIter->OnMove();
+		else
+			this->SetDie(false);
+	}
+
+	void CGameRoom::RoomWall::OnObjCollision(CGameObj* other)
+	{
+
 	}
 
 	

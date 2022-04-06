@@ -100,7 +100,7 @@ namespace game_framework {
 	{
 		Reset();
 		
-		const int INTERNAL = 35;
+		const int INTERNAL = ROOMINTERNAL;
 		const int NROOMS = _MAXNOFROOM;
 		/*int Room[NROOMS][NROOMS][2];
 		bool mask[NROOMS][NROOMS];

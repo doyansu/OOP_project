@@ -4,6 +4,7 @@
 #define MYMAPWIDTH 25		// 地圖每格寬
 #define MYMAPHIGH 25		// 地圖每格高
 #define MYMAXNOFROOM 4		// 最大房間數 4 X 4
+#define ROOMINTERNAL 35		// 房間中心的間隔距離
 
 namespace game_framework {
 	class RoomData
