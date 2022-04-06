@@ -204,6 +204,13 @@ IDB_Bullet3             BITMAP                  "..\\RES\\bullet\\bullet2_53.bmp
 
 IDB_Bullet0             BITMAP                  "..\\RES\\bullet\\bullet2_82.bmp"
 
+IDB_Wall0               BITMAP                  "C:\\Users\\kerueilin9\\Desktop\\文件\\OOP_project\\game4.10\\RES\\新增資料夾\\Wall0_0.bmp"
+
+IDB_Wall1               BITMAP                  "C:\\Users\\kerueilin9\\Desktop\\文件\\OOP_project\\game4.10\\RES\\新增資料夾\\Wall0_1.bmp"
+
+IDB_Wall2               BITMAP                  "C:\\Users\\kerueilin9\\Desktop\\文件\\OOP_project\\game4.10\\RES\\新增資料夾\\Wall0_2.bmp"
+
+
 /////////////////////////////////////////////////////////////////////////////
 //
 // Cursor
