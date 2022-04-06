@@ -146,6 +146,22 @@
 #define IDB_Wall1                       273
 #define IDB_BITMAP51                    274
 #define IDB_Wall2                       274
+#define IDB_ENEMY0_5_L                  280
+#define IDB_ENEMY1_0_L                  281
+#define IDB_ENEMY1_1_L                  282
+#define IDB_ENEMY1_2_L                  283
+#define IDB_ENEMY1_3_L                  284
+#define IDB_ENEMY1_4_L                  285
+#define IDB_ENEMY1_5_L                  286
+#define IDB_ENEMY2_0_L                  287
+#define IDB_ENEMY2_1_L                  288
+#define IDB_ENEMY2_2_L                  289
+#define IDB_ENEMY2_3_L                  290
+#define IDB_ENEMY2_4_L                  291
+#define IDB_ENEMY2_5_L                  292
+#define IDB_ENEMY2_6_L                  293
+#define IDB_BITMAP69                    294
+#define IDB_ENEMY2_7_L                  294
 #define IDC_README                      1001
 #define ID_FILE_PAUSE                   32771
 #define ID_TOGGLE_FULLSCREEN            32772
@@ -158,7 +174,7 @@
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_3D_CONTROLS                     1
-#define _APS_NEXT_RESOURCE_VALUE        275
+#define _APS_NEXT_RESOURCE_VALUE        295
 #define _APS_NEXT_COMMAND_VALUE         32776
 #define _APS_NEXT_CONTROL_VALUE         1003
 #define _APS_NEXT_SYMED_VALUE           101
