@@ -42,8 +42,10 @@ namespace game_framework {
 	private:
 		int _attCounter;				// 近戰計數器
 		int _deathCounter;				// 死亡倒數
+		int _shieldCounter;				// 護頓恢復倒數
 		void free();
 		void ModifyVector(int index, int plus);
+		void ModifyShield(int);
 		vector<CAnimation>::iterator GetAnima(Anima);	// 取得動畫
 		
 	};

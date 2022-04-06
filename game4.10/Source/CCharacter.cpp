@@ -42,6 +42,7 @@ namespace game_framework {
 		_canAttack = true;
 		_attCounter = 0;
 		_deathCounter = 60;
+		_shieldCounter = 30;
 		_hp = _maxHp;
 		_mp = _maxMp;
 		_shield = _maxShield;
@@ -245,15 +246,23 @@ namespace game_framework {
 		}
 		
 
-		//	計數
+		// 近戰攻擊計數
 		if (_attCounter > 0)
 			_attCounter--;
+		// 護頓計數
+		if (--_shieldCounter == 0)
+		{
+			_shieldCounter = 30;
+			ModifyShield(1);
+		}
+			
 	}
 
 	void CCharacter::OnDie()
 	{
 		_animaIter = GetAnima(CCharacter::Anima::DIE);
 		_animaIter->OnMove();
+		// 死亡倒數
 		if(--_deathCounter == 0)
 			this->SetDie(false);
 	}
@@ -294,18 +303,26 @@ namespace game_framework {
 
 	void CCharacter::TakeDmg(int dmg)
 	{
+		_shieldCounter = 150;
 		if (_shield)
 		{
 			_shield -= dmg;
 			if (_shield < 0)
 			{
 				CGameObj::TakeDmg(-_shield);
+				_shield = 0;
 			}
 		}
 		else
 		{
 			CGameObj::TakeDmg(dmg);
 		}
+	}
+	void CCharacter::ModifyShield(int add)
+	{
+		_shield += add;
+		if (_shield > _maxShield)
+			_shield = _maxShield;
 	}
 
 	void  CCharacter::ModifyVector(int index, int plus) //	調整向量範圍 沒用上
