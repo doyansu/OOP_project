@@ -65,7 +65,7 @@ namespace game_framework {
 		_animaIterator = GetAnima(MapContent::WALL);
 		_animaIterator->AddBitmap(IDB_WALL_1, RGB(255, 255, 255));
 		_animaIterator = GetAnima(MapContent::AISLEWALL);
-		_animaIterator->AddBitmap(IDB_FLOOR_1, RGB(255, 255, 255));
+		_animaIterator->AddBitmap(IDB_Wall0, RGB(255, 255, 255));
 		_animaIterator = _animas.begin();
 	}
 
@@ -113,7 +113,7 @@ namespace game_framework {
 			int ry = 1 + (rand() % (NROOMS));
 			for (int j = 0; j < ry; j++)
 			{
-				_Rooms[i][j].__hasRoom = true;
+				_Rooms[i][j]._hasRoom = true;
 			}
 		}
 
@@ -122,16 +122,16 @@ namespace game_framework {
 		{
 			for (int j = 0; j < NROOMS; j++)
 			{
-				if (!_Rooms[i][j].__hasRoom)
+				if (!_Rooms[i][j]._hasRoom)
 					continue;
 				int height = 15 + (rand() % 5) * 2, weight = 15 + (rand() % 5) * 2;// 打成身高體重QQ 應該是寬高
 				int orgx = (INTERNAL >> 1) + INTERNAL * i - (height >> 1);
 				int orgy = (INTERNAL >> 1) + INTERNAL * j - (weight >> 1);
 				// 初始化房間參數
-				_Rooms[i][j].__width = height; 
-				_Rooms[i][j].__high = weight;
-				_Rooms[i][j].__centerX = (INTERNAL >> 1) + INTERNAL * i;
-				_Rooms[i][j].__centerY = (INTERNAL >> 1) + INTERNAL * j;
+				_Rooms[i][j]._width = height; 
+				_Rooms[i][j]._high = weight;
+				_Rooms[i][j]._centerX = (INTERNAL >> 1) + INTERNAL * i;
+				_Rooms[i][j]._centerY = (INTERNAL >> 1) + INTERNAL * j;
 				for (int x = 0; x < height; x++)
 				{
 					for (int y = 0; y < weight; y++)
@@ -161,17 +161,17 @@ namespace game_framework {
 
 			for (int j = 0; j < NROOMS; j++)
 			{
-				if (_Rooms[i][j].__hasRoom == false)
+				if (_Rooms[i][j]._hasRoom == false)
 					continue;
-				int h1 = _Rooms[i][j].__width, h2; // 寬高好像用反了
-				int w1 = _Rooms[i][j].__high, w2;
-				int cx = _Rooms[i][j].__centerX;
-				int cy = _Rooms[i][j].__centerY;
-				if ((i + 1) != NROOMS && _Rooms[i + 1][j].__hasRoom) {
-					_Rooms[i][j].__hasRoad[3] = true;
-					_Rooms[i + 1][j].__hasRoad[2] = true;
-					h2 = _Rooms[i + 1][j].__width;
-					w2 = _Rooms[i + 1][j].__high;
+				int h1 = _Rooms[i][j]._width, h2; // 寬高好像用反了
+				int w1 = _Rooms[i][j]._high, w2;
+				int cx = _Rooms[i][j]._centerX;
+				int cy = _Rooms[i][j]._centerY;
+				if ((i + 1) != NROOMS && _Rooms[i + 1][j]._hasRoom) {
+					_Rooms[i][j]._hasRoad[3] = true;
+					_Rooms[i + 1][j]._hasRoad[2] = true;
+					h2 = _Rooms[i + 1][j]._width;
+					w2 = _Rooms[i + 1][j]._high;
 					// 主通道
 					for (int x = cx + h1 / 2 + 1 ; x < cx + INTERNAL - h2 / 2; x++)
 					{
@@ -188,11 +188,11 @@ namespace game_framework {
 						_map[cx + INTERNAL - h2 / 2 - 1][cy + y] = MapContent::AISLEWALL;
 					}
 				}
-				if ((j + 1) != NROOMS && _Rooms[i][j + 1].__hasRoom) {
-					_Rooms[i][j].__hasRoad[1] = true;
-					_Rooms[i][j + 1].__hasRoad[0] = true;
-					h2 = _Rooms[i][j + 1].__width;
-					w2 = _Rooms[i][j + 1].__high;
+				if ((j + 1) != NROOMS && _Rooms[i][j + 1]._hasRoom) {
+					_Rooms[i][j]._hasRoad[1] = true;
+					_Rooms[i][j + 1]._hasRoad[0] = true;
+					h2 = _Rooms[i][j + 1]._width;
+					w2 = _Rooms[i][j + 1]._high;
 					for (int y = cy + w1 / 2 + 1; y < cy + INTERNAL - w2 / 2; y++)
 					{
 						_map[cx + 3][y] = MapContent::WALL;
@@ -298,31 +298,36 @@ namespace game_framework {
 	// RoomData class
 	RoomData::RoomData()
 	{
-		__centerX = 0;
-		__centerY = 0;
-		__width = __high = 1;
-		__hasRoad[0] = __hasRoad[1] = __hasRoad[2] = __hasRoad[3] = false;
-		__hasRoom = false;
+		_centerX = 0;
+		_centerY = 0;
+		_width = _high = 1;
+		_hasRoad[0] = _hasRoad[1] = _hasRoad[2] = _hasRoad[3] = false;
+		_hasRoom = false;
 	}
 
 	int RoomData::CenterX()
 	{
-		return __centerX;
+		return _centerX;
 	}
 
 	int RoomData::CenterY()
 	{
-		return __centerY;
+		return _centerY;
 	}
 
 	int RoomData::Width()
 	{
-		return __width;
+		return _width;
 	}
 
 	int RoomData::High()
 	{
-		return __high;
+		return _high;
+	}
+
+	RoomData::RoomType RoomData::GetRoomType()
+	{
+		return _roomType;
 	}
 
 }

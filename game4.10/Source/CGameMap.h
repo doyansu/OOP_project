@@ -10,17 +10,20 @@ namespace game_framework {
 	{
 	friend class CGameMap;
 	public:
+		enum class RoomType { NULLANY, NORMAL, TREASURE };
 		RoomData();
 		int CenterX();
 		int CenterY();
 		int Width();
 		int High();
+		RoomData::RoomType GetRoomType();
 
 	protected:
-		bool __hasRoom;				// 有房間
-		bool __hasRoad[4];			// 上下左右有通道
-		int __centerX, __centerY;	// 中心位置
-		int __width, __high;		// 寬高
+		bool _hasRoom;					// 有房間
+		bool _hasRoad[4];				// 上下左右有通道
+		int _centerX, _centerY;		// 中心位置
+		int _width, _high;			// 寬高
+		RoomData::RoomType _roomType;	// 房間類型
 	};
 
 	class CGameMap
@@ -49,7 +52,7 @@ namespace game_framework {
 		void Reset();
 
 	protected:
-		MapContent _map[MYMAPSIZE][MYMAPSIZE];			// 地圖每格內容 200 X 200
+		CGameMap::MapContent _map[MYMAPSIZE][MYMAPSIZE];			// 地圖每格內容 200 X 200
 		int _sx, _sy, _moveSpeed;						// 螢幕點座標、移動速度			
 		vector<CAnimation> _animas;						// 地圖圖片
 		vector<CAnimation>::iterator _animaIterator;	// 操作用

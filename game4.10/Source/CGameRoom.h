@@ -7,7 +7,6 @@ namespace game_framework
 	class CGameRoom : public CGameObj
 	{
 	public:
-		enum class RoomType {NULLANY, NORMAL, TREASURE};
 		CGameRoom(RoomData);
 		~CGameRoom();
 		
