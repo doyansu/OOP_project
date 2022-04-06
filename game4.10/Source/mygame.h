@@ -79,7 +79,8 @@ namespace game_framework {
 		void OnShow();									// 顯示這個狀態的遊戲畫面
 		void OnMove();
 	private:
-		CMovingBitmap logo;								// csie的logo
+		//CMovingBitmap logo;								// csie的logo
+		
 		CInitialPlayer player;
 		CGameObj gate;
 		CGameMap map;

@@ -272,9 +272,9 @@ int CAnimation::Width()
 CMovingBitmap CInteger::digit[11];
 bool CInteger::isBmpLoaded = false;
 
-CInteger::CInteger(int digits)
-: NUMDIGITS(digits)
+CInteger::CInteger()
 {
+	NUMDIGITS = 5;
 }
 
 void CInteger::Add(int x)
@@ -287,17 +287,14 @@ int CInteger::GetInteger()
 	return n;
 }
 
-void CInteger::LoadBitmap()
+int  CInteger::GetFinal()
 {
-	//
-	// digit[i]為class varibale，所以必須避免重複LoadBitmap
-	//
-	if (!isBmpLoaded) {
-		int d[11]={IDB_0,IDB_1,IDB_2,IDB_3,IDB_4,IDB_5,IDB_6,IDB_7,IDB_8,IDB_9,IDB_MINUS};
-		for (int i=0; i < 11; i++)
-			digit[i].LoadBitmap(d[i],RGB(255,255,255));
-		isBmpLoaded = true;
-	}
+	return x + digit[0].Width() * NUMDIGITS;
+}
+
+int  CInteger::GetWidth()
+{
+	return digit[0].Width();
 }
 
 void CInteger::SetInteger(int i)
@@ -308,6 +305,17 @@ void CInteger::SetInteger(int i)
 void CInteger::SetTopLeft(int nx, int ny)		// 將動畫的左上角座標移至 (x,y)
 {
 	x = nx; y = ny;
+}
+
+void CInteger::ShowBitmap(bool leadingZero) {
+	if (leadingZero == false) {
+		NUMDIGITS = Intlength(n);
+		if (NUMDIGITS == 0)
+		{
+			NUMDIGITS = 1;
+		}
+	}
+	ShowBitmap();
 }
 
 void CInteger::ShowBitmap()
@@ -333,6 +341,19 @@ void CInteger::ShowBitmap()
 		digit[10].SetTopLeft(nx, y);
 		digit[10].ShowBitmap();
 	}
+}
+
+int CInteger::Intlength(int n)
+{
+	int ans = 0;
+	if (n < 0)
+		n = ~n + 1;
+	while (n > 0)
+	{
+		n /= 10;
+		ans++;
+	}
+	return ans;
 }
 
 /////////////////////////////////////////////////////////////////////////////

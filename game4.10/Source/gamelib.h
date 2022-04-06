@@ -254,19 +254,36 @@ private:
 
 class CInteger {
 public:
-	CInteger(int=5);			// default 5 digits
+	CInteger();					// default 5 digits
 	void Add(int n);			// 增加整數值
 	int  GetInteger();			// 回傳整數值
-	void LoadBitmap();			// 載入0..9及負號之圖形
+	int  GetFinal();			// 回傳最後圖片在螢幕的位置
+	int  GetWidth();			// 取得圖片寬度
 	void SetInteger(int);		// 設定整數值
 	void SetTopLeft(int,int);	// 將動畫的左上角座標移至 (x,y)
 	void ShowBitmap();			// 將動畫貼到螢幕
+	void ShowBitmap(bool leadingZero);	// 有無前導0
+
+	static void CInteger::LoadBitmap()	// 載入0..9及負號之圖形
+	{
+		//
+		// digit[i]為class varibale，所以必須避免重複LoadBitmap
+		//
+		if (!isBmpLoaded) {
+			int d[11] = { IDB_0,IDB_1,IDB_2,IDB_3,IDB_4,IDB_5,IDB_6,IDB_7,IDB_8,IDB_9,IDB_MINUS };
+			for (int i = 0; i < 11; i++)
+				digit[i].LoadBitmap(d[i], RGB(255, 255, 255));
+			isBmpLoaded = true;
+		}
+	}			
+
 private:
-	const int NUMDIGITS;			// 共顯示NUMDIGITS個位數
+	int NUMDIGITS;			// 共顯示NUMDIGITS個位數
 	static CMovingBitmap digit[11]; // 儲存0..9及負號之圖形(bitmap)
 	int x, y;						// 顯示的座標
 	int n;							// 整數值
 	static bool isBmpLoaded;				// 是否已經載入圖形
+	int Intlength(int);
 };
 
 /////////////////////////////////////////////////////////////////////////////

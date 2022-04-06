@@ -79,7 +79,7 @@ void CGameStateInit::OnInit()
 	//
 	// 開始載入資料
 	//
-	logo.LoadBitmap(IDB_BACKGROUND);
+	//logo.LoadBitmap(IDB_BACKGROUND);
 	//Sleep(300);				// 放慢，以便看清楚進度，實際遊戲請刪除此Sleep
 	//
 	// 此OnInit動作會接到CGameStaterRun::OnInit()，所以進度還沒到100%
@@ -253,11 +253,8 @@ void CGameStateRun::OnBeginState()
 
 	// UI
 	HP.SetTopLeft(0, 0);
-	SP.SetTopLeft(0, 30);
-	MP.SetTopLeft(0, 60);
-	MAXHP.SetTopLeft(30, 0);
-	MAXMP.SetTopLeft(30, 30);
-	MAXSP.SetTopLeft(30, 60);
+	SP.SetTopLeft(0, 20);
+	MP.SetTopLeft(0, 40);
 	
 	// Game
 	gameObjCenter.FreeALLObj();	//	清空地圖物件
@@ -343,6 +340,9 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	HP.SetInteger(character.GetHP());
 	SP.SetInteger(character.GetShield());
 	MP.SetInteger(character.GetMP());
+	MAXHP.SetTopLeft(HP.GetFinal() + HP.GetWidth(), 0);
+	MAXSP.SetTopLeft(SP.GetFinal() + SP.GetWidth(), 20);
+	MAXMP.SetTopLeft(MP.GetFinal() + MP.GetWidth(), 40);
 	MAXHP.SetInteger(character.GetMAXHP());
 	MAXSP.SetInteger(character.GetMAXShield());
 	MAXMP.SetInteger(character.GetMAXMP());
@@ -387,12 +387,7 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	character.LoadBitmap();
 
 	// UI
-	HP.LoadBitmap();
-	//MP.LoadBitmap();
-	/*SP.LoadBitmap();
-	MAXHP.LoadBitmap();
-	MAXMP.LoadBitmap();
-	MAXSP.LoadBitmap();*/
+	CInteger::LoadBitmap();
 
 }
 
@@ -466,11 +461,11 @@ void CGameStateRun::OnShow()
 	gameObjCenter.OnShow(&gameMap);
 
 	// UI
-	HP.ShowBitmap();
-	MP.ShowBitmap();
-	SP.ShowBitmap();
-	MAXHP.ShowBitmap();
-	MAXMP.ShowBitmap();
-	MAXSP.ShowBitmap();
+	HP.ShowBitmap(false);
+	MP.ShowBitmap(false);
+	SP.ShowBitmap(false);
+	MAXHP.ShowBitmap(false);
+	MAXMP.ShowBitmap(false);
+	MAXSP.ShowBitmap(false);
 }
 }
