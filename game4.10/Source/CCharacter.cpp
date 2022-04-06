@@ -13,15 +13,17 @@ namespace game_framework {
 		const int AnimaSize = 5;
 		_animas.clear();
 		_animas.reserve(AnimaSize);
+		CAnimation animation;
+		animation.SetDelayCount(3);
 		for (int i = 0; i < AnimaSize; i++)
-			_animas.push_back(CAnimation());
+			_animas.push_back(CAnimation(animation));
 
 		//	ÄÝ©Ê³]©w
 		_hp = _maxHp = 6;
 		_mp = _maxMp = 180;
 		_shield = _maxShield = 5;
 		_damage = 4;
-		_moveSpeed = 5;
+		_moveSpeed = 4;
 		_showPriority = 10;
 		this->Reset();
 		this->SetXY(500, 500);

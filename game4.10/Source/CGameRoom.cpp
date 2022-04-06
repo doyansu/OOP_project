@@ -45,6 +45,7 @@ namespace game_framework
 		// 上方有通道
 		if (_room.HasRoad(0))
 		{
+			wall.SetVector(0, 1);
 			for (int x = -2; x < 3; x++)
 			{
 				wall.SetXY(MYMAPWIDTH * (cx + x), MYMAPHIGH * (cy - (h / 2) - 1));
@@ -54,6 +55,7 @@ namespace game_framework
 		// 下方有通道
 		if (_room.HasRoad(1))
 		{
+			wall.SetVector(0, -1);
 			for (int x = -2; x < 3; x++)
 			{
 				wall.SetXY(MYMAPWIDTH * (cx + x), MYMAPHIGH * (cy + (h / 2) + 1));
@@ -63,6 +65,7 @@ namespace game_framework
 		// 左方有通道
 		if (_room.HasRoad(2))
 		{
+			wall.SetVector(1, 0);
 			for (int y = -2; y < 3; y++)
 			{
 				wall.SetXY(MYMAPWIDTH * (cx - (w / 2) - 1), MYMAPHIGH * (cy + y));
@@ -72,6 +75,7 @@ namespace game_framework
 		// 右方有通道
 		if (_room.HasRoad(3))
 		{
+			wall.SetVector(-1, 0);
 			for (int y = -2; y < 3; y++)
 			{
 				wall.SetXY(MYMAPWIDTH * (cx + (w / 2) + 1), MYMAPHIGH * (cy + y));
@@ -250,7 +254,18 @@ namespace game_framework
 
 	void CGameRoom::RoomWall::OnObjCollision(CGameObj* other)
 	{
-
+		if (other->GetTag() == "player")
+		{
+			int dx = (int)_vector[0] * other->GetMoveSpeed();
+			int dy = (int)_vector[1] * other->GetMoveSpeed();
+			other->SetXY(other->GetX1() + dx, other->GetY1() + dy);
+		}
+		else if (other->GetTag() == "enemy")
+		{
+			int dx = (int)_vector[0] * other->GetMoveSpeed();
+			int dy = (int)_vector[1] * other->GetMoveSpeed();
+			other->SetXY(other->GetX1() + dx, other->GetY1() + dy);
+		}
 	}
 
 	

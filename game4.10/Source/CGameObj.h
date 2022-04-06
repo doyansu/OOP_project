@@ -28,6 +28,7 @@ namespace game_framework {
 		virtual int GetY2();
 		double GetVectorX();			// 拿取方向
 		double GetVectorY();
+		int GetMoveSpeed();
 		int GetShowPriority();			// 拿取顯示優先級
 		string GetTag();
 

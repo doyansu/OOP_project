@@ -25,6 +25,7 @@ namespace game_framework {
 		this->SetXY(400, 400);
 		this->SetShowPriority(1);
 		_hp = 10;
+		_moveSpeed = 3;
 		CEnemy::CGameObj::SetTag("enemy");
 
 		// 武器設定
@@ -91,8 +92,8 @@ namespace game_framework {
 
 		if ((rand() % randomRange) == 0)
 		{
-			_vector[0] = -(_moveSpeed >> 1) + (rand() % _moveSpeed);
-			_vector[1] = -(_moveSpeed >> 1) + (rand() % _moveSpeed);
+			_vector[0] = -(_moveSpeed) + (rand() % ((_moveSpeed << 1) + 1));
+			_vector[1] = -(_moveSpeed) + (rand() % ((_moveSpeed << 1) + 1));
 		}
 
 		// 武器移動

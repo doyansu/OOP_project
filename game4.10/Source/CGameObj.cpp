@@ -208,6 +208,11 @@ namespace game_framework {
 		return _vector[1];
 	}
 
+	int CGameObj::GetMoveSpeed()
+	{
+		return _moveSpeed;
+	}
+
 	int CGameObj::GetShowPriority()
 	{
 		return _showPriority;
