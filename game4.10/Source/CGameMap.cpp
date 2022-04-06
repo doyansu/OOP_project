@@ -327,6 +327,13 @@ namespace game_framework {
 		return _high;
 	}
 
+	bool RoomData::HasRoad(int index)
+	{
+		if (index < 0 || index > 3)
+			ASSERT(0);	
+		return _hasRoad[index];
+	}
+
 	RoomData::RoomType RoomData::GetRoomType()
 	{
 		return _roomType;

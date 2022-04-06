@@ -10,12 +10,13 @@ namespace game_framework {
 	{
 	friend class CGameMap;
 	public:
-		enum class RoomType { INIT, NORMAL, TREASURE };
+		enum class RoomType { INIT, NORMAL, TREASURE, END };
 		RoomData();
 		int CenterX();
 		int CenterY();
 		int Width();
 		int High();
+		bool HasRoad(int);
 		RoomData::RoomType GetRoomType();
 
 	protected:

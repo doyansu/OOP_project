@@ -15,8 +15,8 @@ namespace game_framework
 		_mx = MYMAPWIDTH * (data.CenterX() - (data.Width() >> 1));
 		_my = MYMAPHIGH * (data.CenterY() - (data.High() >> 1));
 		_isStrat = false;
-		_maxEnemy = 5;
-		_reGenerate = 3;
+		_maxEnemy = 4 + (rand() % 3);
+		_reGenerate = 3 + (rand() % 3);
 		_generateDelay = 60;
 		_roomObjs.reserve(_maxEnemy);
 		_tag = "Room";
