@@ -258,7 +258,11 @@ void CGameStateRun::OnBeginState()
 	
 	for (int i = 0; i < MYMAXNOFROOM; i++)
 		for (int j = 0; j < MYMAXNOFROOM; j++)
-			CGameObjCenter::AddObj(new CGameRoom(gameMap.GetRoom(i, j)));
+		{
+			if(gameMap.GetRoom(i, j).GetRoomType() == RoomData::RoomType::NORMAL)
+				CGameObjCenter::AddObj(new CGameRoom(gameMap.GetRoom(i, j)));
+		}
+			
 	
 
 	//test

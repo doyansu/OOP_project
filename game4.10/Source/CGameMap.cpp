@@ -106,7 +106,7 @@ namespace game_framework {
 		bool mask[NROOMS][NROOMS];
 		memset(mask, false, sizeof(mask));*/
 
-		//	決定房間有無
+		//	決定房間有無、類型
 		int rx = 2 + (rand() % (NROOMS - 1));
 		for (int i = 0; i < rx; i++)
 		{
@@ -114,8 +114,10 @@ namespace game_framework {
 			for (int j = 0; j < ry; j++)
 			{
 				_Rooms[i][j]._hasRoom = true;
+				_Rooms[i][j]._roomType = RoomData::RoomType::NORMAL;
 			}
 		}
+		_Rooms[0][0]._roomType = RoomData::RoomType::INIT;
 
 		//	決定房間寬高、設定中心區域
 		for (int i = 0; i < NROOMS; i++)
