@@ -11,6 +11,13 @@ namespace game_framework {
 		enum class Anima {INIT_R, INIT_L, RUN_R, RUN_L, DIE};	//動畫種類
 		CCharacter();
 
+		int GetHP();
+		int GetMAXHP();
+		int GetMP();
+		int GetMAXMP();
+		int GetShield();
+		int GetMAXShield();
+
 		void TakeDmg(int);
 		void LoadBitmap();				// 載入圖形
 		void OnShow(CGameMap*);			// 將圖形貼到畫面

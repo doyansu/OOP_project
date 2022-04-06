@@ -250,6 +250,17 @@ void CGameStateRun::OnBeginState()
 	CAudio::Instance()->Play(AUDIO_DING, false);		// 撥放 WAVE
 	CAudio::Instance()->Play(AUDIO_NTUT, true);			// 撥放 MIDI*/
 
+	// UI
+	/*HP.SetTopLeft(0, 0);
+	SP.SetTopLeft(0, 30);
+	MP.SetTopLeft(0, 60);
+	MAXHP.SetTopLeft(30, 0);
+	MAXMP.SetTopLeft(30, 30);
+	MAXSP.SetTopLeft(30, 60);*/
+	
+	
+
+	// Game
 	gameObjCenter.FreeALLObj();	//	清空地圖物件
 	gameMap.GenerateMap();		//	生成地圖
 	character.Reset();			//	重設角色屬性
@@ -321,14 +332,21 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	//
 	bball.OnMove();*/
 
-	gameMap.OnMove(character.GetX1(), character.GetY1());
+	// GAME
+	gameMap.OnMove(character.CenterX(), character.CenterY());
 	gameObjCenter.OnMove(&gameMap);
 	if (!character.IsEnable() && !character.IsDie())
 	{
 		GotoGameState(GAME_STATE_OVER);
 	}
-	/*if (rand() % 100 == 0)
-		CGameObjCenter::AddObj(new CEnemy(enemy0));*/
+
+	// UI
+	/*HP.SetInteger(character.GetHP());
+	SP.SetInteger(character.GetShield());
+	MP.SetInteger(character.GetMP());
+	MAXHP.SetInteger(character.GetMAXHP());
+	MAXSP.SetInteger(character.GetMAXShield());
+	MAXMP.SetInteger(character.GetMAXMP());*/
 }
 
 void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
@@ -365,11 +383,17 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	//
 	// 此OnInit動作會接到CGameStaterOver::OnInit()，所以進度還沒到100%
 	//
+
 	gameMap.LoadBitmap();
-	//gameMap.GenerateMap();
 	character.LoadBitmap();
-	enemy0.LoadBitmap();
-	enemy1.LoadBitmap();
+
+	// UI
+	HP.LoadBitmap();
+	/*MP.LoadBitmap();
+	SP.LoadBitmap();
+	MAXHP.LoadBitmap();
+	MAXMP.LoadBitmap();
+	MAXSP.LoadBitmap();*/
 
 }
 
@@ -438,8 +462,16 @@ void CGameStateRun::OnShow()
 	corner.SetTopLeft(SIZE_X-corner.Width(), SIZE_Y-corner.Height());
 	corner.ShowBitmap();*/
 
+	// GAME
 	gameMap.OnShow();
 	gameObjCenter.OnShow(&gameMap);
-	//character.OnShow(&gameMap);
+
+	// UI
+	/*HP.ShowBitmap();
+	MP.ShowBitmap();
+	SP.ShowBitmap();
+	MAXHP.ShowBitmap();
+	MAXMP.ShowBitmap();
+	MAXSP.ShowBitmap();*/
 }
 }

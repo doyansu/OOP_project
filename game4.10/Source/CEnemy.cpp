@@ -116,7 +116,7 @@ namespace game_framework {
 				}
 			);
 
-			const double MAXSEARCH = 600.0;	// ³Ì¤j·j¯Á½d³ò
+			const double MAXSEARCH = 300.0;	// ³Ì¤j·j¯Á½d³ò
 			if (player)
 			{
 				double d = this->Distance(player);

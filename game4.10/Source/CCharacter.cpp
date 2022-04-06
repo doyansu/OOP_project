@@ -181,8 +181,8 @@ namespace game_framework {
 		//	武器射擊判斷
 		if (_doFire)
 		{
-			const double MAXSEARCH = 600.0;	// 最大搜索範圍 
-			const double MINSEARCH = 80.0;	// 最小搜索範圍 
+			const double MAXSEARCH = 500.0;	// 最大搜索範圍 
+			const double MINSEARCH = 100.0;	// 最小搜索範圍 
 			const double MAXMAPDISTANCE = 10000.0;	//	極限距離 玩家敵人間距離不超過
 			// 找到存活的敵人
 			vector<CGameObj*> enemys = CGameObjCenter::FindObjsBy(
@@ -308,7 +308,7 @@ namespace game_framework {
 		}
 	}
 
-	void  CCharacter::ModifyVector(int index, int plus) //	調整向量範圍
+	void  CCharacter::ModifyVector(int index, int plus) //	調整向量範圍 沒用上
 	{
 		if (index > 1 || index < 0)
 			return;
@@ -343,6 +343,36 @@ namespace game_framework {
 			break;
 		}
 		return anima;
+	}
+
+	int CCharacter::GetHP()
+	{
+		return _hp;
+	}
+
+	int CCharacter::GetMAXHP()
+	{
+		return _maxHp;
+	}
+
+	int CCharacter::GetMP()
+	{
+		return _mp;
+	}
+
+	int CCharacter::GetMAXMP()
+	{
+		return _maxMp;
+	}
+
+	int CCharacter::GetShield() 
+	{
+		return _shield;
+	}
+
+	int CCharacter::GetMAXShield()
+	{
+		return _maxShield;
 	}
 	
 

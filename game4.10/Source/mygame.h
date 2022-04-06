@@ -116,8 +116,11 @@ namespace game_framework {
 		CEraser			eraser;		// 拍子
 		CInteger		hits_left;	// 剩下的撞擊數
 		CBouncingBall   bball;		// 反覆彈跳的球*/
-		CEnemy enemy0, enemy1;
 
+		//UI
+		CInteger HP, MP, SP, MAXHP, MAXMP, MAXSP;
+
+		// 遊戲
 		CGameMap gameMap;
 		CGameObjCenter gameObjCenter;
 		CCharacter character;
