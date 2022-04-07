@@ -87,6 +87,12 @@ namespace game_framework {
 		// 敵人移動
 		const int randomRange = 20;	// 隨機變方向
 
+		if ((rand() % randomRange) == 0)
+		{
+			_vector[0] = -(_moveSpeed) + (rand() % ((_moveSpeed << 1) + 1));
+			_vector[1] = -(_moveSpeed) + (rand() % ((_moveSpeed << 1) + 1));
+		}
+
 		_animaIter->OnMove();
 		_mx += (int)_vector[0];
 		_my += (int)_vector[1];
@@ -95,12 +101,6 @@ namespace game_framework {
 		{
 			_mx -= (int)_vector[0];
 			_my -= (int)_vector[1];
-		}
-
-		if ((rand() % randomRange) == 0)
-		{
-			_vector[0] = -(_moveSpeed) + (rand() % ((_moveSpeed << 1) + 1));
-			_vector[1] = -(_moveSpeed) + (rand() % ((_moveSpeed << 1) + 1));
 		}
 
 		// 武器移動
