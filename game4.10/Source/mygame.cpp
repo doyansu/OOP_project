@@ -250,11 +250,6 @@ void CGameStateRun::OnBeginState()
 	CAudio::Instance()->Play(AUDIO_DING, false);		// 撥放 WAVE
 	CAudio::Instance()->Play(AUDIO_NTUT, true);			// 撥放 MIDI*/
 
-
-	// UI
-	HP.SetTopLeft(0, 0);
-	SP.SetTopLeft(0, 20);
-	MP.SetTopLeft(0, 40);
 	
 	// Game
 	gameObjCenter.FreeALLObj();	//	清空地圖物件
@@ -388,6 +383,11 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 
 	// UI
 	CInteger::LoadBitmap();
+	HPBACKGROUND.LoadBitmap(IDB_UI_HP);
+	HP.SetTopLeft(0, 0);
+	SP.SetTopLeft(0, 20);
+	MP.SetTopLeft(0, 40);
+	HPBACKGROUND.SetTopLeft(0, 0);
 
 }
 
@@ -461,11 +461,13 @@ void CGameStateRun::OnShow()
 	gameObjCenter.OnShow(&gameMap);
 
 	// UI
+	//HPBACKGROUND.ShowBitmap();
 	HP.ShowBitmap(false);
 	MP.ShowBitmap(false);
 	SP.ShowBitmap(false);
 	MAXHP.ShowBitmap(false);
 	MAXMP.ShowBitmap(false);
 	MAXSP.ShowBitmap(false);
+	
 }
 }

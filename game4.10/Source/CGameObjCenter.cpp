@@ -28,14 +28,18 @@ namespace game_framework
 	void CGameObjCenter::OnMove(CGameMap* map)
 	{
 		// 加入物件
-		for (CGameObj* obj : _temp)
-			_allObj.push_back(obj);
-		std::sort(_allObj.begin(), _allObj.end(),
-			[](CGameObj* a, CGameObj* b)
+		if ((int)_temp.size() > 0)
 		{
-			return a->GetShowPriority() < b->GetShowPriority();
-		});
-		_temp.clear();
+			for (CGameObj* obj : _temp)
+				_allObj.push_back(obj);
+			std::sort(_allObj.begin(), _allObj.end(),
+				[](CGameObj* a, CGameObj* b)
+			{
+				return a->GetShowPriority() < b->GetShowPriority();
+			});
+			_temp.clear();
+		}
+		
 
 		// 刪除物件
 		for (int i = 0; i < (int)_allObj.size(); i++)

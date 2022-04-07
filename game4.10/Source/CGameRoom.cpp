@@ -88,7 +88,7 @@ namespace game_framework
 
 	CGameRoom::~CGameRoom()
 	{
-		for (CGameObj* obj : _roomEnemys)
+		for (CEnemy* obj : _roomEnemys)
 		{
 			if (!obj->NeedFree())
 				delete obj;
@@ -97,7 +97,7 @@ namespace game_framework
 		{
 			delete enemy;
 		}
-		for (CGameObj* obj : _roomWalls)
+		for (RoomWall* obj : _roomWalls)
 		{
 			if (!obj->NeedFree())
 				delete obj;
@@ -113,7 +113,7 @@ namespace game_framework
 				_generateDelay--;
 			else if (_generateDelay == 0)
 			{
-				for (CGameObj* obj : _roomEnemys)
+				for (CEnemy* obj : _roomEnemys)
 				{
 					obj->SetFree(true);
 					CGameObjCenter::AddObj(obj);
@@ -121,7 +121,7 @@ namespace game_framework
 			}
 
 			// 檢查房間內怪物是否已經全部死亡
-			for (CGameObj* obj : _roomEnemys)
+			for (CEnemy* obj : _roomEnemys)
 			{
 				if (obj->IsEnable())
 				{
@@ -158,7 +158,7 @@ namespace game_framework
 	void CGameRoom::OnShow(CGameMap* map)
 	{
 		// 這邊有 bug 會在左上顯示物件還沒找出問題 #更 好像又沒問題了 ?.?
-		for (CGameObj* obj : _roomEnemys)
+		for (CEnemy* obj : _roomEnemys)
 			if(!obj->NeedFree() && map->InScreen(obj->GetX1(), obj->GetY1(), obj->GetX2(), obj->GetY2()))
 				obj->OnShow(map);
 		//
@@ -176,13 +176,13 @@ namespace game_framework
 				return;
 			_isStrat = true;	
 			// 第一批怪物開始動作
-			for (CGameObj* obj : _roomEnemys)
+			for (CEnemy* obj : _roomEnemys)
 			{
 				obj->SetFree(true);
 				CGameObjCenter::AddObj(obj);
 			}
 			// 通道牆開始動作
-			for (CGameObj* obj : _roomWalls)
+			for (RoomWall* obj : _roomWalls)
 			{
 				obj->SetFree(true);
 				CGameObjCenter::AddObj(obj);
