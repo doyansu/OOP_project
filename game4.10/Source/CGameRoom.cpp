@@ -156,7 +156,7 @@ namespace game_framework
 
 	void CGameRoom::OnShow(CGameMap* map)
 	{
-		// 這邊有 bug 會在左上顯示物件還沒找出問題
+		// 這邊有 bug 會在左上顯示物件還沒找出問題 #更 好像又沒問題了 ?.?
 		for (CGameObj* obj : _roomEnemys)
 			if(!obj->NeedFree() && map->InScreen(obj->GetX1(), obj->GetY1(), obj->GetX2(), obj->GetY2()))
 				obj->OnShow(map);
@@ -262,9 +262,9 @@ namespace game_framework
 		}
 		else if (other->GetTag() == "enemy")
 		{
-			int dx = (int)_vector[0] * other->GetMoveSpeed();
-			int dy = (int)_vector[1] * other->GetMoveSpeed();
-			other->SetXY(other->GetX1() + dx, other->GetY1() + dy);
+			int dx = (int)other->GetVectorX();
+			int dy = (int)other->GetVectorY();
+			other->SetXY(other->GetX1() - dx, other->GetY1() - dy);
 		}
 	}
 
