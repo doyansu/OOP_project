@@ -43,9 +43,6 @@ namespace game_framework {
 		_attCounter = 0;
 		_deathCounter = 60;
 		_shieldCounter = 30;
-		_hp = _maxHp;
-		_mp = _maxMp;
-		_shield = _maxShield;
 		CCharacter::CGameObj::Reset();
 		_vector[0] = 1;	//¹w³]´Â¥k
 		DT = 1;

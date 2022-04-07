@@ -108,9 +108,10 @@ namespace game_framework {
 
 		//	決定房間有無、類型
 		int rx = 2 + (rand() % (NROOMS - 1));
+		int ry;
 		for (int i = 0; i < rx; i++)
 		{
-			int ry = 1 + (rand() % (NROOMS));
+			ry = 2 + (rand() % (NROOMS - 1));
 			for (int j = 0; j < ry; j++)
 			{
 				_Rooms[i][j]._hasRoom = true;
@@ -118,6 +119,7 @@ namespace game_framework {
 			}
 		}
 		_Rooms[0][0]._roomType = RoomData::RoomType::INIT;
+		_Rooms[rx - 1][ry - 1]._roomType = RoomData::RoomType::END;
 
 		//	決定房間寬高、設定中心區域
 		for (int i = 0; i < NROOMS; i++)
