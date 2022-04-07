@@ -1,527 +1,182 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{1a913106-0be0-4476-b0ce-2aa855072614}</UniqueIdentifier>
-      <Extensions>ico;cur;bmp;dlg;rc2;rct;bin;cnt;rtf;gif;jpg;jpeg;jpe</Extensions>
-    </Filter>
-    <Filter Include="MFC">
-      <UniqueIdentifier>{da904ee8-7f59-4a6c-b3ff-b91b6fb6d0ea}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameLibrary">
-      <UniqueIdentifier>{df7aa532-3fdf-46a0-b3fc-8f5922e8d9e4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="MyGame">
-      <UniqueIdentifier>{0c798913-b7d2-4e26-8241-0f83266cd626}</UniqueIdentifier>
-    </Filter>
+    <ClCompile Include="source\CCharacter.cpp" />
+    <ClCompile Include="source\CEnemy.cpp" />
+    <ClCompile Include="Source\CGameBullet.cpp" />
+    <ClCompile Include="Source\CGameMap.cpp" />
+    <ClCompile Include="Source\CGameObj.cpp" />
+    <ClCompile Include="Source\CGameObjCenter.cpp" />
+    <ClCompile Include="Source\CGameRoom.cpp" />
+    <ClCompile Include="Source\CGameWeapon.cpp" />
+    <ClCompile Include="Source\CInitialPlayer.cpp" />
+    <ClCompile Include="Source\audio.cpp" />
+    <ClCompile Include="Source\CBall.cpp" />
+    <ClCompile Include="Source\CBouncingBall.cpp" />
+    <ClCompile Include="Source\CEraser.cpp" />
+    <ClCompile Include="Source\game.cpp" />
+    <ClCompile Include="Source\gameDoc.cpp" />
+    <ClCompile Include="Source\gameView.cpp" />
+    <ClCompile Include="Source\MainFrm.cpp" />
+    <ClCompile Include="Source\StdAfx.cpp" />
+    <ClCompile Include="Source\gamelib.cpp" />
+    <ClCompile Include="Source\mygame.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Res\ball.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="RES\bmp0.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="RES\bmp1.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="RES\bmp10.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="RES\bmp2.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="RES\bmp3.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="RES\bmp4.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="RES\bmp5.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="RES\bmp6.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="RES\bmp7.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="RES\bmp8.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="RES\bmp9.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="RES\center.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="RES\continue.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="Res\corner.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="RES\eraser1.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="RES\eraser2.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="RES\eraser3.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\game.ico">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\game.rc2">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="RES\gamecurs.cur">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\gameDoc.ico">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="RES\help.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="RES\loading.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="RES\ntutcsie.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\Toolbar.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
+    <ClInclude Include="source\CCharacter.h" />
+    <ClInclude Include="source\CEnemy.h" />
+    <ClInclude Include="Source\CGameBullet.h" />
+    <ClInclude Include="Source\CGameMap.h" />
+    <ClInclude Include="Source\CGameObj.h" />
+    <ClInclude Include="Source\CGameObjCenter.h" />
+    <ClInclude Include="Source\CGameRoom.h" />
+    <ClInclude Include="Source\CGameWeapon.h" />
+    <ClInclude Include="Source\CInitialPlayer.h" />
+    <ClInclude Include="Source\audio.h" />
+    <ClInclude Include="Source\CBall.h" />
+    <ClInclude Include="Source\CBouncingBall.h" />
+    <ClInclude Include="Source\CEraser.h" />
+    <ClInclude Include="Source\game.h" />
+    <ClInclude Include="Source\gameDoc.h" />
+    <ClInclude Include="Source\gameView.h" />
+    <ClInclude Include="Source\MainFrm.h" />
+    <ClInclude Include="Source\Resource.h" />
+    <ClInclude Include="Source\StdAfx.h" />
+    <ClInclude Include="Source\gamelib.h" />
+    <ClInclude Include="Source\mygame.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\audio.cpp">
-      <Filter>GameLibrary</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\game.cpp">
-      <Filter>MFC</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\gameDoc.cpp">
-      <Filter>MFC</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\gamelib.cpp">
-      <Filter>GameLibrary</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\gameView.cpp">
-      <Filter>MFC</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\MainFrm.cpp">
-      <Filter>MFC</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\StdAfx.cpp">
-      <Filter>MFC</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\mygame.cpp">
-      <Filter>MyGame</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\CEraser.cpp">
-      <Filter>MyGame</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\CBall.cpp">
-      <Filter>MyGame</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\CBouncingBall.cpp">
-      <Filter>MyGame</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\CInitialPlayer.cpp">
-      <Filter>MyGame</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\CGameObj.cpp">
-      <Filter>MyGame</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\CGameMap.cpp">
-      <Filter>MyGame</Filter>
-    </ClCompile>
-    <ClCompile Include="source\CEnemy.cpp">
-      <Filter>MyGame</Filter>
-    </ClCompile>
-    <ClCompile Include="source\CCharacter.cpp">
-      <Filter>MyGame</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\CGameWeapon.cpp">
-      <Filter>MyGame</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\CGameBullet.cpp">
-      <Filter>MyGame</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\CGameObjCenter.cpp">
-      <Filter>MyGame</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\CGameRoom.cpp">
-      <Filter>MyGame</Filter>
-    </ClCompile>
+    <ResourceCompile Include="Source\game.rc" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\audio.h">
-      <Filter>GameLibrary</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\game.h">
-      <Filter>MFC</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\gameDoc.h">
-      <Filter>MFC</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\gamelib.h">
-      <Filter>GameLibrary</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\gameView.h">
-      <Filter>MFC</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\MainFrm.h">
-      <Filter>MFC</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Resource.h">
-      <Filter>MFC</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\StdAfx.h">
-      <Filter>MFC</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\mygame.h">
-      <Filter>MyGame</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\CEraser.h">
-      <Filter>MyGame</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\CBall.h">
-      <Filter>MyGame</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\CBouncingBall.h">
-      <Filter>MyGame</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\CInitialPlayer.h">
-      <Filter>MyGame</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\CGameObj.h">
-      <Filter>MyGame</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\CGameMap.h">
-      <Filter>MyGame</Filter>
-    </ClInclude>
-    <ClInclude Include="source\CEnemy.h">
-      <Filter>MyGame</Filter>
-    </ClInclude>
-    <ClInclude Include="source\CCharacter.h">
-      <Filter>MyGame</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\CGameWeapon.h">
-      <Filter>MyGame</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\CGameBullet.h">
-      <Filter>MyGame</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\CGameObjCenter.h">
-      <Filter>MyGame</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\CGameRoom.h">
-      <Filter>MyGame</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="Source\game.rc">
-      <Filter>MFC</Filter>
-    </ResourceCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="RES\gate1.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="res\bmp00003.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
+    <Image Include="..\解包內容\enemy_bmp\enemy31_0.bmp" />
+    <Image Include="..\解包內容\enemy_bmp\enemy31_1.bmp" />
+    <Image Include="..\解包內容\enemy_bmp\enemy31_2.bmp" />
+    <Image Include="..\解包內容\enemy_bmp\enemy31_3.bmp" />
+    <Image Include="..\解包內容\enemy_bmp\enemy31_4.bmp" />
+    <Image Include="..\解包內容\enemy_bmp\enemy31_5.bmp" />
+    <Image Include="..\解包內容\enemy_bmp\enemy31_6.bmp" />
+    <Image Include="..\解包內容\enemy_bmp\enemy32_0.bmp" />
+    <Image Include="..\解包內容\enemy_bmp\enemy32_1.bmp" />
+    <Image Include="..\解包內容\enemy_bmp\enemy32_2.bmp" />
+    <Image Include="..\解包內容\enemy_bmp\enemy32_3.bmp" />
+    <Image Include="..\解包內容\enemy_bmp\enemy32_4.bmp" />
+    <Image Include="..\解包內容\enemy_bmp\enemy32_5.bmp" />
+    <Image Include="..\解包內容\enemy_bmp\enemy32_6.bmp" />
+    <Image Include="..\解包內容\enemy_bmp\enemy34_0.bmp" />
+    <Image Include="..\解包內容\enemy_bmp\enemy34_1.bmp" />
+    <Image Include="..\解包內容\enemy_bmp\enemy34_2.bmp" />
+    <Image Include="..\解包內容\enemy_bmp\enemy34_3.bmp" />
+    <Image Include="..\解包內容\enemy_bmp\enemy34_4.bmp" />
+    <Image Include="..\解包內容\enemy_bmp\enemy34_5.bmp" />
+    <Image Include="..\解包內容\enemy_bmp\enemy34_6.bmp" />
+    <Image Include="..\解包內容\enemy_bmp\enemy34_7.bmp" />
+    <Image Include="..\解包內容\enemy_bmp\enemy34_8.bmp" />
     <Image Include="..\解包內容\Sprite\c01_4.png" />
-    <Image Include="res\bitmap5.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="..\解包內容\enemy_bmp\enemy31_0.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="..\解包內容\enemy_bmp\enemy31_1.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="..\解包內容\enemy_bmp\enemy31_2.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="..\解包內容\enemy_bmp\enemy31_3.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="..\解包內容\enemy_bmp\enemy31_4.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="..\解包內容\enemy_bmp\enemy31_5.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="..\解包內容\enemy_bmp\enemy31_6.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="..\解包內容\enemy_bmp\enemy32_0.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="..\解包內容\enemy_bmp\enemy32_1.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="..\解包內容\enemy_bmp\enemy32_2.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="..\解包內容\enemy_bmp\enemy32_3.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="..\解包內容\enemy_bmp\enemy32_4.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="..\解包內容\enemy_bmp\enemy32_5.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="..\解包內容\enemy_bmp\enemy32_6.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="..\解包內容\enemy_bmp\enemy34_0.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="..\解包內容\enemy_bmp\enemy34_1.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="..\解包內容\enemy_bmp\enemy34_2.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="..\解包內容\enemy_bmp\enemy34_3.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="..\解包內容\enemy_bmp\enemy34_4.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="..\解包內容\enemy_bmp\enemy34_5.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="..\解包內容\enemy_bmp\enemy34_6.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="..\解包內容\enemy_bmp\enemy34_7.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="..\解包內容\enemy_bmp\enemy34_8.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\character1\c01_0_l.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\character1\c01_1_l.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\character1\c01_2_l.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\character1\c01_3_l.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\character1\c01_4_l.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\character1\c01_5_l.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\character1\c01_6_l.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\character1\c01_7_l.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\character1\c01_0.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\character1\c01_1.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\character1\c01_2.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\character1\c01_3.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\character1\c01_4.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\character1\c01_5.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\character1\c01_6.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\character1\c01_7.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\character1\c01_8.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\character1\weapons1.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\character1\weapons1_l.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\bullet\bullet2_52.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\bullet\bullet2_53.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\bullet\bullet2_82.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\bullet\bullet_115.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\bullet\bullet_6.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-<<<<<<< HEAD
-    <Image Include="RES\enemy\enemy31_0_l.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\enemy\enemy31_1_l.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\enemy\enemy31_2_l.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\enemy\enemy31_3_l.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\enemy\enemy31_4_l.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\enemy\enemy31_5_l.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\enemy\enemy32_0_l.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\enemy\enemy32_1_l.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\enemy\enemy32_2_l.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\enemy\enemy32_3_l.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\enemy\enemy32_4_l.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\enemy\enemy32_5_l.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\enemy\enemy34_0_l.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\enemy\enemy34_1_l.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\enemy\enemy34_2_l.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\enemy\enemy34_3_l.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\enemy\enemy34_4_l.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\enemy\enemy34_5_l.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\enemy\enemy34_6_l.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\enemy\enemy34_7_l.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\enemy\enemy31_0.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\enemy\enemy31_1.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\enemy\enemy31_2.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\enemy\enemy31_3.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\enemy\enemy31_4.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\enemy\enemy31_5.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\enemy\enemy31_6.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\enemy\enemy32_0.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\enemy\enemy32_1.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\enemy\enemy32_2.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\enemy\enemy32_3.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\enemy\enemy32_4.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\enemy\enemy32_5.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\enemy\enemy32_6.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\enemy\enemy34_0.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\enemy\enemy34_1.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\enemy\enemy34_2.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\enemy\enemy34_3.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\enemy\enemy34_4.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\enemy\enemy34_5.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\enemy\enemy34_6.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\enemy\enemy34_7.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\enemy\enemy34_8.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\other\Wall0_0.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\other\Wall0_1.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\other\Wall0_2.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RES\UI_hp.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-=======
->>>>>>> 867352f244ad86983a74ae94bc787bfcc3ca5709
+    <Image Include="res\bitmap5.bmp" />
+    <Image Include="res\bmp00003.bmp" />
+    <Image Include="RES\bullet\bullet2_52.bmp" />
+    <Image Include="RES\bullet\bullet2_53.bmp" />
+    <Image Include="RES\bullet\bullet2_82.bmp" />
+    <Image Include="RES\bullet\bullet_115.bmp" />
+    <Image Include="RES\bullet\bullet_6.bmp" />
+    <Image Include="RES\character1\c01_0.bmp" />
+    <Image Include="RES\character1\c01_0_l.bmp" />
+    <Image Include="RES\character1\c01_1.bmp" />
+    <Image Include="RES\character1\c01_1_l.bmp" />
+    <Image Include="RES\character1\c01_2.bmp" />
+    <Image Include="RES\character1\c01_2_l.bmp" />
+    <Image Include="RES\character1\c01_3.bmp" />
+    <Image Include="RES\character1\c01_3_l.bmp" />
+    <Image Include="RES\character1\c01_4.bmp" />
+    <Image Include="RES\character1\c01_4_l.bmp" />
+    <Image Include="RES\character1\c01_5.bmp" />
+    <Image Include="RES\character1\c01_5_l.bmp" />
+    <Image Include="RES\character1\c01_6.bmp" />
+    <Image Include="RES\character1\c01_6_l.bmp" />
+    <Image Include="RES\character1\c01_7.bmp" />
+    <Image Include="RES\character1\c01_7_l.bmp" />
+    <Image Include="RES\character1\c01_8.bmp" />
+    <Image Include="RES\character1\weapons1.bmp" />
+    <Image Include="RES\character1\weapons1_l.bmp" />
+    <Image Include="RES\enemy\enemy31_0.bmp" />
+    <Image Include="RES\enemy\enemy31_0_l.bmp" />
+    <Image Include="RES\enemy\enemy31_1.bmp" />
+    <Image Include="RES\enemy\enemy31_1_l.bmp" />
+    <Image Include="RES\enemy\enemy31_2.bmp" />
+    <Image Include="RES\enemy\enemy31_2_l.bmp" />
+    <Image Include="RES\enemy\enemy31_3.bmp" />
+    <Image Include="RES\enemy\enemy31_3_l.bmp" />
+    <Image Include="RES\enemy\enemy31_4.bmp" />
+    <Image Include="RES\enemy\enemy31_4_l.bmp" />
+    <Image Include="RES\enemy\enemy31_5.bmp" />
+    <Image Include="RES\enemy\enemy31_5_l.bmp" />
+    <Image Include="RES\enemy\enemy31_6.bmp" />
+    <Image Include="RES\enemy\enemy32_0.bmp" />
+    <Image Include="RES\enemy\enemy32_0_l.bmp" />
+    <Image Include="RES\enemy\enemy32_1.bmp" />
+    <Image Include="RES\enemy\enemy32_1_l.bmp" />
+    <Image Include="RES\enemy\enemy32_2.bmp" />
+    <Image Include="RES\enemy\enemy32_2_l.bmp" />
+    <Image Include="RES\enemy\enemy32_3.bmp" />
+    <Image Include="RES\enemy\enemy32_3_l.bmp" />
+    <Image Include="RES\enemy\enemy32_4.bmp" />
+    <Image Include="RES\enemy\enemy32_4_l.bmp" />
+    <Image Include="RES\enemy\enemy32_5.bmp" />
+    <Image Include="RES\enemy\enemy32_5_l.bmp" />
+    <Image Include="RES\enemy\enemy32_6.bmp" />
+    <Image Include="RES\enemy\enemy34_0.bmp" />
+    <Image Include="RES\enemy\enemy34_0_l.bmp" />
+    <Image Include="RES\enemy\enemy34_1.bmp" />
+    <Image Include="RES\enemy\enemy34_1_l.bmp" />
+    <Image Include="RES\enemy\enemy34_2.bmp" />
+    <Image Include="RES\enemy\enemy34_2_l.bmp" />
+    <Image Include="RES\enemy\enemy34_3.bmp" />
+    <Image Include="RES\enemy\enemy34_3_l.bmp" />
+    <Image Include="RES\enemy\enemy34_4.bmp" />
+    <Image Include="RES\enemy\enemy34_4_l.bmp" />
+    <Image Include="RES\enemy\enemy34_5.bmp" />
+    <Image Include="RES\enemy\enemy34_5_l.bmp" />
+    <Image Include="RES\enemy\enemy34_6.bmp" />
+    <Image Include="RES\enemy\enemy34_6_l.bmp" />
+    <Image Include="RES\enemy\enemy34_7.bmp" />
+    <Image Include="RES\enemy\enemy34_7_l.bmp" />
+    <Image Include="RES\enemy\enemy34_8.bmp" />
+    <Image Include="RES\gate1.bmp" />
+    <Image Include="RES\other\Wall0_0.bmp" />
+    <Image Include="RES\other\Wall0_1.bmp" />
+    <Image Include="RES\other\Wall0_2.bmp" />
+    <Image Include="RES\UI_hp.bmp" />
+    <Image Include="RES\新增資料夾\Wall0_0.bmp" />
+    <Image Include="RES\新增資料夾\Wall0_1.bmp" />
+    <Image Include="RES\新增資料夾\Wall0_2.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Res\ball.bmp" />
+    <None Include="RES\bmp0.bmp" />
+    <None Include="RES\bmp1.bmp" />
+    <None Include="RES\bmp10.bmp" />
+    <None Include="RES\bmp2.bmp" />
+    <None Include="RES\bmp3.bmp" />
+    <None Include="RES\bmp4.bmp" />
+    <None Include="RES\bmp5.bmp" />
+    <None Include="RES\bmp6.bmp" />
+    <None Include="RES\bmp7.bmp" />
+    <None Include="RES\bmp8.bmp" />
+    <None Include="RES\bmp9.bmp" />
+    <None Include="RES\center.bmp" />
+    <None Include="RES\continue.bmp" />
+    <None Include="Res\corner.bmp" />
+    <None Include="RES\eraser1.bmp" />
+    <None Include="RES\eraser2.bmp" />
+    <None Include="RES\eraser3.bmp" />
+    <None Include="res\game.ico" />
+    <None Include="res\game.rc2" />
+    <None Include="RES\gamecurs.cur" />
+    <None Include="res\gameDoc.ico" />
+    <None Include="RES\help.bmp" />
+    <None Include="RES\loading.bmp" />
+    <None Include="RES\ntutcsie.bmp" />
+    <None Include="res\Toolbar.bmp" />
   </ItemGroup>
 </Project>

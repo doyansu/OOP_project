@@ -440,6 +440,9 @@
     <Image Include="RES\other\Wall0_1.bmp" />
     <Image Include="RES\other\Wall0_2.bmp" />
     <Image Include="RES\UI_hp.bmp" />
+    <Image Include="RES\新增資料夾\Wall0_0.bmp" />
+    <Image Include="RES\新增資料夾\Wall0_1.bmp" />
+    <Image Include="RES\新增資料夾\Wall0_2.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
