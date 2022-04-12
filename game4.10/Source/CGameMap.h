@@ -1,11 +1,13 @@
 #pragma once
 #include <queue>
+#include <cmath>
 
-#define MYMAPSIZE 200		// 地圖格數大小 200 X 200
+#define MYMAPSIZE 250		// 地圖格數大小 250 X 250
 #define MYMAPWIDTH 25		// 地圖每格寬
 #define MYMAPHIGH 25		// 地圖每格高
-#define MYMAXNOFROOM 5		// 最大房間數 5 X 5
+#define MYMAXNOFROOM 7		// 最大房間數 7 X 7
 #define ROOMINTERNAL 35		// 房間中心的間隔距離
+#define MYORGROOM 3			// 中心點起始房間
 
 namespace game_framework {
 	class RoomData
@@ -55,7 +57,7 @@ namespace game_framework {
 		void Reset();
 
 	protected:
-		CGameMap::MapContent _map[MYMAPSIZE][MYMAPSIZE];			// 地圖每格內容 200 X 200
+		CGameMap::MapContent _map[MYMAPSIZE][MYMAPSIZE];			
 		int _sx, _sy, _moveSpeed;						// 螢幕點座標、移動速度			
 		vector<CAnimation> _animas;						// 地圖圖片
 		vector<CAnimation>::iterator _animaIterator;	// 操作用

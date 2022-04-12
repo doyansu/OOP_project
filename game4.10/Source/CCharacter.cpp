@@ -23,10 +23,9 @@ namespace game_framework {
 		_mp = _maxMp = 180;
 		_shield = _maxShield = 5;
 		_damage = 4;
-		_moveSpeed = 5;
+		_moveSpeed = 8;
 		_showPriority = 10;
 		this->Reset();
-		this->SetXY(500, 500);
 		this->SetTag("player");
 		this->SetFree(false);
 
@@ -41,8 +40,8 @@ namespace game_framework {
 		_doFire = false;
 		_canAttack = true;
 		_attCounter = 0;
-		_deathCounter = 60;
-		_shieldCounter = 30;
+		_deathCounter = GAME_CYCLE_TIME * 2;	
+		_shieldCounter = GAME_CYCLE_TIME;
 		CCharacter::CGameObj::Reset();
 		_vector[0] = 1;	//預設朝右
 		DT = 1;
@@ -249,7 +248,7 @@ namespace game_framework {
 		// 護頓計數
 		if (--_shieldCounter == 0)
 		{
-			_shieldCounter = 30;
+			_shieldCounter = GAME_CYCLE_TIME;
 			ModifyShield(1);
 		}
 			
@@ -300,7 +299,7 @@ namespace game_framework {
 
 	void CCharacter::TakeDmg(int dmg)
 	{
-		_shieldCounter = 150;
+		_shieldCounter = GAME_CYCLE_TIME * 5; // 5秒
 		if (_shield)
 		{
 			_shield -= dmg;

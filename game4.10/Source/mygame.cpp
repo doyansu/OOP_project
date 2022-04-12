@@ -254,10 +254,10 @@ void CGameStateRun::OnBeginState()
 	// Game
 	gameObjCenter.FreeALLObj();	//	清空地圖物件
 	gameMap.GenerateMap();		//	生成地圖
-	/*for(int i = 0; i < 10000; i++)// 生成測試
-		gameMap.GenerateMap();*/
+	for(int i = 0; i < 10000; i++)// 生成測試
+		gameMap.GenerateMap();
 	character.Reset();			//	重設角色屬性
-	character.SetXY(MYMAPWIDTH * gameMap.GetRoom(2, 2).CenterX(), MYMAPHIGH * gameMap.GetRoom(2, 2).CenterY());	//	暫時設定初始位置
+	character.SetXY(MYMAPWIDTH * gameMap.GetRoom(MYORGROOM, MYORGROOM).CenterX(), MYMAPHIGH * gameMap.GetRoom(MYORGROOM, MYORGROOM).CenterY());	//	暫時設定初始位置
 	CGameObjCenter::AddObj(&character);
 	
 	for (int i = 0; i < MYMAXNOFROOM; i++)

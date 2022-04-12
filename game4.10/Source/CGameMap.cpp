@@ -30,9 +30,9 @@ namespace game_framework {
 	void CGameMap::Reset()
 	{
 		_sx = _sy = 0;
-		for (int i = 0; i < 200; i++)
+		for (int i = 0; i < MYMAPSIZE; i++)
 		{
-			for (int j = 0; j < 200; j++)
+			for (int j = 0; j < MYMAPSIZE; j++)
 			{
 				_map[i][j] = MapContent::NULLPTR;
 			}
@@ -104,17 +104,17 @@ namespace game_framework {
 		const int NROOMS = _MAXNOFROOM;
 
 		// 初始房間參數
-		_Rooms[2][2]._hasRoom = true;
-		_Rooms[2][2]._roomType = RoomData::RoomType::INIT;
-		_Rooms[2][2]._width = 19;
-		_Rooms[2][2]._high = 19;
-		_Rooms[2][2]._centerX = (INTERNAL >> 1) + INTERNAL * 2;
-		_Rooms[2][2]._centerY = (INTERNAL >> 1) + INTERNAL * 2;
+		_Rooms[MYORGROOM][MYORGROOM]._hasRoom = true;
+		_Rooms[MYORGROOM][MYORGROOM]._roomType = RoomData::RoomType::INIT;
+		_Rooms[MYORGROOM][MYORGROOM]._width = 19;
+		_Rooms[MYORGROOM][MYORGROOM]._high = 19;
+		_Rooms[MYORGROOM][MYORGROOM]._centerX = (INTERNAL >> 1) + INTERNAL * MYORGROOM;
+		_Rooms[MYORGROOM][MYORGROOM]._centerY = (INTERNAL >> 1) + INTERNAL * MYORGROOM;
 
 		// 隨機選一個方向開始增加房間
 		queue<CGameMap::Point> queue;
-		CGameMap::Point start(2, 2);
-		start.Set((rand() % 2), 2 + (1 ^ ((1 ^ -1) * (rand() % 2))));
+		CGameMap::Point start(MYORGROOM, MYORGROOM);
+		start.Set((rand() % 2), MYORGROOM + (1 ^ ((1 ^ -1) * (rand() % 2))));
 		queue.push(start);
 		int specialRoom = 1 + (rand() % 2);						// 特殊房間數
 		int maxRoom = specialRoom + 3 + (rand() % 3);			// 最大額外房間數
@@ -138,11 +138,14 @@ namespace game_framework {
 				while (rTimes--)
 				{
 					int nx, ny, m = 10;
+					int jx = 0, jy = 0;		// 判斷初始房間周圍不出現房間
 					do {
 						int r = rand() % 4;
 						nx = x + dir[r][0], ny = y + dir[r][1];
-					} while ((nx < 0 || ny < 0 || nx == MYMAXNOFROOM || ny == MYMAXNOFROOM || _Rooms[nx][ny]._hasRoom) && m-- > 0);
-					if(nx >= 0 && ny >= 0 && nx < MYMAXNOFROOM && ny < MYMAXNOFROOM && m)
+						jx = abs(nx - MYORGROOM);
+						jy = abs(ny - MYORGROOM);
+					} while ((nx < 0 || ny < 0 || nx == MYMAXNOFROOM || ny == MYMAXNOFROOM || _Rooms[nx][ny]._hasRoom || jx + jy <= 1) && m-- > 0);
+					if(nx >= 0 && ny >= 0 && nx < MYMAXNOFROOM && ny < MYMAXNOFROOM && jx + jy > 1 && m)
 						queue.push(CGameMap::Point(nx, ny));
 				}
 

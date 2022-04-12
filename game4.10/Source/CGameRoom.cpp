@@ -257,9 +257,10 @@ namespace game_framework
 	{
 		if (other->GetTag() == "player")
 		{
-			int dx = (int)_vector[0] * other->GetMoveSpeed();
+			// 開發中暫時拿掉
+			/*int dx = (int)_vector[0] * other->GetMoveSpeed();
 			int dy = (int)_vector[1] * other->GetMoveSpeed();
-			other->SetXY(other->GetX1() + dx, other->GetY1() + dy);
+			other->SetXY(other->GetX1() + dx, other->GetY1() + dy);*/
 		}
 		else if (other->GetTag() == "enemy")
 		{
