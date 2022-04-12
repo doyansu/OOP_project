@@ -27,7 +27,7 @@ namespace game_framework {
 		void OnKeyUp(char);				
 		void OnKeyDown(char);		
 		void Reset();					// 重置狀態
-
+		void Init();					// 初始狀態
 	
 	protected:
 		const int _ATTDELAY;						// 近戰攻擊間隔

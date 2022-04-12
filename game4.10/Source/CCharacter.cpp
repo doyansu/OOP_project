@@ -30,9 +30,27 @@ namespace game_framework {
 		this->SetFree(false);
 
 		//	武器設定
+		_weapon.reserve(2);
 		_weapon.push_back(CGameWeapon());
 		_nowWeapon = _weapon.begin();
 		_nowWeapon->SetTarget("enemy");
+	}
+
+	void CCharacter::Init()
+	{
+		// GameOver初始化
+		_hp = 6;
+		_mp = 180;
+		_shield = 5;
+		// 重置為初始武器
+		for (vector<CGameWeapon>::iterator it1 = _weapon.begin(); it1 != _weapon.end();)
+		{
+			it1 = _weapon.erase(it1);
+		}
+		_weapon.push_back(CGameWeapon());
+		_nowWeapon = _weapon.begin();
+		_nowWeapon->SetTarget("enemy");
+		_nowWeapon->LoadBitmap();
 	}
 
 	void CCharacter::Reset()

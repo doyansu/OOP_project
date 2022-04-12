@@ -169,7 +169,10 @@ void CGameStateOver::OnMove()
 {
 	counter--;
 	if (counter < 0)
+	{
 		GotoGameState(GAME_STATE_INIT);
+	}
+		
 }
 
 void CGameStateOver::OnBeginState()
@@ -330,6 +333,7 @@ void CGameStateRun::OnMove()							// ²¾°Ê¹CÀ¸¤¸¯À
 	gameObjCenter.OnMove(&gameMap);
 	if (!character.IsEnable() && !character.IsDie())
 	{
+		character.Init();
 		GotoGameState(GAME_STATE_OVER);
 	}
 

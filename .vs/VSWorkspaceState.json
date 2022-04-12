@@ -1,6 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\game4.10",
+    "\\game4.10\\Source",
+    "\\GitTutorial"
   ],
+  "SelectedNode": "\\game4.10\\Source\\CCharacter.cpp",
   "PreviewInSolutionExplorer": false
 }
