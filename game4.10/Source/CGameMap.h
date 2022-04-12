@@ -1,9 +1,10 @@
 #pragma once
+#include <queue>
 
 #define MYMAPSIZE 200		// 地圖格數大小 200 X 200
 #define MYMAPWIDTH 25		// 地圖每格寬
 #define MYMAPHIGH 25		// 地圖每格高
-#define MYMAXNOFROOM 4		// 最大房間數 4 X 4
+#define MYMAXNOFROOM 5		// 最大房間數 5 X 5
 #define ROOMINTERNAL 35		// 房間中心的間隔距離
 
 namespace game_framework {
@@ -66,5 +67,36 @@ namespace game_framework {
 	private:
 		void free();
 		vector<CAnimation>::iterator GetAnima(MapContent);
+		class Point
+		{
+		public:
+			Point()
+			{
+				_xy[0] = _xy[1] = 0;
+			}
+
+			Point(int x, int y)
+			{
+				_xy[0] = x;
+				_xy[1] = y;
+			}
+
+			void Set(int index, int value)
+			{
+				if (index > 1 || index < 0)
+					ASSERT(0);
+				_xy[index] = value;
+			}
+
+			int Get(int index)
+			{
+				if (index > 1 || index < 0)
+					ASSERT(0);
+				return _xy[index];
+			}
+
+		private:
+			int _xy[2];
+		};
 	};
 }

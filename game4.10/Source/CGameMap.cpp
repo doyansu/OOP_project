@@ -81,9 +81,9 @@ namespace game_framework {
 
 	void CGameMap::OnShow()
 	{
-		for (int i = 0; i < 200; i++)
+		for (int i = 0; i < MYMAPSIZE; i++)
 		{
-			for (int j = 0; j < 200; j++)
+			for (int j = 0; j < MYMAPSIZE; j++)
 			{
 				int mx = _MAPW * i, my = _MAPH * j;
 				if ((this->InScreen(mx, my, mx + _MAPW, my + _MAPH)) && _map[i][j] != MapContent::NULLPTR)
@@ -102,58 +102,89 @@ namespace game_framework {
 		
 		const int INTERNAL = ROOMINTERNAL;
 		const int NROOMS = _MAXNOFROOM;
-		/*int Room[NROOMS][NROOMS][2];
-		bool mask[NROOMS][NROOMS];
-		memset(mask, false, sizeof(mask));*/
 
-		//	決定房間有無、類型
-		int rx = 2 + (rand() % (NROOMS - 1));
-		int ry;
-		for (int i = 0; i < rx; i++)
+		// 初始房間參數
+		_Rooms[2][2]._hasRoom = true;
+		_Rooms[2][2]._roomType = RoomData::RoomType::INIT;
+		_Rooms[2][2]._width = 17;
+		_Rooms[2][2]._high = 17;
+		_Rooms[2][2]._centerX = (INTERNAL >> 1) + INTERNAL * 2;
+		_Rooms[2][2]._centerY = (INTERNAL >> 1) + INTERNAL * 2;
+
+		// 隨機選一個方向開始增加房間
+		queue<CGameMap::Point> queue;
+		CGameMap::Point start(2, 2);
+		start.Set((rand() % 2), 2 + (1 ^ ((1 ^ -1) * (rand() % 2))));
+		queue.push(start);
+		int maxRoom = 6 + (rand() % 3);// 最大額外房間數
+		int dir[4][2] = { {0, -1}, {0, 1}, {-1, 0}, {1, 0} };
+		while (!queue.empty() && maxRoom)
 		{
-			ry = 2 + (rand() % (NROOMS - 1));
-			for (int j = 0; j < ry; j++)
-			{
-				_Rooms[i][j]._hasRoom = true;
-				_Rooms[i][j]._roomType = RoomData::RoomType::NORMAL;
-			}
-		}
-		_Rooms[0][0]._roomType = RoomData::RoomType::INIT;
-		_Rooms[rx - 1][ry - 1]._roomType = RoomData::RoomType::END;
+			CGameMap::Point point = queue.front();
+			int x = point.Get(0), y = point.Get(1);
+			// 初始化房間參數
+			_Rooms[x][y]._hasRoom = true;
+			_Rooms[x][y]._roomType = RoomData::RoomType::NORMAL;
+			_Rooms[x][y]._width = 15 + (rand() % 5) * 2;
+			_Rooms[x][y]._high = 15 + (rand() % 5) * 2;
+			_Rooms[x][y]._centerX = (INTERNAL >> 1) + INTERNAL * x;
+			_Rooms[x][y]._centerY = (INTERNAL >> 1) + INTERNAL * y;
 
-		//	決定房間寬高、設定中心區域
+			// 隨機選周邊房間
+			int rTimes = 2 + (rand() % 2);
+			while (rTimes--)
+			{
+				int nx, ny, m = 10;
+				do{
+					int r = rand() % 4;
+					nx = x + dir[r][0], ny = y + dir[r][1];
+				} while ((nx < 0 || ny < 0 || nx == MYMAXNOFROOM || ny == MYMAXNOFROOM || _Rooms[nx][ny]._hasRoom) && m-- > 0);
+				queue.push(CGameMap::Point(nx, ny));
+			}
+
+			// 最後一個為傳送房間
+			if (--maxRoom == 0)
+			{
+				_Rooms[x][y]._roomType = RoomData::RoomType::END;
+			}
+			queue.pop();
+		}
+
+		// 沒生成完成重新生成一次(目前極小概率?)
+		if (maxRoom)
+		{
+			CGameMap::GenerateMap();
+			return;
+		}
+
+		//	設定中心區域
 		for (int i = 0; i < NROOMS; i++)
 		{
 			for (int j = 0; j < NROOMS; j++)
 			{
 				if (!_Rooms[i][j]._hasRoom)
 					continue;
-				int height = 15 + (rand() % 5) * 2, weight = 15 + (rand() % 5) * 2;// 打成身高體重QQ 應該是寬高
-				int orgx = (INTERNAL >> 1) + INTERNAL * i - (height >> 1);
-				int orgy = (INTERNAL >> 1) + INTERNAL * j - (weight >> 1);
-				// 初始化房間參數
-				_Rooms[i][j]._width = height; 
-				_Rooms[i][j]._high = weight;
-				_Rooms[i][j]._centerX = (INTERNAL >> 1) + INTERNAL * i;
-				_Rooms[i][j]._centerY = (INTERNAL >> 1) + INTERNAL * j;
-				for (int x = 0; x < height; x++)
+				int width = _Rooms[i][j]._width, high = _Rooms[i][j]._high;
+				int orgx = (INTERNAL >> 1) + INTERNAL * i - (width >> 1);
+				int orgy = (INTERNAL >> 1) + INTERNAL * j - (high >> 1);
+				for (int x = 0; x < width; x++)
 				{
-					for (int y = 0; y < weight; y++)
+					for (int y = 0; y < high; y++)
 					{
 						_map[orgx + x][orgy + y] = MapContent::FLOOR;
 					}
 				}
 
-				for (int x = 0; x < height; x++)
+				for (int x = 0; x < width; x++)
 				{
 					_map[orgx + x][orgy - 1] = MapContent::WALL;
-					_map[orgx + x][orgy + weight] = MapContent::WALL;
+					_map[orgx + x][orgy + high] = MapContent::WALL;
 				}
 
-				for (int y = -1; y < weight + 1; y++)
+				for (int y = -1; y < high + 1; y++)
 				{
 					_map[orgx - 1][orgy + y] = MapContent::WALL;
-					_map[orgx + height][orgy + y] = MapContent::WALL;
+					_map[orgx + width][orgy + y] = MapContent::WALL;
 				}
 
 			}

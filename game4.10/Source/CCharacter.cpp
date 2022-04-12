@@ -180,8 +180,8 @@ namespace game_framework {
 		if (_doFire)
 		{
 			const double MAXSEARCH = 500.0;	// 最大搜索範圍 
-			const double MINSEARCH = 100.0;	// 最小搜索範圍 
-			const double MAXMAPDISTANCE = 10000.0;	//	極限距離 玩家敵人間距離不超過
+			const double MINSEARCH = 80.0;	// 最小搜索範圍 
+			const double MAXMAPDISTANCE = 20000.0;	//	極限距離 玩家敵人間距離不超過
 			// 找到存活的敵人
 			vector<CGameObj*> enemys = CGameObjCenter::FindObjsBy(
 				[](CGameObj* obj)
@@ -231,7 +231,7 @@ namespace game_framework {
 				double vy = (double)(target->CenterY() - this->CenterY()) / d;
 				_nowWeapon->Shoot(vx, vy);
 			}
-			else if(target != nullptr && _attCounter == 0 && Collision(target)) // 近戰攻擊
+			else if(target != nullptr && _attCounter == 0 && d < MINSEARCH) // 近戰攻擊
 			{
 				_attCounter = _ATTDELAY;
 				target->TakeDmg(_damage);
