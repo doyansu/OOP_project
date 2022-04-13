@@ -281,7 +281,7 @@ namespace game_framework {
 			this->SetDie(false);
 	}
 
-	void CCharacter::OnObjCollision(CGameObj* other)
+	void CCharacter::OnObjCollision(CGameMap* map, CGameObj* other)
 	{
 		/*if (other->GetTag() == "enemy")
 		{

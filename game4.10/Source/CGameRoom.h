@@ -13,9 +13,10 @@ namespace game_framework
 		int GetX2();			// 右下地圖點座標
 		int GetY2();
 		void OnMove(CGameMap*);
-		void OnObjCollision(CGameObj*);
+		void OnObjCollision(CGameMap*, CGameObj*);
 		void OnDie();
 		void OnShow(CGameMap*);
+		void Initialization(CGameMap*);
 
 		class RoomWall : public CGameObj
 		{

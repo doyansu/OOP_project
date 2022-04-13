@@ -43,7 +43,7 @@ namespace game_framework
 
 	}*/
 
-	void CGameBullet::OnObjCollision(CGameObj* other)
+	void CGameBullet::OnObjCollision(CGameMap* map, CGameObj* other)
 	{
 		if (other->GetTag() == _target)
 		{

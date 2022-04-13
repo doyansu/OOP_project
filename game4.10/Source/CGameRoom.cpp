@@ -22,17 +22,26 @@ namespace game_framework
 		_roomEnemys.reserve(_maxEnemy);
 		_tag = "Room";
 
+		
+
+	}
+
+	void CGameRoom::Initialization(CGameMap* map)
+	{
 		// 新增怪物
 		CEnemy enemy;
 		enemy.LoadBitmap();
 		_enemys.reserve(10);
 		_enemys.push_back(new CEnemy(enemy));
-		
+
 		// 第一批怪物
 		for (int i = 0; i < _maxEnemy; i++)
 		{
 			CEnemy* newEnemy = new CEnemy(*(_enemys.at(rand() % (int)_enemys.size())));
-			newEnemy->SetXY(_mx + MYMAPWIDTH * (2 + rand() % (_room.Width() - 4)), _my + MYMAPHIGH * (2 + rand() % (_room.High() - 4)));
+			// 碰到障礙重新選位置
+			do {
+				newEnemy->SetXY(_mx + MYMAPWIDTH * (2 + rand() % (_room.Width() - 4)), _my + MYMAPHIGH * (2 + rand() % (_room.High() - 4)));
+			} while (newEnemy->Collision(map));
 			newEnemy->SetFree(false);
 			_roomEnemys.push_back(newEnemy);
 		}
@@ -43,6 +52,7 @@ namespace game_framework
 		wall.SetFree(false);
 		int cx = _room.CenterX(), cy = _room.CenterY();
 		int w = _room.Width(), h = _room.High();
+
 		// 上方有通道
 		if (_room.HasRoad(0))
 		{
@@ -83,7 +93,6 @@ namespace game_framework
 				_roomWalls.push_back(new RoomWall(wall));
 			}
 		}
-
 	}
 
 	CGameRoom::~CGameRoom()
@@ -140,7 +149,10 @@ namespace game_framework
 				for (int i = 0; i < r; i++)
 				{
 					CEnemy* newEnemy = new CEnemy(*(_enemys.at(rand() % (int)_enemys.size())));
-					newEnemy->SetXY(_mx + MYMAPWIDTH * (2 + rand() % (_room.Width() - 4)), _my + MYMAPHIGH * (2 + rand() % (_room.High() - 4)));
+					// 碰到障礙重新選位置
+					do {
+						newEnemy->SetXY(_mx + MYMAPWIDTH * (2 + rand() % (_room.Width() - 4)), _my + MYMAPHIGH * (2 + rand() % (_room.High() - 4)));
+					} while (newEnemy->Collision(map));
 					newEnemy->SetFree(false);
 					_roomEnemys.push_back(newEnemy);
 				}
@@ -165,7 +177,7 @@ namespace game_framework
 		
 	}
 
-	void CGameRoom::OnObjCollision(CGameObj* other)
+	void CGameRoom::OnObjCollision(CGameMap* map, CGameObj* other)
 	{
 		// 玩家進入房間怪物開始動作
 		if (_isStrat == false && other->GetTag() == "player")

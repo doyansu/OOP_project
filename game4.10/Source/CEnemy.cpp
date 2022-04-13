@@ -147,7 +147,7 @@ namespace game_framework {
 			_weapon.SetXY(this->CenterX() - (_weapon.GetX2() - _weapon.GetX1()), this->CenterY());
 	}
 
-	void CEnemy::OnObjCollision(CGameObj* other)
+	void CEnemy::OnObjCollision(CGameMap* map, CGameObj* other)
 	{
 		/*if (other->GetTag() == "player")
 		{

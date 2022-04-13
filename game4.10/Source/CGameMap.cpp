@@ -301,9 +301,9 @@ namespace game_framework {
 			break;
 		case 3: // 中間方形
 			{
-				int w = 3 + (rand() % 3);
-				for (int x = -w; x < w; x++)
-					for (int y = -w; y < w; y++)
+				int w = 3 + (rand() % 2);
+				for (int x = -w; x <= w; x++)
+					for (int y = -w; y <= w; y++)
 					{
 						_map[cx + x][cy + y] = MapContent::WALL;
 					}

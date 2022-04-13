@@ -21,8 +21,8 @@ namespace game_framework
 
 	void CGameObjCenter::init()
 	{
-		_allObj.reserve(1024);
-		_temp.reserve(1024);
+		_allObj.reserve(256);
+		_temp.reserve(256);
 	}
 
 	void CGameObjCenter::OnMove(CGameMap* map)
@@ -73,8 +73,8 @@ namespace game_framework
 			for (int j = i + 1; j < (int)_allObj.size(); j++)
 				if (_allObj.at(j)->IsEnable() && _allObj.at(i)->Collision(_allObj.at(j)))
 				{
-					_allObj.at(i)->OnObjCollision(_allObj.at(j));
-					_allObj.at(j)->OnObjCollision(_allObj.at(i));
+					_allObj.at(i)->OnObjCollision(map, _allObj.at(j));
+					_allObj.at(j)->OnObjCollision(map, _allObj.at(i));
 				}
 		}
 			
