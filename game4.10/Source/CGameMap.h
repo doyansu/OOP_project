@@ -14,7 +14,7 @@ namespace game_framework {
 	{
 	friend class CGameMap;
 	public:
-		enum class RoomType { INIT, NORMAL, TREASURE, END };
+		enum class RoomType { INIT, NORMAL, TREASURE, BOSS, END };
 		RoomData();
 		int CenterX();
 		int CenterY();
@@ -68,6 +68,7 @@ namespace game_framework {
 	
 	private:
 		void free();
+		void normalRoomGenerate(int, int);
 		vector<CAnimation>::iterator GetAnima(MapContent);
 		class Point
 		{

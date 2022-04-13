@@ -106,8 +106,8 @@ namespace game_framework {
 		// 初始房間參數
 		_Rooms[MYORGROOM][MYORGROOM]._hasRoom = true;
 		_Rooms[MYORGROOM][MYORGROOM]._roomType = RoomData::RoomType::INIT;
-		_Rooms[MYORGROOM][MYORGROOM]._width = 19;
-		_Rooms[MYORGROOM][MYORGROOM]._high = 19;
+		_Rooms[MYORGROOM][MYORGROOM]._width = 17;
+		_Rooms[MYORGROOM][MYORGROOM]._high = 17;
 		_Rooms[MYORGROOM][MYORGROOM]._centerX = (INTERNAL >> 1) + INTERNAL * MYORGROOM;
 		_Rooms[MYORGROOM][MYORGROOM]._centerY = (INTERNAL >> 1) + INTERNAL * MYORGROOM;
 
@@ -116,8 +116,8 @@ namespace game_framework {
 		CGameMap::Point start(MYORGROOM, MYORGROOM);
 		start.Set((rand() % 2), MYORGROOM + (1 ^ ((1 ^ -1) * (rand() % 2))));
 		queue.push(start);
-		int specialRoom = 1 + (rand() % 2);						// 特殊房間數
-		int maxRoom = specialRoom + 3 + (rand() % 3);			// 最大額外房間數
+		int specialRoom = 1 + (rand() % 3);						// 特殊房間數
+		int maxRoom = specialRoom + 3 + (rand() % 4);			// 最大額外房間數
 		int dir[4][2] = { {0, -1}, {0, 1}, {-1, 0}, {1, 0} };	// 搜索用向量
 		while (!queue.empty() && maxRoom)
 		{
@@ -153,15 +153,15 @@ namespace game_framework {
 				if (--maxRoom == 0)// 最後一個為傳送房間
 				{
 					_Rooms[x][y]._roomType = RoomData::RoomType::END;
-					_Rooms[x][y]._width = 15;
-					_Rooms[x][y]._high = 15;
+					_Rooms[x][y]._width = 11;
+					_Rooms[x][y]._high = 11;
 				}
 				else if (maxRoom <= specialRoom)// 特殊房間
 				{
 					// 寶箱房間
 					_Rooms[x][y]._roomType = RoomData::RoomType::TREASURE;
-					_Rooms[x][y]._width = 15;
-					_Rooms[x][y]._high = 15;
+					_Rooms[x][y]._width = 11;
+					_Rooms[x][y]._high = 11;
 				}
 			}
 			queue.pop();
@@ -204,13 +204,17 @@ namespace game_framework {
 					_map[orgx + width][orgy + y] = MapContent::WALL;
 				}
 
+				// 一般怪物房間障礙設定
+				if (_Rooms[i][j]._roomType == RoomData::RoomType::NORMAL)
+				{
+					normalRoomGenerate(i, j);
+				}
 			}
 		}
 
 		//	設定房間之間的通道
 		for (int i = 0; i < NROOMS; i++)
 		{
-
 			for (int j = 0; j < NROOMS; j++)
 			{
 				if (_Rooms[i][j]._hasRoom == false)
@@ -261,6 +265,52 @@ namespace game_framework {
 					}
 				}
 			}
+		}
+	}
+
+	void CGameMap::normalRoomGenerate(int i, int j)
+	{
+		int width = _Rooms[i][j]._width;
+		int high = _Rooms[i][j]._high;
+		int orgx = (ROOMINTERNAL >> 1) + ROOMINTERNAL * i - (width >> 1);
+		int orgy = (ROOMINTERNAL >> 1) + ROOMINTERNAL * j - (high >> 1);
+		int cx = _Rooms[i][j]._centerX;
+		int cy = _Rooms[i][j]._centerY;
+
+		// 隨機類型
+		int type = rand() % 4;
+		// test
+		//type = 3;
+		switch (type)
+		{
+		case 0:	// 空的
+			break;
+		case 1:	// 直線
+			for (int x = 0; x < width - 4; x++)
+			{
+				_map[orgx + x][cy + 3] = MapContent::WALL;
+				_map[orgx + x + 4][cy - 3] = MapContent::WALL;
+			}
+			break;
+		case 2:	// 橫線
+			for (int y = 0; y < high - 4; y++)
+			{
+				_map[cx + 3][orgy + y] = MapContent::WALL;
+				_map[cx - 3][orgy + y + 4] = MapContent::WALL;
+			}
+			break;
+		case 3: // 中間方形
+			{
+				int w = 3 + (rand() % 3);
+				for (int x = -w; x < w; x++)
+					for (int y = -w; y < w; y++)
+					{
+						_map[cx + x][cy + y] = MapContent::WALL;
+					}
+				break;
+			}
+		default:
+			break;
 		}
 	}
 
