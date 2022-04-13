@@ -309,6 +309,8 @@ namespace game_framework {
 					}
 				break;
 			}
+		case 4:	// ¤¤¶¡¤e¤e
+
 		default:
 			break;
 		}

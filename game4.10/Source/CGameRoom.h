@@ -24,7 +24,7 @@ namespace game_framework
 			RoomWall();
 			void LoadBitmap();
 			void OnMove(CGameMap*);
-			void OnObjCollision(CGameObj*);
+			void OnObjCollision(CGameMap*, CGameObj*);
 			void OnDie();
 		protected:
 		private:

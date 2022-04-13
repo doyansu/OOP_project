@@ -40,7 +40,7 @@ namespace game_framework
 			CEnemy* newEnemy = new CEnemy(*(_enemys.at(rand() % (int)_enemys.size())));
 			// 碰到障礙重新選位置
 			do {
-				newEnemy->SetXY(_mx + MYMAPWIDTH * (2 + rand() % (_room.Width() - 4)), _my + MYMAPHIGH * (2 + rand() % (_room.High() - 4)));
+				newEnemy->SetXY(_mx + MYMAPWIDTH * (1 + rand() % (_room.Width() - 2)), _my + MYMAPHIGH * (1 + rand() % (_room.High() - 2)));
 			} while (newEnemy->Collision(map));
 			newEnemy->SetFree(false);
 			_roomEnemys.push_back(newEnemy);
@@ -151,7 +151,7 @@ namespace game_framework
 					CEnemy* newEnemy = new CEnemy(*(_enemys.at(rand() % (int)_enemys.size())));
 					// 碰到障礙重新選位置
 					do {
-						newEnemy->SetXY(_mx + MYMAPWIDTH * (2 + rand() % (_room.Width() - 4)), _my + MYMAPHIGH * (2 + rand() % (_room.High() - 4)));
+						newEnemy->SetXY(_mx + MYMAPWIDTH * (1 + rand() % (_room.Width() - 2)), _my + MYMAPHIGH * (1 + rand() % (_room.High() - 2)));
 					} while (newEnemy->Collision(map));
 					newEnemy->SetFree(false);
 					_roomEnemys.push_back(newEnemy);
@@ -265,7 +265,7 @@ namespace game_framework
 			this->SetDie(false);
 	}
 
-	void CGameRoom::RoomWall::OnObjCollision(CGameObj* other)
+	void CGameRoom::RoomWall::OnObjCollision(CGameMap* map, CGameObj* other)
 	{
 		if (other->GetTag() == "player")
 		{
