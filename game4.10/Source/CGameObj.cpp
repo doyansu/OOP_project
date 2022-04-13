@@ -80,8 +80,11 @@ namespace game_framework {
 		int y1 = GetY1();
 		int x2 = GetX2();
 		int y2 = GetY2();
+		int cx = CenterX();
+		int cy = CenterY();
 
-		return (map->IsContent(x1, y1, coll) || map->IsContent(x1, y2, coll) || map->IsContent(x2, y1, coll) || map->IsContent(x2, y2, coll));
+		return (map->IsContent(x1, y1, coll) || map->IsContent(x1, y2, coll) || map->IsContent(x2, y1, coll) || map->IsContent(x2, y2, coll)
+			|| map->IsContent(cx, y1, coll) || map->IsContent(cx, y2, coll) || map->IsContent(x1, cy, coll) || map->IsContent(x2, cy, coll));
 	}
 
 	bool CGameObj::HitRectangle(int tx1, int ty1, int tx2, int ty2)	//	¯x§Î¸I¼²
