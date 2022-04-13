@@ -278,9 +278,8 @@ namespace game_framework {
 		int cy = _Rooms[i][j]._centerY;
 
 		// 隨機類型
-		int type = rand() % 4;
-		// test
-		//type = 3;
+		int type = rand() % 7;
+		// test type = 5;
 		switch (type)
 		{
 		case 0:	// 空的
@@ -301,16 +300,68 @@ namespace game_framework {
 			break;
 		case 3: // 中間方形
 			{
-				int w = 3 + (rand() % 2);
-				for (int x = -w; x <= w; x++)
-					for (int y = -w; y <= w; y++)
+				int r = 3 + (rand() % 2);
+				for (int x = -r; x <= r; x++)
+					for (int y = -r; y <= r; y++)
 					{
 						_map[cx + x][cy + y] = MapContent::WALL;
 					}
 				break;
 			}
 		case 4:	// 中間叉叉
+			{
+				int r = 3 + (rand() % 2);
+				for (int x = -r; x <= r; x++)
+				{
+					_map[cx + x][cy + x] = MapContent::WALL;
+					_map[cx + x][cy - x] = MapContent::WALL;
+				}
+				break;
+			}
+		case 5:// 中間簡易愛心
+			{
+				int r = 4 + (rand() % 3);
+				for (int y = -(r - 3); y <= 0; y++)
+				{
+					_map[cx - 3][cy + y] = MapContent::WALL;
+					_map[cx + 3][cy + y] = MapContent::WALL;
+				}
+				for (int y = -(r - 2); y <= 1; y++)
+				{
+					_map[cx - 2][cy + y] = MapContent::WALL;
+					_map[cx + 2][cy + y] = MapContent::WALL;
+				}
+				for (int y = -(r - 3); y <= 2; y++)
+				{
+					_map[cx - 1][cy + y] = MapContent::WALL;
+					_map[cx + 1][cy + y] = MapContent::WALL;
+				}
+				for (int y = -(r - 4); y <= 3; y++)
+					_map[cx][cy + y] = MapContent::WALL;
 
+				break;
+			}
+		case 6:// 隨機矩形
+			{
+				int t = 2 + (rand() % 3);
+				while(t--)
+				{
+					int rx = orgx + (3 + rand() % (width - 9)), ry = orgy + (3 + rand() % (high - 9));
+					int w = 1 + (rand() % 4), h = 1;
+					if (w > 1)
+					{
+						h = 1 + (rand() % 4);
+					}
+					for (int x = 0; x < w; x++)
+					{
+						for (int y = 0; y < h; y++)
+						{
+							_map[rx + x][ry + y] = MapContent::WALL;
+						}
+					}	
+				}
+				break;
+			}
 		default:
 			break;
 		}
