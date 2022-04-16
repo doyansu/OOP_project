@@ -34,14 +34,14 @@ namespace game_framework {
 	class CGameMap
 	{
 	public:
-		enum class MapContent {NULLPTR, FLOOR, WALL, AISLEWALL};		//地圖內容物
+		enum class ContentType {NULLPTR, FLOOR, WALL, AISLEWALL};		//地圖內容物類型
 		CGameMap();
 		~CGameMap();
 		void LoadBitmap();
 		int ScreenX(int x);				//	地圖點座標在螢幕位置
 		int ScreenY(int y);
 		bool InScreen(int x, int y, int mw, int mh);	// 座標範圍在螢幕內
-		bool IsContent(int x, int y, CGameMap::MapContent = MapContent::FLOOR);
+		bool IsContent(int x, int y, CGameMap::ContentType = ContentType::FLOOR);
 
 		int GetScreenX();
 		int GetScreenY();
@@ -57,6 +57,32 @@ namespace game_framework {
 		void Reset();
 
 	protected:
+		class MapContent	
+		{
+		public:
+			MapContent()
+			{
+				_type = CGameMap::ContentType::NULLPTR;
+			}
+			MapContent(CGameMap::ContentType type, vector<CAnimation>::iterator anima)
+			{
+				_type = type;
+				_anima = anima;
+			}
+			vector<CAnimation>::iterator GetAnima()
+			{
+				return _anima;
+			}
+			bool IsType(CGameMap::ContentType type)
+			{
+				return _type == type;
+			}
+		protected:
+			CGameMap::ContentType _type;
+			vector<CAnimation>::iterator _anima;
+		private:
+		};
+
 		CGameMap::MapContent _map[MYMAPSIZE][MYMAPSIZE];			
 		int _sx, _sy, _moveSpeed;						// 螢幕點座標、移動速度			
 		vector<CAnimation> _animas;						// 地圖圖片
@@ -69,8 +95,9 @@ namespace game_framework {
 	private:
 		void free();
 		void normalRoomGenerate(int, int);
-		vector<CAnimation>::iterator GetAnima(MapContent);
-		class Point
+		vector<CAnimation>::iterator GetAnima(ContentType);
+		
+		class Point	// 地圖生成使用
 		{
 		public:
 			Point()

@@ -34,7 +34,7 @@ namespace game_framework {
 		{
 			for (int j = 0; j < MYMAPSIZE; j++)
 			{
-				_map[i][j] = MapContent::NULLPTR;
+				_map[i][j] = MapContent();
 			}
 		}
 		_animaIterator = _animas.begin();
@@ -58,13 +58,13 @@ namespace game_framework {
 
 	void CGameMap::LoadBitmap()
 	{
-		_animaIterator = GetAnima(MapContent::NULLPTR);
+		_animaIterator = GetAnima(ContentType::NULLPTR);
 		_animaIterator->AddBitmap(IDB_FLOOR_1, RGB(255, 255, 255));
-		_animaIterator = GetAnima(MapContent::FLOOR);
+		_animaIterator = GetAnima(ContentType::FLOOR);
 		_animaIterator->AddBitmap(IDB_FLOOR_1, RGB(255, 255, 255));
-		_animaIterator = GetAnima(MapContent::WALL);
+		_animaIterator = GetAnima(ContentType::WALL);
 		_animaIterator->AddBitmap(IDB_WALL_1, RGB(255, 255, 255));
-		_animaIterator = GetAnima(MapContent::AISLEWALL);
+		_animaIterator = GetAnima(ContentType::AISLEWALL);
 		_animaIterator->AddBitmap(IDB_Wall0, RGB(255, 255, 255));
 		_animaIterator = _animas.begin();
 	}
@@ -86,9 +86,9 @@ namespace game_framework {
 			for (int j = 0; j < MYMAPSIZE; j++)
 			{
 				int mx = _MAPW * i, my = _MAPH * j;
-				if ((this->InScreen(mx, my, mx + _MAPW, my + _MAPH)) && _map[i][j] != MapContent::NULLPTR)
+				if ((this->InScreen(mx, my, mx + _MAPW, my + _MAPH)) && !_map[i][j].IsType(ContentType::NULLPTR))
 				{
-					_animaIterator = GetAnima(_map[i][j]);
+					_animaIterator = _map[i][j].GetAnima();
 					_animaIterator->SetTopLeft(ScreenX(mx), ScreenY(my));
 					_animaIterator->OnShow();
 				}
@@ -188,20 +188,20 @@ namespace game_framework {
 				{
 					for (int y = 0; y < high; y++)
 					{
-						_map[orgx + x][orgy + y] = MapContent::FLOOR;
+						_map[orgx + x][orgy + y] = MapContent(ContentType::FLOOR, GetAnima(ContentType::FLOOR));
 					}
 				}
 
 				for (int x = 0; x < width; x++)
 				{
-					_map[orgx + x][orgy - 1] = MapContent::WALL;
-					_map[orgx + x][orgy + high] = MapContent::WALL;
+					_map[orgx + x][orgy - 1] = MapContent(ContentType::WALL, GetAnima(ContentType::WALL));
+					_map[orgx + x][orgy + high] = MapContent(ContentType::WALL, GetAnima(ContentType::WALL));
 				}
 
 				for (int y = -1; y < high + 1; y++)
 				{
-					_map[orgx - 1][orgy + y] = MapContent::WALL;
-					_map[orgx + width][orgy + y] = MapContent::WALL;
+					_map[orgx - 1][orgy + y] = MapContent(ContentType::WALL, GetAnima(ContentType::WALL));
+					_map[orgx + width][orgy + y] = MapContent(ContentType::WALL, GetAnima(ContentType::WALL));
 				}
 
 				// 一般怪物房間障礙設定
@@ -231,17 +231,17 @@ namespace game_framework {
 					// 主通道
 					for (int x = cx + h1 / 2 + 1 ; x < cx + INTERNAL - h2 / 2; x++)
 					{
-						_map[x][cy + 3] = MapContent::WALL;
-						_map[x][cy - 3] = MapContent::WALL;
+						_map[x][cy + 3] = MapContent(ContentType::WALL, GetAnima(ContentType::WALL));
+						_map[x][cy - 3] = MapContent(ContentType::WALL, GetAnima(ContentType::WALL));
 						for (int y = -2; y < 3; y++)
 						{
-							_map[x][cy + y] = MapContent::FLOOR;
+							_map[x][cy + y] = MapContent(ContentType::FLOOR, GetAnima(ContentType::FLOOR));
 						}
 					}
 					// 進房間區隔
 					for (int y = -2; y < 3; y++) {
-						_map[cx + h1 / 2 + 1][cy + y] = MapContent::AISLEWALL;
-						_map[cx + INTERNAL - h2 / 2 - 1][cy + y] = MapContent::AISLEWALL;
+						_map[cx + h1 / 2 + 1][cy + y] = MapContent(ContentType::AISLEWALL, GetAnima(ContentType::AISLEWALL));
+						_map[cx + INTERNAL - h2 / 2 - 1][cy + y] = MapContent(ContentType::AISLEWALL, GetAnima(ContentType::AISLEWALL));
 					}
 				}
 				if ((j + 1) != NROOMS && _Rooms[i][j + 1]._hasRoom) {
@@ -251,17 +251,17 @@ namespace game_framework {
 					w2 = _Rooms[i][j + 1]._high;
 					for (int y = cy + w1 / 2 + 1; y < cy + INTERNAL - w2 / 2; y++)
 					{
-						_map[cx + 3][y] = MapContent::WALL;
-						_map[cx - 3][y] = MapContent::WALL;
+						_map[cx + 3][y] = MapContent(ContentType::WALL, GetAnima(ContentType::WALL));
+						_map[cx - 3][y] = MapContent(ContentType::WALL, GetAnima(ContentType::WALL));
 						for (int x = -2; x < 3; x++)
 						{
-							_map[cx + x][y] = MapContent::FLOOR;
+							_map[cx + x][y] = MapContent(ContentType::FLOOR, GetAnima(ContentType::FLOOR));
 						}
 					}
 					for (int x = -2; x < 3; x++)
 					{
-						_map[cx + x][cy + w1 / 2 + 1] = MapContent::AISLEWALL;
-						_map[cx + x][cy + INTERNAL - w2 / 2 - 1] = MapContent::AISLEWALL;
+						_map[cx + x][cy + w1 / 2 + 1] = MapContent(ContentType::AISLEWALL, GetAnima(ContentType::AISLEWALL));
+						_map[cx + x][cy + INTERNAL - w2 / 2 - 1] = MapContent(ContentType::AISLEWALL, GetAnima(ContentType::AISLEWALL));
 					}
 				}
 			}
@@ -287,15 +287,15 @@ namespace game_framework {
 		case 1:	// 直線
 			for (int x = 0; x < width - 4; x++)
 			{
-				_map[orgx + x][cy + 3] = MapContent::WALL;
-				_map[orgx + x + 4][cy - 3] = MapContent::WALL;
+				_map[orgx + x][cy + 3] = MapContent(ContentType::WALL, GetAnima(ContentType::WALL));
+				_map[orgx + x + 4][cy - 3] = MapContent(ContentType::WALL, GetAnima(ContentType::WALL));
 			}
 			break;
 		case 2:	// 橫線
 			for (int y = 0; y < high - 4; y++)
 			{
-				_map[cx + 3][orgy + y] = MapContent::WALL;
-				_map[cx - 3][orgy + y + 4] = MapContent::WALL;
+				_map[cx + 3][orgy + y] = MapContent(ContentType::WALL, GetAnima(ContentType::WALL));
+				_map[cx - 3][orgy + y + 4] = MapContent(ContentType::WALL, GetAnima(ContentType::WALL));
 			}
 			break;
 		case 3: // 中間方形
@@ -304,7 +304,7 @@ namespace game_framework {
 				for (int x = -r; x <= r; x++)
 					for (int y = -r; y <= r; y++)
 					{
-						_map[cx + x][cy + y] = MapContent::WALL;
+						_map[cx + x][cy + y] = MapContent(ContentType::WALL, GetAnima(ContentType::WALL));
 					}
 				break;
 			}
@@ -313,8 +313,8 @@ namespace game_framework {
 				int r = 3 + (rand() % 2);
 				for (int x = -r; x <= r; x++)
 				{
-					_map[cx + x][cy + x] = MapContent::WALL;
-					_map[cx + x][cy - x] = MapContent::WALL;
+					_map[cx + x][cy + x] = MapContent(ContentType::WALL, GetAnima(ContentType::WALL));
+					_map[cx + x][cy - x] = MapContent(ContentType::WALL, GetAnima(ContentType::WALL));
 				}
 				break;
 			}
@@ -323,21 +323,21 @@ namespace game_framework {
 				int r = 4 + (rand() % 3);
 				for (int y = -(r - 3); y <= 0; y++)
 				{
-					_map[cx - 3][cy + y] = MapContent::WALL;
-					_map[cx + 3][cy + y] = MapContent::WALL;
+					_map[cx - 3][cy + y] = MapContent(ContentType::WALL, GetAnima(ContentType::WALL));
+					_map[cx + 3][cy + y] = MapContent(ContentType::WALL, GetAnima(ContentType::WALL));
 				}
 				for (int y = -(r - 2); y <= 1; y++)
 				{
-					_map[cx - 2][cy + y] = MapContent::WALL;
-					_map[cx + 2][cy + y] = MapContent::WALL;
+					_map[cx - 2][cy + y] = MapContent(ContentType::WALL, GetAnima(ContentType::WALL));
+					_map[cx + 2][cy + y] = MapContent(ContentType::WALL, GetAnima(ContentType::WALL));
 				}
 				for (int y = -(r - 3); y <= 2; y++)
 				{
-					_map[cx - 1][cy + y] = MapContent::WALL;
-					_map[cx + 1][cy + y] = MapContent::WALL;
+					_map[cx - 1][cy + y] = MapContent(ContentType::WALL, GetAnima(ContentType::WALL));
+					_map[cx + 1][cy + y] = MapContent(ContentType::WALL, GetAnima(ContentType::WALL));
 				}
 				for (int y = -(r - 4); y <= 3; y++)
-					_map[cx][cy + y] = MapContent::WALL;
+					_map[cx][cy + y] = MapContent(ContentType::WALL, GetAnima(ContentType::WALL));
 
 				break;
 			}
@@ -356,7 +356,7 @@ namespace game_framework {
 					{
 						for (int y = 0; y < h; y++)
 						{
-							_map[rx + x][ry + y] = MapContent::WALL;
+							_map[rx + x][ry + y] = MapContent(ContentType::WALL, GetAnima(ContentType::WALL));
 						}
 					}	
 				}
@@ -387,11 +387,11 @@ namespace game_framework {
 		return y - _sy;
 	}
 
-	bool CGameMap::IsContent(int x, int y, CGameMap::MapContent content)
+	bool CGameMap::IsContent(int x, int y, CGameMap::ContentType content)
 	{
 		x /= _MAPW;
 		y /= _MAPH;
-		return _map[x][y] == content;
+		return _map[x][y].IsType(content);
 	}
 
 	bool CGameMap::InScreen(int x, int y, int mw, int mh)
@@ -409,21 +409,21 @@ namespace game_framework {
 		_sy = y;
 	}
 
-	vector<CAnimation>::iterator CGameMap::GetAnima(MapContent Type)
+	vector<CAnimation>::iterator CGameMap::GetAnima(ContentType Type)
 	{
-		vector<CAnimation>::iterator iterator;
+		vector<CAnimation>::iterator iterator = _animas.begin();
 		switch (Type)
 		{
-		case game_framework::CGameMap::MapContent::NULLPTR:
+		case game_framework::CGameMap::ContentType::NULLPTR:
 			iterator = _animas.begin();
 			break;
-		case game_framework::CGameMap::MapContent::FLOOR:
+		case game_framework::CGameMap::ContentType::FLOOR:
 			iterator = _animas.begin() + 1;
 			break;
-		case game_framework::CGameMap::MapContent::WALL:
+		case game_framework::CGameMap::ContentType::WALL:
 			iterator = _animas.begin() + 2;
 			break;
-		case game_framework::CGameMap::MapContent::AISLEWALL:
+		case game_framework::CGameMap::ContentType::AISLEWALL:
 			iterator = _animas.begin() + 3;
 			break;
 		default:

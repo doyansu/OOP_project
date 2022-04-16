@@ -74,7 +74,7 @@ namespace game_framework {
 		return HitRectangle(other->GetX1(), other->GetY1(), other->GetX2(), other->GetY2());
 	}
 
-	bool CGameObj::Collision(CGameMap *map, CGameMap::MapContent coll)	//	碰到地圖邊牆
+	bool CGameObj::Collision(CGameMap *map, CGameMap::ContentType coll)	//	碰到地圖內容
 	{
 		int x1 = GetX1();
 		int y1 = GetY1();
