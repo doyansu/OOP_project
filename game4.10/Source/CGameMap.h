@@ -73,7 +73,7 @@ namespace game_framework {
 			{
 				return _anima;
 			}
-			bool IsType(CGameMap::ContentType type)
+			bool IsType(CGameMap::ContentType type)// 好像有 bug 會在這邊中斷
 			{
 				return _type == type;
 			}
@@ -85,8 +85,7 @@ namespace game_framework {
 
 		CGameMap::MapContent _map[MYMAPSIZE][MYMAPSIZE];			
 		int _sx, _sy, _moveSpeed;						// 螢幕點座標、移動速度			
-		vector<CAnimation> _animas;						// 地圖圖片
-		vector<CAnimation>::iterator _animaIterator;	// 操作用
+		vector<vector<CAnimation>> _animas;						// 地圖動畫
 		const int _MAPW, _MAPH;							// 地圖每格寬高
 		const int _MAXNOFROOM;							// 最大房間數 _MAXNOFROOM * _MAXNOFROOM
 		RoomData** _Rooms;								// 房間資料

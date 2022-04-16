@@ -15,7 +15,7 @@ namespace game_framework {
 		const int AnimaSize = 4;
 		_animas.reserve(AnimaSize);
 		for (int i = 0; i < AnimaSize; i++)
-			_animas.push_back(CAnimation());
+			_animas.push_back(vector<CAnimation>());
 
 		_Rooms = nullptr;
 
@@ -37,7 +37,6 @@ namespace game_framework {
 				_map[i][j] = MapContent();
 			}
 		}
-		_animaIterator = _animas.begin();
 
 		free();
 		_Rooms = new RoomData*[_MAXNOFROOM];
@@ -58,22 +57,49 @@ namespace game_framework {
 
 	void CGameMap::LoadBitmap()
 	{
-		_animaIterator = GetAnima(ContentType::NULLPTR);
-		_animaIterator->AddBitmap(IDB_FLOOR_1, RGB(255, 255, 255));
-		_animaIterator = GetAnima(ContentType::FLOOR);
-		_animaIterator->AddBitmap(IDB_FLOOR_1, RGB(255, 255, 255));
-		_animaIterator = GetAnima(ContentType::WALL);
-		_animaIterator->AddBitmap(IDB_WALL_1, RGB(255, 255, 255));
-		_animaIterator = GetAnima(ContentType::AISLEWALL);
-		_animaIterator->AddBitmap(IDB_Wall0, RGB(255, 255, 255));
-		_animaIterator = _animas.begin();
+		vector<vector<CAnimation>>::iterator animas = _animas.begin();
+		vector<CAnimation>::iterator p;
+
+		// NULLPTR		1
+		//*animas = vector<CAnimation>(1);
+		animas->push_back(CAnimation());
+		p = animas++->begin();
+		p++->AddBitmap(IDB_FLOOR_1, RGB(255, 255, 255));
+
+		// FLOOR		2
+		animas->reserve(6);
+		for(int i = 0; i < 6; i++)
+			animas->push_back(CAnimation());
+		p = animas++->begin();
+		p++->AddBitmap(IDB_Floor_0_0, RGB(255, 255, 255));
+		p++->AddBitmap(IDB_floor_0_1, RGB(255, 255, 255));
+		p++->AddBitmap(IDB_Floor_0_2, RGB(255, 255, 255));
+		p++->AddBitmap(IDB_Floor_0_3, RGB(255, 255, 255));
+		p++->AddBitmap(IDB_Floor_0_4, RGB(255, 255, 255));
+		p++->AddBitmap(IDB_Floor_0_5, RGB(255, 255, 255));
+		
+
+		// WALL			1
+		animas->reserve(2);
+		for (int i = 0; i < 2; i++)
+			animas->push_back(CAnimation());
+		p = animas++->begin();
+		p++->AddBitmap(IDB_Wall_0_0, RGB(255, 255, 255));
+		p++->AddBitmap(IDB_Wall_0_1, RGB(255, 255, 255));
+
+		// AISLEWALL	1
+		animas->push_back(CAnimation());
+		p = animas++->begin();
+		p++->AddBitmap(IDB_Wall0, RGB(255, 255, 255));
+
 	}
 
 	void CGameMap::OnMove(int px, int py)
 	{
 		//	動畫移動
 		for (int i = 0; i < (int)_animas.size(); i++)
-			_animas.at(i).OnMove();
+			for(int j = 0; j < (int)_animas.at(i).size(); j++)
+				_animas.at(i).at(j).OnMove();
 			
 		//	螢幕跟隨角色
 		this->SetScreen(px - (SIZE_X>>1), py - (SIZE_Y>>1));
@@ -88,9 +114,9 @@ namespace game_framework {
 				int mx = _MAPW * i, my = _MAPH * j;
 				if ((this->InScreen(mx, my, mx + _MAPW, my + _MAPH)) && !_map[i][j].IsType(ContentType::NULLPTR))
 				{
-					_animaIterator = _map[i][j].GetAnima();
-					_animaIterator->SetTopLeft(ScreenX(mx), ScreenY(my));
-					_animaIterator->OnShow();
+					vector<CAnimation>::iterator p = _map[i][j].GetAnima();
+					p->SetTopLeft(ScreenX(mx), ScreenY(my));
+					p->OnShow();
 				}
 			}
 		}
@@ -411,20 +437,22 @@ namespace game_framework {
 
 	vector<CAnimation>::iterator CGameMap::GetAnima(ContentType Type)
 	{
-		vector<CAnimation>::iterator iterator = _animas.begin();
+		//return _animas.at((int)Type).begin() + rand() % (int)_animas.at((int)Type).size();
+		vector<CAnimation>::iterator iterator;
+		
 		switch (Type)
 		{
 		case game_framework::CGameMap::ContentType::NULLPTR:
-			iterator = _animas.begin();
+			iterator = _animas.at(0).begin() + rand() % (int)_animas.at(0).size();
 			break;
 		case game_framework::CGameMap::ContentType::FLOOR:
-			iterator = _animas.begin() + 1;
+			iterator = _animas.at(1).begin() + rand() % (int)_animas.at(1).size();
 			break;
 		case game_framework::CGameMap::ContentType::WALL:
-			iterator = _animas.begin() + 2;
+			iterator = _animas.at(2).begin() + rand() % (int)_animas.at(2).size();
 			break;
 		case game_framework::CGameMap::ContentType::AISLEWALL:
-			iterator = _animas.begin() + 3;
+			iterator = _animas.at(3).begin() + rand() % (int)_animas.at(3).size();
 			break;
 		default:
 			ASSERT(0);

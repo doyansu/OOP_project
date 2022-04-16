@@ -106,7 +106,7 @@ IDB_LOADING             BITMAP                  "..\\res\\loading.bmp"
 
 IDB_GATE1               BITMAP                  "..\\RES\\gate1.bmp"
 
-IDB_FLOOR_1             BITMAP                  "..\\res\\bmp00003.bmp"
+IDB_FLOOR_TEST          BITMAP                  "..\\res\\bmp00003.bmp"
 
 IDB_WALL_1              BITMAP                  "..\\res\\bitmap5.bmp"
 
@@ -204,11 +204,11 @@ IDB_Bullet3             BITMAP                  "..\\RES\\bullet\\bullet2_53.bmp
 
 IDB_Bullet0             BITMAP                  "..\\RES\\bullet\\bullet2_82.bmp"
 
-IDB_Wall0               BITMAP                  "..\\RES\\新增資料夾\\Wall0_0.bmp"
+IDB_Wall0               BITMAP                  "..\\RES\\floorwall\\Wall0_0.bmp"
 
-IDB_Wall1               BITMAP                  "..\\RES\\新增資料夾\\Wall0_1.bmp"
+IDB_Wall1               BITMAP                  "..\\RES\\floorwall\\Wall0_1.bmp"
 
-IDB_Wall2               BITMAP                  "..\\RES\\新增資料夾\\Wall0_2.bmp"
+IDB_Wall2               BITMAP                  "..\\RES\\floorwall\\Wall0_2.bmp"
 
 IDB_ENEMY0_0_L          BITMAP                  "..\\RES\\enemy\\enemy31_0_l.bmp"
 
@@ -251,6 +251,22 @@ IDB_ENEMY2_6_L          BITMAP                  "..\\RES\\enemy\\enemy34_6_l.bmp
 IDB_ENEMY2_7_L          BITMAP                  "..\\RES\\enemy\\enemy34_7_l.bmp"
 
 IDB_UI_HP               BITMAP                  "..\\RES\\ui_hp.bmp"
+
+IDB_Floor_0_0           BITMAP                  "..\\res\\floorwall\\bitmap50.bmp"
+
+IDB_floor_0_1           BITMAP                  "..\\res\\floorwall\\bitmap51.bmp"
+
+IDB_Floor_0_2           BITMAP                  "..\\res\\enemy\\bitmap50.bmp"
+
+IDB_Floor_0_3           BITMAP                  "..\\res\\enemy\\bmp00001.bmp"
+
+IDB_Floor_0_4           BITMAP                  "..\\res\\enemy\\bitmap52.bmp"
+
+IDB_Floor_0_5           BITMAP                  "..\\res\\enemy\\bmp00002.bmp"
+
+IDB_Wall_0_1            BITMAP                  "..\\res\\enemy\\bmp00003.bmp"
+
+IDB_Wall_0_0            BITMAP                  "..\\res\\enemy\\bmp00004.bmp"
 
 
 /////////////////////////////////////////////////////////////////////////////

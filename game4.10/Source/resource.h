@@ -42,6 +42,7 @@
 #define IDB_PNG1                        166
 #define IDB_BITMAP3                     175
 #define IDB_FLOOR_1                     175
+#define IDB_FLOOR_TEST                  175
 #define IDB_BITMAP5                     176
 #define IDB_WALL_1                      176
 #define IDB_CH1_0                       177
@@ -164,6 +165,15 @@
 #define IDB_ENEMY2_7_L                  294
 #define IDB_BITMAP30                    295
 #define IDB_UI_HP                       295
+#define IDB_Floor_0_0                   305
+#define IDB_floor_0_1                   307
+#define IDB_Floor_0_2                   308
+#define IDB_Floor_0_3                   309
+#define IDB_Floor_0_4                   310
+#define IDB_Floor_0_5                   311
+#define IDB_Wall_0_1                    312
+#define IDB_BITMAP50                    313
+#define IDB_Wall_0_0                    313
 #define IDC_README                      1001
 #define ID_FILE_PAUSE                   32771
 #define ID_TOGGLE_FULLSCREEN            32772
@@ -176,7 +186,7 @@
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_3D_CONTROLS                     1
-#define _APS_NEXT_RESOURCE_VALUE        296
+#define _APS_NEXT_RESOURCE_VALUE        314
 #define _APS_NEXT_COMMAND_VALUE         32776
 #define _APS_NEXT_CONTROL_VALUE         1003
 #define _APS_NEXT_SYMED_VALUE           101

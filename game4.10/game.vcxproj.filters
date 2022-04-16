@@ -150,6 +150,18 @@
     <Image Include="RES\新增資料夾\Wall0_0.bmp" />
     <Image Include="RES\新增資料夾\Wall0_1.bmp" />
     <Image Include="RES\新增資料夾\Wall0_2.bmp" />
+    <Image Include="res\enemy\bitmap50.bmp" />
+    <Image Include="RES\floorwall\Wall0_0.bmp" />
+    <Image Include="RES\floorwall\Wall0_1.bmp" />
+    <Image Include="RES\floorwall\Wall0_2.bmp" />
+    <Image Include="res\floorwall\bitmap50.bmp" />
+    <Image Include="res\floor\bitmap51.bmp" />
+    <Image Include="res\floorwall\bitmap51.bmp" />
+    <Image Include="res\enemy\bmp00001.bmp" />
+    <Image Include="res\enemy\bitmap52.bmp" />
+    <Image Include="res\enemy\bmp00002.bmp" />
+    <Image Include="res\enemy\bmp00003.bmp" />
+    <Image Include="res\enemy\bmp00004.bmp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Res\ball.bmp" />
