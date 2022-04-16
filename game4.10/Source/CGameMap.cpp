@@ -66,7 +66,7 @@ namespace game_framework {
 		p = animas++->begin();
 		p++->AddBitmap(IDB_FLOOR_1, RGB(255, 255, 255));
 
-		// FLOOR		2
+		// FLOOR		6
 		animas->reserve(6);
 		for(int i = 0; i < 6; i++)
 			animas->push_back(CAnimation());
@@ -79,7 +79,7 @@ namespace game_framework {
 		p++->AddBitmap(IDB_Floor_0_5, RGB(255, 255, 255));
 		
 
-		// WALL			1
+		// WALL			2
 		animas->reserve(2);
 		for (int i = 0; i < 2; i++)
 			animas->push_back(CAnimation());
@@ -305,7 +305,8 @@ namespace game_framework {
 
 		// 隨機類型
 		int type = rand() % 7;
-		// test type = 5;
+		MapContent wall = MapContent(ContentType::WALL, GetAnima(ContentType::WALL, 1));
+		//test type = 0;
 		switch (type)
 		{
 		case 0:	// 空的
@@ -313,15 +314,15 @@ namespace game_framework {
 		case 1:	// 直線
 			for (int x = 0; x < width - 4; x++)
 			{
-				_map[orgx + x][cy + 3] = MapContent(ContentType::WALL, GetAnima(ContentType::WALL));
-				_map[orgx + x + 4][cy - 3] = MapContent(ContentType::WALL, GetAnima(ContentType::WALL));
+				_map[orgx + x][cy + 3] = wall;
+				_map[orgx + x + 4][cy - 3] = wall;
 			}
 			break;
 		case 2:	// 橫線
 			for (int y = 0; y < high - 4; y++)
 			{
-				_map[cx + 3][orgy + y] = MapContent(ContentType::WALL, GetAnima(ContentType::WALL));
-				_map[cx - 3][orgy + y + 4] = MapContent(ContentType::WALL, GetAnima(ContentType::WALL));
+				_map[cx + 3][orgy + y] = wall;
+				_map[cx - 3][orgy + y + 4] = wall;
 			}
 			break;
 		case 3: // 中間方形
@@ -330,7 +331,7 @@ namespace game_framework {
 				for (int x = -r; x <= r; x++)
 					for (int y = -r; y <= r; y++)
 					{
-						_map[cx + x][cy + y] = MapContent(ContentType::WALL, GetAnima(ContentType::WALL));
+						_map[cx + x][cy + y] = wall;
 					}
 				break;
 			}
@@ -339,8 +340,8 @@ namespace game_framework {
 				int r = 3 + (rand() % 2);
 				for (int x = -r; x <= r; x++)
 				{
-					_map[cx + x][cy + x] = MapContent(ContentType::WALL, GetAnima(ContentType::WALL));
-					_map[cx + x][cy - x] = MapContent(ContentType::WALL, GetAnima(ContentType::WALL));
+					_map[cx + x][cy + x] = wall;
+					_map[cx + x][cy - x] = wall;
 				}
 				break;
 			}
@@ -349,21 +350,21 @@ namespace game_framework {
 				int r = 4 + (rand() % 3);
 				for (int y = -(r - 3); y <= 0; y++)
 				{
-					_map[cx - 3][cy + y] = MapContent(ContentType::WALL, GetAnima(ContentType::WALL));
-					_map[cx + 3][cy + y] = MapContent(ContentType::WALL, GetAnima(ContentType::WALL));
+					_map[cx - 3][cy + y] = wall;
+					_map[cx + 3][cy + y] = wall;
 				}
 				for (int y = -(r - 2); y <= 1; y++)
 				{
-					_map[cx - 2][cy + y] = MapContent(ContentType::WALL, GetAnima(ContentType::WALL));
-					_map[cx + 2][cy + y] = MapContent(ContentType::WALL, GetAnima(ContentType::WALL));
+					_map[cx - 2][cy + y] = wall;
+					_map[cx + 2][cy + y] = wall;
 				}
 				for (int y = -(r - 3); y <= 2; y++)
 				{
-					_map[cx - 1][cy + y] = MapContent(ContentType::WALL, GetAnima(ContentType::WALL));
-					_map[cx + 1][cy + y] = MapContent(ContentType::WALL, GetAnima(ContentType::WALL));
+					_map[cx - 1][cy + y] = wall;
+					_map[cx + 1][cy + y] = wall;
 				}
 				for (int y = -(r - 4); y <= 3; y++)
-					_map[cx][cy + y] = MapContent(ContentType::WALL, GetAnima(ContentType::WALL));
+					_map[cx][cy + y] = wall;
 
 				break;
 			}
@@ -382,7 +383,7 @@ namespace game_framework {
 					{
 						for (int y = 0; y < h; y++)
 						{
-							_map[rx + x][ry + y] = MapContent(ContentType::WALL, GetAnima(ContentType::WALL));
+							_map[rx + x][ry + y] = wall;
 						}
 					}	
 				}
@@ -435,10 +436,14 @@ namespace game_framework {
 		_sy = y;
 	}
 
-	vector<CAnimation>::iterator CGameMap::GetAnima(ContentType Type)
+	vector<CAnimation>::iterator CGameMap::GetAnima(ContentType Type, int index)
 	{
-		//return _animas.at((int)Type).begin() + rand() % (int)_animas.at((int)Type).size();
-		vector<CAnimation>::iterator iterator;
+		// index < 0 隨機選擇
+		if(index < 0)
+			return _animas.at((int)Type).begin() + rand() % (int)_animas.at((int)Type).size();
+		else 
+			return _animas.at((int)Type).begin() + index;
+		/*vector<CAnimation>::iterator iterator;
 		
 		switch (Type)
 		{
@@ -457,7 +462,7 @@ namespace game_framework {
 		default:
 			ASSERT(0);
 		}
-		return iterator;
+		return iterator;*/
 	}
 
 	RoomData CGameMap::GetRoom(int i, int j)

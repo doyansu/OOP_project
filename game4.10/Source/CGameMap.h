@@ -41,7 +41,7 @@ namespace game_framework {
 		int ScreenX(int x);				//	地圖點座標在螢幕位置
 		int ScreenY(int y);
 		bool InScreen(int x, int y, int mw, int mh);	// 座標範圍在螢幕內
-		bool IsContent(int x, int y, CGameMap::ContentType = ContentType::FLOOR);
+		bool IsContent(int x, int y, CGameMap::ContentType = CGameMap::ContentType::FLOOR);
 
 		int GetScreenX();
 		int GetScreenY();
@@ -94,7 +94,7 @@ namespace game_framework {
 	private:
 		void free();
 		void normalRoomGenerate(int, int);
-		vector<CAnimation>::iterator GetAnima(ContentType);
+		vector<CAnimation>::iterator GetAnima(CGameMap::ContentType, int=-1);
 		
 		class Point	// 地圖生成使用
 		{
