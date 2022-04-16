@@ -403,8 +403,8 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 
 void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
-	if(nChar == 0x47)
-		GotoGameState(GAME_STATE_OVER);
+	if (nChar == 0x47)
+		character.TakeDmg(9999);
 	gameMap.OnKeyDown(nChar);
 	character.OnKeyDown(nChar);
 }

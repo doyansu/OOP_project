@@ -97,7 +97,7 @@ namespace game_framework {
 		_mx += (int)_vector[0];
 		_my += (int)_vector[1];
 
-		if (CGameObj::Collision(map))
+		if (CGameObj::Collision(map) || CGameObj::Collision(map, CGameMap::ContentType::AISLEWALL))
 		{
 			_mx -= (int)_vector[0];
 			_my -= (int)_vector[1];

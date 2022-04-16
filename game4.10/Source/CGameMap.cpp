@@ -292,6 +292,15 @@ namespace game_framework {
 				}
 			}
 		}
+		/*for (int i = 0; i < MYMAPSIZE; i++)
+		{
+			for (int j = 0; j < MYMAPSIZE; j++)
+			{
+
+				ContentType a = _map[i][j].GetType();
+				a = a;
+			}
+		}*/
 	}
 
 	void CGameMap::normalRoomGenerate(int i, int j)
@@ -418,7 +427,7 @@ namespace game_framework {
 	{
 		x /= _MAPW;
 		y /= _MAPH;
-		return _map[x][y].IsType(content);
+		return _map[x][y].GetType() == content;
 	}
 
 	bool CGameMap::InScreen(int x, int y, int mw, int mh)

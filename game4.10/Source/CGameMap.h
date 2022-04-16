@@ -2,7 +2,7 @@
 #include <queue>
 #include <cmath>
 
-#define MYMAPSIZE 250		// 地圖格數大小 250 X 250
+#define MYMAPSIZE 300		// 地圖格數大小 250 X 250
 #define MYMAPWIDTH 25		// 地圖每格寬
 #define MYMAPHIGH 25		// 地圖每格高
 #define MYMAXNOFROOM 7		// 最大房間數 7 X 7
@@ -59,6 +59,7 @@ namespace game_framework {
 	protected:
 		class MapContent	
 		{
+		friend class CGameMap;
 		public:
 			MapContent()
 			{
@@ -69,13 +70,19 @@ namespace game_framework {
 				_type = type;
 				_anima = anima;
 			}
+			
+			bool IsType(CGameMap::ContentType type)// 好像有 bug 會在這邊中斷 (4/16 更新地圖實作開始)
+			{
+				return _type == type;
+			}
+
+			CGameMap::ContentType GetType()
+			{
+				return _type;
+			}
 			vector<CAnimation>::iterator GetAnima()
 			{
 				return _anima;
-			}
-			bool IsType(CGameMap::ContentType type)// 好像有 bug 會在這邊中斷
-			{
-				return _type == type;
 			}
 		protected:
 			CGameMap::ContentType _type;

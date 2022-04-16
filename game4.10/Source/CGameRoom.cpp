@@ -15,9 +15,13 @@ namespace game_framework
 		_mx = MYMAPWIDTH * (data.CenterX() - (data.Width() >> 1));
 		_my = MYMAPHIGH * (data.CenterY() - (data.High() >> 1));
 		_isStrat = false;
-		_maxEnemy = 4 + (rand() % 3);
+
+		// 開發中調整
+		//_maxEnemy = 4 + (rand() % 3);
 		//_reGenerate = 3 + (rand() % 3);
+		_maxEnemy = 100;
 		_reGenerate = 1;
+
 		_generateDelay = 60;
 		_roomEnemys.reserve(_maxEnemy);
 		_tag = "Room";
@@ -270,15 +274,9 @@ namespace game_framework
 		if (other->GetTag() == "player")
 		{
 			// 開發中暫時拿掉
-			/*int dx = (int)_vector[0] * other->GetMoveSpeed();
+			int dx = (int)_vector[0] * other->GetMoveSpeed();
 			int dy = (int)_vector[1] * other->GetMoveSpeed();
-			other->SetXY(other->GetX1() + dx, other->GetY1() + dy);*/
-		}
-		else if (other->GetTag() == "enemy")
-		{
-			int dx = (int)other->GetVectorX();
-			int dy = (int)other->GetVectorY();
-			other->SetXY(other->GetX1() - dx, other->GetY1() - dy);
+			other->SetXY(other->GetX1() + dx, other->GetY1() + dy);
 		}
 	}
 
