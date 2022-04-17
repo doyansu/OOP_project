@@ -1,7 +1,7 @@
 #pragma once
 #include "CGameObj.h"
 #include "CGameBullet.h"
-
+#include "CGameObjCenter.h"
 
 namespace game_framework
 {
@@ -11,7 +11,8 @@ namespace game_framework
 		enum class Anima { Right, Left };	// 動畫種類
 
 		CGameWeapon();
-		//CGameWeapon(const CGameWeapon&);
+		~CGameWeapon();
+		CGameWeapon(const CGameWeapon&);
 
 		bool CanFire();						// 武器是否可射擊
 
@@ -32,11 +33,12 @@ namespace game_framework
 		int _cost, _bulletSpeed, _shootDelay;		//	攻擊力、消耗能量、子彈速度、攻擊速度
 		int _fireCounter;					//	射擊間格計數
 		int _DT;							//	動畫判斷
-		CGameBullet _bullet;				//	子彈設定
+		CGameBullet* _bullet;				//	子彈設定
 						
 
 	private:
-		//void copy(const CGameWeapon&);
+		void copy(const CGameWeapon&);
+		void free();
 		vector<CAnimation>::iterator GetAnima(Anima);	// 取得動畫
 
 	};

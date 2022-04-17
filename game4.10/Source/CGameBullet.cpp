@@ -10,17 +10,26 @@ namespace game_framework
 {
 	CGameBullet::CGameBullet()
 	{
-		init();
-	}
-
-	void CGameBullet::init()
-	{
+		_showPriority = 5;
 		_damage = 4;
 		_target = "";
-		_showPriority = 5;
 		CGameBullet::CGameObj::SetTag("bullet");
 	}
+	/*CGameBullet::CGameBullet(int x, int y)
+	{
+		_mx = x;
+		_my = y;
+		_showPriority = 5;
+		_damage = 4;
+		_target = "";
+		CGameBullet::CGameObj::SetTag("bullet");
+	}*/
 
+	CGameBullet::CGameBullet(const CGameBullet& other):CGameObj(other)
+	{
+		_damage = other._damage;
+		_target = other._target;
+	}
 
 	void CGameBullet::LoadBitmap()
 	{

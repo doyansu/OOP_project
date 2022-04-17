@@ -427,6 +427,8 @@ namespace game_framework {
 	{
 		x /= _MAPW;
 		y /= _MAPH;
+		if(x < 0 || y < 0 || x > MYMAPSIZE || y > MYMAPSIZE)
+			GAME_ASSERT(false, "物件範圍超出地圖!");
 		return _map[x][y].GetType() == content;
 	}
 

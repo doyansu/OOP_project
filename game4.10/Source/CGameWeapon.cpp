@@ -5,7 +5,6 @@
 #include "audio.h"
 #include "gamelib.h"
 #include "CGameWeapon.h"
-#include "CGameObjCenter.h"
 
 
 namespace game_framework
@@ -26,22 +25,34 @@ namespace game_framework
 		_DT = 1;
 		CGameWeapon::CGameObj::SetTag("weapon");
 		// 子彈設定
-		_bullet.SetSpeed(_bulletSpeed);
+		//_bullet = new CGameBullet(this->CenterX(), this->CenterY());
+		_bullet = new CGameBullet();
+		_bullet->SetSpeed(_bulletSpeed);
 	}
 
-	/*CGameWeapon::CGameWeapon(const CGameWeapon& other)
+	CGameWeapon::~CGameWeapon()
+	{
+		free();
+	}
+
+	CGameWeapon::CGameWeapon(const CGameWeapon& other):CGameObj(other)
 	{
 		copy(other);
 	}
 
-	CGameWeapon& CGameWeapon::operator=(const CGameWeapon& other)
+	/*CGameWeapon& CGameWeapon::operator=(const CGameWeapon& other)
 	{
+		
 		if (this != &other)
+		{
+			free();
+			//this->CGameObj(other);
 			copy(other);
+		}
 		return *this;
 	}*/
 
-	/*void CGameWeapon::copy(const CGameWeapon& other)
+	void CGameWeapon::copy(const CGameWeapon& other)
 	{
 		this->_fire = other._fire;
 		this->_cost = other._cost;
@@ -49,8 +60,13 @@ namespace game_framework
 		this->_shootDelay = other._shootDelay;
 		this->_fireCounter = other._fireCounter;
 		this->_DT = other._DT;
-		this->_bullet = other._bullet;
-	}*/
+		this->_bullet = new CGameBullet(*(other._bullet));
+	}
+
+	void CGameWeapon::free()
+	{
+		delete _bullet;
+	}
 
 	void CGameWeapon::LoadBitmap()
 	{
@@ -62,7 +78,7 @@ namespace game_framework
 
 		CGameWeapon::CGameObj::_animaIter = _animas.begin();
 
-		_bullet.LoadBitmap();
+		_bullet->LoadBitmap();
 	}
 
 	void CGameWeapon::OnMove(CGameMap* map)
@@ -81,6 +97,9 @@ namespace game_framework
 		if (!_fire && --_fireCounter == 0)
 			_fire = true;
 		
+		// debug
+		/*if (_mx < 0 || _my < 0 || _mx > MYMAPSIZE * MYMAPSIZE || _my > MYMAPSIZE * MYMAPSIZE)
+			GAME_ASSERT(false, "武器超出地圖!");*/
 	}
 
 	void CGameWeapon::OnShow(CGameMap* map)
@@ -92,13 +111,13 @@ namespace game_framework
 	{
 		if (_fire)
 		{
-			if(_DT == 0)
+			/*if(_DT == 0) // 從槍口開槍
 				_bullet.SetXY(this->GetX1(), this->CenterY());
 			else if (_DT == 1)
-				_bullet.SetXY(this->GetX2(), this->CenterY());
-
-			_bullet.SetVector(x, y);
-			CGameObjCenter::AddObj(new CGameBullet(_bullet));
+				_bullet.SetXY(this->GetX2(), this->CenterY());*/
+			_bullet->SetXY(this->CenterX(), this->CenterY());
+			_bullet->SetVector(x, y);
+			CGameObjCenter::AddObj(new CGameBullet(*_bullet));
 			_fire = false;
 			_fireCounter = _shootDelay;
 		}
@@ -133,7 +152,7 @@ namespace game_framework
 
 	void CGameWeapon::SetTarget(string target)
 	{
-		_bullet.SetTarget(target);
+		_bullet->SetTarget(target);
 	}
 
 	void CGameWeapon::SetAttributes(int atk, int cost, int bulletSpeed, int shootDelay)
@@ -141,7 +160,7 @@ namespace game_framework
 		_cost = cost;
 		_bulletSpeed = bulletSpeed;
 		_shootDelay = shootDelay;
-		_bullet.SetSpeed(_bulletSpeed);
-		_bullet.SetDamage(atk);
+		_bullet->SetSpeed(_bulletSpeed);
+		_bullet->SetDamage(atk);
 	}
 }

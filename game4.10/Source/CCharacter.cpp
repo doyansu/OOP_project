@@ -198,7 +198,6 @@ namespace game_framework {
 		{
 			const double MAXSEARCH = 500.0;	// 最大搜索範圍 
 			const double MINSEARCH = 80.0;	// 最小搜索範圍 
-			const double MAXMAPDISTANCE = 20000.0;	//	極限距離 玩家敵人間距離不超過
 			// 找到存活的敵人
 			vector<CGameObj*> enemys = CGameObjCenter::FindObjsBy(
 				[](CGameObj* obj)
@@ -207,7 +206,7 @@ namespace game_framework {
 				}
 			);
 			// 找到最近的敵人
-			double d = MAXMAPDISTANCE;
+			double d = MAXSEARCH;
 			CGameObj* target = nullptr;
 			for (CGameObj* enemy : enemys)
 			{

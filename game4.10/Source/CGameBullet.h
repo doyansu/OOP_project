@@ -7,6 +7,8 @@ namespace game_framework
 	{
 	public:
 		CGameBullet();
+		//CGameBullet(int x, int y);
+		CGameBullet(const CGameBullet& other);
 
 		void SetTarget(string);
 		void SetDamage(int);
@@ -21,8 +23,6 @@ namespace game_framework
 		string _target;
 
 	private:
-		
-		void init();
 	};
 
 }
