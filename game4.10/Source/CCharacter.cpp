@@ -34,7 +34,7 @@ namespace game_framework {
 		_weapon.push_back(CGameWeapon());
 		_nowWeapon = _weapon.begin();
 		_nowWeapon->SetTarget("enemy");
-		_nowWeapon->SetAttributes(4, 0, 30, 10);
+		_nowWeapon->SetAttributes(10, 0, 20, 3);
 	}
 
 	void CCharacter::Init()

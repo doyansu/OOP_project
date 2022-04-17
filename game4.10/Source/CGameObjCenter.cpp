@@ -62,7 +62,7 @@ namespace game_framework
 				// debug
 				int x = obj->GetX1();
 				int y = obj->GetY1();
-				if (x < 0 || y < 0 || x > MYMAPSIZE * MYMAPSIZE || y > MYMAPSIZE * MYMAPSIZE)
+				if (x < 0 || y < 0 || x > MYMAPSIZE * MYMAPWIDTH || y > MYMAPSIZE * MYMAPHIGH)
 				{
 					obj->SetEnable(false);
 					obj->SetDie(false);
