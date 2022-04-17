@@ -29,27 +29,38 @@ namespace game_framework {
 		CEnemy::CGameObj::SetTag("enemy");
 
 		// 武器設定
-		_weapon.SetAttributes(1, 0, 5, 50);
-		_weapon.SetDT(1);
-		_weapon.SetTarget("player");
+		_weapon = new CGameWeapon();
+		_weapon->SetAttributes(1, 0, 5, 50);
+		_weapon->SetDT(1);
+		_weapon->SetTarget("player");
 	}
 
-	/*CEnemy::CEnemy(const CEnemy& other):CGameObj(*this)
+	CEnemy::~CEnemy()
+	{
+		free();
+	}
+
+	CEnemy::CEnemy(const CEnemy& other):CGameObj(other)
 	{
 		copy(other);
 	}
 
-	CEnemy& CEnemy::operator=(const CEnemy& other)
+	/*CEnemy& CEnemy::operator=(const CEnemy& other)
 	{
 		if (this != &other)
 			CEnemy(other);
 		return *this;
-	}
+	}*/
 
 	void CEnemy::copy(const CEnemy& other)
 	{
+		_weapon = new CGameWeapon(*(other._weapon));
+	}
 
-	}*/
+	void CEnemy::free()
+	{
+		delete _weapon;
+	}
 
 	void CEnemy::LoadBitmap()
 	{
@@ -72,14 +83,14 @@ namespace game_framework {
 
 		_animaIter = _animas.begin();
 
-		_weapon.LoadBitmap();
+		_weapon->LoadBitmap();
 	}
 
 	void CEnemy::OnShow(CGameMap* map)
 	{
 		CEnemy::CGameObj::OnShow(map);
 		if(!_isDie)
-			_weapon.OnShow(map);
+			_weapon->OnShow(map);
 	}
 
 	void CEnemy::OnMove(CGameMap *map)
@@ -104,10 +115,10 @@ namespace game_framework {
 		}
 
 		// 武器移動
-		_weapon.OnMove(map);
+		_weapon->OnMove(map);
 		
 		// 武器射擊
-		if (_weapon.CanFire() && (rand() % 10 == 0))
+		if (_weapon->CanFire() && (rand() % 10 == 0))
 		{
 			CGameObj* player= CGameObjCenter::FindObjBy(
 				[](CGameObj* obj)
@@ -123,18 +134,18 @@ namespace game_framework {
 				double vx = (double)(player->CenterX() - this->CenterX()) / d;
 				double vy = (double)(player->CenterY() - this->CenterY()) / d;
 				if (d <= MAXSEARCH)
-					_weapon.Shoot(vx, vy);
+					_weapon->Shoot(vx, vy);
 
 				// 切換動畫
 				if (vx > 0)
 				{
 					_animaIter = GetAnima(CEnemy::Anima::RUN_R);	
-					_weapon.SetDT(1);
+					_weapon->SetDT(1);
 				}
 				else
 				{
 					_animaIter = GetAnima(CEnemy::Anima::RUN_L);
-					_weapon.SetDT(0);
+					_weapon->SetDT(0);
 				}
 					
 			}
@@ -142,9 +153,9 @@ namespace game_framework {
 
 		// 武器動畫
 		if (_animaIter == GetAnima(CEnemy::Anima::RUN_R))
-			_weapon.SetXY(this->CenterX(), this->CenterY());
+			_weapon->SetXY(this->CenterX(), this->CenterY());
 		else
-			_weapon.SetXY(this->CenterX() - (_weapon.GetX2() - _weapon.GetX1()), this->CenterY());
+			_weapon->SetXY(this->CenterX() - (_weapon->GetX2() - _weapon->GetX1()), this->CenterY());
 	}
 
 	void CEnemy::OnObjCollision(CGameMap* map, CGameObj* other)

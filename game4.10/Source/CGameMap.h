@@ -2,7 +2,7 @@
 #include <queue>
 #include <cmath>
 
-#define MYMAPSIZE 300		// 地圖格數大小 250 X 250
+#define MYMAPSIZE 250		// 地圖格數大小 250 X 250
 #define MYMAPWIDTH 25		// 地圖每格寬
 #define MYMAPHIGH 25		// 地圖每格高
 #define MYMAXNOFROOM 7		// 最大房間數 7 X 7

@@ -27,6 +27,7 @@ namespace game_framework
 		// ¤l¼u³]©w
 		//_bullet = new CGameBullet(this->CenterX(), this->CenterY());
 		_bullet = new CGameBullet();
+		//_bullet->SetXY(this->CenterX(), this->CenterY());
 		_bullet->SetSpeed(_bulletSpeed);
 	}
 
