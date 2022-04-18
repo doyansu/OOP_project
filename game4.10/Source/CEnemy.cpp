@@ -48,7 +48,10 @@ namespace game_framework {
 	/*CEnemy& CEnemy::operator=(const CEnemy& other)
 	{
 		if (this != &other)
-			CEnemy(other);
+		{
+			free();
+			copy(other);
+		}
 		return *this;
 	}*/
 
@@ -60,6 +63,7 @@ namespace game_framework {
 	void CEnemy::free()
 	{
 		delete _weapon;
+		_weapon = nullptr;
 	}
 
 	void CEnemy::LoadBitmap()

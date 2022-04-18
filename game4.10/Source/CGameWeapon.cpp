@@ -18,9 +18,10 @@ namespace game_framework
 		for (int i = 0; i < AnimaSize; i++)
 			_animas.push_back(CAnimation());
 		// 屬性設定
-		_fire = true;
+		_fire = false;
 		_cost = 0;
 		_shootDelay = 10;
+		_fireCounter = _shootDelay;
 		_bulletSpeed = 20;
 		_DT = 1;
 		CGameWeapon::CGameObj::SetTag("weapon");
@@ -67,6 +68,7 @@ namespace game_framework
 	void CGameWeapon::free()
 	{
 		delete _bullet;
+		_bullet = nullptr;
 	}
 
 	void CGameWeapon::LoadBitmap()
@@ -117,6 +119,12 @@ namespace game_framework
 			else if (_DT == 1)
 				_bullet.SetXY(this->GetX2(), this->CenterY());*/
 			_bullet->SetXY(this->CenterX(), this->CenterY());
+
+			// debug
+			/*if (this->CenterX() < 0 || this->CenterY() < 0 || this->CenterX() > MYMAPSIZE * MYMAPWIDTH || this->CenterY() > MYMAPSIZE * MYMAPHIGH)
+			{
+				GAME_ASSERT(true, "物件超出地圖!");
+			}*/
 			_bullet->SetVector(x, y);
 			CGameObjCenter::AddObj(new CGameBullet(*_bullet));
 			_fire = false;

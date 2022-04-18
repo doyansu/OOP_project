@@ -66,7 +66,7 @@ namespace game_framework
 				{
 					obj->SetEnable(false);
 					obj->SetDie(false);
-					//GAME_ASSERT(fasle, "物件超出地圖!");
+					GAME_ASSERT(false, "物件超出地圖!");
 				}
 			}
 			else if(obj->IsDie())
@@ -108,6 +108,13 @@ namespace game_framework
 	void CGameObjCenter::freeObj()
 	{
 		for (CGameObj* p : _allObj)
+		{
+			if (p->NeedFree())
+			{
+				delete p;
+			}
+		}
+		for (CGameObj* p : _temp)
 		{
 			if (p->NeedFree())
 			{
