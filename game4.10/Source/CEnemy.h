@@ -7,7 +7,7 @@ namespace game_framework {
 	class CEnemy : public CGameObj
 	{
 	public:
-		enum class Anima { INIT_R, INIT_L, RUN_R, RUN_L, DIE};
+		enum class Anima { RUN_R, RUN_L, DIE};
 		CEnemy();
 		~CEnemy() override;
 		CEnemy(const CEnemy&);

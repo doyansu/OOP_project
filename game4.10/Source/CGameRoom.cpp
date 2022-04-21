@@ -21,7 +21,7 @@ namespace game_framework
 		// 開發中調整
 		//_maxEnemy = 4 + (rand() % 3);
 		//_reGenerate = 3 + (rand() % 3);
-		_maxEnemy = 100;
+		_maxEnemy = 20;
 		_reGenerate = 1;
 
 		_generateDelay = REGENERATETIME;

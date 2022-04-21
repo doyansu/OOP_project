@@ -9,7 +9,7 @@
 
 namespace game_framework
 {
-	CGameWeapon::CGameWeapon()
+	CGameWeapon::CGameWeapon(CGameObj* user)
 	{
 		// 動畫載入
 		const int AnimaSize = 2;
@@ -17,7 +17,9 @@ namespace game_framework
 		_animas.reserve(AnimaSize);
 		for (int i = 0; i < AnimaSize; i++)
 			_animas.push_back(CAnimation());
+
 		// 屬性設定
+		_user = user;
 		_fire = false;
 		_cost = 0;
 		_shootDelay = 10;
@@ -27,7 +29,7 @@ namespace game_framework
 		CGameWeapon::CGameObj::SetTag("weapon");
 		// 子彈設定
 		//_bullet = new CGameBullet(this->CenterX(), this->CenterY());
-		_bullet = new CGameBullet();
+		_bullet = new CGameBullet(this->GetX1(), this->GetY1());
 		//_bullet->SetXY(this->CenterX(), this->CenterY());
 		_bullet->SetSpeed(_bulletSpeed);
 	}
@@ -63,6 +65,7 @@ namespace game_framework
 		this->_fireCounter = other._fireCounter;
 		this->_DT = other._DT;
 		this->_bullet = new CGameBullet(*(other._bullet));
+		this->_user = other._user;
 	}
 
 	void CGameWeapon::free()
@@ -79,7 +82,7 @@ namespace game_framework
 		CGameWeapon::CGameObj::_animaIter = GetAnima(CGameWeapon::Anima::Left);
 		CGameWeapon::CGameObj::_animaIter->AddBitmap(IDB_weapon1_l, RGB(255, 255, 255));
 
-		CGameWeapon::CGameObj::_animaIter = _animas.begin();
+		CGameWeapon::CGameObj::_animaIter = GetAnima(CGameWeapon::Anima::Right);
 
 		_bullet->LoadBitmap();
 	}
@@ -88,12 +91,14 @@ namespace game_framework
 	{
 		CGameWeapon::CGameObj::_animaIter->OnMove();
 
-		// 動畫判斷
+		if (_user == nullptr)
+			return;
+		
 		if (_DT == 1) {
-			CGameWeapon::CGameObj::_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima::Right);
+			this->SetXY(_user->CenterX(), _user->CenterY());
 		}
 		else if (_DT == 0) {
-			CGameWeapon::CGameObj::_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima::Left);
+			this->SetXY(_user->CenterX() - (this->GetX2() - this->GetX1()), _user->CenterY());
 		}
 
 		//	射擊間隔計數
@@ -119,12 +124,6 @@ namespace game_framework
 			else if (_DT == 1)
 				_bullet.SetXY(this->GetX2(), this->CenterY());*/
 			_bullet->SetXY(this->CenterX(), this->CenterY());
-
-			// debug
-			/*if (this->CenterX() < 0 || this->CenterY() < 0 || this->CenterX() > MYMAPSIZE * MYMAPWIDTH || this->CenterY() > MYMAPSIZE * MYMAPHIGH)
-			{
-				GAME_ASSERT(true, "物件超出地圖!");
-			}*/
 			_bullet->SetVector(x, y);
 			CGameObjCenter::AddObj(new CGameBullet(*_bullet));
 			_fire = false;
@@ -139,29 +138,29 @@ namespace game_framework
 
 	vector<CAnimation>::iterator CGameWeapon::GetAnima(Anima type)
 	{
-		vector<CAnimation>::iterator anima = _animas.begin();
-		switch (type)
-		{
-		case game_framework::CGameWeapon::Anima::Right:
-			anima = _animas.begin();
-			break;
-		case game_framework::CGameWeapon::Anima::Left:
-			anima = _animas.begin() + 1;
-			break;
-		default:
-			break;
-		}
-		return anima;
+		return _animas.begin() + (int)type;
 	}
 
 	void CGameWeapon::SetDT(int DT)
 	{
 		_DT = DT;
+		// 動畫判斷
+		if (_DT == 1) {
+			CGameWeapon::CGameObj::_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima::Right);
+		}
+		else if (_DT == 0) {
+			CGameWeapon::CGameObj::_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima::Left);
+		}
 	}
 
 	void CGameWeapon::SetTarget(string target)
 	{
 		_bullet->SetTarget(target);
+	}
+
+	void CGameWeapon::SetUser(CGameObj* user)
+	{
+		_user = user;
 	}
 
 	void CGameWeapon::SetAttributes(int atk, int cost, int bulletSpeed, int shootDelay)

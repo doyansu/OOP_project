@@ -31,8 +31,9 @@ namespace game_framework {
 
 		//	武器設定
 		_weapon.reserve(2);
-		_weapon.push_back(CGameWeapon());
+		_weapon.push_back(CGameWeapon(this));
 		_nowWeapon = _weapon.begin();
+		//_nowWeapon->SetUser(this);
 		_nowWeapon->SetTarget("enemy");
 		_nowWeapon->SetAttributes(10, 0, 20, 3);
 	}
@@ -48,7 +49,7 @@ namespace game_framework {
 		{
 			it1 = _weapon.erase(it1);
 		}
-		_weapon.push_back(CGameWeapon());
+		_weapon.push_back(CGameWeapon(this));
 		_nowWeapon = _weapon.begin();
 		_nowWeapon->SetTarget("enemy");
 		_nowWeapon->LoadBitmap();
@@ -189,10 +190,10 @@ namespace game_framework {
 		//	武器移動
 		_nowWeapon->OnMove(map);
 		_nowWeapon->SetDT(DT);
-		if(DT)
+		/*if(DT)
 			_nowWeapon->SetXY(this->CenterX(), this->CenterY());
 		else 
-			_nowWeapon->SetXY(this->CenterX() - (_nowWeapon->GetX2() - _nowWeapon->GetX1()), this->CenterY());
+			_nowWeapon->SetXY(this->CenterX() - (_nowWeapon->GetX2() - _nowWeapon->GetX1()), this->CenterY());*/
 
 		//	武器射擊判斷
 		if (_doFire)
@@ -225,7 +226,7 @@ namespace game_framework {
 				if (target->CenterX() - this->CenterX() > 0)
 				{
 					_nowWeapon->SetDT(1);
-					_nowWeapon->SetXY(this->CenterX(), this->CenterY()); 
+					//_nowWeapon->SetXY(this->CenterX(), this->CenterY()); 
 					if (this->IsMoveing())
 						_animaIter = GetAnima(Anima::RUN_R);
 					else
@@ -234,7 +235,7 @@ namespace game_framework {
 				else
 				{
 					_nowWeapon->SetDT(0);
-					_nowWeapon->SetXY(this->CenterX() - (_nowWeapon->GetX2() - _nowWeapon->GetX1()), this->CenterY());
+					//_nowWeapon->SetXY(this->CenterX() - (_nowWeapon->GetX2() - _nowWeapon->GetX1()), this->CenterY());
 					if(this->IsMoveing())
 						_animaIter = GetAnima(Anima::RUN_L);
 					else 
@@ -286,6 +287,7 @@ namespace game_framework {
 	{
 		/*if (other->GetTag() == "enemy")
 		{
+			other->SetXY(other->GetX1(), other->GetX2());
 			other->SetVector(other->GetVectorX() + this->GetVectorX(), other->GetVectorY() + this->GetVectorY());
 		}*/
 	}
@@ -405,6 +407,12 @@ namespace game_framework {
 	int CCharacter::GetMAXShield()
 	{
 		return _maxShield;
+	}
+
+	void CCharacter::SetXY(int x, int y)
+	{
+		_mx = x;
+		_my = y;
 	}
 	
 

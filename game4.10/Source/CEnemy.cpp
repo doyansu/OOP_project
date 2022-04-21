@@ -24,12 +24,12 @@ namespace game_framework {
 		// 屬性設定
 		this->SetXY(400, 400);
 		this->SetShowPriority(1);
-		_hp = 10;
-		_moveSpeed = 3;
+		this->_hp = 10;
+		this->_moveSpeed = 3;
 		CEnemy::CGameObj::SetTag("enemy");
 
 		// 武器設定
-		_weapon = new CGameWeapon();
+		_weapon = new CGameWeapon(this);
 		_weapon->SetAttributes(1, 0, 5, 50);
 		_weapon->SetDT(1);
 		_weapon->SetTarget("player");
@@ -58,6 +58,7 @@ namespace game_framework {
 	void CEnemy::copy(const CEnemy& other)
 	{
 		_weapon = new CGameWeapon(*(other._weapon));
+		_weapon->SetUser(this);
 	}
 
 	void CEnemy::free()
@@ -154,12 +155,6 @@ namespace game_framework {
 					
 			}
 		}
-
-		// 武器動畫
-		if (_animaIter == GetAnima(CEnemy::Anima::RUN_R))
-			_weapon->SetXY(this->CenterX(), this->CenterY());
-		else
-			_weapon->SetXY(this->CenterX() - (_weapon->GetX2() - _weapon->GetX1()), this->CenterY());
 	}
 
 	void CEnemy::OnObjCollision(CGameMap* map, CGameObj* other)
@@ -187,21 +182,6 @@ namespace game_framework {
 
 	vector<CAnimation>::iterator CEnemy::GetAnima(Anima type)
 	{
-		vector<CAnimation>::iterator anima = CEnemy::_animas.begin();
-		switch (type)
-		{
-		case game_framework::CEnemy::Anima::RUN_R:
-			anima = CEnemy::_animas.begin();
-			break;
-		case game_framework::CEnemy::Anima::RUN_L:
-			anima = CEnemy::_animas.begin() + 1;
-			break;
-		case game_framework::CEnemy::Anima::DIE:
-			anima = CEnemy::_animas.begin() + 2;
-			break;
-		default:
-			break;
-		}
-		return anima;
+		return _animas.begin() + (int)type;
 	}
 }

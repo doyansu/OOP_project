@@ -18,6 +18,8 @@ namespace game_framework {
 		int GetShield();
 		int GetMAXShield();
 
+		void SetXY(int x, int y);
+
 		void TakeDmg(int);
 		void LoadBitmap();				// 載入圖形
 		void OnShow(CGameMap*);			// 將圖形貼到畫面

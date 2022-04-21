@@ -9,13 +9,14 @@ namespace game_framework
 	public:
 		enum class Anima { Right, Left };	// 動畫種類
 
-		CGameWeapon();
+		CGameWeapon(CGameObj* = nullptr);
 		~CGameWeapon();
 		CGameWeapon(const CGameWeapon&);
 
 		bool CanFire();						// 武器是否可射擊
 
 		void SetTarget(string);
+		void SetUser(CGameObj*);
 		void SetAttributes(int atk, int cost, int bulletSpeed, int shootDelay);
 
 		void LoadBitmap();
@@ -33,6 +34,7 @@ namespace game_framework
 		int _fireCounter;					//	射擊間格計數
 		int _DT;							//	動畫判斷
 		CGameBullet* _bullet;				//	子彈設定
+		CGameObj* _user;
 						
 
 	private:

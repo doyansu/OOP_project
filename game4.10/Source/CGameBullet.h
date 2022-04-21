@@ -6,8 +6,8 @@ namespace game_framework
 	class CGameBullet : public CGameObj
 	{
 	public:
-		CGameBullet();
-		//CGameBullet(int x, int y);
+		//CGameBullet();
+		CGameBullet(int x, int y);
 		CGameBullet(const CGameBullet& other);
 
 		void SetTarget(string);

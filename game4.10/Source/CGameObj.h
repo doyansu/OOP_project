@@ -42,7 +42,7 @@ namespace game_framework {
 		void SetMovingRight(bool flag); 
 		void SetMovingUp(bool flag);	
 		void SetShowPriority(int);
-		void SetXY(int, int);
+		virtual void SetXY(int, int);
 		void SetSpeed(int);
 		void SetHp(int);
 		void SetMaxHp(int);
