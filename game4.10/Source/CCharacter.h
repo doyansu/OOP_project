@@ -46,6 +46,7 @@ namespace game_framework {
 		void free();
 		void ModifyVector(int index, int plus);
 		void ModifyShield(int);
+		bool hasObstacle(CGameMap*, CGameObj*, CGameObj*);
 		vector<CAnimation>::iterator GetAnima(Anima);	// 取得動畫
 		
 	};

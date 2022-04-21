@@ -211,9 +211,10 @@ namespace game_framework {
 			CGameObj* target = nullptr;
 			for (CGameObj* enemy : enemys)
 			{
-				if (d > this->Distance(enemy))
+				double ed = this->Distance(enemy);
+				if (d > ed && ed > MINSEARCH && !hasObstacle(map, this, enemy))
 				{
-					d = this->Distance(enemy);
+					d = ed;
 					target = enemy;
 				}
 			}
@@ -350,30 +351,30 @@ namespace game_framework {
 			_vector[index] = -1;
 	}
 
+	bool  CCharacter::hasObstacle(CGameMap* map, CGameObj* obj1, CGameObj* obj2)
+	{
+		bool has = false;
+		double d = obj1->Distance(obj2);
+		int t = (int)(d / MYMAPHIGH);
+		int x = obj1->CenterX(), y = obj1->CenterY();
+		int vx = (int)((double)(obj2->CenterX() - x) * MYMAPWIDTH / d);
+		int vy = (int)((double)(obj2->CenterY() - y) * MYMAPHIGH / d);
+		while (t--)
+		{
+			if (map->IsContent(x, y, CGameMap::ContentType::WALL))
+			{
+				has = true;
+				break;
+			}
+			x += vx;
+			y += vy;
+		}
+		return has;
+	}
+
 	vector<CAnimation>::iterator CCharacter::GetAnima(Anima type)
 	{
-		vector<CAnimation>::iterator anima = _animas.begin();
-		switch (type)
-		{
-		case game_framework::CCharacter::Anima::INIT_R:
-			anima = _animas.begin();
-			break;
-		case game_framework::CCharacter::Anima::INIT_L:
-			anima = _animas.begin() + 1;
-			break;
-		case game_framework::CCharacter::Anima::RUN_R:
-			anima = _animas.begin() + 2;
-			break;
-		case game_framework::CCharacter::Anima::RUN_L:
-			anima = _animas.begin() + 3;
-			break;
-		case game_framework::CCharacter::Anima::DIE:
-			anima = _animas.begin() + 4;
-			break;
-		default:
-			break;
-		}
-		return anima;
+		return _animas.begin() + (int)type;
 	}
 
 	int CCharacter::GetHP()
