@@ -15,6 +15,8 @@ namespace game_framework
 		_mx = MYMAPWIDTH * (data.CenterX() - (data.Width() >> 1));
 		_my = MYMAPHIGH * (data.CenterY() - (data.High() >> 1));
 		_isStrat = false;
+		_hasEnemys = true;
+		this->SetShowPriority(2);
 
 		// 開發中調整
 		//_maxEnemy = 4 + (rand() % 3);
@@ -22,7 +24,7 @@ namespace game_framework
 		_maxEnemy = 100;
 		_reGenerate = 1;
 
-		_generateDelay = 60;
+		_generateDelay = REGENERATETIME;
 		_roomEnemys.reserve(_maxEnemy);
 		_tag = "Room";
 
@@ -35,6 +37,7 @@ namespace game_framework
 		enemy.LoadBitmap();
 		_enemys.reserve(10);
 		_enemys.push_back(new CEnemy(enemy));
+
 
 		// 第一批怪物
 		for (int i = 0; i < _maxEnemy; i++)
@@ -99,7 +102,15 @@ namespace game_framework
 
 	CGameRoom::~CGameRoom()
 	{
-		for (CEnemy* obj : _roomEnemys)
+		if (_hasEnemys)
+		{
+			for (CEnemy* obj : _roomEnemys)
+			{
+				if (!obj->NeedFree())
+					delete obj;
+			}
+		}	
+		for (RoomWall* obj : _roomWalls)
 		{
 			if (!obj->NeedFree())
 				delete obj;
@@ -108,12 +119,6 @@ namespace game_framework
 		{
 			delete enemy;
 		}
-		for (RoomWall* obj : _roomWalls)
-		{
-			if (!obj->NeedFree())
-				delete obj;
-		}
-			
 	}
 
 	void CGameRoom::OnMove(CGameMap* map)
@@ -124,6 +129,7 @@ namespace game_framework
 				_generateDelay--;
 			else if (_generateDelay == 0)
 			{
+				_hasEnemys = false;
 				for (CEnemy* obj : _roomEnemys)
 				{
 					obj->SetFree(true);
@@ -137,16 +143,16 @@ namespace game_framework
 				if (obj->IsEnable())
 				{
 					if(obj->NeedFree())
-						_generateDelay = 60;
+						_generateDelay = REGENERATETIME;
 					return;
 				}
 					
 			}
 
 			// 全部死亡重新生成
+			_roomEnemys.clear();
 			if (_reGenerate > 0)
 			{
-				_roomEnemys.clear();
 				int r = 1 + (rand() % (_maxEnemy - 1));
 				for (int i = 0; i < r; i++)
 				{
@@ -160,9 +166,8 @@ namespace game_framework
 				}
 				_reGenerate--;
 			}
-			else if(_reGenerate <= 0)
+			else
 			{
-				_roomEnemys.clear();
 				this->SetEnable(false);
 				this->SetDie(true);
 			}
@@ -188,7 +193,8 @@ namespace game_framework
 			int x1 = other->GetX1(), x2 = other->GetX2(), y1 = other->GetY1(), y2 = other->GetY2();
 			if (this->GetX1() >= x1 || this->GetX2() <= x2 || this->GetY1() >= y1 || this->GetY2() <= y2)
 				return;
-			_isStrat = true;	
+			_isStrat = true;
+			_hasEnemys = false;
 			// 第一批怪物開始動作
 			for (CEnemy* obj : _roomEnemys)
 			{
