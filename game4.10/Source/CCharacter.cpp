@@ -30,12 +30,11 @@ namespace game_framework {
 		this->SetFree(false);
 
 		//	武器設定
-		_weapon.reserve(2);
-		_weapon.push_back(CGameWeapon(this));
-		_nowWeapon = _weapon.begin();
-		//_nowWeapon->SetUser(this);
-		_nowWeapon->SetTarget("enemy");
-		_nowWeapon->SetAttributes(10, 0, 20, 3);
+		_weapons[0] = new CGameWeapon(this);
+		_weapons[1] = nullptr;
+		_nowWeapon = &_weapons[0];
+		(*_nowWeapon)->SetTarget("enemy");
+		(*_nowWeapon)->SetAttributes(10, 0, 20, 3);
 	}
 
 	void CCharacter::Init()
@@ -45,14 +44,13 @@ namespace game_framework {
 		_mp = 180;
 		_shield = 5;
 		// 重置為初始武器
-		for (vector<CGameWeapon>::iterator it1 = _weapon.begin(); it1 != _weapon.end();)
-		{
-			it1 = _weapon.erase(it1);
-		}
-		_weapon.push_back(CGameWeapon(this));
-		_nowWeapon = _weapon.begin();
-		_nowWeapon->SetTarget("enemy");
-		_nowWeapon->LoadBitmap();
+		free();
+		_weapons[0] = new CGameWeapon(this);
+		_weapons[1] = nullptr;
+		_nowWeapon = &_weapons[0];
+		(*_nowWeapon)->LoadBitmap();
+		(*_nowWeapon)->SetTarget("enemy");
+		(*_nowWeapon)->SetAttributes(10, 0, 20, 3);
 	}
 
 	void CCharacter::Reset()
@@ -67,9 +65,17 @@ namespace game_framework {
 		DT = 1;
 	}
 
+	CCharacter::~CCharacter()
+	{
+		free();
+	}
+
 	void CCharacter::free()
 	{
-
+		if (_weapons[0] != nullptr)
+			delete _weapons[0];
+		if (_weapons[1] != nullptr)
+			delete _weapons[1];
 	}
 
 	void CCharacter::LoadBitmap()
@@ -107,14 +113,14 @@ namespace game_framework {
 
 		_animaIter = _animas.begin();
 
-		_nowWeapon->LoadBitmap();
+		(*_nowWeapon)->LoadBitmap();
 	}
 
 	void CCharacter::OnShow(CGameMap* map)
 	{
 		CCharacter::CGameObj::OnShow(map);
 		if(!_isDie)
-			_nowWeapon->OnShow(map);
+			(*_nowWeapon)->OnShow(map);
 	}
 
 	void CCharacter::OnMove(CGameMap *map)
@@ -188,8 +194,8 @@ namespace game_framework {
 			_vector[0] = 0;*/
 
 		//	武器移動
-		_nowWeapon->OnMove(map);
-		_nowWeapon->SetDT(DT);
+		(*_nowWeapon)->OnMove(map);
+		(*_nowWeapon)->SetDT(DT);
 		/*if(DT)
 			_nowWeapon->SetXY(this->CenterX(), this->CenterY());
 		else 
@@ -225,7 +231,7 @@ namespace game_framework {
 			{
 				if (target->CenterX() - this->CenterX() > 0)
 				{
-					_nowWeapon->SetDT(1);
+					(*_nowWeapon)->SetDT(1);
 					//_nowWeapon->SetXY(this->CenterX(), this->CenterY()); 
 					if (this->IsMoveing())
 						_animaIter = GetAnima(Anima::RUN_R);
@@ -234,7 +240,7 @@ namespace game_framework {
 				}
 				else
 				{
-					_nowWeapon->SetDT(0);
+					(*_nowWeapon)->SetDT(0);
 					//_nowWeapon->SetXY(this->CenterX() - (_nowWeapon->GetX2() - _nowWeapon->GetX1()), this->CenterY());
 					if(this->IsMoveing())
 						_animaIter = GetAnima(Anima::RUN_L);
@@ -244,20 +250,20 @@ namespace game_framework {
 			}
 
 			// 射擊
-			if (_nowWeapon->CanFire() && target != nullptr && d >= MINSEARCH && d <= MAXSEARCH)// 找到敵人朝敵人射擊
+			if ((*_nowWeapon)->CanFire() && target != nullptr && d >= MINSEARCH && d <= MAXSEARCH)// 找到敵人朝敵人射擊
 			{
 				double vx = (double)(target->CenterX() - this->CenterX()) / d;
 				double vy = (double)(target->CenterY() - this->CenterY()) / d;
-				_nowWeapon->Shoot(vx, vy);
+				(*_nowWeapon)->Shoot(vx, vy);
 			}
 			else if(target != nullptr && _attCounter == 0 && d < MINSEARCH) // 近戰攻擊
 			{
 				_attCounter = _ATTDELAY;
 				target->TakeDmg(_damage);
 			}
-			else if (_nowWeapon->CanFire()) // 沒找到敵人朝 vector 射擊
+			else if ((*_nowWeapon)->CanFire()) // 沒找到敵人朝 vector 射擊
 			{
-				_nowWeapon->Shoot(_vector[0], _vector[1]);
+				(*_nowWeapon)->Shoot(_vector[0], _vector[1]);
 			}
 		}
 		

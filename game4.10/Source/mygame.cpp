@@ -403,8 +403,12 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 
 void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
-	if (nChar == 0x47)
+	if (nChar == 0x47)	// 按 G 扣血
 		character.TakeDmg(9999);
+	else if (nChar == 82)	// 按 R 重新進入關卡
+	{
+		GotoGameState(GAME_STATE_RUN);
+	}
 	gameMap.OnKeyDown(nChar);
 	character.OnKeyDown(nChar);
 }

@@ -10,6 +10,7 @@ namespace game_framework {
 	public:
 		enum class Anima {INIT_R, INIT_L, RUN_R, RUN_L, DIE};	//動畫種類
 		CCharacter();
+		~CCharacter();
 
 		int GetHP();
 		int GetMAXHP();
@@ -38,8 +39,8 @@ namespace game_framework {
 		int _damage;								// 近戰傷害
 		bool _doFire;								// 射擊判斷
 		bool _canAttack;							// 近戰攻擊判斷
-		vector<CGameWeapon> _weapon;				// 可擁有2把武器
-		vector<CGameWeapon>::iterator _nowWeapon;	// 當前武器
+		CGameWeapon* _weapons[2];					// 可擁有2把武器
+		CGameWeapon** _nowWeapon;								// 當前武器 index
 
 	private:
 		int _attCounter;				// 近戰計數器
