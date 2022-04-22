@@ -279,8 +279,7 @@ void CGameStateRun::OnBeginState()
 			case RoomData::RoomType::END:		// 傳送房間
 			{
 				//TransferGate.SetXY(roomdata.CenterX() * MYMAPWIDTH, roomdata.CenterY() * MYMAPHIGH);
-				TransferGate.SetXY(roomdata.CenterX() * MYMAPWIDTH - (TransferGate.Width() >> 1) + (MYMAPWIDTH >> 1),
-					roomdata.CenterY() * MYMAPHIGH - (TransferGate.Height() >> 1) + (MYMAPHIGH >> 1));
+				TransferGate.SetXY(roomdata.CenterX() * MYMAPWIDTH - (TransferGate.Width() >> 1) + (MYMAPWIDTH >> 1), roomdata.CenterY() * MYMAPHIGH - (TransferGate.Height() >> 1) + (MYMAPHIGH >> 1));
 				CGameObjCenter::AddObj(&TransferGate);
 				break;
 			}	
@@ -436,6 +435,7 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	// 碰觸傳送門進下一關
 	if (character.IsDoingSomeThing() && character.Collision(&TransferGate))
 	{
+		TransferGate.SetDie(false);
 		GotoGameState(GAME_STATE_RUN);
 	}
 }

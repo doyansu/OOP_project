@@ -14,7 +14,7 @@ namespace game_framework {
 	{
 	friend class CGameMap;
 	public:
-		enum class RoomType { INIT, NORMAL, TREASURE, BOSS, END };
+		enum class RoomType { NOROOM, INIT, NORMAL, TREASURE, BOSS, END };
 		RoomData();
 		int CenterX();
 		int CenterY();

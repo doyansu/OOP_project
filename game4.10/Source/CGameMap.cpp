@@ -502,6 +502,7 @@ namespace game_framework {
 		_width = _high = 1;
 		_hasRoad[0] = _hasRoad[1] = _hasRoad[2] = _hasRoad[3] = false;
 		_hasRoom = false;
+		_roomType = RoomData::RoomType::NOROOM;
 	}
 
 	int RoomData::CenterX()
