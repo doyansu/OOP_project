@@ -262,7 +262,6 @@ void CGameStateRun::OnBeginState()
 	character.Reset();			//	重設角色屬性
 	character.SetXY(MYMAPWIDTH * gameMap.GetRoom(MYORGROOM, MYORGROOM).CenterX(), MYMAPHIGH * gameMap.GetRoom(MYORGROOM, MYORGROOM).CenterY());	//	暫時設定初始位置
 	CGameObjCenter::AddObj(&character);
-	CGameObjCenter::AddObj(&TransferGate);
 
 	for (int i = 0; i < MYMAXNOFROOM; i++)
 		for (int j = 0; j < MYMAXNOFROOM; j++)
@@ -282,14 +281,14 @@ void CGameStateRun::OnBeginState()
 				//TransferGate.SetXY(roomdata.CenterX() * MYMAPWIDTH, roomdata.CenterY() * MYMAPHIGH);
 				TransferGate.SetXY(roomdata.CenterX() * MYMAPWIDTH - (TransferGate.Width() >> 1) + (MYMAPWIDTH >> 1),
 					roomdata.CenterY() * MYMAPHIGH - (TransferGate.Height() >> 1) + (MYMAPHIGH >> 1));
-				int debug = 0;
+				CGameObjCenter::AddObj(&TransferGate);
 				break;
 			}	
 			default:
 				break;
 			}
 		}
-	//TransferGate.SetXY(character.CenterX(), character.CenterY());
+	// TransferGate.SetXY(character.CenterX(), character.CenterY());
 
 	//test
 	/*CGameBullet test;
@@ -367,10 +366,6 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	HP.SetTopLeft(70 - HP.GetLen() * HP.GetWidth(), 7);
 	SP.SetTopLeft(70 - SP.GetLen() * SP.GetWidth(), 28);
 	MP.SetTopLeft(70 - MP.GetLen() * MP.GetWidth(), 48);
-
-	// debug
-	debugx.SetInteger(character.GetX1());
-	debugy.SetInteger(character.GetY1());
 }
 
 void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
@@ -425,9 +420,6 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	MAXMP.SetTopLeft(82, 48);
 	HPBACKGROUND.SetTopLeft(0, 0);
 
-	// debug
-	debugx.SetTopLeft(0, 460);
-	debugy.SetTopLeft(80, 460);
 }
 
 void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
@@ -546,6 +538,16 @@ void CGameStateRun::OnShow()
 	SLASH.ShowBitmap();
 
 	//debug
+	debugx.SetTopLeft(0, 460);
+	debugy.SetTopLeft(80, 460);
+	debugx.SetInteger(character.GetX1());
+	debugy.SetInteger(character.GetY1());
+	debugx.ShowBitmap(false);
+	debugy.ShowBitmap(false);
+	debugx.SetTopLeft(160, 460);
+	debugy.SetTopLeft(240, 460);
+	debugx.SetInteger(TransferGate.GetX1());
+	debugy.SetInteger(TransferGate.GetY1());
 	debugx.ShowBitmap(false);
 	debugy.ShowBitmap(false);
 }

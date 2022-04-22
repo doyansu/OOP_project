@@ -50,92 +50,22 @@ namespace game_framework
 	{
 	public:
 		enum class Anima { ARROW, TransferGate };
-		CGameTransferGate()
-		{
-			this->SetFree(false);
+		CGameTransferGate();
 
-			// 動畫設定
-			const int AnimaSize = 2;
-			_animas.clear();
-			CAnimation animation;
-			//animation.SetDelayCount(3);
-			for (int i = 0; i < AnimaSize; i++)
-				_animas.push_back(CAnimation(animation));
-		}
+		void LoadBitmap();
+		void OnMove(CGameMap* map);
+		void OnShow(CGameMap* map);
+		void OnObjCollision(CGameMap* map, CGameObj* other);
+		void OnDie() {};
 
-		void LoadBitmap()
-		{
-			_animaIter = GetAnima(CGameTransferGate::Anima::TransferGate);
-			_animaIter->AddBitmap(IDB_TransferGate_0, RGB(255, 255, 255));
-
-			_animaIter = GetAnima(CGameTransferGate::Anima::ARROW);
-			_animaIter->AddBitmap(IDB_0, RGB(0, 0, 0));
-			_animaIter->AddBitmap(IDB_1, RGB(0, 0, 0));
-			_animaIter->AddBitmap(IDB_2, RGB(0, 0, 0));
-			_animaIter->AddBitmap(IDB_3, RGB(0, 0, 0));
-		}
-
-		void OnMove(CGameMap* map)
-		{
-			GetAnima(CGameTransferGate::Anima::TransferGate)->OnMove();
-			if (_isDie)
-			{
-				GetAnima(CGameTransferGate::Anima::ARROW)->OnMove();
-				_isDie = false;
-			}
-			else // 重製動畫
-			{
-				GetAnima(CGameTransferGate::Anima::ARROW)->Reset();
-			}
-		}
-
-		void OnShow(CGameMap* map)
-		{
-			_animaIter = GetAnima(CGameTransferGate::Anima::TransferGate);
-			_animaIter->SetTopLeft(map->ScreenX(_mx), map->ScreenY(_my));
-			_animaIter->OnShow();
-			if (_isDie)
-			{
-				_animaIter = GetAnima(CGameTransferGate::Anima::ARROW);
-				_animaIter->SetTopLeft(map->ScreenX(_mx), map->ScreenY(_my));
-				_animaIter->OnShow();
-			}
-		}
-
-		void OnObjCollision(CGameMap* map, CGameObj* other)
-		{
-			if (other->GetTag() == "player")
-			{
-				this->SetDie(true); // 使用 _isDie 來判斷碰撞
-			}
-		}
-
-		int GetX2()
-		{
-			return _mx + GetAnima(CGameTransferGate::Anima::TransferGate)->Width();
-		}
-
-		int GetY2()
-		{
-			return _mx + GetAnima(CGameTransferGate::Anima::TransferGate)->Height();
-		}
-
-		int Width()
-		{
-			return GetAnima(CGameTransferGate::Anima::TransferGate)->Width();
-		}
-
-		int Height()
-		{
-			return GetAnima(CGameTransferGate::Anima::TransferGate)->Height();
-		}
+		int GetX2();
+		int GetY2();
+		int Width();
+		int Height();
 
 	protected:
 
 	private:
-		vector<CAnimation>::iterator GetAnima(CGameTransferGate::Anima type)
-		{
-			return _animas.begin() + (int)type;
-		}
+		vector<CAnimation>::iterator GetAnima(CGameTransferGate::Anima type);
 	};
 }
