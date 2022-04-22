@@ -19,9 +19,9 @@ namespace game_framework {
 			_animas.push_back(CAnimation(animation));
 
 		//	ÄÝ©Ê³]©w
-		_hp = _maxHp = 60000;
+		_hp = _maxHp = 20;
 		_mp = _maxMp = 180;
-		_shield = _maxShield = 5;
+		_shield = _maxShield = 10;
 		_damage = 4;
 		_moveSpeed = 20;
 		_showPriority = 10;

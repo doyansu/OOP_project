@@ -259,6 +259,7 @@ public:
 	int  GetInteger();			// 回傳整數值
 	int  GetFinal();			// 回傳最後圖片在螢幕的位置
 	int  GetWidth();			// 取得圖片寬度
+	int  GetLen();				// 取得數字位數
 	void SetInteger(int);		// 設定整數值
 	void SetTopLeft(int,int);	// 將動畫的左上角座標移至 (x,y)
 	void ShowBitmap();			// 將動畫貼到螢幕

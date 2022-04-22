@@ -118,9 +118,9 @@ namespace game_framework {
 		CInteger		hits_left;	// 剩下的撞擊數
 		CBouncingBall   bball;		// 反覆彈跳的球*/
 
-		//UI
+		// UI
 		CInteger HP, MP, SP, MAXHP, MAXMP, MAXSP;
-		CMovingBitmap HPBACKGROUND;
+		CMovingBitmap HPBACKGROUND, SLASH, HPBAR, SPBAR, MPBAR;
 
 		// 遊戲
 		CGameMap gameMap;

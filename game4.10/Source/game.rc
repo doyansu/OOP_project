@@ -268,6 +268,14 @@ IDB_Wall_0_1            BITMAP                  "..\\res\\enemy\\bmp00003.bmp"
 
 IDB_Wall_0_0            BITMAP                  "..\\res\\enemy\\bmp00004.bmp"
 
+IDB_Slash               BITMAP                  "..\\res\\enemy\\bmp00005.bmp"
+
+IDB_UI_HPBar            BITMAP                  "..\\res\\enemy\\bmp00006.bmp"
+
+IDB_UI_SPBar            BITMAP                  "..\\res\\enemy\\bmp00007.bmp"
+
+IDB_UI_MPBar            BITMAP                  "..\\res\\enemy\\bmp00008.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //

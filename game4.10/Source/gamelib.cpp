@@ -297,6 +297,16 @@ int  CInteger::GetWidth()
 	return digit[0].Width();
 }
 
+int  CInteger::GetLen()
+{
+	int len = Intlength(n);
+	if (len == 0)
+	{
+		len = 1;
+	}
+	return len;
+}
+
 void CInteger::SetInteger(int i)
 {
 	n = i;
@@ -309,11 +319,7 @@ void CInteger::SetTopLeft(int nx, int ny)		// 將動畫的左上角座標移至 (x,y)
 
 void CInteger::ShowBitmap(bool leadingZero) {
 	if (leadingZero == false) {
-		NUMDIGITS = Intlength(n);
-		if (NUMDIGITS == 0)
-		{
-			NUMDIGITS = 1;
-		}
+		NUMDIGITS = GetLen();
 	}
 	ShowBitmap();
 }

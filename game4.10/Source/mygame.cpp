@@ -345,12 +345,13 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	HP.SetInteger(character.GetHP());
 	SP.SetInteger(character.GetShield());
 	MP.SetInteger(character.GetMP());
-	MAXHP.SetTopLeft(HP.GetFinal() + HP.GetWidth(), 0);
-	MAXSP.SetTopLeft(SP.GetFinal() + SP.GetWidth(), 20);
-	MAXMP.SetTopLeft(MP.GetFinal() + MP.GetWidth(), 40);
 	MAXHP.SetInteger(character.GetMAXHP());
 	MAXSP.SetInteger(character.GetMAXShield());
 	MAXMP.SetInteger(character.GetMAXMP());
+
+	HP.SetTopLeft(70 - HP.GetLen() * HP.GetWidth(), 7);
+	SP.SetTopLeft(70 - SP.GetLen() * SP.GetWidth(), 28);
+	MP.SetTopLeft(70 - MP.GetLen() * MP.GetWidth(), 48);
 }
 
 void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
@@ -394,9 +395,13 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	// UI
 	CInteger::LoadBitmap();
 	HPBACKGROUND.LoadBitmap(IDB_UI_HP);
-	HP.SetTopLeft(0, 0);
-	SP.SetTopLeft(0, 20);
-	MP.SetTopLeft(0, 40);
+	HPBAR.LoadBitmap(IDB_UI_HPBar);
+	SPBAR.LoadBitmap(IDB_UI_SPBar);
+	MPBAR.LoadBitmap(IDB_UI_MPBar);
+	SLASH.LoadBitmap(IDB_Slash, RGB(0, 0, 0));
+	MAXHP.SetTopLeft(82, 7);
+	MAXSP.SetTopLeft(82, 28);
+	MAXMP.SetTopLeft(82, 48);
 	HPBACKGROUND.SetTopLeft(0, 0);
 
 }
@@ -475,13 +480,40 @@ void CGameStateRun::OnShow()
 	gameObjCenter.OnShow(&gameMap);
 
 	// UI
-	//HPBACKGROUND.ShowBitmap();
+	HPBACKGROUND.ShowBitmap();
+
+	int percent = character.GetHP() * 100 / character.GetMAXHP();
+	for (int i = 0; i < percent; i++)
+	{
+		HPBAR.SetTopLeft(27 + i, 10);
+		HPBAR.ShowBitmap();
+	}
+	percent = character.GetShield() * 100 / character.GetMAXShield();
+	for (int i = 0; i < percent; i++)
+	{
+		SPBAR.SetTopLeft(27 + i, 31);
+		SPBAR.ShowBitmap();
+	}
+	percent = character.GetMP() * 100 / character.GetMAXMP();
+	for (int i = 0; i < percent; i++)
+	{
+		MPBAR.SetTopLeft(26 + i, 51);
+		MPBAR.ShowBitmap();
+	}
+	
 	HP.ShowBitmap(false);
 	MP.ShowBitmap(false);
 	SP.ShowBitmap(false);
 	MAXHP.ShowBitmap(false);
 	MAXMP.ShowBitmap(false);
 	MAXSP.ShowBitmap(false);
+
+	SLASH.SetTopLeft(68, 8);
+	SLASH.ShowBitmap();
+	SLASH.SetTopLeft(68, 28);
+	SLASH.ShowBitmap();
+	SLASH.SetTopLeft(68, 48);
+	SLASH.ShowBitmap();
 	
 }
 }
