@@ -127,6 +127,9 @@ namespace game_framework {
 		CGameObjCenter gameObjCenter;
 		CCharacter character;
 		CGameTransferGate TransferGate;
+
+		// debug
+		CInteger debugx, debugy;
 	};
 
 	/////////////////////////////////////////////////////////////////////////////

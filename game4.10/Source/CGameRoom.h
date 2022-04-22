@@ -120,6 +120,16 @@ namespace game_framework
 			return _mx + GetAnima(CGameTransferGate::Anima::TransferGate)->Height();
 		}
 
+		int Width()
+		{
+			return GetAnima(CGameTransferGate::Anima::TransferGate)->Width();
+		}
+
+		int Height()
+		{
+			return GetAnima(CGameTransferGate::Anima::TransferGate)->Height();
+		}
+
 	protected:
 
 	private:
