@@ -83,7 +83,6 @@ namespace game_framework {
 		int cx = CenterX();
 		int cy = CenterY();
 
-		// ¦³ bug
 		return (map->IsContent(x1, y1, coll) || map->IsContent(x1, y2, coll) || map->IsContent(x2, y1, coll) || map->IsContent(x2, y2, coll)
 			|| map->IsContent(cx, y1, coll) || map->IsContent(cx, y2, coll) || map->IsContent(x1, cy, coll) || map->IsContent(x2, cy, coll));
 	}
@@ -99,7 +98,7 @@ namespace game_framework {
 
 	void CGameObj::LoadBitmap(int id)
 	{
-		_animaIter->AddBitmap(id, RGB(255, 255, 255));			
+		_animaIter->AddBitmap(id, RGB(255, 255, 255));
 	}
 
 	void CGameObj::OnShow(CGameMap* map)

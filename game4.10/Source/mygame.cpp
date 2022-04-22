@@ -262,19 +262,33 @@ void CGameStateRun::OnBeginState()
 	character.Reset();			//	重設角色屬性
 	character.SetXY(MYMAPWIDTH * gameMap.GetRoom(MYORGROOM, MYORGROOM).CenterX(), MYMAPHIGH * gameMap.GetRoom(MYORGROOM, MYORGROOM).CenterY());	//	暫時設定初始位置
 	CGameObjCenter::AddObj(&character);
-	
+	CGameObjCenter::AddObj(&TransferGate);
+
 	for (int i = 0; i < MYMAXNOFROOM; i++)
 		for (int j = 0; j < MYMAXNOFROOM; j++)
 		{
-			if (gameMap.GetRoom(i, j).GetRoomType() == RoomData::RoomType::NORMAL)
+			RoomData roomdata = gameMap.GetRoom(i, j);
+			switch (roomdata.GetRoomType())
 			{
-				CGameRoom* room = new CGameRoom(gameMap.GetRoom(i, j));
+			case RoomData::RoomType::NORMAL:	// 一般房間
+			{
+				CGameRoom* room = new CGameRoom(roomdata);
 				room->Initialization(&gameMap);
 				CGameObjCenter::AddObj(room);
+				break;
+			}
+			case RoomData::RoomType::END:		// 傳送房間
+			{
+				TransferGate.SetXY(roomdata.CenterX() * MYMAPWIDTH - ((TransferGate.GetX2() - TransferGate.GetX1()) >> 1) + (MYMAPWIDTH >> 1),
+					roomdata.CenterY() * MYMAPHIGH - ((TransferGate.GetY2() - TransferGate.GetY1()) >> 1) + (MYMAPHIGH >> 1));
+				int debug = 0;
+				break;
+			}	
+			default:
+				break;
 			}
 		}
-			
-	
+	TransferGate.SetXY(character.CenterX(), character.CenterY());
 
 	//test
 	/*CGameBullet test;
@@ -389,8 +403,10 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	// 此OnInit動作會接到CGameStaterOver::OnInit()，所以進度還沒到100%
 	//
 
+	// GAME
 	gameMap.LoadBitmap();
 	character.LoadBitmap();
+	TransferGate.LoadBitmap();
 
 	// UI
 	CInteger::LoadBitmap();
@@ -416,6 +432,12 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	}
 	gameMap.OnKeyDown(nChar);
 	character.OnKeyDown(nChar);
+
+	// 碰觸傳送門進下一關
+	if (character.IsDoingSomeThing() && character.Collision(&TransferGate))
+	{
+		GotoGameState(GAME_STATE_RUN);
+	}
 }
 
 void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)

@@ -276,6 +276,8 @@ IDB_UI_SPBar            BITMAP                  "..\\res\\enemy\\bmp00007.bmp"
 
 IDB_UI_MPBar            BITMAP                  "..\\res\\enemy\\bmp00008.bmp"
 
+IDB_TransferGate_0      BITMAP                  "..\\res\\enemy\\bmp00009.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //

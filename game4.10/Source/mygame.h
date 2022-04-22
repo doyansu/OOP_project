@@ -126,7 +126,7 @@ namespace game_framework {
 		CGameMap gameMap;
 		CGameObjCenter gameObjCenter;
 		CCharacter character;
-		
+		CGameTransferGate TransferGate;
 	};
 
 	/////////////////////////////////////////////////////////////////////////////

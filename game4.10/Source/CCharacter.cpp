@@ -55,7 +55,7 @@ namespace game_framework {
 
 	void CCharacter::Reset()
 	{
-		_doFire = false;
+		_doSomeThing = false;
 		_canAttack = true;
 		_attCounter = 0;
 		_deathCounter = GAME_CYCLE_TIME * 2;	
@@ -202,7 +202,7 @@ namespace game_framework {
 			_nowWeapon->SetXY(this->CenterX() - (_nowWeapon->GetX2() - _nowWeapon->GetX1()), this->CenterY());*/
 
 		//	武器射擊判斷
-		if (_doFire)
+		if (_doSomeThing)
 		{
 			const double MAXSEARCH = 500.0;	// 最大搜索範圍 
 			const double MINSEARCH = 80.0;	// 最小搜索範圍 
@@ -305,7 +305,7 @@ namespace game_framework {
 		const char KEY_Q = 0x51;
 		if (nChar == KEY_SPACE || nChar == KEY_Q)
 		{
-			_doFire = false;
+			_doSomeThing = false;
 		}
 
 		CCharacter::CGameObj::OnKeyUp(nChar);
@@ -318,7 +318,7 @@ namespace game_framework {
 		const char KEY_Q = 0x51;
 		if (nChar == KEY_SPACE || nChar == KEY_Q)
 		{
-			_doFire = true;
+			_doSomeThing = true;
 		}
 
 		CCharacter::CGameObj::OnKeyDown(nChar);
@@ -341,6 +341,7 @@ namespace game_framework {
 			CGameObj::TakeDmg(dmg);
 		}
 	}
+
 	void CCharacter::ModifyShield(int add)
 	{
 		_shield += add;
@@ -348,7 +349,7 @@ namespace game_framework {
 			_shield = _maxShield;
 	}
 
-	void  CCharacter::ModifyVector(int index, int plus) //	調整向量範圍 沒用上
+	void CCharacter::ModifyVector(int index, int plus) //	調整向量範圍 沒用上
 	{
 		if (index > 1 || index < 0)
 			return;
@@ -359,7 +360,7 @@ namespace game_framework {
 			_vector[index] = -1;
 	}
 
-	bool  CCharacter::hasObstacle(CGameMap* map, CGameObj* obj1, CGameObj* obj2)
+	bool CCharacter::hasObstacle(CGameMap* map, CGameObj* obj1, CGameObj* obj2)
 	{
 		bool has = false;
 		double d = obj1->Distance(obj2);
@@ -378,6 +379,11 @@ namespace game_framework {
 			y += vy;
 		}
 		return has;
+	}
+
+	bool CCharacter::IsDoingSomeThing()
+	{
+		return _doSomeThing;
 	}
 
 	vector<CAnimation>::iterator CCharacter::GetAnima(Anima type)
