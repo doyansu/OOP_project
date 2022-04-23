@@ -305,7 +305,7 @@ namespace game_framework
 	void CGameTransferGate::LoadBitmap() 
 	{
 		_animaIter = GetAnima(CGameTransferGate::Anima::TransferGate);
-		_animaIter->AddBitmap(IDB_TransferGate_0, RGB(255, 255, 255));
+		_animaIter->AddBitmap(IDB_TransferGate_0, RGB(0, 0, 0));
 
 		_animaIter = GetAnima(CGameTransferGate::Anima::ARROW);
 		_animaIter->AddBitmap(IDB_0, RGB(0, 0, 0));
