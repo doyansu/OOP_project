@@ -429,6 +429,8 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	{
 		GotoGameState(GAME_STATE_RUN);
 	}
+
+
 	gameMap.OnKeyDown(nChar);
 	character.OnKeyDown(nChar);
 
@@ -550,5 +552,11 @@ void CGameStateRun::OnShow()
 	debugy.SetInteger(TransferGate.GetY1());
 	debugx.ShowBitmap(false);
 	debugy.ShowBitmap(false);
+	/*debugx.SetTopLeft(320, 460);
+	debugy.SetTopLeft(400, 460);
+	debugx.SetInteger(TransferGate.GetX2());
+	debugy.SetInteger(TransferGate.GetY2());
+	debugx.ShowBitmap(false);
+	debugy.ShowBitmap(false);*/
 }
 }

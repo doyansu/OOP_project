@@ -356,7 +356,7 @@ namespace game_framework
 
 	int CGameTransferGate::GetY2() 
 	{
-		return _mx + GetAnima(CGameTransferGate::Anima::TransferGate)->Height();
+		return _my + GetAnima(CGameTransferGate::Anima::TransferGate)->Height();
 	}
 
 	int CGameTransferGate::Width()
