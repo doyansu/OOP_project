@@ -143,7 +143,8 @@ namespace game_framework {
 		start.Set((rand() % 2), MYORGROOM + (1 ^ ((1 ^ -1) * (rand() % 2))));
 		queue.push(start);
 		int specialRoom = 1 + (rand() % 3);						// 疭┬丁计
-		int maxRoom = specialRoom + 3 + (rand() % 4);			// 程肂┬丁计
+		int nrmalRoom = 3 + (rand() % 3);
+		int maxRoom = specialRoom + nrmalRoom + 1;			// 程肂┬丁计
 		int dir[4][2] = { {0, -1}, {0, 1}, {-1, 0}, {1, 0} };	// 穓ノ秖
 		while (!queue.empty() && maxRoom)
 		{

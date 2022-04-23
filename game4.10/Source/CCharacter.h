@@ -39,10 +39,10 @@ namespace game_framework {
 		int DT;										// direction 朝向控制 1 朝右 0 朝左
 		int _mp, _maxMp, _shield, _maxShield;		// 魔力值、最大魔力值、護盾、最大護盾值
 		int _damage;								// 近戰傷害
-		bool _doSomeThing;								// 射擊判斷
+		bool _doSomeThing;							// 射擊判斷
 		bool _canAttack;							// 近戰攻擊判斷
 		CGameWeapon* _weapons[2];					// 可擁有2把武器
-		CGameWeapon** _nowWeapon;								// 當前武器 index
+		CGameWeapon** _nowWeapon;					// 當前武器 index
 
 	private:
 		int _attCounter;				// 近戰計數器

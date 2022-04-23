@@ -2,12 +2,12 @@
 #include <queue>
 #include <cmath>
 
-#define MYMAPSIZE 250		// 地圖格數大小 250 X 250
-#define MYMAPWIDTH 25		// 地圖每格寬
-#define MYMAPHIGH 25		// 地圖每格高
-#define MYMAXNOFROOM 7		// 最大房間數 7 X 7
-#define ROOMINTERNAL 35		// 房間中心的間隔距離
-#define MYORGROOM 3			// 中心點起始房間
+#define MYMAXNOFROOM 9								// 最大房間數 9 X 9
+#define ROOMINTERNAL 35								// 房間中心的間隔距離
+#define MYMAPSIZE MYMAXNOFROOM * ROOMINTERNAL		// 地圖格數大小 
+#define MYMAPWIDTH 25								// 地圖每格寬
+#define MYMAPHIGH 25								// 地圖每格高
+#define MYORGROOM (MYMAXNOFROOM>>1)					// 中心點起始房間
 
 namespace game_framework {
 	class RoomData

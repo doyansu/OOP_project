@@ -280,7 +280,7 @@ namespace game_framework
 			// 開發中暫時拿掉
 			int dx = (int)_vector[0] * other->GetMoveSpeed();
 			int dy = (int)_vector[1] * other->GetMoveSpeed();
-			other->SetXY(other->GetX1() + dx, other->GetY1() + dy);
+			other->SetXY(other->GetX1() + (int)_vector[0], other->GetY1() + (int)_vector[1]);
 		}
 	}
 

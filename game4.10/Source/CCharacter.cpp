@@ -23,7 +23,7 @@ namespace game_framework {
 		_mp = _maxMp = 180;
 		_shield = _maxShield = 10;
 		_damage = 4;
-		_moveSpeed = 10;
+		_moveSpeed = 25;
 		_showPriority = 10;
 		this->Reset();
 		this->SetTag("player");
@@ -34,7 +34,7 @@ namespace game_framework {
 		_weapons[1] = nullptr;
 		_nowWeapon = &_weapons[0];
 		(*_nowWeapon)->SetTarget("enemy");
-		(*_nowWeapon)->SetAttributes(10, 0, 20, 3);
+		(*_nowWeapon)->SetAttributes(10, 0, 25, 2);
 	}
 
 	void CCharacter::Init()
@@ -50,7 +50,7 @@ namespace game_framework {
 		_nowWeapon = &_weapons[0];
 		(*_nowWeapon)->LoadBitmap();
 		(*_nowWeapon)->SetTarget("enemy");
-		(*_nowWeapon)->SetAttributes(10, 0, 20, 3);
+		(*_nowWeapon)->SetAttributes(10, 0, 25, 2);
 	}
 
 	void CCharacter::Reset()
@@ -148,30 +148,33 @@ namespace game_framework {
 				
 
 		//	角色移動
-		int tempx = _mx, tempy = _my;
-		if (_isMovingLeft)
+		for (int i = 0; i < _moveSpeed; i++)
 		{
-			_mx -= _moveSpeed;
-		}
-		if (_isMovingRight)
-		{
-			_mx += _moveSpeed;
-		}
-		
-		if (CCharacter::CGameObj::Collision(map))
-			_mx = tempx;
-		
-		if (_isMovingUp)
-		{
-			_my -= _moveSpeed;
-		}
-		if (_isMovingDown)
-		{
-			_my += _moveSpeed;
-		}
+			int tempx = _mx, tempy = _my;
+			if (_isMovingLeft)
+			{
+				_mx -= 1;
+			}
+			if (_isMovingRight)
+			{
+				_mx += 1;
+			}
 
-		if (CCharacter::CGameObj::Collision(map))
-			_my = tempy;
+			if (CCharacter::CGameObj::Collision(map))
+				_mx = tempx;
+
+			if (_isMovingUp)
+			{
+				_my -= 1;
+			}
+			if (_isMovingDown)
+			{
+				_my += 1;
+			}
+
+			if (CCharacter::CGameObj::Collision(map))
+				_my = tempy;
+		}
 		
 
 		//變更 vector 給子彈用
