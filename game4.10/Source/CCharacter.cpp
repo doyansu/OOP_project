@@ -23,7 +23,7 @@ namespace game_framework {
 		_mp = _maxMp = 180;
 		_shield = _maxShield = 10;
 		_damage = 4;
-		_moveSpeed = 20;
+		_moveSpeed = 10;
 		_showPriority = 10;
 		this->Reset();
 		this->SetTag("player");
@@ -40,9 +40,9 @@ namespace game_framework {
 	void CCharacter::Init()
 	{
 		// GameOver初始化
-		_hp = 6;
-		_mp = 180;
-		_shield = 5;
+		_hp = _maxHp;
+		_mp = _maxMp;
+		_shield = _maxShield;
 		// 重置為初始武器
 		free();
 		_weapons[0] = new CGameWeapon(this);

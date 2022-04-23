@@ -287,7 +287,7 @@ void CGameStateRun::OnBeginState()
 				break;
 			}
 		}
-	 TransferGate.SetXY(character.CenterX(), character.CenterY());
+	// TransferGate.SetXY(character.CenterX(), character.CenterY());
 
 	//test
 	/*CGameBullet test;

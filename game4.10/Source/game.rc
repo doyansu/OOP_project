@@ -278,7 +278,21 @@ IDB_UI_MPBar            BITMAP                  "..\\res\\enemy\\bmp00008.bmp"
 
 IDB_TransferGate_0      BITMAP                  "..\\res\\enemy\\bmp00009.bmp"
 
-IDB_BITMAP50            BITMAP                  "..\\res\\enemy\\bmp00010.bmp"
+IDB_TransferGate_1      BITMAP                  "..\\res\\enemy\\bmp00010.bmp"
+
+IDB_TransferGate_2      BITMAP                  "..\\res\\enemy\\bmp00011.bmp"
+
+IDB_TransferGate_3      BITMAP                  "..\\res\\enemy\\bmp00012.bmp"
+
+IDB_TransferGate_4      BITMAP                  "..\\res\\enemy\\bmp00013.bmp"
+
+IDB_TransferGate_5      BITMAP                  "..\\res\\enemy\\bmp00014.bmp"
+
+IDB_TransferGate_6      BITMAP                  "..\\res\\enemy\\bmp00015.bmp"
+
+IDB_TransferGate_7      BITMAP                  "..\\res\\enemy\\bmp00016.bmp"
+
+IDB_BITMAP50            BITMAP                  "..\\res\\enemy\\bmp00017.bmp"
 
 
 /////////////////////////////////////////////////////////////////////////////

@@ -297,7 +297,6 @@ namespace game_framework
 		const int AnimaSize = 2;
 		_animas.clear();
 		CAnimation animation;
-		//animation.SetDelayCount(3);
 		for (int i = 0; i < AnimaSize; i++)
 			_animas.push_back(CAnimation(animation));
 	}
@@ -305,7 +304,15 @@ namespace game_framework
 	void CGameTransferGate::LoadBitmap() 
 	{
 		_animaIter = GetAnima(CGameTransferGate::Anima::TransferGate);
-		_animaIter->AddBitmap(IDB_TransferGate_0, RGB(0, 0, 0));
+		_animaIter->SetDelayCount(2);
+		_animaIter->AddBitmap(IDB_TransferGate_0, RGB(255, 255, 255));
+		_animaIter->AddBitmap(IDB_TransferGate_1, RGB(255, 255, 255));
+		_animaIter->AddBitmap(IDB_TransferGate_2, RGB(255, 255, 255));
+		_animaIter->AddBitmap(IDB_TransferGate_3, RGB(255, 255, 255));
+		_animaIter->AddBitmap(IDB_TransferGate_4, RGB(255, 255, 255));
+		_animaIter->AddBitmap(IDB_TransferGate_5, RGB(255, 255, 255));
+		_animaIter->AddBitmap(IDB_TransferGate_6, RGB(255, 255, 255));
+		_animaIter->AddBitmap(IDB_TransferGate_7, RGB(255, 255, 255));
 
 		_animaIter = GetAnima(CGameTransferGate::Anima::ARROW);
 		_animaIter->AddBitmap(IDB_0, RGB(0, 0, 0));
@@ -336,7 +343,7 @@ namespace game_framework
 		if (_isDie)
 		{
 			_animaIter = GetAnima(CGameTransferGate::Anima::ARROW);
-			_animaIter->SetTopLeft(map->ScreenX(_mx), map->ScreenY(_my));
+			_animaIter->SetTopLeft(map->ScreenX(_mx + ((GetAnima(CGameTransferGate::Anima::TransferGate)->Width() - _animaIter->Width()) >> 1)), map->ScreenY(_my));
 			_animaIter->OnShow();
 		}
 	}
