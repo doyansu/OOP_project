@@ -26,6 +26,8 @@ namespace game_framework {
 		int GetY1();					
 		virtual int GetX2();			// 右下地圖點座標
 		virtual int GetY2();
+		virtual int GetWidth();			// 寬
+		virtual int GetHeight();		// 高
 		double GetVectorX();			// 拿取方向
 		double GetVectorY();
 		int GetMoveSpeed();

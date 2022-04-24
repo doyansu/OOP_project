@@ -12,7 +12,7 @@ namespace game_framework
 	CGameWeapon::CGameWeapon(CGameObj* user)
 	{
 		// 動畫載入
-		const int AnimaSize = 2;
+		const int AnimaSize = 8;
 		_animas.clear();
 		_animas.reserve(AnimaSize);
 		for (int i = 0; i < AnimaSize; i++)
@@ -76,13 +76,22 @@ namespace game_framework
 
 	void CGameWeapon::LoadBitmap()
 	{
-		CGameWeapon::CGameObj::_animaIter = GetAnima(CGameWeapon::Anima::Right);
-		CGameWeapon::CGameObj::_animaIter->AddBitmap(IDB_weapon1, RGB(255, 255, 255));
-				
-		CGameWeapon::CGameObj::_animaIter = GetAnima(CGameWeapon::Anima::Left);
-		CGameWeapon::CGameObj::_animaIter->AddBitmap(IDB_weapon1_l, RGB(255, 255, 255));
-
-		CGameWeapon::CGameObj::_animaIter = GetAnima(CGameWeapon::Anima::Right);
+		_animaIter = GetAnima(CGameWeapon::Anima::Theta_0);
+		_animaIter->AddBitmap(IDB_weapon_0_0, RGB(255, 255, 255));
+		_animaIter = GetAnima(CGameWeapon::Anima::Theta_45);
+		_animaIter->AddBitmap(IDB_weapon_0_0, RGB(255, 255, 255));
+		_animaIter = GetAnima(CGameWeapon::Anima::Theta_90);
+		_animaIter->AddBitmap(IDB_weapon_0_0, RGB(255, 255, 255));
+		_animaIter = GetAnima(CGameWeapon::Anima::Theta_135);
+		_animaIter->AddBitmap(IDB_weapon_0_0, RGB(255, 255, 255));
+		_animaIter = GetAnima(CGameWeapon::Anima::Theta_180);
+		_animaIter->AddBitmap(IDB_weapon_0_180, RGB(255, 255, 255));
+		_animaIter = GetAnima(CGameWeapon::Anima::Theta_225);
+		_animaIter->AddBitmap(IDB_weapon_0_0, RGB(255, 255, 255));
+		_animaIter = GetAnima(CGameWeapon::Anima::Theta_270);
+		_animaIter->AddBitmap(IDB_weapon_0_0, RGB(255, 255, 255));
+		_animaIter = GetAnima(CGameWeapon::Anima::Theta_315);
+		_animaIter->AddBitmap(IDB_weapon_0_0, RGB(255, 255, 255));
 
 		_bullet->LoadBitmap();
 	}
@@ -93,13 +102,37 @@ namespace game_framework
 
 		if (_user == nullptr)
 			return;
-		
+
 		if (_DT == 1) {
-			this->SetXY(_user->CenterX(), _user->CenterY());
+			this->SetXY(_user->CenterX(), _user->CenterY() - (this->GetHeight() / 3));
+			CGameWeapon::CGameObj::_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima::Theta_0);
 		}
 		else if (_DT == 0) {
-			this->SetXY(_user->CenterX() - (this->GetX2() - this->GetX1()), _user->CenterY());
+			this->SetXY(_user->CenterX() - this->GetWidth(), _user->CenterY() - (this->GetHeight() / 3));
+			CGameWeapon::CGameObj::_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima::Theta_180);
 		}
+
+		/*
+		// 旋轉角度
+		const int STEPS = 8;
+		const double THETA = 360 / STEPS;
+		const double PI = acos(-1);
+		static int index = 0;
+		static double DIFFVECTOR[STEPS][2] = { {0, 0} };
+		if (DIFFVECTOR[0][0] == 0 && DIFFVECTOR[0][1] == 0)
+		{
+			for (int i = 0; i < STEPS; i++)
+			{
+				DIFFVECTOR[i][0] = cos(PI * i * THETA / 180);
+				DIFFVECTOR[i][1] = sin(PI * i * THETA / 180);
+			}
+		}
+
+		if ((++index) >= STEPS)
+			index = 0;
+		this->SetXY(_user->CenterX() + (int)(DIFFVECTOR[index][0] * _animaIter->Width()), _user->CenterY() + (int)(DIFFVECTOR[index][1] * _animaIter->Height()));
+		*/
+
 
 		//	射擊間隔計數
 		if (!_fire && --_fireCounter == 0)
@@ -112,7 +145,8 @@ namespace game_framework
 
 	void CGameWeapon::OnShow(CGameMap* map)
 	{
-		CGameWeapon::CGameObj::OnShow(map);
+		_animaIter->SetTopLeft(map->ScreenX(_mx), map->ScreenY(_my));	
+		_animaIter->OnShow();
 	}
 
 	void CGameWeapon::Shoot(double x, double y)
@@ -146,11 +180,39 @@ namespace game_framework
 		_DT = DT;
 		// 動畫判斷
 		if (_DT == 1) {
-			CGameWeapon::CGameObj::_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima::Right);
+			CGameWeapon::CGameObj::_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima::Theta_0);
 		}
 		else if (_DT == 0) {
-			CGameWeapon::CGameObj::_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima::Left);
+			CGameWeapon::CGameObj::_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima::Theta_180);
 		}
+		/*
+		// 旋轉角度
+		const int STEPS = 8;									// 分 STEPS 個方向
+		const double THETA = 360 / STEPS;						// 間隔角度
+		const double PI = acos(-1);								// PI
+		static double DIFFVECTOR[STEPS][2] = { {0, 0} };		// 對應角度
+		if (DIFFVECTOR[0][0] == 0 && DIFFVECTOR[0][1] == 0)		// 角度初始化
+		{
+			for (int i = 0; i < STEPS; i++)
+			{
+				DIFFVECTOR[i][0] = cos(PI * i * THETA / 180);
+				DIFFVECTOR[i][1] = sin(PI * i * THETA / 180);
+			}
+		}
+
+		theta %= 360;
+		if (theta < 0)
+		{
+			theta += 360;
+		}
+		_DT = theta;
+
+		this->SetXY(_user->CenterX() - (_animaIter->Width() >> 1) + (int)(DIFFVECTOR[_DT / (int)THETA][0] * _animaIter->Width()),
+			_user->CenterY() - (_animaIter->Height() >> 1) + (int)(DIFFVECTOR[_DT / (int)THETA][1] * _animaIter->Height()));
+
+		// 動畫判斷
+		CGameWeapon::CGameObj::_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima(_DT / (int)THETA));*/
+
 	}
 
 	void CGameWeapon::SetTarget(string target)

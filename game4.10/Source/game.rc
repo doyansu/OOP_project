@@ -292,7 +292,9 @@ IDB_TransferGate_6      BITMAP                  "..\\res\\enemy\\bmp00015.bmp"
 
 IDB_TransferGate_7      BITMAP                  "..\\res\\enemy\\bmp00016.bmp"
 
-IDB_BITMAP50            BITMAP                  "..\\res\\enemy\\bmp00017.bmp"
+IDB_weapon_0_0          BITMAP                  "..\\res\\enemy\\bmp00017.bmp"
+
+IDB_weapon_0_180        BITMAP                  "..\\res\\enemy\\bmp00018.bmp"
 
 
 /////////////////////////////////////////////////////////////////////////////

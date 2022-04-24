@@ -31,7 +31,6 @@ namespace game_framework {
 		// ªZ¾¹³]©w
 		_weapon = new CGameWeapon(this);
 		_weapon->SetAttributes(1, 0, 5, 50);
-		_weapon->SetDT(1);
 		_weapon->SetTarget("player");
 	}
 

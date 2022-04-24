@@ -201,6 +201,15 @@ namespace game_framework {
 		return _my + _animaIter->Height();
 	}
 
+	int CGameObj::GetWidth()
+	{
+		return _animaIter->Width();
+	}
+	int CGameObj::GetHeight()
+	{
+		return _animaIter->Height();
+	}
+
 	double CGameObj::GetVectorX()
 	{
 		return _vector[0];

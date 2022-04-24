@@ -208,7 +208,7 @@ namespace game_framework {
 		if (_doSomeThing)
 		{
 			const double MAXSEARCH = 500.0;	// 最大搜索範圍 
-			const double MINSEARCH = 80.0;	// 最小搜索範圍 
+			const double MINSEARCH = 0.0;	// 最小搜索範圍 
 			// 找到存活的敵人
 			vector<CGameObj*> enemys = CGameObjCenter::FindObjsBy(
 				[](CGameObj* obj)

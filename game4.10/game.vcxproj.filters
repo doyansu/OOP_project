@@ -175,6 +175,7 @@
     <Image Include="res\enemy\bmp00015.bmp" />
     <Image Include="res\enemy\bmp00016.bmp" />
     <Image Include="res\enemy\bmp00017.bmp" />
+    <Image Include="res\enemy\bmp00018.bmp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Res\ball.bmp" />
