@@ -296,6 +296,18 @@ IDB_weapon_0_0          BITMAP                  "..\\res\\enemy\\bmp00017.bmp"
 
 IDB_weapon_0_180        BITMAP                  "..\\res\\enemy\\bmp00018.bmp"
 
+IDB_ItemArrow_0         BITMAP                  "..\\res\\enemy\\bmp00019.bmp"
+
+IDB_ItemArrow_1         BITMAP                  "..\\res\\enemy\\bmp00020.bmp"
+
+IDB_ItemArrow_2         BITMAP                  "..\\res\\enemy\\bmp00021.bmp"
+
+IDB_ItemArrow_3         BITMAP                  "..\\res\\enemy\\bitmap53.bmp"
+
+IDB_ItemArrow_4         BITMAP                  "..\\res\\enemy\\bmp00022.bmp"
+
+IDB_ItemArrow_5         BITMAP                  "..\\res\\enemy\\bmp00023.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
