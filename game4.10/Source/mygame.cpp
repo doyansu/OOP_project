@@ -403,6 +403,7 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	//
 
 	// GAME
+	CGameRoom::Init();				//	房間物件初始化
 	gameMap.LoadBitmap();
 	character.LoadBitmap();
 	TransferGate.LoadBitmap();

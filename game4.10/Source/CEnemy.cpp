@@ -179,7 +179,7 @@ namespace game_framework {
 		_animaIter = GetAnima(CEnemy::Anima::DIE);
 	}
 
-	void CEnemy::OnDie()
+	void CEnemy::OnDie(CGameMap* map)
 	{
 		_animaIter->OnMove();
 	}

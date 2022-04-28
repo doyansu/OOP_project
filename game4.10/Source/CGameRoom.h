@@ -1,5 +1,6 @@
 #pragma once
 #include "CEnemy.h"
+#include "CCharacter.h"
 #include "CGameObjCenter.h"
 #define REGENERATETIME GAME_CYCLE_TIME >> 1
 
@@ -15,9 +16,14 @@ namespace game_framework
 		int GetY2();
 		void OnMove(CGameMap*);
 		void OnObjCollision(CGameMap*, CGameObj*);
-		void OnDie();
+		void OnDie(CGameMap*);
 		void OnShow(CGameMap*);
 		void Initialization(CGameMap*);
+
+		static void Init()
+		{
+			clearTreasure.LoadBitmap();
+		}
 
 		class RoomWall : public CGameObj
 		{
@@ -26,7 +32,7 @@ namespace game_framework
 			void LoadBitmap();
 			void OnMove(CGameMap*);
 			void OnObjCollision(CGameMap*, CGameObj*);
-			void OnDie();
+			void OnDie(CGameMap*);
 		protected:
 		private:
 		};
@@ -42,8 +48,49 @@ namespace game_framework
 		vector<CEnemy*> _enemys;			// 可以生成的怪物類型
 
 	private:
-
+		class ClearTreasure : public CGameObj
+		{
+		public:
+			enum class Anima { TREASURE, LEFTCOVER, RIGHTCOVER };
+			ClearTreasure()
+			{
+				const int AnimaSize = 3;
+				_animas.clear();
+				_animas.reserve(AnimaSize);
+				for (int i = 0; i < AnimaSize; i++)
+					_animas.push_back(CAnimation());
+			}
+			void LoadBitmap()
+			{
+				_animaIter = GetAnima(Anima::TREASURE);
+				_animaIter->AddBitmap(IDB_TREASURE_0_0, RGB(255, 255, 255));
+			}
+			void OnObjCollision(CGameMap* map, CGameObj* other)
+			{
+				if (other->GetTag() == "player")
+				{
+				}
+			}
+			void OnDie(CGameMap* map)
+			{
+				_animaIter->OnMove();
+			}
+		protected:
+		private:
+			vector<CAnimation>::iterator GetAnima(Anima type)
+			{
+				return _animas.begin() + (int)type;
+			}
+		};
+		static ClearTreasure clearTreasure;
 	};
+
+	
+
+
+
+
+
 
 
 	class CGameTransferGate : public CGameObj
@@ -56,7 +103,6 @@ namespace game_framework
 		void OnMove(CGameMap* map);
 		void OnShow(CGameMap* map);
 		void OnObjCollision(CGameMap* map, CGameObj* other);
-		void OnDie() {};
 
 		int GetX2();
 		int GetY2();

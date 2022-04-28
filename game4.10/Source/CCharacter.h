@@ -27,7 +27,7 @@ namespace game_framework {
 		void LoadBitmap();				// 載入圖形
 		void OnShow(CGameMap*);			// 將圖形貼到畫面
 		void OnMove(CGameMap*);			// 移動
-		void OnDie();
+		void OnDie(CGameMap*);
 		void OnObjCollision(CGameMap*, CGameObj*);
 		void OnKeyUp(char);				
 		void OnKeyDown(char);		

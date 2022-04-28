@@ -71,7 +71,7 @@ namespace game_framework
 			}
 			else if(obj->IsDie())
 			{
-				obj->OnDie();
+				obj->OnDie(map);
 			}
 		}
 		

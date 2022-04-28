@@ -283,7 +283,7 @@ namespace game_framework {
 			
 	}
 
-	void CCharacter::OnDie()
+	void CCharacter::OnDie(CGameMap* map)
 	{
 		_animaIter = GetAnima(CCharacter::Anima::DIE);
 		_animaIter->OnMove();

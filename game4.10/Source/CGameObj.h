@@ -58,7 +58,7 @@ namespace game_framework {
 		virtual void OnShow(CGameMap*);				// 在地圖顯示物件
 		virtual void OnMove(CGameMap*);
 		virtual void OnObjCollision(CGameMap*, CGameObj*) {};
-		virtual void OnDie() {};					// 死亡需做
+		virtual void OnDie(CGameMap*) {};					// 死亡需做
 		virtual void OnKeyUp(char);
 		virtual void OnKeyDown(char);
 		virtual void Reset();

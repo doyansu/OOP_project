@@ -15,7 +15,7 @@ namespace game_framework {
 		void OnShow(CGameMap*);					// 將圖形貼到畫面
 		void OnMove(CGameMap*);
 		void OnObjCollision(CGameMap*, CGameObj*);
-		void OnDie();
+		void OnDie(CGameMap*);
 
 		//CEnemy& operator=(const CEnemy&);
 	protected:

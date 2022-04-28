@@ -8,6 +8,8 @@
 
 namespace game_framework 
 {
+	CGameRoom::ClearTreasure CGameRoom::clearTreasure;
+
 	CGameRoom::CGameRoom(RoomData data)
 	{
 		// 屬性設定
@@ -212,13 +214,19 @@ namespace game_framework
 			
 	}
 
-	void CGameRoom::OnDie() 
+	void CGameRoom::OnDie(CGameMap* map)
 	{
 		for (CGameObj* obj : _roomWalls)
 		{
 			obj->SetEnable(false);
 			obj->SetDie(true);
 		}
+		ClearTreasure* cTreasure = new ClearTreasure(clearTreasure);
+		// 碰到障礙重新選位置
+		do {
+			cTreasure->SetXY(_mx + MYMAPWIDTH * (1 + rand() % (_room.Width() - 2)), _my + MYMAPHIGH * (1 + rand() % (_room.High() - 2)));
+		} while (cTreasure->Collision(map));
+		CGameObjCenter::AddObj(cTreasure);
 		this->SetDie(false);
 	}
 	
@@ -264,7 +272,7 @@ namespace game_framework
 			_animaIter->OnMove();
 	}
 
-	void CGameRoom::RoomWall::OnDie()
+	void CGameRoom::RoomWall::OnDie(CGameMap* map)
 	{
 		_animaIter = _animas.begin() + 1;
 		if (!_animaIter->IsFinalBitmap())
