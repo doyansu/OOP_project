@@ -20,6 +20,8 @@ namespace game_framework {
 		//CEnemy& operator=(const CEnemy&);
 	protected:
 		CGameWeapon* _weapon;
+
+		void Die();
 		
 	private:
 		void copy(const CEnemy&);

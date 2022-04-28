@@ -170,14 +170,19 @@ namespace game_framework {
 		}*/
 	}
 
-	void CEnemy::OnDie()
+	void CEnemy::Die()
 	{
+		this->SetEnable(false);
+		this->SetDie(true);
+		this->SetCollision(false);
 		this->SetShowPriority(0);
 		_animaIter = GetAnima(CEnemy::Anima::DIE);
-		_animaIter->OnMove();
 	}
 
-
+	void CEnemy::OnDie()
+	{
+		_animaIter->OnMove();
+	}
 
 	vector<CAnimation>::iterator CEnemy::GetAnima(Anima type)
 	{

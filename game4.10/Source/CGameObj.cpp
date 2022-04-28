@@ -28,6 +28,7 @@ namespace game_framework {
 		_isMovingLeft = _isMovingRight = _isMovingUp = _isMovingDown = false;
 		_isEnable = true;
 		_isDie = false;
+		_isCollision = true;
 		_animaIter = _animas.begin();
 	}
 
@@ -60,6 +61,7 @@ namespace game_framework {
 		this->_isEnable = other._isEnable;
 		this->_needFree = other._needFree;
 		this->_isDie = other._isDie;
+		this->_isCollision = other._isCollision;
 		this->_isMovingLeft = this->_isMovingRight = this->_isMovingUp = this->_isMovingDown = false;
 		
 	}
@@ -169,13 +171,18 @@ namespace game_framework {
 		return sqrt((double)(centerx * centerx + centery * centery));
 	}
 
+	void CGameObj::Die()
+	{
+		_isDie = true;
+		_isEnable = false;
+	}
+
 	void CGameObj::TakeDmg(int damage)
 	{
 		if (_hp <= damage)
 		{
 			_hp = 0;
-			_isDie = true;
-			_isEnable = false;
+			Die();
 		}
 		else
 			_hp -= damage;
@@ -250,6 +257,11 @@ namespace game_framework {
 		return _isDie;
 	}
 
+	bool CGameObj::IsCollision()
+	{
+		return _isCollision;
+	}
+
 	bool CGameObj::IsMoveing()
 	{
 		return _isMovingDown || _isMovingLeft || _isMovingRight || _isMovingUp;
@@ -268,6 +280,11 @@ namespace game_framework {
 	void CGameObj::SetFree(bool free)
 	{
 		_needFree = free;
+	}
+
+	void CGameObj::SetCollision(bool Collision)
+	{
+		_isCollision = Collision;
 	}
 
 	void CGameObj::SetShowPriority(int level)

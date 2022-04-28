@@ -19,7 +19,8 @@ namespace game_framework {
 		bool IsEnable();				// 是否啟用
 		bool NeedFree();				// 是否釋放
 		bool IsDie();					// 是否死亡
-		bool IsMoveing();
+		bool IsMoveing();				// 是否正在移動
+		bool IsCollision();				// 是否啟用碰撞
 
 		// Getter
 		int GetX1();					// 左上地圖點座標
@@ -38,6 +39,7 @@ namespace game_framework {
 		void SetEnable(bool);
 		void SetFree(bool);
 		void SetDie(bool);
+		void SetCollision(bool);
 		void SetVector(double, double);
 		void SetMovingDown(bool flag);	
 		void SetMovingLeft(bool flag);	
@@ -75,13 +77,14 @@ namespace game_framework {
 		int _showPriority;								//	顯示優先
 		int _hp, _maxHp;								//	血量值、最大血量值
 		double _vector[2];								//	移動、方向判別用向量
-		bool _isEnable, _needFree, _isDie;				//	是否啟用、釋放、死亡
+		bool _isEnable, _needFree, _isDie, _isCollision;//	是否啟用、釋放、死亡、碰撞
 		bool _isMovingDown;								//	是否正在往下移動
 		bool _isMovingLeft;								//	是否正在往左移動
 		bool _isMovingRight;							//	是否正在往右移動
 		bool _isMovingUp;								//	是否正在往上移動
 		string _tag;									//	TAG
 
+		virtual void Die();								//	死亡初始化
 
 	private:
 		bool HitRectangle(int tx1, int ty1, int tx2, int ty2);

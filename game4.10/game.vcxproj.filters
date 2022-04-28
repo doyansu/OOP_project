@@ -182,6 +182,7 @@
     <Image Include="res\enemy\bitmap53.bmp" />
     <Image Include="res\enemy\bmp00022.bmp" />
     <Image Include="res\enemy\bmp00023.bmp" />
+    <Image Include="res\enemy\bmp00024.bmp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Res\ball.bmp" />

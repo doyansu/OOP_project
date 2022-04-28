@@ -78,10 +78,10 @@ namespace game_framework
 		// ³B²z¸I¼²
 		for (int i = 0; i < (int)_allObj.size(); i++)
 		{
-			if (!_allObj.at(i)->IsEnable())
+			if (!_allObj.at(i)->IsCollision())
 				continue;
 			for (int j = i + 1; j < (int)_allObj.size(); j++)
-				if (_allObj.at(j)->IsEnable() && _allObj.at(i)->Collision(_allObj.at(j)))
+				if (_allObj.at(j)->IsCollision() && _allObj.at(i)->Collision(_allObj.at(j)))
 				{
 					_allObj.at(i)->OnObjCollision(map, _allObj.at(j));
 					_allObj.at(j)->OnObjCollision(map, _allObj.at(i));
