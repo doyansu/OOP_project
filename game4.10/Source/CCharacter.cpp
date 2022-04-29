@@ -294,6 +294,10 @@ namespace game_framework {
 
 	void CCharacter::OnObjCollision(CGameMap* map, CGameObj* other)
 	{
+		if (other->GetTag() == "cleartreasure")
+		{
+			other->TakeDmg(99999);
+		}
 		/*if (other->GetTag() == "enemy")
 		{
 			other->SetXY(other->GetX1(), other->GetX2());
@@ -329,7 +333,7 @@ namespace game_framework {
 
 	void CCharacter::TakeDmg(int dmg)
 	{
-		_shieldCounter = GAME_CYCLE_TIME * 5; // 5¬í
+		_shieldCounter = GAME_CYCLE_TIME * 5; // 5¬í(¬ù)
 		if (_shield)
 		{
 			_shield -= dmg;

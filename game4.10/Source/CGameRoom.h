@@ -59,6 +59,18 @@ namespace game_framework
 				_animas.reserve(AnimaSize);
 				for (int i = 0; i < AnimaSize; i++)
 					_animas.push_back(CAnimation());
+
+				_dtop, _dleft, _dright = 0;
+				this->SetTag("cleartreasure");
+			}
+
+			int GetX2()
+			{
+				return _mx + GetAnima(Anima::TREASURE)->Width();
+			}
+			int GetY2()
+			{
+				return _my + GetAnima(Anima::TREASURE)->Height();
 			}
 			void LoadBitmap()
 			{
@@ -77,11 +89,40 @@ namespace game_framework
 				{
 				}
 			}
-			void OnDie(CGameMap* map)
+			void OnDie(CGameMap* map) 
 			{
-				_animaIter->OnMove();
+				if (_dleft == -20 && _dright == 20 && _dtop > -4)
+					_dtop--;
+				if (_dleft > -20)
+					_dleft--;
+				if (_dright < 20)
+					_dright++;
 			}
+			void OnMove(CGameMap* map)
+			{
+				for (CAnimation anima : _animas)
+				{
+					anima.OnMove();
+				}
+			}
+			void OnShow(CGameMap* map)
+			{
+				_animaIter = GetAnima(Anima::TREASURE);
+				_animaIter->SetTopLeft(map->ScreenX(_mx), map->ScreenY(_my));
+				_animaIter->OnShow();
+				_animaIter = GetAnima(Anima::TOP);
+				_animaIter->SetTopLeft(map->ScreenX(_mx + 1), map->ScreenY(_my + _dtop));
+				_animaIter->OnShow();
+				_animaIter = GetAnima(Anima::LEFTCOVER);
+				_animaIter->SetTopLeft(map->ScreenX(_mx + 2 + _dleft), map->ScreenY(_my + _dtop));
+				_animaIter->OnShow();
+				_animaIter = GetAnima(Anima::RIGHTCOVER);
+				_animaIter->SetTopLeft(map->ScreenX(_mx + 20 + _dright), map->ScreenY(_my + _dtop));
+				_animaIter->OnShow();
+			}
+
 		protected:
+			int _dtop, _dleft, _dright;
 		private:
 			vector<CAnimation>::iterator GetAnima(Anima type)
 			{
