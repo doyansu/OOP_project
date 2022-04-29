@@ -51,10 +51,10 @@ namespace game_framework
 		class ClearTreasure : public CGameObj
 		{
 		public:
-			enum class Anima { TREASURE, LEFTCOVER, RIGHTCOVER };
+			enum class Anima { TREASURE, LEFTCOVER, RIGHTCOVER, TOP };
 			ClearTreasure()
 			{
-				const int AnimaSize = 3;
+				const int AnimaSize = 4;
 				_animas.clear();
 				_animas.reserve(AnimaSize);
 				for (int i = 0; i < AnimaSize; i++)
@@ -64,6 +64,12 @@ namespace game_framework
 			{
 				_animaIter = GetAnima(Anima::TREASURE);
 				_animaIter->AddBitmap(IDB_TREASURE_0_0, RGB(255, 255, 255));
+				_animaIter = GetAnima(Anima::TOP);
+				_animaIter->AddBitmap(IDB_TREASURE_0_top, RGB(255, 255, 255));
+				_animaIter = GetAnima(Anima::LEFTCOVER);
+				_animaIter->AddBitmap(IDB_TREASURE_0_left, RGB(255, 255, 255));
+				_animaIter = GetAnima(Anima::RIGHTCOVER);
+				_animaIter->AddBitmap(IDB_TREASURE_0_right, RGB(255, 255, 255));
 			}
 			void OnObjCollision(CGameMap* map, CGameObj* other)
 			{

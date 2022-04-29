@@ -310,6 +310,12 @@ IDB_ItemArrow_5         BITMAP                  "..\\res\\enemy\\bmp00023.bmp"
 
 IDB_TREASURE_0_0        BITMAP                  "..\\res\\enemy\\bmp00024.bmp"
 
+IDB_TREASURE_0_top      BITMAP                  "..\\res\\enemy\\bmp00025.bmp"
+
+IDB_TREASURE_0_left     BITMAP                  "..\\res\\enemy\\bitmap54.bmp"
+
+IDB_TREASURE_0_right    BITMAP                  "..\\res\\enemy\\bmp00026.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
