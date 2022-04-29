@@ -62,6 +62,11 @@ namespace game_framework
 			return maxObj;
 		}
 
+		static vector<CGameObj*> GetAllObj()
+		{
+			return _allObj;
+		}
+
 	protected:
 
 	private:

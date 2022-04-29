@@ -179,10 +179,15 @@ namespace game_framework
 	{
 		_DT = DT;
 		// °Êµe§PÂ_
+		if (_user == nullptr)
+			return;
+
 		if (_DT == 1) {
+			this->SetXY(_user->CenterX(), _user->CenterY() - (this->GetHeight() / 3));
 			CGameWeapon::CGameObj::_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima::Theta_0);
 		}
 		else if (_DT == 0) {
+			this->SetXY(_user->CenterX() - this->GetWidth(), _user->CenterY() - (this->GetHeight() / 3));
 			CGameWeapon::CGameObj::_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima::Theta_180);
 		}
 		/*

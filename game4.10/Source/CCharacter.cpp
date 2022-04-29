@@ -148,32 +148,101 @@ namespace game_framework {
 				
 
 		//	¨¤¦â²¾°Ê
+		vector<CGameObj*> roomWalls = CGameObjCenter::FindObjsBy(
+			[](CGameObj* obj)
+			{
+				return obj->GetTag() == "roomwall";
+			}
+		);
+		int tempx = _mx, tempy = _my;
 		for (int i = 0; i < _moveSpeed; i++)
 		{
-			int tempx = _mx, tempy = _my;
+			
 			if (_isMovingLeft)
 			{
 				_mx -= 1;
 			}
-			if (_isMovingRight)
+			else if (_isMovingRight)
 			{
 				_mx += 1;
 			}
+			else
+			{
+				continue;
+			}
 
+			bool j = false;
 			if (CCharacter::CGameObj::Collision(map))
+			{
+				j = true;
+			}
+			else if ((int)roomWalls.size() > 0)
+			{
+				
+				for (CGameObj* obj : roomWalls)
+				{
+					if (this->Collision(obj))
+					{
+						j = true;
+						break;
+					}
+				}
+			}
+
+			if (j)
+			{
 				_mx = tempx;
+				break;
+			}
+			else
+			{
+				tempx = _mx;
+			}
+
+		}
+
+		for (int i = 0; i < _moveSpeed; i++)
+		{
 
 			if (_isMovingUp)
 			{
 				_my -= 1;
 			}
-			if (_isMovingDown)
+			else if (_isMovingDown)
 			{
 				_my += 1;
 			}
+			else
+			{
+				continue;
+			}
 
+			bool j = false;
 			if (CCharacter::CGameObj::Collision(map))
+			{
+				j = true;
+			}
+			else if ((int)roomWalls.size() > 0)
+			{
+
+				for (CGameObj* obj : roomWalls)
+				{
+					if (this->Collision(obj))
+					{
+						j = true;
+						break;
+					}
+				}
+			}
+			if (j)
+			{
 				_my = tempy;
+				break;
+			}
+			else
+			{
+				tempy = _my;
+			}
 		}
 		
 
