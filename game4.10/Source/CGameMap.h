@@ -64,13 +64,14 @@ namespace game_framework {
 			MapContent()
 			{
 				_type = CGameMap::ContentType::NULLPTR;
-				_cover = false;
+				_cover = _show  = false;
 			}
-			MapContent(CGameMap::ContentType type, vector<CAnimation>::iterator anima, bool cover = false)
+			MapContent(CGameMap::ContentType type, vector<CAnimation>::iterator anima, bool cover = false, bool show = false)
 			{
 				_type = type;
 				_anima = anima;
 				_cover = cover;
+				_show = show;
 			}
 			
 			bool IsType(CGameMap::ContentType type)// 好像有 bug 會在這邊中斷 (4/16 更新地圖實作開始) (4/30 補充已修正)
@@ -80,6 +81,10 @@ namespace game_framework {
 			bool IsCover()
 			{
 				return _cover;
+			}
+			bool IsShow()
+			{
+				return _show;
 			}
 
 			CGameMap::ContentType GetType()
@@ -93,7 +98,7 @@ namespace game_framework {
 		protected:
 			CGameMap::ContentType _type;
 			vector<CAnimation>::iterator _anima;
-			bool _cover;
+			bool _cover, _show;						//	是否覆蓋物件、是否特殊顯示
 		private:
 		};
 

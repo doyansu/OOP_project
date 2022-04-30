@@ -118,22 +118,39 @@ namespace game_framework {
 			{
 				int mx = _MAPW * i, my = _MAPH * j;
 				MapContent content = _map[i][j];
-				if (cover == content.IsCover() && !content.IsType(ContentType::NULLPTR) && (this->InScreen(mx, my, mx + _MAPW, my + _MAPH)))
+				if (!content.IsType(ContentType::NULLPTR) && (this->InScreen(mx, my, mx + _MAPW, my + _MAPH)))
 				{
 					vector<CAnimation>::iterator p = content.GetAnima();
 
-					if (content.IsType(ContentType::WALL))
+					if (cover)
 					{
-						p->SetTopLeft(ScreenX(mx), ScreenY(my - 12));
-						p->OnShow();
-						p = GetAnima(ContentType::WALLBOTTOM, 0);
-						p->SetTopLeft(ScreenX(mx), ScreenY(my + 13));
-						p->OnShow();
+						if (content.IsCover() && content.IsType(ContentType::WALL))
+						{
+							p->SetTopLeft(ScreenX(mx), ScreenY(my - 12));
+							p->OnShow();
+							if (content.IsShow())
+							{
+								p = GetAnima(ContentType::WALLBOTTOM, 0);
+								p->SetTopLeft(ScreenX(mx), ScreenY(my + 13));
+								p->OnShow();
+							}
+						}
 					}
-					else
+					else 
 					{
-						p->SetTopLeft(ScreenX(mx), ScreenY(my));
-						p->OnShow();
+						if (content.IsType(ContentType::WALL))
+						{
+							p->SetTopLeft(ScreenX(mx), ScreenY(my - 12));
+							p->OnShow();
+							p = GetAnima(ContentType::WALLBOTTOM, 0);
+							p->SetTopLeft(ScreenX(mx), ScreenY(my + 13));
+							p->OnShow();
+						}
+						else
+						{
+							p->SetTopLeft(ScreenX(mx), ScreenY(my));
+							p->OnShow();
+						}
 					}
 				}
 			}
@@ -309,8 +326,17 @@ namespace game_framework {
 					w2 = _Rooms[i][j + 1]._high;
 					for (int y = cy + w1 / 2 + 1; y < cy + INTERNAL - w2 / 2; y++)
 					{
-						_map[cx + 3][y] = MapContent(ContentType::WALL, GetAnima(ContentType::WALL), true);
-						_map[cx - 3][y] = MapContent(ContentType::WALL, GetAnima(ContentType::WALL), true);
+						if (y == cy + w1 / 2 + 1)
+						{
+							_map[cx + 3][y] = MapContent(ContentType::WALL, GetAnima(ContentType::WALL), true);
+							_map[cx - 3][y] = MapContent(ContentType::WALL, GetAnima(ContentType::WALL), true);
+						}
+						else
+						{
+							_map[cx + 3][y] = MapContent(ContentType::WALL, GetAnima(ContentType::WALL));
+							_map[cx - 3][y] = MapContent(ContentType::WALL, GetAnima(ContentType::WALL));
+						}
+						
 						for (int x = -2; x < 3; x++)
 						{
 							_map[cx + x][y] = MapContent(ContentType::FLOOR, GetAnima(ContentType::FLOOR));
