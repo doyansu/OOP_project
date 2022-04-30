@@ -239,7 +239,7 @@ namespace game_framework {
 
 				for (int x = 0; x < width; x++)
 				{
-					_map[orgx + x][orgy - 1] = MapContent(ContentType::WALL, GetAnima(ContentType::WALL), true);
+					_map[orgx + x][orgy - 1] = MapContent(ContentType::WALL, GetAnima(ContentType::WALL));
 					_map[orgx + x][orgy + high] = MapContent(ContentType::WALL, GetAnima(ContentType::WALL), true);
 				}
 

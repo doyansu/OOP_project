@@ -118,7 +118,8 @@ namespace game_framework {
 
 	void CCharacter::OnShow(CGameMap* map)
 	{
-		CCharacter::CGameObj::OnShow(map);
+		_animaIter->SetTopLeft(map->ScreenX(_mx), map->ScreenY(_my - 20));
+		_animaIter->OnShow();
 		if(!_isDie)
 			(*_nowWeapon)->OnShow(map);
 	}
@@ -495,6 +496,15 @@ namespace game_framework {
 	int CCharacter::GetMAXShield()
 	{
 		return _maxShield;
+	}
+
+	int CCharacter::GetX2()
+	{
+		return _mx + 50;
+	}
+	int CCharacter::GetY2()
+	{
+		return _my + 30;
 	}
 
 	void CCharacter::SetXY(int x, int y)

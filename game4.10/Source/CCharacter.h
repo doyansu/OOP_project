@@ -20,6 +20,8 @@ namespace game_framework {
 		int GetMAXMP();
 		int GetShield();
 		int GetMAXShield();
+		int GetX2();
+		int GetY2();
 
 		void SetXY(int x, int y);
 
