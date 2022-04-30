@@ -58,8 +58,8 @@ namespace game_framework {
 		_doSomeThing = false;
 		_canAttack = true;
 		_attCounter = 0;
-		_deathCounter = GAME_CYCLE_TIME * 2;	
-		_shieldCounter = GAME_CYCLE_TIME;
+		_deathCounter = GAME_ONE_SECONED * 2;
+		_shieldCounter = GAME_ONE_SECONED;
 		CCharacter::CGameObj::Reset();
 		_vector[0] = 1;	//預設朝右
 		DT = 1;
@@ -346,7 +346,7 @@ namespace game_framework {
 		// 護頓計數
 		if (--_shieldCounter == 0)
 		{
-			_shieldCounter = GAME_CYCLE_TIME;
+			_shieldCounter = GAME_ONE_SECONED;
 			ModifyShield(1);
 		}
 			
@@ -402,7 +402,7 @@ namespace game_framework {
 
 	void CCharacter::TakeDmg(int dmg)
 	{
-		_shieldCounter = GAME_CYCLE_TIME * 5; // 5秒(約)
+		_shieldCounter = GAME_ONE_SECONED * 5; // 5秒(約)
 		if (_shield)
 		{
 			_shield -= dmg;

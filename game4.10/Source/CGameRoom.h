@@ -2,7 +2,7 @@
 #include "CEnemy.h"
 #include "CCharacter.h"
 #include "CGameObjCenter.h"
-#define REGENERATETIME GAME_CYCLE_TIME >> 1
+#define REGENERATETIME GAME_ONE_SECONED >> 1
 
 namespace game_framework
 {
