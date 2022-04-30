@@ -501,8 +501,9 @@ void CGameStateRun::OnShow()
 	corner.ShowBitmap();*/
 
 	// GAME
-	gameMap.OnShow();
+	gameMap.OnShow(false);
 	gameObjCenter.OnShow(&gameMap);
+	gameMap.OnShow(true);
 
 	// UI
 	HPBACKGROUND.ShowBitmap();

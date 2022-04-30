@@ -34,7 +34,7 @@ namespace game_framework {
 	class CGameMap
 	{
 	public:
-		enum class ContentType {NULLPTR, FLOOR, WALL, AISLEWALL};		//地圖內容物類型
+		enum class ContentType { NULLPTR, FLOOR, WALL, AISLEWALL, WALLBOTTOM };		//地圖內容物類型
 		CGameMap();
 		~CGameMap();
 		void LoadBitmap();
@@ -50,7 +50,7 @@ namespace game_framework {
 		void SetScreen(int x, int y);	
 
 		void OnMove(int x, int y);
-		void OnShow();
+		void OnShow(bool cover = false);
 		void OnKeyUp(char nChar);
 		void OnKeyDown(char nChar);
 		void GenerateMap();				//	生成地圖
@@ -64,16 +64,22 @@ namespace game_framework {
 			MapContent()
 			{
 				_type = CGameMap::ContentType::NULLPTR;
+				_cover = false;
 			}
-			MapContent(CGameMap::ContentType type, vector<CAnimation>::iterator anima)
+			MapContent(CGameMap::ContentType type, vector<CAnimation>::iterator anima, bool cover = false)
 			{
 				_type = type;
 				_anima = anima;
+				_cover = cover;
 			}
 			
-			bool IsType(CGameMap::ContentType type)// 好像有 bug 會在這邊中斷 (4/16 更新地圖實作開始)
+			bool IsType(CGameMap::ContentType type)// 好像有 bug 會在這邊中斷 (4/16 更新地圖實作開始) (4/30 補充已修正)
 			{
 				return _type == type;
+			}
+			bool IsCover()
+			{
+				return _cover;
 			}
 
 			CGameMap::ContentType GetType()
@@ -87,12 +93,13 @@ namespace game_framework {
 		protected:
 			CGameMap::ContentType _type;
 			vector<CAnimation>::iterator _anima;
+			bool _cover;
 		private:
 		};
 
 		CGameMap::MapContent _map[MYMAPSIZE][MYMAPSIZE];			
 		int _sx, _sy, _moveSpeed;						// 螢幕點座標、移動速度			
-		vector<vector<CAnimation>> _animas;						// 地圖動畫
+		vector<vector<CAnimation>> _animas;				// 地圖動畫
 		const int _MAPW, _MAPH;							// 地圖每格寬高
 		const int _MAXNOFROOM;							// 最大房間數 _MAXNOFROOM * _MAXNOFROOM
 		RoomData** _Rooms;								// 房間資料
