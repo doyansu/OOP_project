@@ -245,8 +245,16 @@ namespace game_framework {
 
 				for (int y = -1; y < high + 1; y++)
 				{
-					_map[orgx - 1][orgy + y] = MapContent(ContentType::WALL, GetAnima(ContentType::WALL));
-					_map[orgx + width][orgy + y] = MapContent(ContentType::WALL, GetAnima(ContentType::WALL));
+					if (y < (high >> 1))
+					{
+						_map[orgx - 1][orgy + y] = MapContent(ContentType::WALL, GetAnima(ContentType::WALL));
+						_map[orgx + width][orgy + y] = MapContent(ContentType::WALL, GetAnima(ContentType::WALL));
+					}
+					else
+					{
+						_map[orgx - 1][orgy + y] = MapContent(ContentType::WALL, GetAnima(ContentType::WALL), true);
+						_map[orgx + width][orgy + y] = MapContent(ContentType::WALL, GetAnima(ContentType::WALL), true);
+					}
 				}
 
 				// 一般怪物房間障礙設定
@@ -278,10 +286,7 @@ namespace game_framework {
 					// 主通道
 					for (int x = cx + h1 / 2 + 1 ; x < cx + INTERNAL - h2 / 2; x++)
 					{
-						if (x != cx + h1 / 2 + 1 && x != cx + INTERNAL - h2 / 2 - 1)
-						{
-							_map[x][cy - 3] = MapContent(ContentType::WALL, GetAnima(ContentType::WALL), true);
-						}
+						_map[x][cy - 3] = MapContent(ContentType::WALL, GetAnima(ContentType::WALL));
 						_map[x][cy + 3] = MapContent(ContentType::WALL, GetAnima(ContentType::WALL), true);
 						
 						for (int y = -2; y < 3; y++)
