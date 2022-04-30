@@ -240,63 +240,6 @@ namespace game_framework
 		return _my + MYMAPHIGH * _room.High();
 	}
 
-	// 間隔通道物件
-	CGameRoom::RoomWall::RoomWall()
-	{
-		// 動畫載入
-		const int AnimaSize = 2;
-		_animas.clear();
-		_animas.reserve(AnimaSize);
-		for (int i = 0; i < AnimaSize; i++)
-			_animas.push_back(CAnimation());
-
-		// 屬性設定
-		this->SetTag("roomwall");
-	}
-
-	void CGameRoom::RoomWall::LoadBitmap()
-	{
-		_animaIter = _animas.begin();
-		_animaIter->AddBitmap(IDB_Wall1, RGB(255, 255, 255));
-		_animaIter->AddBitmap(IDB_Wall2, RGB(255, 255, 255));
-
-		_animaIter = _animas.begin() + 1;
-		_animaIter->AddBitmap(IDB_Wall2, RGB(255, 255, 255));
-		_animaIter->AddBitmap(IDB_Wall1, RGB(255, 255, 255));
-		_animaIter->AddBitmap(IDB_Wall0, RGB(255, 255, 255));
-	}
-
-	void CGameRoom::RoomWall::OnMove(CGameMap* map)
-	{
-		if(!_animaIter->IsFinalBitmap())
-			_animaIter->OnMove();
-	}
-
-	void CGameRoom::RoomWall::OnDie(CGameMap* map)
-	{
-		_animaIter = _animas.begin() + 1;
-		if (!_animaIter->IsFinalBitmap())
-			_animaIter->OnMove();
-		else
-			this->SetDie(false);
-	}
-
-	void CGameRoom::RoomWall::OnObjCollision(CGameMap* map, CGameObj* other)
-	{
-		if (other->GetTag() == "player")
-		{
-			// 開發中暫時拿掉
-			while (this->Collision(other))
-			{
-				other->SetXY(other->GetX1() + (int)_vector[0], other->GetY1() + (int)_vector[1]);
-			}
-		}
-	}
-
-
-
-
-
 	// 傳送門物件
 	CGameTransferGate::CGameTransferGate()
 	{

@@ -25,16 +25,120 @@ namespace game_framework
 			clearTreasure.LoadBitmap();
 		}
 
+		// 間隔通道物件
 		class RoomWall : public CGameObj
 		{
 		public:
-			RoomWall();
-			void LoadBitmap();
-			void OnMove(CGameMap*);
-			void OnObjCollision(CGameMap*, CGameObj*);
-			void OnDie(CGameMap*);
+			enum class Anima { START, PILLARSTART, PILLAREND, END };
+			RoomWall()
+			{
+				// 動畫載入
+				const int AnimaSize = 4;
+				_animas.clear();
+				_animas.reserve(AnimaSize);
+				for (int i = 0; i < AnimaSize; i++)
+					_animas.push_back(CAnimation());
+
+				// 屬性設定
+				this->SetTag("roomwall");
+				this->SetShowPriority(12);
+				_dtop = 0;
+			}
+			void LoadBitmap()
+			{
+				_animaIter = GetAnima(Anima::START);
+				_animaIter->SetDelayCount(3);
+				_animaIter->AddBitmap(IDB_Wall2, RGB(255, 255, 255));
+				_animaIter->AddBitmap(IDB_Wall1, RGB(255, 255, 255));
+
+				_animaIter = GetAnima(Anima::PILLARSTART);
+				_animaIter->SetDelayCount(1);
+				_animaIter->AddBitmap(IDB_AISLEWALL_PILLAR_5, RGB(255, 255, 255));
+				_animaIter->AddBitmap(IDB_AISLEWALL_PILLAR_4, RGB(255, 255, 255));
+				_animaIter->AddBitmap(IDB_AISLEWALL_PILLAR_3, RGB(255, 255, 255));
+				_animaIter->AddBitmap(IDB_AISLEWALL_PILLAR_2, RGB(255, 255, 255));
+				_animaIter->AddBitmap(IDB_AISLEWALL_PILLAR_1, RGB(255, 255, 255));
+				_animaIter->AddBitmap(IDB_AISLEWALL_PILLAR_0, RGB(255, 255, 255));
+
+				_animaIter = GetAnima(Anima::PILLAREND);
+				_animaIter->SetDelayCount(1);
+				_animaIter->AddBitmap(IDB_AISLEWALL_PILLAR_0, RGB(255, 255, 255));
+				_animaIter->AddBitmap(IDB_AISLEWALL_PILLAR_1, RGB(255, 255, 255));
+				_animaIter->AddBitmap(IDB_AISLEWALL_PILLAR_2, RGB(255, 255, 255));
+				_animaIter->AddBitmap(IDB_AISLEWALL_PILLAR_3, RGB(255, 255, 255));
+				_animaIter->AddBitmap(IDB_AISLEWALL_PILLAR_4, RGB(255, 255, 255));
+				_animaIter->AddBitmap(IDB_AISLEWALL_PILLAR_5, RGB(255, 255, 255));
+
+				_animaIter = GetAnima(Anima::END);
+				_animaIter->SetDelayCount(3);
+				_animaIter->AddBitmap(IDB_Wall1, RGB(255, 255, 255));
+				_animaIter->AddBitmap(IDB_Wall2, RGB(255, 255, 255));
+				_animaIter->AddBitmap(IDB_AISLEWALL_0, RGB(255, 255, 255));
+			}
+			void OnMove(CGameMap*)
+			{
+				if (_dtop > -25)
+				{
+					_dtop -= 5;
+					if (!GetAnima(Anima::PILLARSTART)->IsFinalBitmap())
+						GetAnima(Anima::PILLARSTART)->OnMove();
+				}
+				else if (!GetAnima(Anima::START)->IsFinalBitmap())
+					GetAnima(Anima::START)->OnMove();
+			}
+			void OnShow(CGameMap* map)
+			{
+				if (this->_isEnable)
+				{
+					_animaIter = GetAnima(Anima::START);
+					_animaIter->SetTopLeft(map->ScreenX(_mx), map->ScreenY(_my + _dtop));
+					_animaIter->OnShow();
+					_animaIter = GetAnima(Anima::PILLARSTART);
+					_animaIter->SetTopLeft(map->ScreenX(_mx), map->ScreenY(_my + 25 + _dtop));
+					_animaIter->OnShow();
+				}
+				else
+				{
+					_animaIter = GetAnima(Anima::END);
+					_animaIter->SetTopLeft(map->ScreenX(_mx), map->ScreenY(_my + _dtop));
+					_animaIter->OnShow();
+					_animaIter = GetAnima(Anima::PILLAREND);
+					_animaIter->SetTopLeft(map->ScreenX(_mx), map->ScreenY(_my + 25 + _dtop));
+					_animaIter->OnShow();
+				}	
+				
+			}
+			void OnObjCollision(CGameMap*, CGameObj* other)
+			{
+				if (other->GetTag() == "player")
+				{
+					// 開發中暫時拿掉
+					while (this->Collision(other))
+					{
+						other->SetXY(other->GetX1() + (int)_vector[0], other->GetY1() + (int)_vector[1]);
+					}
+				}
+			}
+			void OnDie(CGameMap*)
+			{
+				if (_dtop < 0)
+				{
+					_dtop += 5;
+					if(!GetAnima(Anima::PILLAREND)->IsFinalBitmap())
+						GetAnima(Anima::PILLAREND)->OnMove();
+				}
+				else if (!GetAnima(Anima::END)->IsFinalBitmap())
+					GetAnima(Anima::END)->OnMove();
+				else
+					this->SetDie(false);
+			}
 		protected:
+			int _dtop;
 		private:
+			vector<CAnimation>::iterator GetAnima(Anima type)
+			{
+				return _animas.begin() + (int)type;
+			}
 		};
 
 	protected:
