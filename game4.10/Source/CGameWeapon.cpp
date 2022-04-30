@@ -27,6 +27,9 @@ namespace game_framework
 		_bulletSpeed = 20;
 		_DT = 1;
 		CGameWeapon::CGameObj::SetTag("weapon");
+		_center[0] = _center[1] = 0;
+
+
 		// 子彈設定
 		//_bullet = new CGameBullet(this->CenterX(), this->CenterY());
 		_bullet = new CGameBullet(this->GetX1(), this->GetY1());
@@ -66,6 +69,8 @@ namespace game_framework
 		this->_DT = other._DT;
 		this->_bullet = new CGameBullet(*(other._bullet));
 		this->_user = other._user;
+		this->_center[0] = other._center[0];
+		this->_center[1] = other._center[1];
 	}
 
 	void CGameWeapon::free()
@@ -104,11 +109,11 @@ namespace game_framework
 			return;
 
 		if (_DT == 1) {
-			this->SetXY(_user->CenterX(), _user->CenterY() - (this->GetHeight() / 3));
+			this->SetXY(this->_center[0], this->_center[1] - (this->GetHeight() / 3));
 			CGameWeapon::CGameObj::_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima::Theta_0);
 		}
 		else if (_DT == 0) {
-			this->SetXY(_user->CenterX() - this->GetWidth(), _user->CenterY() - (this->GetHeight() / 3));
+			this->SetXY(this->_center[0] - this->GetWidth(), this->_center[1] - (this->GetHeight() / 3));
 			CGameWeapon::CGameObj::_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima::Theta_180);
 		}
 
@@ -182,14 +187,14 @@ namespace game_framework
 		if (_user == nullptr)
 			return;
 
-		if (_DT == 1) {
+		/*if (_DT == 1) {
 			this->SetXY(_user->CenterX(), _user->CenterY() - (this->GetHeight() / 3));
 			CGameWeapon::CGameObj::_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima::Theta_0);
 		}
 		else if (_DT == 0) {
 			this->SetXY(_user->CenterX() - this->GetWidth(), _user->CenterY() - (this->GetHeight() / 3));
 			CGameWeapon::CGameObj::_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima::Theta_180);
-		}
+		}*/
 		/*
 		// 旋轉角度
 		const int STEPS = 8;									// 分 STEPS 個方向
@@ -237,5 +242,11 @@ namespace game_framework
 		_shootDelay = shootDelay;
 		_bullet->SetSpeed(_bulletSpeed);
 		_bullet->SetDamage(atk);
+	}
+
+	void CGameWeapon::SetCenter(int x, int y)
+	{
+		_center[0] = x;
+		_center[1] = y;
 	}
 }

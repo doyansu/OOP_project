@@ -41,7 +41,6 @@ namespace game_framework
 
 				// ÄÝ©Ê³]©w
 				this->SetTag("roomwall");
-				this->SetShowPriority(12);
 				_dtop = 0;
 			}
 			void LoadBitmap()

@@ -267,8 +267,10 @@ namespace game_framework {
 			_vector[0] = 0;*/
 
 		//	ªZ¾¹²¾°Ê
+		(*_nowWeapon)->SetCenter(this->CenterX(), this->CenterY());
 		(*_nowWeapon)->OnMove(map);
 		(*_nowWeapon)->SetDT(DT);
+		
 		/*if(DT)
 			_nowWeapon->SetXY(this->CenterX(), this->CenterY());
 		else 

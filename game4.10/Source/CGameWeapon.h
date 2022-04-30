@@ -18,6 +18,7 @@ namespace game_framework
 		void SetTarget(string);
 		void SetUser(CGameObj*);
 		void SetAttributes(int atk, int cost, int bulletSpeed, int shootDelay);
+		void SetCenter(int, int);
 
 		void LoadBitmap();
 		void OnMove(CGameMap* map);
@@ -29,11 +30,12 @@ namespace game_framework
 		//CGameWeapon& operator=(const CGameWeapon&);
 
 	protected:
-		bool _fire;
+		bool _fire;		
+		int _center[2];								//	使用者想要的位置
 		int _cost, _bulletSpeed, _shootDelay;		//	攻擊力、消耗能量、子彈速度、攻擊速度
-		int _fireCounter;					//	射擊間格計數
-		int _DT;							//	動畫判斷
-		CGameBullet* _bullet;				//	子彈設定
+		int _fireCounter;							//	射擊間格計數
+		int _DT;									//	動畫判斷
+		CGameBullet* _bullet;						//	子彈設定
 		CGameObj* _user;
 						
 

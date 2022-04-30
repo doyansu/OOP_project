@@ -77,7 +77,9 @@ namespace game_framework
 			for (int x = -2; x < 3; x++)
 			{
 				wall.SetXY(MYMAPWIDTH * (cx + x), MYMAPHIGH * (cy + (h / 2) + 1));
-				_roomWalls.push_back(new RoomWall(wall));
+				RoomWall* newWall = new RoomWall(wall);								//	下方的需顯示高於玩家
+				newWall->SetShowPriority(12);			
+				_roomWalls.push_back(newWall);
 			}
 		}
 		// 左方有通道

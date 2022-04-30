@@ -119,6 +119,7 @@ namespace game_framework {
 		}
 
 		// ªZ¾¹²¾°Ê
+		_weapon->SetCenter(this->CenterX(), this->CenterY());
 		_weapon->OnMove(map);
 		
 		// ªZ¾¹®gÀ»
