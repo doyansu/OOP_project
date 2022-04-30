@@ -279,10 +279,19 @@ void CGameStateRun::OnBeginState()
 			case RoomData::RoomType::END:		// 傳送房間
 			{
 				//TransferGate.SetXY(roomdata.CenterX() * MYMAPWIDTH, roomdata.CenterY() * MYMAPHIGH);
-				TransferGate.SetXY(roomdata.CenterX() * MYMAPWIDTH - (TransferGate.Width() >> 1) + (MYMAPWIDTH >> 1), roomdata.CenterY() * MYMAPHIGH - (TransferGate.Height() >> 1) + (MYMAPHIGH >> 1));
+				TransferGate.SetXY(roomdata.CenterX() * MYMAPWIDTH - (TransferGate.Width() >> 1) + (MYMAPWIDTH >> 1),
+					roomdata.CenterY() * MYMAPHIGH - (TransferGate.Height() >> 1) + (MYMAPHIGH >> 1));
 				CGameObjCenter::AddObj(&TransferGate);
 				break;
 			}	
+			case RoomData::RoomType::TREASURE:	//	寶箱房間
+			{
+				CGameTreasure* treasure = new CGameTreasure(gameTreasure);
+				treasure->SetXY(roomdata.CenterX() * MYMAPWIDTH - (treasure->Width() >> 1) + (MYMAPWIDTH >> 1),
+					roomdata.CenterY() * MYMAPHIGH - (treasure->Height() >> 1) + (MYMAPHIGH >> 1));
+				CGameObjCenter::AddObj(treasure);
+				break;
+			}
 			default:
 				break;
 			}
@@ -407,6 +416,7 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	gameMap.LoadBitmap();
 	character.LoadBitmap();
 	TransferGate.LoadBitmap();
+	gameTreasure.LoadBitmap();
 
 	// UI
 	CInteger::LoadBitmap();

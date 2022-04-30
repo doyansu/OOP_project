@@ -370,6 +370,11 @@ namespace game_framework {
 		{
 			other->TakeDmg(99999);
 		}
+		else if (other->GetTag() == "treasure")
+		{
+			if(_doSomeThing)
+				other->TakeDmg(99999);
+		}
 		/*if (other->GetTag() == "enemy")
 		{
 			other->SetXY(other->GetX1(), other->GetX2());

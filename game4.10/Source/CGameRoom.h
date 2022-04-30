@@ -163,7 +163,7 @@ namespace game_framework
 				for (int i = 0; i < AnimaSize; i++)
 					_animas.push_back(CAnimation());
 
-				_dtop, _dleft, _dright = 0;
+				_dtop = _dleft = _dright = 0;
 				this->SetTag("cleartreasure");
 			}
 
@@ -236,20 +236,21 @@ namespace game_framework
 		static ClearTreasure clearTreasure;
 	};
 
-	/*class ClearTreasure : public CGameObj
+	class CGameTreasure : public CGameObj
 	{
 	public:
-		enum class Anima { TREASURE, LEFTCOVER, RIGHTCOVER, TOP };
-		ClearTreasure()
+		enum class Anima { TREASURE, LEFTCOVER, RIGHTCOVER, TOP, ARROW, ANIMACOUNT};
+		CGameTreasure()
 		{
-			const int AnimaSize = 4;
+			const int AnimaSize = (int)Anima::ANIMACOUNT;
 			_animas.clear();
 			_animas.reserve(AnimaSize);
 			for (int i = 0; i < AnimaSize; i++)
 				_animas.push_back(CAnimation());
 
-			_dtop, _dleft, _dright = 0;
-			this->SetTag("cleartreasure");
+			_dtop = _dleft = _dright = 0;
+			_collPlayer = false;
+			this->SetTag("treasure");
 		}
 
 		int GetX2()
@@ -259,6 +260,14 @@ namespace game_framework
 		int GetY2()
 		{
 			return _my + GetAnima(Anima::TREASURE)->Height();
+		}
+		int Width()
+		{
+			return GetAnima(Anima::TREASURE)->Width();
+		}
+		int Height()
+		{
+			return GetAnima(Anima::TREASURE)->Height();
 		}
 		void LoadBitmap()
 		{
@@ -270,11 +279,24 @@ namespace game_framework
 			_animaIter->AddBitmap(IDB_TREASURE_0_left, RGB(255, 255, 255));
 			_animaIter = GetAnima(Anima::RIGHTCOVER);
 			_animaIter->AddBitmap(IDB_TREASURE_0_right, RGB(255, 255, 255));
+			_animaIter = GetAnima(Anima::ARROW);
+			_animaIter->SetDelayCount(2);
+			_animaIter->AddBitmap(IDB_ItemArrow_0, RGB(0, 0, 0));
+			_animaIter->AddBitmap(IDB_ItemArrow_1, RGB(0, 0, 0));
+			_animaIter->AddBitmap(IDB_ItemArrow_2, RGB(0, 0, 0));
+			_animaIter->AddBitmap(IDB_ItemArrow_3, RGB(0, 0, 0));
+			_animaIter->AddBitmap(IDB_ItemArrow_4, RGB(0, 0, 0));
+			_animaIter->AddBitmap(IDB_ItemArrow_5, RGB(0, 0, 0));
+			_animaIter->AddBitmap(IDB_ItemArrow_4, RGB(0, 0, 0));
+			_animaIter->AddBitmap(IDB_ItemArrow_3, RGB(0, 0, 0));
+			_animaIter->AddBitmap(IDB_ItemArrow_2, RGB(0, 0, 0));
+			_animaIter->AddBitmap(IDB_ItemArrow_1, RGB(0, 0, 0));
 		}
 		void OnObjCollision(CGameMap* map, CGameObj* other)
 		{
-			if (other->GetTag() == "player")
+			if (!_collPlayer && other->GetTag() == "player")
 			{
+				_collPlayer = true;
 			}
 		}
 		void OnDie(CGameMap* map)
@@ -285,13 +307,20 @@ namespace game_framework
 				_dleft--;
 			if (_dright < 20)
 				_dright++;
+
 		}
 		void OnMove(CGameMap* map)
 		{
-			for (CAnimation anima : _animas)
+			if (_collPlayer)
 			{
-				anima.OnMove();
+				GetAnima(Anima::ARROW)->OnMove();
+				_collPlayer = false;
 			}
+			else // 重製動畫
+			{
+				GetAnima(Anima::ARROW)->Reset();
+			}
+
 		}
 		void OnShow(CGameMap* map)
 		{
@@ -307,16 +336,25 @@ namespace game_framework
 			_animaIter = GetAnima(Anima::RIGHTCOVER);
 			_animaIter->SetTopLeft(map->ScreenX(_mx + 20 + _dright), map->ScreenY(_my + _dtop));
 			_animaIter->OnShow();
+
+			if (_collPlayer && !_isDie)
+			{
+				_animaIter = GetAnima(Anima::ARROW);
+				_animaIter->SetTopLeft(map->ScreenX(_mx + ((GetAnima(Anima::TREASURE)->Width() - _animaIter->Width()) >> 1)),
+					map->ScreenY(_my - _animaIter->Height()));
+				_animaIter->OnShow();
+			}
 		}
 
 	protected:
+		int _collPlayer;				//	碰到玩家
 		int _dtop, _dleft, _dright;
 	private:
 		vector<CAnimation>::iterator GetAnima(Anima type)
 		{
 			return _animas.begin() + (int)type;
 		}
-	};*/
+	};
 
 
 

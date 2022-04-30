@@ -122,11 +122,12 @@ namespace game_framework {
 		CInteger HP, MP, SP, MAXHP, MAXMP, MAXSP;
 		CMovingBitmap HPBACKGROUND, SLASH, HPBAR, SPBAR, MPBAR;
 
-		// ¹CÀ¸
+		// GAME
 		CGameMap gameMap;
 		CGameObjCenter gameObjCenter;
 		CCharacter character;
 		CGameTransferGate TransferGate;
+		CGameTreasure gameTreasure;
 
 		// debug
 		CInteger debugx, debugy;

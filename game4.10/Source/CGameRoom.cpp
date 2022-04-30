@@ -242,6 +242,10 @@ namespace game_framework
 		return _my + MYMAPHIGH * _room.High();
 	}
 
+
+
+
+
 	// 傳送門物件
 	CGameTransferGate::CGameTransferGate()
 	{
