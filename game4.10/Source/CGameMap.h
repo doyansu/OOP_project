@@ -53,7 +53,7 @@ namespace game_framework {
 		void OnShow(bool cover = false);
 		void OnKeyUp(char nChar);
 		void OnKeyDown(char nChar);
-		void GenerateMap();				//	生成地圖
+		void GenerateMap(bool hasBOSS = false);				//	生成地圖
 		void Reset();
 
 	protected:
@@ -121,12 +121,16 @@ namespace game_framework {
 			Point()
 			{
 				_xy[0] = _xy[1] = 0;
+				_childs.reserve(3);
+				_parent = nullptr;
 			}
 
 			Point(int x, int y)
 			{
 				_xy[0] = x;
 				_xy[1] = y;
+				_childs.reserve(3);
+				_parent = nullptr;
 			}
 
 			void Set(int index, int value)
@@ -136,6 +140,16 @@ namespace game_framework {
 				_xy[index] = value;
 			}
 
+			void SetParent(Point* parent)
+			{
+				_parent = parent;
+			}
+
+			void AddChild(Point* child)
+			{
+				_childs.push_back(child);
+			}
+
 			int Get(int index)
 			{
 				if (index > 1 || index < 0)
@@ -143,8 +157,20 @@ namespace game_framework {
 				return _xy[index];
 			}
 
+			void freeTree()
+			{
+				for (Point* child : _childs)
+				{
+					child->freeTree();
+				}
+				delete this;
+			}
+
 		private:
 			int _xy[2];
+			Point* _parent;
+			vector<Point*> _childs;
 		};
+		Point* _roomTree;
 	};
 }

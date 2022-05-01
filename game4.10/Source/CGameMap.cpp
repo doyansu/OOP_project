@@ -17,7 +17,8 @@ namespace game_framework {
 		for (int i = 0; i < AnimaSize; i++)
 			_animas.push_back(vector<CAnimation>());
 
-		_Rooms = nullptr;
+		_Rooms = nullptr; 
+		_roomTree = nullptr;
 
 		Reset();
 	}
@@ -53,6 +54,12 @@ namespace game_framework {
 			delete[] _Rooms;
 			_Rooms = nullptr;
 		}
+		if (_roomTree != nullptr)
+		{
+			_roomTree->freeTree();
+			_roomTree = nullptr;
+		}
+		
 	}
 
 	void CGameMap::LoadBitmap()
@@ -157,7 +164,7 @@ namespace game_framework {
 		}
 	}
 
-	void CGameMap::GenerateMap()
+	void CGameMap::GenerateMap(bool hasBOSS)
 	{
 		Reset();
 		
@@ -172,7 +179,68 @@ namespace game_framework {
 		_Rooms[MYORGROOM][MYORGROOM]._centerX = (INTERNAL >> 1) + INTERNAL * MYORGROOM;
 		_Rooms[MYORGROOM][MYORGROOM]._centerY = (INTERNAL >> 1) + INTERNAL * MYORGROOM;
 
+		_roomTree = new Point(MYORGROOM, MYORGROOM);
+		/*
 		// 隨機選一個方向開始增加房間
+		queue<CGameMap::Point*> queue;
+		CGameMap::Point* start = new Point(MYORGROOM, MYORGROOM);
+		start->Set((rand() % 2), MYORGROOM + (1 ^ ((1 ^ -1) * (rand() % 2))));
+		queue.push(start);
+		_roomTree->AddChild(start);
+		int specialRoom = 1 + (rand() % 3);						// 特殊房間數
+		int normalRoom = 2 + (rand() % 3);
+		int maxRoom = specialRoom + normalRoom + 1;			// 最大額外房間數
+		int dir[4][2] = { {0, -1}, {0, 1}, {-1, 0}, {1, 0} };	// 搜索用向量
+		while (!queue.empty() && maxRoom)
+		{
+			CGameMap::Point* point = queue.front();
+			int x = point->Get(0), y = point->Get(1);
+			if (!_Rooms[x][y]._hasRoom)
+			{
+				// 初始化房間參數
+				_Rooms[x][y]._hasRoom = true;
+				_Rooms[x][y]._roomType = RoomData::RoomType::NORMAL;
+				_Rooms[x][y]._width = 15 + (rand() % 5) * 2;
+				_Rooms[x][y]._high = 15 + (rand() % 5) * 2;
+				_Rooms[x][y]._centerX = (INTERNAL >> 1) + INTERNAL * x;
+				_Rooms[x][y]._centerY = (INTERNAL >> 1) + INTERNAL * y;
+
+				// 隨機選周邊房間
+				int rTimes = 2 + (rand() % 2);
+				while (rTimes--)
+				{
+					int nx, ny, m = 10;
+					int jx = 0, jy = 0;		// 判斷初始房間周圍不出現房間
+					do {
+						int r = rand() % 4;
+						nx = x + dir[r][0], ny = y + dir[r][1];
+						jx = abs(nx - MYORGROOM);
+						jy = abs(ny - MYORGROOM);
+					} while ((nx < 0 || ny < 0 || nx == MYMAXNOFROOM || ny == MYMAXNOFROOM || _Rooms[nx][ny]._hasRoom || jx + jy <= 1) && m-- > 0);
+					if(nx >= 0 && ny >= 0 && nx < MYMAXNOFROOM && ny < MYMAXNOFROOM && jx + jy > 1 && m)
+						queue.push(CGameMap::Point(nx, ny));
+				}
+
+				// 設定特殊房間
+				if (--maxRoom == 0)// 最後一個為傳送房間
+				{
+					_Rooms[x][y]._roomType = RoomData::RoomType::END;
+					_Rooms[x][y]._width = 11;
+					_Rooms[x][y]._high = 11;
+				}
+				else if (maxRoom <= specialRoom)// 特殊房間
+				{
+					// 寶箱房間
+					_Rooms[x][y]._roomType = RoomData::RoomType::TREASURE;
+					_Rooms[x][y]._width = 11;
+					_Rooms[x][y]._high = 11;
+				}
+			}
+			queue.pop();
+		}*/
+
+		
+		// 舊版生成
 		queue<CGameMap::Point> queue;
 		CGameMap::Point start(MYORGROOM, MYORGROOM);
 		start.Set((rand() % 2), MYORGROOM + (1 ^ ((1 ^ -1) * (rand() % 2))));
@@ -232,7 +300,7 @@ namespace game_framework {
 		// 沒生成完成重新生成一次
 		if (maxRoom)
 		{
-			CGameMap::GenerateMap();
+			CGameMap::GenerateMap(hasBOSS);
 			return;
 		}
 
