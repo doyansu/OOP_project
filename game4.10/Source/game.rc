@@ -332,6 +332,12 @@ IDB_AISLEWALL_PILLAR_4  BITMAP                  "..\\res\\enemy\\bitmap56.bmp"
 
 IDB_AISLEWALL_PILLAR_5  BITMAP                  "..\\res\\enemy\\bmp00032.bmp"
 
+IDB_TREASURE_0_1        BITMAP                  "..\\res\\enemy\\bmp00033.bmp"
+
+IDB_TREASURE_0_2        BITMAP                  "..\\res\\enemy\\bmp00034.bmp"
+
+IDB_TREASURE_0_3        BITMAP                  "..\\res\\enemy\\bmp00035.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //

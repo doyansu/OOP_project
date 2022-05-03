@@ -154,10 +154,10 @@ namespace game_framework
 		class ClearTreasure : public CGameObj
 		{
 		public:
-			enum class Anima { TREASURE, LEFTCOVER, RIGHTCOVER, TOP };
+			enum class Anima { TREASURE, TREASUREDIE, LEFTCOVER, RIGHTCOVER, TOP, ANIMACOUNT };
 			ClearTreasure()
 			{
-				const int AnimaSize = 4;
+				const int AnimaSize = (int)Anima::ANIMACOUNT;
 				_animas.clear();
 				_animas.reserve(AnimaSize);
 				for (int i = 0; i < AnimaSize; i++)
@@ -178,7 +178,17 @@ namespace game_framework
 			void LoadBitmap()
 			{
 				_animaIter = GetAnima(Anima::TREASURE);
+				_animaIter->SetDelayCount(5);
 				_animaIter->AddBitmap(IDB_TREASURE_0_0, RGB(255, 255, 255));
+				_animaIter->AddBitmap(IDB_TREASURE_0_1, RGB(255, 255, 255));
+				_animaIter->AddBitmap(IDB_TREASURE_0_2, RGB(255, 255, 255));
+				_animaIter->AddBitmap(IDB_TREASURE_0_3, RGB(255, 255, 255));
+				_animaIter->AddBitmap(IDB_TREASURE_0_2, RGB(255, 255, 255));
+				_animaIter->AddBitmap(IDB_TREASURE_0_1, RGB(255, 255, 255));
+
+				_animaIter = GetAnima(Anima::TREASUREDIE);
+				_animaIter->AddBitmap(IDB_TREASURE_0_0, RGB(255, 255, 255));
+
 				_animaIter = GetAnima(Anima::TOP);
 				_animaIter->AddBitmap(IDB_TREASURE_0_top, RGB(255, 255, 255));
 				_animaIter = GetAnima(Anima::LEFTCOVER);
@@ -201,18 +211,27 @@ namespace game_framework
 				if (_dright < 20)
 					_dright++;
 			}
+
 			void OnMove(CGameMap* map)
 			{
-				for (CAnimation anima : _animas)
-				{
-					anima.OnMove();
-				}
+				GetAnima(Anima::TREASURE)->OnMove();
 			}
+
 			void OnShow(CGameMap* map)
 			{
-				_animaIter = GetAnima(Anima::TREASURE);
-				_animaIter->SetTopLeft(map->ScreenX(_mx), map->ScreenY(_my));
-				_animaIter->OnShow();
+				if (_isDie)
+				{
+					_animaIter = GetAnima(Anima::TREASUREDIE);
+					_animaIter->SetTopLeft(map->ScreenX(_mx), map->ScreenY(_my));
+					_animaIter->OnShow();
+				}
+				else
+				{
+					_animaIter = GetAnima(Anima::TREASURE);
+					_animaIter->SetTopLeft(map->ScreenX(_mx), map->ScreenY(_my));
+					_animaIter->OnShow();
+				}
+				
 				_animaIter = GetAnima(Anima::TOP);
 				_animaIter->SetTopLeft(map->ScreenX(_mx + 1), map->ScreenY(_my + _dtop));
 				_animaIter->OnShow();
