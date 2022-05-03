@@ -157,6 +157,11 @@ namespace game_framework {
 				return _xy[index];
 			}
 
+			Point* GetParent()
+			{
+				return _parent;
+			}
+
 			void freeTree()
 			{
 				for (Point* child : _childs)
@@ -164,6 +169,14 @@ namespace game_framework {
 					child->freeTree();
 				}
 				delete this;
+			}
+
+			void Travel()
+			{
+				for (Point* child : _childs)
+				{
+					child->freeTree();
+				}
 			}
 
 		private:

@@ -338,6 +338,10 @@ IDB_TREASURE_0_2        BITMAP                  "..\\res\\enemy\\bmp00034.bmp"
 
 IDB_TREASURE_0_3        BITMAP                  "..\\res\\enemy\\bmp00035.bmp"
 
+IDB_weapon_0_90         BITMAP                  "..\\res\\enemy\\bmp00036.bmp"
+
+IDB_weapon_0_270        BITMAP                  "..\\res\\enemy\\bmp00037.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //

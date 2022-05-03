@@ -180,6 +180,7 @@ namespace game_framework {
 		_Rooms[MYORGROOM][MYORGROOM]._centerY = (INTERNAL >> 1) + INTERNAL * MYORGROOM;
 
 		_roomTree = new Point(MYORGROOM, MYORGROOM);
+		
 		/*
 		// 隨機選一個方向開始增加房間
 		queue<CGameMap::Point*> queue;
@@ -187,57 +188,122 @@ namespace game_framework {
 		start->Set((rand() % 2), MYORGROOM + (1 ^ ((1 ^ -1) * (rand() % 2))));
 		queue.push(start);
 		_roomTree->AddChild(start);
+		start->SetParent(_roomTree);
+		_Rooms[start->Get(0)][start->Get(1)]._roomType = RoomData::RoomType::NORMAL;
+
 		int specialRoom = 1 + (rand() % 3);						// 特殊房間數
-		int normalRoom = 2 + (rand() % 3);
-		int maxRoom = specialRoom + normalRoom + 1;			// 最大額外房間數
+		int normalRoom = 2 + (rand() % 3);						// 一般房間數
 		int dir[4][2] = { {0, -1}, {0, 1}, {-1, 0}, {1, 0} };	// 搜索用向量
-		while (!queue.empty() && maxRoom)
+		while (!queue.empty())
 		{
 			CGameMap::Point* point = queue.front();
 			int x = point->Get(0), y = point->Get(1);
-			if (!_Rooms[x][y]._hasRoom)
+
+			// 初始化房間參數
+			_Rooms[x][y]._hasRoom = true;
+			_Rooms[x][y]._centerX = (INTERNAL >> 1) + INTERNAL * x;
+			_Rooms[x][y]._centerY = (INTERNAL >> 1) + INTERNAL * y;
+
+			// 根據類型變化
+			switch (_Rooms[x][y]._roomType)
 			{
-				// 初始化房間參數
-				_Rooms[x][y]._hasRoom = true;
-				_Rooms[x][y]._roomType = RoomData::RoomType::NORMAL;
+			case RoomData::RoomType::NORMAL:
+			{
 				_Rooms[x][y]._width = 15 + (rand() % 5) * 2;
 				_Rooms[x][y]._high = 15 + (rand() % 5) * 2;
-				_Rooms[x][y]._centerX = (INTERNAL >> 1) + INTERNAL * x;
-				_Rooms[x][y]._centerY = (INTERNAL >> 1) + INTERNAL * y;
-
-				// 隨機選周邊房間
-				int rTimes = 2 + (rand() % 2);
-				while (rTimes--)
+				
+				//	插入特殊房間
+				if (specialRoom > 0)
 				{
 					int nx, ny, m = 10;
-					int jx = 0, jy = 0;		// 判斷初始房間周圍不出現房間
 					do {
 						int r = rand() % 4;
 						nx = x + dir[r][0], ny = y + dir[r][1];
-						jx = abs(nx - MYORGROOM);
-						jy = abs(ny - MYORGROOM);
-					} while ((nx < 0 || ny < 0 || nx == MYMAXNOFROOM || ny == MYMAXNOFROOM || _Rooms[nx][ny]._hasRoom || jx + jy <= 1) && m-- > 0);
-					if(nx >= 0 && ny >= 0 && nx < MYMAXNOFROOM && ny < MYMAXNOFROOM && jx + jy > 1 && m)
-						queue.push(CGameMap::Point(nx, ny));
+					} while ((nx < 0 || ny < 0 || nx == MYMAXNOFROOM || ny == MYMAXNOFROOM || _Rooms[nx][ny]._hasRoom) && m-- > 0);
+
+					if (nx >= 0 && ny >= 0 && nx < MYMAXNOFROOM && ny < MYMAXNOFROOM && m)
+					{
+						_Rooms[nx][ny]._roomType = RoomData::RoomType::TREASURE;
+						Point* newPoint = new CGameMap::Point(nx, ny);
+						point->AddChild(newPoint);
+						newPoint->SetParent(point);
+						queue.push(newPoint);
+						specialRoom--;
+					}
 				}
 
-				// 設定特殊房間
-				if (--maxRoom == 0)// 最後一個為傳送房間
+				//	找下一個房間
+				
+				int nx, ny, m = 20;
+				do {
+					int r = rand() % 4;
+					nx = x + dir[r][0];
+					ny = y + dir[r][1];
+				} while ((nx < 0 || ny < 0 || nx == MYMAXNOFROOM || ny == MYMAXNOFROOM || _Rooms[nx][ny]._hasRoom) && m-- > 0);
+				
+				if (nx >= 0 && ny >= 0 && nx < MYMAXNOFROOM && ny < MYMAXNOFROOM && m)
 				{
-					_Rooms[x][y]._roomType = RoomData::RoomType::END;
-					_Rooms[x][y]._width = 11;
-					_Rooms[x][y]._high = 11;
+					if (normalRoom > 0)
+					{
+						_Rooms[nx][ny]._roomType = RoomData::RoomType::NORMAL;
+					}
+					else if(hasBOSS)
+					{
+						_Rooms[nx][ny]._roomType = RoomData::RoomType::BOSS;
+					}
+					else
+					{
+						_Rooms[nx][ny]._roomType = RoomData::RoomType::END;
+					}
+					Point* newPoint = new CGameMap::Point(nx, ny);
+					point->AddChild(newPoint);
+					newPoint->SetParent(point);
+					queue.push(newPoint);
+					normalRoom--;
 				}
-				else if (maxRoom <= specialRoom)// 特殊房間
+				else
 				{
-					// 寶箱房間
-					_Rooms[x][y]._roomType = RoomData::RoomType::TREASURE;
-					_Rooms[x][y]._width = 11;
-					_Rooms[x][y]._high = 11;
+					queue.push(point->GetParent());
 				}
+
+				
+
+				break;
 			}
+			case RoomData::RoomType::BOSS:
+			{
+				_Rooms[x][y]._width = 25;
+				_Rooms[x][y]._high = 25;
+
+				int nx, ny, m = 10;
+				do {
+					int r = rand() % 4;
+					nx = x + dir[r][0], ny = y + dir[r][1];
+				} while ((nx < 0 || ny < 0 || nx == MYMAXNOFROOM || ny == MYMAXNOFROOM || _Rooms[nx][ny]._hasRoom) && m-- > 0);
+
+				if (nx >= 0 && ny >= 0 && nx < MYMAXNOFROOM && ny < MYMAXNOFROOM && m)
+				{
+					_Rooms[nx][ny]._roomType = RoomData::RoomType::END;
+					Point* newPoint = new CGameMap::Point(nx, ny);
+					point->AddChild(newPoint);
+					newPoint->SetParent(point);
+					queue.push(newPoint);
+				}
+				break;
+			}
+			case RoomData::RoomType::TREASURE:
+			case RoomData::RoomType::END:
+				_Rooms[x][y]._width = 11;
+				_Rooms[x][y]._high = 11;
+				break;
+			default:
+				break;
+			}	
 			queue.pop();
 		}*/
+
+		
+		
 
 		
 		// 舊版生成
@@ -246,8 +312,8 @@ namespace game_framework {
 		start.Set((rand() % 2), MYORGROOM + (1 ^ ((1 ^ -1) * (rand() % 2))));
 		queue.push(start);
 		int specialRoom = 1 + (rand() % 3);						// 特殊房間數
-		int nrmalRoom = 3 + (rand() % 3);
-		int maxRoom = specialRoom + nrmalRoom + 1;			// 最大額外房間數
+		int nrmalRoom = 3 + (rand() % 3);						// 一般房間數
+		int maxRoom = specialRoom + nrmalRoom + 1;				// 最大額外房間數
 		int dir[4][2] = { {0, -1}, {0, 1}, {-1, 0}, {1, 0} };	// 搜索用向量
 		while (!queue.empty() && maxRoom)
 		{
@@ -303,6 +369,11 @@ namespace game_framework {
 			CGameMap::GenerateMap(hasBOSS);
 			return;
 		}
+		else
+		{
+			_roomTree->Travel();
+		}
+
 
 		//	設定中心區域
 		for (int i = 0; i < NROOMS; i++)
