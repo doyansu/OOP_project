@@ -192,7 +192,7 @@ namespace game_framework {
 		_Rooms[start->Get(0)][start->Get(1)]._roomType = RoomData::RoomType::NORMAL;
 
 		int specialRoom = 1 + (rand() % 3);						// 特殊房間數
-		int normalRoom = 2 + (rand() % 3);						// 一般房間數
+		int normalRoom = 1 + (rand() % 3);						// 一般房間數
 		int dir[4][2] = { {0, -1}, {0, 1}, {-1, 0}, {1, 0} };	// 搜索用向量
 		while (!queue.empty())
 		{
@@ -303,7 +303,12 @@ namespace game_framework {
 			queue.pop();
 		}
 
-		
+		// 沒生成完成重新生成一次
+		if (normalRoom > 0)
+		{
+			CGameMap::GenerateMap(hasBOSS);
+			return;
+		}
 		
 
 		/*
@@ -362,10 +367,10 @@ namespace game_framework {
 				}
 			}
 			queue.pop();
-		}*/
+		}
 
 		// 沒生成完成重新生成一次
-		/*if (maxRoom)
+		if (maxRoom)
 		{
 			CGameMap::GenerateMap(hasBOSS);
 			return;

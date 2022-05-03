@@ -256,7 +256,7 @@ void CGameStateRun::OnBeginState()
 	
 	// Game
 	gameObjCenter.FreeALLObj();	//	清空地圖物件
-	gameMap.GenerateMap();		//	生成地圖
+	gameMap.GenerateMap(true);		//	生成地圖
 	/*for(int i = 0; i < 10000; i++)// 生成測試
 		gameMap.GenerateMap();*/
 	character.Reset();			//	重設角色屬性
@@ -292,6 +292,8 @@ void CGameStateRun::OnBeginState()
 				CGameObjCenter::AddObj(treasure);
 				break;
 			}
+			case RoomData::RoomType::BOSS:		//	BOSS房間
+				break;
 			default:
 				break;
 			}

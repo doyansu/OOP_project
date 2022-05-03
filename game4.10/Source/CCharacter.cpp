@@ -169,7 +169,7 @@ namespace game_framework {
 			}
 			else
 			{
-				continue;
+				break;
 			}
 
 			bool j = false;
@@ -215,7 +215,7 @@ namespace game_framework {
 			}
 			else
 			{
-				continue;
+				break;
 			}
 
 			bool j = false;
