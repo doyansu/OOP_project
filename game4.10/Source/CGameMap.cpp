@@ -181,7 +181,7 @@ namespace game_framework {
 
 		_roomTree = new Point(MYORGROOM, MYORGROOM);
 		
-		/*
+		
 		// 隨機選一個方向開始增加房間
 		queue<CGameMap::Point*> queue;
 		CGameMap::Point* start = new Point(MYORGROOM, MYORGROOM);
@@ -224,6 +224,7 @@ namespace game_framework {
 					if (nx >= 0 && ny >= 0 && nx < MYMAXNOFROOM && ny < MYMAXNOFROOM && m)
 					{
 						_Rooms[nx][ny]._roomType = RoomData::RoomType::TREASURE;
+						_Rooms[nx][ny]._hasRoom = true;
 						Point* newPoint = new CGameMap::Point(nx, ny);
 						point->AddChild(newPoint);
 						newPoint->SetParent(point);
@@ -300,12 +301,12 @@ namespace game_framework {
 				break;
 			}	
 			queue.pop();
-		}*/
+		}
 
 		
 		
 
-		
+		/*
 		// 舊版生成
 		queue<CGameMap::Point> queue;
 		CGameMap::Point start(MYORGROOM, MYORGROOM);
@@ -361,18 +362,15 @@ namespace game_framework {
 				}
 			}
 			queue.pop();
-		}
+		}*/
 
 		// 沒生成完成重新生成一次
-		if (maxRoom)
+		/*if (maxRoom)
 		{
 			CGameMap::GenerateMap(hasBOSS);
 			return;
-		}
-		else
-		{
-			_roomTree->Travel();
-		}
+		}*/
+		
 
 
 		//	設定中心區域
