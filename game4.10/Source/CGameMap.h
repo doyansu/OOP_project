@@ -162,6 +162,11 @@ namespace game_framework {
 				return _parent;
 			}
 
+			vector<Point*> GetChilds()
+			{
+				return _childs;
+			}
+
 			void freeTree()
 			{
 				for (Point* child : _childs)

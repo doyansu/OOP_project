@@ -423,7 +423,27 @@ namespace game_framework {
 				}
 			}
 		}
+		
 
+		//	設定房間之間的通道
+		/*queue.push(_roomTree);
+		while (!queue.empty())
+		{
+			Point* parent = queue.front();
+			vector<Point*> childs = parent->GetChilds();
+			if (childs.size() > 0)
+			{
+				for (Point* child : childs)
+				{
+					queue.push(child);
+				}
+			}
+			queue.pop();
+		}*/
+
+
+		
+		//	舊版通道建立連結所有相連房間
 		//	設定房間之間的通道
 		for (int i = 0; i < NROOMS; i++)
 		{
@@ -492,15 +512,7 @@ namespace game_framework {
 				}
 			}
 		}
-		/*for (int i = 0; i < MYMAPSIZE; i++)
-		{
-			for (int j = 0; j < MYMAPSIZE; j++)
-			{
-
-				ContentType a = _map[i][j].GetType();
-				a = a;
-			}
-		}*/
+		
 	}
 
 	void CGameMap::normalRoomGenerate(int i, int j)
