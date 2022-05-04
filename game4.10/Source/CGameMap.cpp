@@ -426,7 +426,7 @@ namespace game_framework {
 		
 
 		//	設定房間之間的通道
-		/*queue.push(_roomTree);
+		queue.push(_roomTree);
 		while (!queue.empty())
 		{
 			Point* parent = queue.front();
@@ -435,14 +435,105 @@ namespace game_framework {
 			{
 				for (Point* child : childs)
 				{
+					if (parent->Get(0) == child->Get(0))
+					{
+						int i, j;	//	房間座標
+						if (parent->Get(1) < child->Get(1))
+						{
+							i = parent->Get(0);
+							j = parent->Get(1);
+						}
+						else
+						{
+							i = child->Get(0);
+							j = child->Get(1);
+						}
+						int h1 = _Rooms[i][j]._width, h2; // 寬高好像用反了
+						int w1 = _Rooms[i][j]._high, w2;
+						int cx = _Rooms[i][j]._centerX;
+						int cy = _Rooms[i][j]._centerY;
+						// 上下通道
+						
+						_Rooms[i][j]._hasRoad[1] = true;
+						_Rooms[i][j + 1]._hasRoad[0] = true;
+						h2 = _Rooms[i][j + 1]._width;
+						w2 = _Rooms[i][j + 1]._high;
+						for (int y = cy + w1 / 2 + 1; y < cy + INTERNAL - w2 / 2; y++)
+						{
+							if (y == cy + w1 / 2 + 1)
+							{
+								_map[cx + 3][y] = MapContent(ContentType::WALL, GetAnima(ContentType::WALL), true);
+								_map[cx - 3][y] = MapContent(ContentType::WALL, GetAnima(ContentType::WALL), true);
+							}
+							else
+							{
+								_map[cx + 3][y] = MapContent(ContentType::WALL, GetAnima(ContentType::WALL));
+								_map[cx - 3][y] = MapContent(ContentType::WALL, GetAnima(ContentType::WALL));
+							}
+
+							for (int x = -2; x < 3; x++)
+							{
+								_map[cx + x][y] = MapContent(ContentType::FLOOR, GetAnima(ContentType::FLOOR));
+							}
+						}
+						for (int x = -2; x < 3; x++)
+						{
+							_map[cx + x][cy + w1 / 2 + 1] = MapContent(ContentType::AISLEWALL, GetAnima(ContentType::AISLEWALL));
+							_map[cx + x][cy + INTERNAL - w2 / 2 - 1] = MapContent(ContentType::AISLEWALL, GetAnima(ContentType::AISLEWALL));
+						}
+						
+					}
+					else
+					{
+						int i, j;	//	房間座標
+						if (parent->Get(0) < child->Get(0))
+						{
+							i = parent->Get(0);
+							j = parent->Get(1);
+						}
+						else
+						{
+							i = child->Get(0);
+							j = child->Get(1);
+						}
+						int h1 = _Rooms[i][j]._width, h2; // 寬高好像用反了
+						int w1 = _Rooms[i][j]._high, w2;
+						int cx = _Rooms[i][j]._centerX;
+						int cy = _Rooms[i][j]._centerY;
+
+						// 左右通道
+						
+						_Rooms[i][j]._hasRoad[3] = true;
+						_Rooms[i + 1][j]._hasRoad[2] = true;
+						h2 = _Rooms[i + 1][j]._width;
+						w2 = _Rooms[i + 1][j]._high;
+						// 主通道
+						for (int x = cx + h1 / 2 + 1; x < cx + INTERNAL - h2 / 2; x++)
+						{
+							_map[x][cy - 3] = MapContent(ContentType::WALL, GetAnima(ContentType::WALL));
+							_map[x][cy + 3] = MapContent(ContentType::WALL, GetAnima(ContentType::WALL), true);
+
+							for (int y = -2; y < 3; y++)
+							{
+								_map[x][cy + y] = MapContent(ContentType::FLOOR, GetAnima(ContentType::FLOOR));
+							}
+						}
+						// 進房間區隔
+						for (int y = -2; y < 3; y++) {
+							_map[cx + h1 / 2 + 1][cy + y] = MapContent(ContentType::AISLEWALL, GetAnima(ContentType::AISLEWALL));
+							_map[cx + INTERNAL - h2 / 2 - 1][cy + y] = MapContent(ContentType::AISLEWALL, GetAnima(ContentType::AISLEWALL));
+						}
+						
+					}
+
 					queue.push(child);
 				}
 			}
 			queue.pop();
-		}*/
+		}
 
 
-		
+		/*
 		//	舊版通道建立連結所有相連房間
 		//	設定房間之間的通道
 		for (int i = 0; i < NROOMS; i++)
@@ -511,7 +602,7 @@ namespace game_framework {
 					}
 				}
 			}
-		}
+		}*/
 		
 	}
 
