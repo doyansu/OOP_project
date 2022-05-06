@@ -342,6 +342,22 @@ IDB_weapon_0_90         BITMAP                  "..\\res\\enemy\\bmp00036.bmp"
 
 IDB_weapon_0_270        BITMAP                  "..\\res\\enemy\\bmp00037.bmp"
 
+IDB_MinMap_NOTEXPLORED  BITMAP                  "..\\res\\enemy\\bmp00038.bmp"
+
+IDB_MinMap_Playerin     BITMAP                  "..\\res\\enemy\\bitmap57.bmp"
+
+IDB_MinMap_EXPLORED     BITMAP                  "..\\res\\enemy\\bmp00039.bmp"
+
+IDB_MinMap_INIT         BITMAP                  "..\\res\\enemy\\bmp00040.bmp"
+
+IDB_MinMap_TREASURE     BITMAP                  "..\\res\\enemy\\bmp00041.bmp"
+
+IDB_MinMap_END          BITMAP                  "..\\res\\enemy\\bmp00042.bmp"
+
+IDB_MinMap_AILSEH       BITMAP                  "..\\res\\enemy\\bmp00043.bmp"
+
+IDB_MinMap_AILSES       BITMAP                  "..\\res\\enemy\\bmp00044.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //

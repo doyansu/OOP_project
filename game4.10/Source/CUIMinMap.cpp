@@ -35,7 +35,25 @@ namespace game_framework
 
 	void CUIMinMap::LoadBitmap()
 	{
-
+		vector<CAnimation>::iterator p;
+		p = GetAnima(Anima::NOTEXPLORED);
+		p->AddBitmap(IDB_MinMap_NOTEXPLORED, RGB(255, 255, 255));
+		p = GetAnima(Anima::EXPLORED);
+		p->AddBitmap(IDB_MinMap_EXPLORED, RGB(255, 255, 255));
+		p = GetAnima(Anima::PLAYERIN);
+		p->AddBitmap(IDB_MinMap_Playerin, RGB(255, 255, 255));
+		p = GetAnima(Anima::INIT);
+		p->AddBitmap(IDB_MinMap_INIT, RGB(255, 255, 255));
+		p = GetAnima(Anima::TREASURE);
+		p->AddBitmap(IDB_MinMap_TREASURE, RGB(255, 255, 255));
+		p = GetAnima(Anima::END);
+		p->AddBitmap(IDB_MinMap_END, RGB(255, 255, 255));
+		p = GetAnima(Anima::BOSS);
+		p->AddBitmap(IDB_MinMap_END, RGB(255, 255, 255));
+		p = GetAnima(Anima::AILSES);
+		p->AddBitmap(IDB_MinMap_AILSES, RGB(255, 255, 255));
+		p = GetAnima(Anima::AILSEH);
+		p->AddBitmap(IDB_MinMap_AILSEH, RGB(255, 255, 255));
 	}
 
 	void CUIMinMap::SetXY(int x, int y)

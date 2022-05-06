@@ -398,6 +398,7 @@
     <Image Include="res\enemy\bitmap54.bmp" />
     <Image Include="res\enemy\bitmap55.bmp" />
     <Image Include="res\enemy\bitmap56.bmp" />
+    <Image Include="res\enemy\bitmap57.bmp" />
     <Image Include="res\enemy\bmp00001.bmp" />
     <Image Include="res\enemy\bmp00002.bmp" />
     <Image Include="res\enemy\bmp00003.bmp" />
@@ -435,6 +436,13 @@
     <Image Include="res\enemy\bmp00035.bmp" />
     <Image Include="res\enemy\bmp00036.bmp" />
     <Image Include="res\enemy\bmp00037.bmp" />
+    <Image Include="res\enemy\bmp00038.bmp" />
+    <Image Include="res\enemy\bmp00039.bmp" />
+    <Image Include="res\enemy\bmp00040.bmp" />
+    <Image Include="res\enemy\bmp00041.bmp" />
+    <Image Include="res\enemy\bmp00042.bmp" />
+    <Image Include="res\enemy\bmp00043.bmp" />
+    <Image Include="res\enemy\bmp00044.bmp" />
     <Image Include="RES\enemy\enemy31_0.bmp" />
     <Image Include="RES\enemy\enemy31_0_l.bmp" />
     <Image Include="RES\enemy\enemy31_1.bmp" />

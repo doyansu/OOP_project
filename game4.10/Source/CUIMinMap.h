@@ -6,7 +6,7 @@ namespace game_framework
 	class CUIMinMap
 	{
 	public:
-		enum class Anima { NOTEXPLORED, EXPLORED, PLAYERIN, INIT, TREASURE, BOSS, END, ANIMACOUNT };
+		enum class Anima { NOTEXPLORED, EXPLORED, PLAYERIN, INIT, TREASURE, BOSS, END, AILSES, AILSEH, ANIMACOUNT };
 		CUIMinMap(RoomData ** = nullptr);
 		void SetXY(int, int);
 
