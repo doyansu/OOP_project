@@ -21,6 +21,7 @@
     <ClCompile Include="Source\StdAfx.cpp" />
     <ClCompile Include="Source\gamelib.cpp" />
     <ClCompile Include="Source\mygame.cpp" />
+    <ClCompile Include="Source\CUIMinMap.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\CCharacter.h" />
@@ -44,6 +45,7 @@
     <ClInclude Include="Source\StdAfx.h" />
     <ClInclude Include="Source\gamelib.h" />
     <ClInclude Include="Source\mygame.h" />
+    <ClInclude Include="Source\CUIMinMap.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Source\game.rc" />
