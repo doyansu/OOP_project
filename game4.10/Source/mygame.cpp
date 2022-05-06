@@ -563,6 +563,9 @@ void CGameStateRun::OnShow()
 	SLASH.SetTopLeft(68, 48);
 	SLASH.ShowBitmap();
 
+	//	UI小地圖
+	minMap.OnShow();
+
 	//debug
 	debugx.SetTopLeft(0, 460);
 	debugy.SetTopLeft(80, 460);
@@ -583,7 +586,5 @@ void CGameStateRun::OnShow()
 	debugx.ShowBitmap(false);
 	debugy.ShowBitmap(false);*/
 
-	//	UI小地圖
-	minMap.OnShow();
 }
 }
