@@ -48,6 +48,7 @@
 #include "CEnemy.h"
 #include "CGameObjCenter.h"
 #include "CGameRoom.h"
+#include "CUIMinMap.h"
 
 
 
