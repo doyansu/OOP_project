@@ -12,6 +12,7 @@ namespace game_framework
 	{
 		//	屬性設定
 		_sx = _sy = 0;
+		_px = _py = MYORGROOM;	// 中心設定在起始房間
 
 		//	動畫設定
 		_animas.reserve((int)Anima::ANIMACOUNT);
@@ -36,10 +37,10 @@ namespace game_framework
 	{
 		if (_rooms == nullptr)
 			return;
-		vector<CAnimation>::iterator p;
+		/*vector<CAnimation>::iterator p;
 		p = GetAnima(Anima::END);
 		p->SetTopLeft(_sx, _sy);
-		p->OnShow();
+		p->OnShow();*/
 	}
 
 	void CUIMinMap::LoadBitmap()
@@ -69,6 +70,12 @@ namespace game_framework
 	{
 		_sx = x;
 		_sy = y;
+	}
+
+	void CUIMinMap::PlayerIn(int x, int y)
+	{
+		_px = x;
+		_py = y;
 	}
 
 	vector<CAnimation>::iterator CUIMinMap::GetAnima(Anima type)

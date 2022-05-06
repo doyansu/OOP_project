@@ -26,8 +26,8 @@ namespace game_framework {
 	protected:
 		bool _hasRoom;					// 有房間
 		bool _hasRoad[4];				// 上下左右有通道
-		int _centerX, _centerY;		// 中心位置
-		int _width, _high;			// 寬高
+		int _centerX, _centerY;			// 在地圖中心位置
+		int _width, _high;				// 寬高
 		RoomData::RoomType _roomType;	// 房間類型
 	};
 
