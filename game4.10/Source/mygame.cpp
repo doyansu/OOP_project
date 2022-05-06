@@ -260,14 +260,14 @@ void CGameStateRun::OnBeginState()
 	/*for(int i = 0; i < 10000; i++)// 生成測試
 		gameMap.GenerateMap();*/
 	character.Reset();			//	重設角色屬性
-	character.SetXY(MYMAPWIDTH * gameMap.GetRoom(MYORGROOM, MYORGROOM).CenterX(), MYMAPHIGH * gameMap.GetRoom(MYORGROOM, MYORGROOM).CenterY());	//	暫時設定初始位置
+	character.SetXY(MYMAPWIDTH * gameMap.GetRoom(MYORGROOM, MYORGROOM)->CenterX(), MYMAPHIGH * gameMap.GetRoom(MYORGROOM, MYORGROOM)->CenterY());	//	暫時設定初始位置
 	CGameObjCenter::AddObj(&character);
 
 	for (int i = 0; i < MYMAXNOFROOM; i++)
 		for (int j = 0; j < MYMAXNOFROOM; j++)
 		{
-			RoomData roomdata = gameMap.GetRoom(i, j);
-			switch (roomdata.GetRoomType())
+			RoomData* roomdata = gameMap.GetRoom(i, j);
+			switch (roomdata->GetRoomType())
 			{
 			case RoomData::RoomType::NORMAL:	// 一般房間
 			{
@@ -279,16 +279,16 @@ void CGameStateRun::OnBeginState()
 			case RoomData::RoomType::END:		// 傳送房間
 			{
 				//TransferGate.SetXY(roomdata.CenterX() * MYMAPWIDTH, roomdata.CenterY() * MYMAPHIGH);
-				TransferGate.SetXY(roomdata.CenterX() * MYMAPWIDTH - (TransferGate.Width() >> 1) + (MYMAPWIDTH >> 1),
-					roomdata.CenterY() * MYMAPHIGH - (TransferGate.Height() >> 1) + (MYMAPHIGH >> 1));
+				TransferGate.SetXY(roomdata->CenterX() * MYMAPWIDTH - (TransferGate.Width() >> 1) + (MYMAPWIDTH >> 1),
+					roomdata->CenterY() * MYMAPHIGH - (TransferGate.Height() >> 1) + (MYMAPHIGH >> 1));
 				CGameObjCenter::AddObj(&TransferGate);
 				break;
 			}	
 			case RoomData::RoomType::TREASURE:	//	寶箱房間
 			{
 				CGameTreasure* treasure = new CGameTreasure(gameTreasure);
-				treasure->SetXY(roomdata.CenterX() * MYMAPWIDTH - (treasure->Width() >> 1) + (MYMAPWIDTH >> 1),
-					roomdata.CenterY() * MYMAPHIGH - (treasure->Height() >> 1) + (MYMAPHIGH >> 1));
+				treasure->SetXY(roomdata->CenterX() * MYMAPWIDTH - (treasure->Width() >> 1) + (MYMAPWIDTH >> 1),
+					roomdata->CenterY() * MYMAPHIGH - (treasure->Height() >> 1) + (MYMAPHIGH >> 1));
 				CGameObjCenter::AddObj(treasure);
 				break;
 			}

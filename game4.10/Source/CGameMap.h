@@ -45,7 +45,7 @@ namespace game_framework {
 
 		int GetScreenX();
 		int GetScreenY();
-		RoomData GetRoom(int, int);
+		RoomData* GetRoom(int, int);
 
 		void SetScreen(int x, int y);	
 

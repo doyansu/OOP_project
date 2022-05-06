@@ -779,11 +779,11 @@ namespace game_framework {
 		return iterator;*/
 	}
 
-	RoomData CGameMap::GetRoom(int i, int j)
+	RoomData* CGameMap::GetRoom(int i, int j)
 	{
 		if(i < 0 && i >= _MAXNOFROOM && j < 0 && j >= _MAXNOFROOM)
 			ASSERT(0);
-		return _Rooms[i][j];
+		return &_Rooms[i][j];
 	}
 
 	int CGameMap::GetScreenX()

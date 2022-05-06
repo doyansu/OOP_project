@@ -10,12 +10,12 @@ namespace game_framework
 {
 	CGameRoom::ClearTreasure CGameRoom::clearTreasure;
 
-	CGameRoom::CGameRoom(RoomData data)
+	CGameRoom::CGameRoom(RoomData* data)
 	{
 		// 屬性設定
 		_room = data;
-		_mx = MYMAPWIDTH * (data.CenterX() - (data.Width() >> 1));
-		_my = MYMAPHIGH * (data.CenterY() - (data.High() >> 1));
+		_mx = MYMAPWIDTH * (data->CenterX() - (data->Width() >> 1));
+		_my = MYMAPHIGH * (data->CenterY() - (data->High() >> 1));
 		_isStrat = false;
 		_hasEnemys = true;
 		this->SetShowPriority(2);
@@ -47,7 +47,7 @@ namespace game_framework
 			CEnemy* newEnemy = new CEnemy(*(_enemys.at(rand() % (int)_enemys.size())));
 			// 碰到障礙重新選位置
 			do {
-				newEnemy->SetXY(_mx + MYMAPWIDTH * (1 + rand() % (_room.Width() - 2)), _my + MYMAPHIGH * (1 + rand() % (_room.High() - 2)));
+				newEnemy->SetXY(_mx + MYMAPWIDTH * (1 + rand() % (_room->Width() - 2)), _my + MYMAPHIGH * (1 + rand() % (_room->High() - 2)));
 			} while (newEnemy->Collision(map));
 			newEnemy->SetFree(false);
 			_roomEnemys.push_back(newEnemy);
@@ -57,11 +57,11 @@ namespace game_framework
 		RoomWall wall;
 		wall.LoadBitmap();
 		wall.SetFree(false);
-		int cx = _room.CenterX(), cy = _room.CenterY();
-		int w = _room.Width(), h = _room.High();
+		int cx = _room->CenterX(), cy = _room->CenterY();
+		int w = _room->Width(), h = _room->High();
 
 		// 上方有通道
-		if (_room.HasRoad(0))
+		if (_room->HasRoad(0))
 		{
 			wall.SetVector(0, 1);
 			for (int x = -2; x < 3; x++)
@@ -71,7 +71,7 @@ namespace game_framework
 			}
 		}
 		// 下方有通道
-		if (_room.HasRoad(1))
+		if (_room->HasRoad(1))
 		{
 			wall.SetVector(0, -1);
 			for (int x = -2; x < 3; x++)
@@ -83,7 +83,7 @@ namespace game_framework
 			}
 		}
 		// 左方有通道
-		if (_room.HasRoad(2))
+		if (_room->HasRoad(2))
 		{
 			wall.SetVector(1, 0);
 			for (int y = -2; y < 3; y++)
@@ -93,7 +93,7 @@ namespace game_framework
 			}
 		}
 		// 右方有通道
-		if (_room.HasRoad(3))
+		if (_room->HasRoad(3))
 		{
 			wall.SetVector(-1, 0);
 			for (int y = -2; y < 3; y++)
@@ -163,7 +163,7 @@ namespace game_framework
 					CEnemy* newEnemy = new CEnemy(*(_enemys.at(rand() % (int)_enemys.size())));
 					// 碰到障礙重新選位置
 					do {
-						newEnemy->SetXY(_mx + MYMAPWIDTH * (1 + rand() % (_room.Width() - 2)), _my + MYMAPHIGH * (1 + rand() % (_room.High() - 2)));
+						newEnemy->SetXY(_mx + MYMAPWIDTH * (1 + rand() % (_room->Width() - 2)), _my + MYMAPHIGH * (1 + rand() % (_room->High() - 2)));
 					} while (newEnemy->Collision(map));
 					newEnemy->SetFree(false);
 					_roomEnemys.push_back(newEnemy);
@@ -226,7 +226,7 @@ namespace game_framework
 		ClearTreasure* cTreasure = new ClearTreasure(clearTreasure);
 		// 碰到障礙重新選位置
 		do {
-			cTreasure->SetXY(_mx + MYMAPWIDTH * (1 + rand() % (_room.Width() - 2)), _my + MYMAPHIGH * (1 + rand() % (_room.High() - 2)));
+			cTreasure->SetXY(_mx + MYMAPWIDTH * (1 + rand() % (_room->Width() - 2)), _my + MYMAPHIGH * (1 + rand() % (_room->High() - 2)));
 		} while (cTreasure->Collision(map));
 		CGameObjCenter::AddObj(cTreasure);
 		this->SetDie(false);
@@ -234,12 +234,12 @@ namespace game_framework
 	
 	int CGameRoom::GetX2()
 	{
-		return _mx + MYMAPWIDTH * _room.Width();
+		return _mx + MYMAPWIDTH * _room->Width();
 	}
 
 	int CGameRoom::GetY2()
 	{
-		return _my + MYMAPHIGH * _room.High();
+		return _my + MYMAPHIGH * _room->High();
 	}
 
 
