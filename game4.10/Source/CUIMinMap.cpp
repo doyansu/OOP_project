@@ -8,11 +8,9 @@
 
 namespace game_framework
 {
-	CUIMinMap::CUIMinMap(RoomData ** rooms)
+	CUIMinMap::CUIMinMap()
 	{
 		//	屬性設定
-		if (rooms != nullptr)
-			_rooms = rooms;
 		_sx = _sy = 0;
 
 		//	動畫設定

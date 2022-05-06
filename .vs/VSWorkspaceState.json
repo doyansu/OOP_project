@@ -4,10 +4,11 @@
     "\\game4.10",
     "\\game4.10\\RES",
     "\\game4.10\\RES\\character1",
+    "\\game4.10\\RES\\enemy",
     "\\game4.10\\RES\\floorwall",
     "\\game4.10\\Source",
     "\\GitTutorial"
   ],
-  "SelectedNode": "\\game4.10\\Source\\CEnemy.cpp",
+  "SelectedNode": "\\game4.10\\Source\\CGameObj.h",
   "PreviewInSolutionExplorer": false
 }

@@ -122,6 +122,7 @@ namespace game_framework {
 		// UI
 		CInteger HP, MP, SP, MAXHP, MAXMP, MAXSP;
 		CMovingBitmap HPBACKGROUND, SLASH, HPBAR, SPBAR, MPBAR;
+		CUIMinMap minMap;
 
 		// GAME
 		CGameMap gameMap;

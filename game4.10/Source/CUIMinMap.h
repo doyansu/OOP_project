@@ -7,7 +7,7 @@ namespace game_framework
 	{
 	public:
 		enum class Anima { NOTEXPLORED, EXPLORED, PLAYERIN, INIT, TREASURE, BOSS, END, AILSES, AILSEH, ANIMACOUNT };
-		CUIMinMap(RoomData ** = nullptr);
+		CUIMinMap();
 		void SetXY(int, int);
 
 		void LoadBitmap();

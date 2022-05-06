@@ -432,6 +432,8 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	MAXMP.SetTopLeft(82, 48);
 	HPBACKGROUND.SetTopLeft(0, 0);
 
+	//minMap.LoadBitmap();
+
 }
 
 void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
