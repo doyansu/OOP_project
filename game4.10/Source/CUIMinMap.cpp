@@ -21,14 +21,25 @@ namespace game_framework
 		}
 	}
 
+	void CUIMinMap::SetRoom(RoomData ** rooms)
+	{
+		_rooms = rooms;
+	}
+
 	void CUIMinMap::OnMove()
 	{
-
+		if (_rooms == nullptr)
+			return;
 	}
 
 	void CUIMinMap::OnShow()
 	{
-
+		if (_rooms == nullptr)
+			return;
+		vector<CAnimation>::iterator p;
+		p = GetAnima(Anima::END);
+		p->SetTopLeft(_sx, _sy);
+		p->OnShow();
 	}
 
 	void CUIMinMap::LoadBitmap()

@@ -257,6 +257,7 @@ void CGameStateRun::OnBeginState()
 	// Game
 	gameObjCenter.FreeALLObj();	//	清空地圖物件
 	gameMap.GenerateMap(true);		//	生成地圖
+	minMap.SetRoom(gameMap.GetRooms());				//	將房間資訊傳入小地圖
 	/*for(int i = 0; i < 10000; i++)// 生成測試
 		gameMap.GenerateMap();*/
 	character.Reset();			//	重設角色屬性
@@ -373,9 +374,9 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	MAXSP.SetInteger(character.GetMAXShield());
 	MAXMP.SetInteger(character.GetMAXMP());
 
-	HP.SetTopLeft(70 - HP.GetLen() * HP.GetWidth(), 7);
-	SP.SetTopLeft(70 - SP.GetLen() * SP.GetWidth(), 28);
-	MP.SetTopLeft(70 - MP.GetLen() * MP.GetWidth(), 48);
+
+	//	UI小地圖
+	minMap.OnMove();
 }
 
 void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
@@ -421,19 +422,20 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	gameTreasure.LoadBitmap();
 
 	// UI
-	CInteger::LoadBitmap();
-	HPBACKGROUND.LoadBitmap(IDB_UI_HP);
-	HPBAR.LoadBitmap(IDB_UI_HPBar);
+	CInteger::LoadBitmap();	// 數字圖片
+	HPBACKGROUND.LoadBitmap(IDB_UI_HP);	// bar 背景
+	HPBAR.LoadBitmap(IDB_UI_HPBar);		// bar 圖片
 	SPBAR.LoadBitmap(IDB_UI_SPBar);
 	MPBAR.LoadBitmap(IDB_UI_MPBar);
-	SLASH.LoadBitmap(IDB_Slash, RGB(0, 0, 0));
+	SLASH.LoadBitmap(IDB_Slash, RGB(0, 0, 0));	// 斜線圖片
 	MAXHP.SetTopLeft(82, 7);
 	MAXSP.SetTopLeft(82, 28);
 	MAXMP.SetTopLeft(82, 48);
 	HPBACKGROUND.SetTopLeft(0, 0);
 
+	//	UI小地圖
 	minMap.LoadBitmap();
-
+	minMap.SetXY(500, 28);
 }
 
 void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
@@ -522,6 +524,7 @@ void CGameStateRun::OnShow()
 	// UI
 	HPBACKGROUND.ShowBitmap();
 
+	// 血量、魔量、護頓 動畫
 	int percent = character.GetHP() * 100 / character.GetMAXHP();
 	for (int i = 0; i < percent; i++)
 	{
@@ -541,6 +544,10 @@ void CGameStateRun::OnShow()
 		MPBAR.ShowBitmap();
 	}
 	
+	// 血量、魔量、護頓數字
+	HP.SetTopLeft(70 - HP.GetLen() * HP.GetWidth(), 7);
+	SP.SetTopLeft(70 - SP.GetLen() * SP.GetWidth(), 28);
+	MP.SetTopLeft(70 - MP.GetLen() * MP.GetWidth(), 48);
 	HP.ShowBitmap(false);
 	MP.ShowBitmap(false);
 	SP.ShowBitmap(false);
@@ -548,6 +555,7 @@ void CGameStateRun::OnShow()
 	MAXMP.ShowBitmap(false);
 	MAXSP.ShowBitmap(false);
 
+	// 斜線
 	SLASH.SetTopLeft(68, 8);
 	SLASH.ShowBitmap();
 	SLASH.SetTopLeft(68, 28);
@@ -574,5 +582,8 @@ void CGameStateRun::OnShow()
 	debugy.SetInteger(TransferGate.GetY2());
 	debugx.ShowBitmap(false);
 	debugy.ShowBitmap(false);*/
+
+	//	UI小地圖
+	minMap.OnShow();
 }
 }

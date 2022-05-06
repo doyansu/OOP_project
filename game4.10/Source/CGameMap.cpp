@@ -786,6 +786,11 @@ namespace game_framework {
 		return &_Rooms[i][j];
 	}
 
+	RoomData** CGameMap::GetRooms()
+	{
+		return _Rooms;
+	}
+
 	int CGameMap::GetScreenX()
 	{
 		return _sx;

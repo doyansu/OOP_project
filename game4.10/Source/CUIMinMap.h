@@ -9,6 +9,7 @@ namespace game_framework
 		enum class Anima { NOTEXPLORED, EXPLORED, PLAYERIN, INIT, TREASURE, BOSS, END, AILSES, AILSEH, ANIMACOUNT };
 		CUIMinMap();
 		void SetXY(int, int);
+		void SetRoom(RoomData **);
 
 		void LoadBitmap();
 		void OnMove();
