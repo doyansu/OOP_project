@@ -140,7 +140,10 @@ namespace game_framework
 				p->SetTopLeft(_sx + x * MYMAPWIDTH, _sy + y * MYMAPHIGH);
 				p->OnShow();
 				break;
-			case RoomData::RoomType::BOSS:	// ¼ÈµL¹Ï¤ù
+			case RoomData::RoomType::BOSS:	
+				p = GetAnima(Anima::BOSS);
+				p->SetTopLeft(_sx + x * MYMAPWIDTH, _sy + y * MYMAPHIGH);
+				p->OnShow();
 				break;
 			default:
 				break;
@@ -172,7 +175,7 @@ namespace game_framework
 		p = GetAnima(Anima::END);
 		p->AddBitmap(IDB_MinMap_END, RGB(255, 255, 255));
 		p = GetAnima(Anima::BOSS);
-		p->AddBitmap(IDB_MinMap_END, RGB(255, 255, 255));
+		p->AddBitmap(IDB_MinMap_BOSS, RGB(255, 255, 255));
 		p = GetAnima(Anima::AILSES);
 		p->AddBitmap(IDB_MinMap_AILSES, RGB(255, 255, 255));
 		p = GetAnima(Anima::AILSEH);
@@ -185,10 +188,17 @@ namespace game_framework
 		_sy = y;
 	}
 
-	void CUIMinMap::PlayerIn(int x, int y)
+	int CUIMinMap::GetPlayerIn(int index)
 	{
-		_px = x;
-		_py = y;
+		if (index)
+		{
+			return _py;
+		}
+		else
+		{
+			return _px;
+		}
+		 
 	}
 
 	vector<CAnimation>::iterator CUIMinMap::GetAnima(Anima type)

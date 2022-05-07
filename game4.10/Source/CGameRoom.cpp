@@ -28,6 +28,17 @@ namespace game_framework
 		_maxEnemy = 2;
 		_reGenerate = 1;
 
+		// 暫時設定 boss 房間
+		switch (data->GetRoomType())
+		{
+		case RoomData::RoomType::BOSS:
+			_maxEnemy = 30;
+			_reGenerate = 0;
+			break;
+		default:
+			break;
+		}
+
 		_generateDelay = REGENERATETIME;
 		_roomEnemys.reserve(_maxEnemy);
 		_tag = "Room";
@@ -39,6 +50,7 @@ namespace game_framework
 		// 根據類型建立房間
 		switch (_room->GetRoomType())
 		{
+		case RoomData::RoomType::BOSS:		//	BOSS房間
 		case RoomData::RoomType::NORMAL:	// 一般房間
 		{
 			// 新增怪物
@@ -126,8 +138,6 @@ namespace game_framework
 			CGameObjCenter::AddObj(treasure);
 			break;
 		}
-		case RoomData::RoomType::BOSS:		//	BOSS房間
-			break;
 		default:
 			break;
 		}
@@ -137,6 +147,7 @@ namespace game_framework
 	{
 		switch (_room->GetRoomType())
 		{
+		case RoomData::RoomType::BOSS:
 		case RoomData::RoomType::NORMAL:
 		{
 			if (_hasEnemys)
@@ -167,6 +178,7 @@ namespace game_framework
 	{
 		switch (_room->GetRoomType())
 		{
+		case RoomData::RoomType::BOSS:
 		case RoomData::RoomType::NORMAL:
 		{
 			if (_isStrat)
@@ -231,6 +243,7 @@ namespace game_framework
 
 		switch (_room->GetRoomType())
 		{
+		case RoomData::RoomType::BOSS:
 		case RoomData::RoomType::NORMAL:
 		{
 			for (CEnemy* obj : _roomEnemys)
@@ -249,6 +262,7 @@ namespace game_framework
 	{
 		switch (_room->GetRoomType())
 		{
+		case RoomData::RoomType::BOSS:
 		case RoomData::RoomType::NORMAL:
 		{
 			// 玩家第一次進入房間怪物開始動作
@@ -297,7 +311,7 @@ namespace game_framework
 			
 	}
 
-	void CGameRoom::Die() // 暫時沒用到
+	void CGameRoom::Die() 
 	{
 		this->SetEnable(false);
 		this->SetDie(true);
@@ -311,19 +325,45 @@ namespace game_framework
 		{
 			if (!_isStrat)	// 用_isStrat來判斷只做一次 _isStart 與 OnMove 、 OnObjCollision 有關需檢查
 				break;
+			_isStrat = false;
+
 			for (CGameObj* obj : _roomWalls)
 			{
 				obj->SetEnable(false);
 				obj->SetDie(true);
 			}
 			_roomWalls.clear();
+
 			CGameClearTreasure* cTreasure = new CGameClearTreasure(clearTreasure);
 			// 碰到障礙重新選位置
 			do {
 				cTreasure->SetXY(_mx + MYMAPWIDTH * (1 + rand() % (_room->Width() - 2)), _my + MYMAPHIGH * (1 + rand() % (_room->High() - 2)));
 			} while (cTreasure->Collision(map));
 			CGameObjCenter::AddObj(cTreasure);
+			
+			break;
+		}
+		case RoomData::RoomType::BOSS:
+		{
+			if (!_isStrat)	// 用_isStrat來判斷只做一次 _isStart 與 OnMove 、 OnObjCollision 有關需檢查
+				break;
 			_isStrat = false;
+
+			for (CGameObj* obj : _roomWalls)
+			{
+				obj->SetEnable(false);
+				obj->SetDie(true);
+			}
+			_roomWalls.clear();
+
+			CGameTreasure* treasure = new CGameTreasure(gameTreasure);
+			treasure->SetXY(_room->CenterX() * MYMAPWIDTH - (treasure->Width() >> 1) + (MYMAPWIDTH >> 1),
+				_room->CenterY() * MYMAPHIGH +  - (treasure->Height() >> 1) + TransferGate.Height() + (MYMAPHIGH >> 1));
+			CGameObjCenter::AddObj(treasure);
+			
+			TransferGate.SetXY(_room->CenterX() * MYMAPWIDTH - (TransferGate.Width() >> 1) + (MYMAPWIDTH >> 1),
+				_room->CenterY() * MYMAPHIGH - (TransferGate.Height() >> 1) + (MYMAPHIGH >> 1));
+			CGameObjCenter::AddObj(&TransferGate);
 			break;
 		}
 		default:

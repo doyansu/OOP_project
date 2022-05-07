@@ -121,14 +121,16 @@ namespace game_framework {
 		CBouncingBall   bball;		// 反覆彈跳的球*/
 
 		// UI
-		CInteger HP, MP, SP, MAXHP, MAXMP, MAXSP;
-		CMovingBitmap HPBACKGROUND, SLASH, HPBAR, SPBAR, MPBAR;
+		CInteger HP, MP, SP, MAXHP, MAXMP, MAXSP, GAMELEVEL;
+		CMovingBitmap HPBACKGROUND, SLASH, HPBAR, SPBAR, MPBAR, MINUS;
 		CUIMinMap minMap;
 
 		// GAME
-		CGameMap gameMap;
-		CGameObjCenter gameObjCenter;
-		CCharacter character;
+		int gameLevel;						//	關卡數
+		CGameMap gameMap;					//	地圖
+		CGameObjCenter gameObjCenter;		//	物件管理
+		CCharacter character;				//	角色
+		CGameRoom* Rooms[MYMAXNOFROOM][MYMAXNOFROOM];				//	房間物件
 
 		// debug
 		CInteger debugx, debugy;

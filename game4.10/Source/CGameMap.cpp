@@ -299,21 +299,6 @@ namespace game_framework {
 			{
 				_Rooms[x][y]._width = 25;
 				_Rooms[x][y]._high = 25;
-
-				int nx, ny, m = 10;
-				do {
-					int r = rand() % 4;
-					nx = x + dir[r][0], ny = y + dir[r][1];
-				} while ((nx < 0 || ny < 0 || nx == MYMAXNOFROOM || ny == MYMAXNOFROOM || _Rooms[nx][ny]._hasRoom) && m-- > 0);
-
-				if (nx >= 0 && ny >= 0 && nx < MYMAXNOFROOM && ny < MYMAXNOFROOM && m)
-				{
-					_Rooms[nx][ny]._roomType = RoomData::RoomType::END;
-					Point* newPoint = new Point(nx, ny);
-					point->AddChild(newPoint);
-					newPoint->SetParent(point);
-					queue.push(newPoint);
-				}
 				break;
 			}
 			case RoomData::RoomType::TREASURE:

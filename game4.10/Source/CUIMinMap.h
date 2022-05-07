@@ -12,7 +12,7 @@ namespace game_framework
 		CUIMinMap();
 		void SetXY(int, int);
 		void SetRoom(RoomData **);
-		void PlayerIn(int, int);
+		int GetPlayerIn(int);
 
 		void LoadBitmap();
 		void OnMove();

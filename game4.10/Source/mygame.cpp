@@ -259,7 +259,10 @@ void CGameStateRun::OnBeginState()
 	//	清空地圖物件
 	gameObjCenter.FreeALLObj();	
 	//	生成地圖
-	gameMap.GenerateMap(true);		
+	if(gameLevel%5 == 4)
+		gameMap.GenerateMap(true);		
+	else
+		gameMap.GenerateMap();
 	//	將房間資訊傳入小地圖
 	minMap.SetRoom(gameMap.GetRooms());				
 	//	重設角色屬性
@@ -274,6 +277,7 @@ void CGameStateRun::OnBeginState()
 			CGameRoom* room = new CGameRoom(gameMap.GetRoom(i, j));
 			room->Initialization(&gameMap);
 			CGameObjCenter::AddObj(room);
+			Rooms[i][j] = room;
 		}
 	
 	// Audio
@@ -385,15 +389,6 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 		GotoGameState(GAME_STATE_OVER);
 	}
 
-	// UI
-	HP.SetInteger(character.GetHP());
-	SP.SetInteger(character.GetShield());
-	MP.SetInteger(character.GetMP());
-	MAXHP.SetInteger(character.GetMAXHP());
-	MAXSP.SetInteger(character.GetMAXShield());
-	MAXMP.SetInteger(character.GetMAXMP());
-
-
 	//	UI小地圖
 	minMap.OnMove();
 }
@@ -434,6 +429,7 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	//
 
 	// GAME
+	gameLevel = 0;					//	關卡數
 	CGameRoom::Init();				//	房間物件初始化
 	gameMap.LoadBitmap();
 	character.LoadBitmap();
@@ -445,6 +441,7 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	SPBAR.LoadBitmap(IDB_UI_SPBar);
 	MPBAR.LoadBitmap(IDB_UI_MPBar);
 	SLASH.LoadBitmap(IDB_Slash, RGB(0, 0, 0));	// 斜線圖片
+	MINUS.LoadBitmap(IDB_MINUS, RGB(0, 0, 0));
 	MAXHP.SetTopLeft(82, 7);
 	MAXSP.SetTopLeft(82, 28);
 	MAXMP.SetTopLeft(82, 48);
@@ -464,6 +461,8 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 		character.TakeDmg(9999);
 	else if (nChar == 82)	// 按 R 重新進入關卡
 	{
+		//test
+		gameLevel++;
 		GotoGameState(GAME_STATE_RUN);
 	}
 
@@ -476,6 +475,8 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	if (character.IsDoingSomeThing() && character.Collision(TransferGate))
 	{
 		TransferGate->SetDie(false);
+		//	關卡數加一
+		gameLevel++;
 		GotoGameState(GAME_STATE_RUN);
 	}
 }
@@ -566,6 +567,12 @@ void CGameStateRun::OnShow()
 	}
 	
 	// 血量、魔量、護頓數字
+	HP.SetInteger(character.GetHP());
+	SP.SetInteger(character.GetShield());
+	MP.SetInteger(character.GetMP());
+	MAXHP.SetInteger(character.GetMAXHP());
+	MAXSP.SetInteger(character.GetMAXShield());
+	MAXMP.SetInteger(character.GetMAXMP());
 	HP.SetTopLeft(70 - HP.GetLen() * HP.GetWidth(), 7);
 	SP.SetTopLeft(70 - SP.GetLen() * SP.GetWidth(), 28);
 	MP.SetTopLeft(70 - MP.GetLen() * MP.GetWidth(), 48);
@@ -583,6 +590,16 @@ void CGameStateRun::OnShow()
 	SLASH.ShowBitmap();
 	SLASH.SetTopLeft(68, 48);
 	SLASH.ShowBitmap();
+
+	//	關卡數
+	GAMELEVEL.SetInteger(1 + gameLevel / 5);
+	GAMELEVEL.SetTopLeft(610, 225);
+	GAMELEVEL.ShowBitmap(false);
+	GAMELEVEL.SetInteger(1 + gameLevel % 5);
+	GAMELEVEL.SetTopLeft(630, 225);
+	GAMELEVEL.ShowBitmap(false);
+	MINUS.SetTopLeft(620, 225);
+	MINUS.ShowBitmap();
 
 	//	UI小地圖
 	minMap.OnShow();
