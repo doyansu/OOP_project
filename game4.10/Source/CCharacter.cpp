@@ -25,6 +25,7 @@ namespace game_framework {
 		_damage = 4;
 		_moveSpeed = 25;
 		_showPriority = 10;
+		_gold = 0;
 		this->Reset();
 		this->SetTag("player");
 		this->SetFree(false);
@@ -43,6 +44,7 @@ namespace game_framework {
 		_hp = _maxHp;
 		_mp = _maxMp;
 		_shield = _maxShield;
+		_gold = 0;
 		// 重置為初始武器
 		free();
 		_weapons[0] = new CGameWeapon(this);
@@ -512,6 +514,16 @@ namespace game_framework {
 	int CCharacter::GetY2()
 	{
 		return _my + 30;
+	}
+
+	int CCharacter::GetGold()
+	{
+		return _gold;
+	}
+
+	void CCharacter::ModifyGold(int value)
+	{
+		_gold += value;
 	}
 
 	void CCharacter::SetXY(int x, int y)

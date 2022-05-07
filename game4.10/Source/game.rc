@@ -362,6 +362,14 @@ IDB_MinMap_BOSS         BITMAP                  "..\\res\\enemy\\bmp00045.bmp"
 
 IDB_gold_1_0            BITMAP                  "..\\res\\enemy\\bmp00046.bmp"
 
+IDB_gold_0              BITMAP                  "..\\res\\enemy\\bmp00047.bmp"
+
+IDB_gold_1_1            BITMAP                  "..\\res\\enemy\\bmp00048.bmp"
+
+IDB_gold_1_2            BITMAP                  "..\\res\\enemy\\bmp00049.bmp"
+
+IDB_gold_1_3            BITMAP                  "..\\res\\enemy\\bmp00050.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //

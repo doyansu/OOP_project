@@ -454,7 +454,8 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	SPBAR.LoadBitmap(IDB_UI_SPBar);
 	MPBAR.LoadBitmap(IDB_UI_MPBar);
 	SLASH.LoadBitmap(IDB_Slash, RGB(0, 0, 0));	// 斜線圖片
-	MINUS.LoadBitmap(IDB_MINUS, RGB(0, 0, 0));
+	MINUS.LoadBitmap(IDB_MINUS, RGB(0, 0, 0));	// 減號圖片
+	GOLD.LoadBitmap(IDB_gold_0, RGB(255, 255, 255));	//	金幣圖片
 	MAXHP.SetTopLeft(82, 7);
 	MAXSP.SetTopLeft(82, 28);
 	MAXMP.SetTopLeft(82, 48);
@@ -477,6 +478,12 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 		gameLevel++;
 		GotoGameState(GAME_STATE_RUN);
 	}
+	else if (nChar == 80)
+	{
+		// test
+		character.ModifyGold(500);
+	}
+
 
 
 	gameMap.OnKeyDown(nChar);
@@ -603,18 +610,25 @@ void CGameStateRun::OnShow()
 	SLASH.SetTopLeft(68, 48);
 	SLASH.ShowBitmap();
 
+	//	金幣
+	GOLDINTGER.SetInteger(character.GetGold());
+	GOLDINTGER.SetTopLeft(640 - GOLDINTGER.GetLen() * GOLDINTGER.GetWidth(), 4);
+	GOLDINTGER.ShowBitmap(false);
+	GOLD.SetTopLeft(640 - GOLDINTGER.GetLen() * GOLDINTGER.GetWidth() - GOLD.Width(), 5);
+	GOLD.ShowBitmap();
+
 	//	關卡數
 	GAMELEVEL.SetInteger(1 + gameLevel / 5);
-	GAMELEVEL.SetTopLeft(540 + dMinMap, 180);
+	GAMELEVEL.SetTopLeft(600 + dMinMap, 200);
 	GAMELEVEL.ShowBitmap(false);
 	GAMELEVEL.SetInteger(1 + gameLevel % 5);
-	GAMELEVEL.SetTopLeft(560 + dMinMap, 180);
+	GAMELEVEL.SetTopLeft(620 + dMinMap, 200);
 	GAMELEVEL.ShowBitmap(false);
-	MINUS.SetTopLeft(550 + dMinMap, 180);
+	MINUS.SetTopLeft(610 + dMinMap, 200);
 	MINUS.ShowBitmap();
 
 	//	UI小地圖
-	minMap.SetXY(460 + dMinMap, 5);
+	minMap.SetXY(460 + dMinMap, 25);
 	minMap.OnShow();
 
 	//debug
