@@ -36,6 +36,7 @@ namespace game_framework
 
 	void CGameRoom::Initialization(CGameMap* map)
 	{
+		// 根據類型建立房間
 		switch (_room->GetRoomType())
 		{
 		case RoomData::RoomType::NORMAL:	// 一般房間

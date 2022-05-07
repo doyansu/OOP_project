@@ -252,18 +252,22 @@ void CGameStateRun::OnBeginState()
 	CAudio::Instance()->Play(AUDIO_LAKE, true);			// 撥放 WAVE
 	CAudio::Instance()->Play(AUDIO_DING, false);		// 撥放 WAVE
 	CAudio::Instance()->Play(AUDIO_NTUT, true);			// 撥放 MIDI*/
-
+	
+	
 	
 	// Game
-	gameObjCenter.FreeALLObj();	//	清空地圖物件
-	gameMap.GenerateMap(true);		//	生成地圖
-	minMap.SetRoom(gameMap.GetRooms());				//	將房間資訊傳入小地圖
-	/*for(int i = 0; i < 10000; i++)// 生成測試
-		gameMap.GenerateMap();*/
-	character.Reset();			//	重設角色屬性
+	//	清空地圖物件
+	gameObjCenter.FreeALLObj();	
+	//	生成地圖
+	gameMap.GenerateMap(true);		
+	//	將房間資訊傳入小地圖
+	minMap.SetRoom(gameMap.GetRooms());				
+	//	重設角色屬性
+	character.Reset();			
 	character.SetXY(MYMAPWIDTH * gameMap.GetRoom(MYORGROOM, MYORGROOM)->CenterX(), MYMAPHIGH * gameMap.GetRoom(MYORGROOM, MYORGROOM)->CenterY());	//	暫時設定初始位置
 	CGameObjCenter::AddObj(&character);
 
+	//	房間建構
 	for (int i = 0; i < MYMAXNOFROOM; i++)
 		for (int j = 0; j < MYMAXNOFROOM; j++)
 		{
@@ -271,7 +275,11 @@ void CGameStateRun::OnBeginState()
 			room->Initialization(&gameMap);
 			CGameObjCenter::AddObj(room);
 		}
+	
+	// Audio
+	CAudio::Instance()->Play(AUDIO_BGM_0, true);
 
+	// 舊版房間建構
 	/*for (int i = 0; i < MYMAXNOFROOM; i++)
 		for (int j = 0; j < MYMAXNOFROOM; j++)
 		{
@@ -373,6 +381,7 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	if (!character.IsEnable() && !character.IsDie())
 	{
 		character.Init();
+		CAudio::Instance()->Stop(AUDIO_BGM_0);
 		GotoGameState(GAME_STATE_OVER);
 	}
 
@@ -444,6 +453,9 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	//	UI小地圖
 	minMap.LoadBitmap();
 	minMap.SetXY(500, 28);
+
+	// Audio
+	CAudio::Instance()->Load(AUDIO_BGM_0,  "sounds\\BGM\\bgm_1Low.wav");
 }
 
 void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)

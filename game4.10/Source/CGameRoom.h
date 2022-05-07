@@ -289,14 +289,6 @@ namespace game_framework
 		};
 
 	protected:
-		int _maxEnemy, _reGenerate;			// 生成敵人數、重新生成數
-		int _generateDelay;					// 重新生成間隔
-		bool _isStrat;						// 角色進入房間開始生成
-		bool _hasEnemys;					// 擁有敵人物件需刪除
-		RoomData* _room;					// 房間資訊生成地圖時建構
-		vector<CEnemy*> _roomEnemys;		// 可由房間管理的怪物
-		vector<RoomWall*> _roomWalls;		// 通道阻隔物件控制
-		vector<CEnemy*> _enemys;			// 可以生成的怪物類型
 
 	private:
 		class CGameClearTreasure : public CGameObj
@@ -400,9 +392,19 @@ namespace game_framework
 			}
 		};
 
-		static CGameClearTreasure clearTreasure;
-		static CGameTransferGate TransferGate;
-		static CGameTreasure gameTreasure;
+		// 一般房間使用
+		int _maxEnemy, _reGenerate;			// 生成敵人數、重新生成數
+		int _generateDelay;					// 重新生成間隔
+		bool _isStrat;						// 角色進入房間開始生成
+		bool _hasEnemys;					// 擁有敵人物件需刪除
+		RoomData* _room;					// 房間資訊生成地圖時建構
+		vector<CEnemy*> _roomEnemys;		// 可由房間管理的怪物
+		vector<RoomWall*> _roomWalls;		// 通道阻隔物件控制
+		vector<CEnemy*> _enemys;			// 可以生成的怪物類型
+
+		static CGameClearTreasure clearTreasure;	// 通關寶箱物件
+		static CGameTransferGate TransferGate;		// 傳送門物件
+		static CGameTreasure gameTreasure;			// 寶箱房間物件
 	};
 
 	
