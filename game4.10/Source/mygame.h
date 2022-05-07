@@ -124,6 +124,7 @@ namespace game_framework {
 		CInteger HP, MP, SP, MAXHP, MAXMP, MAXSP, GAMELEVEL;
 		CMovingBitmap HPBACKGROUND, SLASH, HPBAR, SPBAR, MPBAR, MINUS;
 		CUIMinMap minMap;
+		int dMinMap;						//	小地圖位移
 
 		// GAME
 		int gameLevel;						//	關卡數

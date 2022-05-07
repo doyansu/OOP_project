@@ -108,7 +108,9 @@ namespace game_framework
 				for (int y = -2; y < 3; y++)
 				{
 					wall.SetXY(MYMAPWIDTH * (cx - (w / 2) - 1), MYMAPHIGH * (cy + y));
-					_roomWalls.push_back(new RoomWall(wall));
+					RoomWall* newWall = new RoomWall(wall);								
+					newWall->SetShowPriority(y);			//	調整優先度以正確顯示
+					_roomWalls.push_back(newWall);
 				}
 			}
 			// 右方有通道
@@ -118,7 +120,9 @@ namespace game_framework
 				for (int y = -2; y < 3; y++)
 				{
 					wall.SetXY(MYMAPWIDTH * (cx + (w / 2) + 1), MYMAPHIGH * (cy + y));
-					_roomWalls.push_back(new RoomWall(wall));
+					RoomWall* newWall = new RoomWall(wall);								
+					newWall->SetShowPriority(y);			//	調整優先度以正確顯示
+					_roomWalls.push_back(newWall);
 				}
 			}
 			break;
@@ -379,6 +383,11 @@ namespace game_framework
 	int CGameRoom::GetY2()
 	{
 		return _my + MYMAPHIGH * _room->High();
+	}
+
+	bool CGameRoom::IsStrat()
+	{
+		return _isStrat;
 	}
 
 

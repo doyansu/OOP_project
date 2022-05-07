@@ -155,6 +155,8 @@ namespace game_framework
 		
 		int GetX2();			// 右下地圖點座標
 		int GetY2();
+		bool IsStrat();
+
 		void OnMove(CGameMap*);
 		void OnObjCollision(CGameMap*, CGameObj*);
 		void OnDie(CGameMap*);

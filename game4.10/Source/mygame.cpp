@@ -253,8 +253,10 @@ void CGameStateRun::OnBeginState()
 	CAudio::Instance()->Play(AUDIO_DING, false);		// 撥放 WAVE
 	CAudio::Instance()->Play(AUDIO_NTUT, true);			// 撥放 MIDI*/
 	
+	// UI
+	dMinMap = 0;
 	
-	
+
 	// Game
 	//	清空地圖物件
 	gameObjCenter.FreeALLObj();	
@@ -391,6 +393,17 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 
 	//	UI小地圖
 	minMap.OnMove();
+	int px = minMap.GetPlayerIn(0), py = minMap.GetPlayerIn(1);
+	if (Rooms[px][py]->IsStrat())// 進一般、Boss房間小地圖收起
+	{
+		if (dMinMap < 175)
+			dMinMap += 5;
+	}
+	else
+	{
+		if (dMinMap > 0)
+			dMinMap -= 5;
+	}
 }
 
 void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
@@ -449,7 +462,6 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 
 	//	UI小地圖
 	minMap.LoadBitmap();
-	minMap.SetXY(415, 5);
 
 	// Audio
 	CAudio::Instance()->Load(AUDIO_BGM_0,  "sounds\\BGM\\bgm_1Low.wav");
@@ -593,15 +605,16 @@ void CGameStateRun::OnShow()
 
 	//	關卡數
 	GAMELEVEL.SetInteger(1 + gameLevel / 5);
-	GAMELEVEL.SetTopLeft(610, 225);
+	GAMELEVEL.SetTopLeft(540 + dMinMap, 180);
 	GAMELEVEL.ShowBitmap(false);
 	GAMELEVEL.SetInteger(1 + gameLevel % 5);
-	GAMELEVEL.SetTopLeft(630, 225);
+	GAMELEVEL.SetTopLeft(560 + dMinMap, 180);
 	GAMELEVEL.ShowBitmap(false);
-	MINUS.SetTopLeft(620, 225);
+	MINUS.SetTopLeft(550 + dMinMap, 180);
 	MINUS.ShowBitmap();
 
 	//	UI小地圖
+	minMap.SetXY(460 + dMinMap, 5);
 	minMap.OnShow();
 
 	//debug

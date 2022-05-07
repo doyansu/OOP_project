@@ -2,7 +2,7 @@
 #include <queue>
 #include <cmath>
 
-#define MYMAXNOFROOM 9								// 最大房間數 9 X 9
+#define MYMAXNOFROOM 7								// 最大房間數 7 X 7
 #define ROOMINTERNAL 35								// 房間中心的間隔距離
 #define MYMAPSIZE MYMAXNOFROOM * ROOMINTERNAL		// 地圖格數大小 
 #define MYMAPWIDTH 25								// 地圖每格寬
