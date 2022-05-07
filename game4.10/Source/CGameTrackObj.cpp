@@ -17,7 +17,7 @@ namespace game_framework
 		_isCollision = false;
 
 		double x = -10 + rand() % 20, y = -10 + rand() % 20;
-		double d = 5 * sqrt((double)(x * x + y * y));
+		double d = 4 * sqrt((double)(x * x + y * y));
 		_vector[0] = x / d;
 		_vector[1] = y / d;
 
