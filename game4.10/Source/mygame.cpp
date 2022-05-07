@@ -452,7 +452,7 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 
 	//	UI小地圖
 	minMap.LoadBitmap();
-	minMap.SetXY(415, 28);
+	minMap.SetXY(415, 5);
 
 	// Audio
 	CAudio::Instance()->Load(AUDIO_BGM_0,  "sounds\\BGM\\bgm_1Low.wav");

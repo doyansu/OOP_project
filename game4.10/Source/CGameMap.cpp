@@ -194,6 +194,7 @@ namespace game_framework {
 		int specialRoom = 1 + (rand() % 3);						// 特殊房間數
 		int normalRoom = 1 + (rand() % 3);						// 一般房間數
 		int dir[4][2] = { {0, -1}, {0, 1}, {-1, 0}, {1, 0} };	// 搜索用向量
+		bool hasEnd = false;									// 判斷是否已經有傳送房間
 		while (!queue.empty())
 		{
 			Point* point = queue.front();
@@ -213,7 +214,7 @@ namespace game_framework {
 				_Rooms[x][y]._high = 15 + (rand() % 5) * 2;
 				
 				//	插入特殊房間
-				if (specialRoom > 0)
+				if (specialRoom > 0 || (rand() % 5 == 0)) // 保底特殊房間加完後 20% 加入特殊房間
 				{
 					int nx, ny, m = 10;
 					do {
@@ -251,11 +252,18 @@ namespace game_framework {
 					else if(hasBOSS)
 					{
 						_Rooms[nx][ny]._roomType = RoomData::RoomType::BOSS;
+						hasBOSS = false;
+					}
+					else if(!hasEnd)
+					{
+						_Rooms[nx][ny]._roomType = RoomData::RoomType::END;
+						hasEnd = true;
 					}
 					else
 					{
-						_Rooms[nx][ny]._roomType = RoomData::RoomType::END;
+						_Rooms[nx][ny]._roomType = RoomData::RoomType::TREASURE;
 					}
+					_Rooms[nx][ny]._hasRoom = true;
 					Point* newPoint = new Point(nx, ny);
 					point->AddChild(newPoint);
 					newPoint->SetParent(point);
@@ -267,7 +275,23 @@ namespace game_framework {
 					queue.push(point->GetParent());
 				}
 
-				
+				/*if (rand() % 5 == 0)	// 每個一般房間 20 % 機率多加一間房間
+				{
+					do {
+						int r = rand() % 4;
+						nx = x + dir[r][0];
+						ny = y + dir[r][1];
+					} while ((nx < 0 || ny < 0 || nx == MYMAXNOFROOM || ny == MYMAXNOFROOM || _Rooms[nx][ny]._hasRoom) && m-- > 0);
+					if (!_Rooms[nx][ny]._hasRoom)
+					{
+						_Rooms[nx][ny]._roomType = RoomData::RoomType::NORMAL;
+						_Rooms[nx][ny]._hasRoom = true;
+						Point* newPoint = new Point(nx, ny);
+						point->AddChild(newPoint);
+						newPoint->SetParent(point);
+						queue.push(newPoint);
+					}
+				}*/
 
 				break;
 			}
