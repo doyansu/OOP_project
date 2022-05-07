@@ -8,13 +8,18 @@ namespace game_framework
 	public:
 		enum class TYPE { GOLD, ENERGYBALL };
 		CGameTrackObj(TYPE=TYPE::GOLD);
+
+		void SetTarget(CGameObj*);
+
 		void LoadBitmap();									
 		void OnMove(CGameMap*);
 		void OnObjCollision(CGameMap*, CGameObj*);
-		void OnDie(CGameMap*);
+
 	protected:
 		CGameObj* _target;
 		TYPE _type;
+		int _counter;
+
 	private:
 	};
 }

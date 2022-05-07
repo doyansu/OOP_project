@@ -67,6 +67,7 @@ namespace game_framework
 			return _allObj;
 		}
 
+
 	protected:
 
 	private:

@@ -2,6 +2,8 @@
 #include "CEnemy.h"
 #include "CCharacter.h"
 #include "CGameObjCenter.h"
+#include "CGameTrackObj.h"
+
 #define REGENERATETIME GAME_ONE_SECONED >> 1
 
 namespace game_framework
@@ -388,6 +390,27 @@ namespace game_framework
 
 		protected:
 			int _dtop, _dleft, _dright;
+
+			void Die()
+			{
+				this->SetEnable(false);
+				this->SetDie(true);
+				int t = 2 + rand() % 4;
+				CGameObj* player = CGameObjCenter::FindObjBy(
+					[](CGameObj* obj)
+					{
+						return obj->GetTag() == "player";
+					});
+				while (t--)
+				{
+					CGameTrackObj* obj = new CGameTrackObj((CGameTrackObj::TYPE)(rand()%2));
+					obj->SetXY(this->CenterX(), this->CenterY());
+					obj->SetTarget(player);
+					obj->LoadBitmap();
+					CGameObjCenter::AddObj(obj);
+				}
+			}
+
 		private:
 			vector<CAnimation>::iterator GetAnima(Anima type)
 			{

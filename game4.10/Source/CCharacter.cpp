@@ -368,7 +368,7 @@ namespace game_framework {
 
 	void CCharacter::OnObjCollision(CGameMap* map, CGameObj* other)
 	{
-		if (other->GetTag() == "cleartreasure")
+		if (other->GetTag() == "cleartreasure" && other->IsEnable())
 		{
 			other->TakeDmg(99999);
 		}

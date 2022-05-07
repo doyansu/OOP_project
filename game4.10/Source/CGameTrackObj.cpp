@@ -13,6 +13,12 @@ namespace game_framework
 		//	屬性設定
 		_target = nullptr;
 		_type = type;
+		_counter = GAME_ONE_SECONED;
+
+		double x = -10 + rand() % 20, y = -10 + rand() % 20;
+		double d = 5 * sqrt((double)(x * x + y * y));
+		_vector[0] = x / d;
+		_vector[1] = y / d;
 
 		//	動畫設定
 		_animas.push_back(CAnimation());
@@ -45,16 +51,37 @@ namespace game_framework
 		{
 			return;
 		}
+
+		double d = this->Distance(_target);
+		const int maxd = 300;				//	搜索距離
+		if (_counter > 0)
+		{
+			_counter--;
+			_mx += (int)(10 * _vector[0]);
+			_my += (int)(10 * _vector[1]);
+		}
+		else if(d < maxd)
+		{
+			
+			double vx = (double)(_target->CenterX() - this->CenterX()) / d;
+			double vy = (double)(_target->CenterY() - this->CenterY()) / d;
+			_mx += (int)((double)_moveSpeed * vx);
+			_my += (int)((double)_moveSpeed * vy);
+		}
 	}
 
 
-	void CGameTrackObj::OnObjCollision(CGameMap*, CGameObj*)
+	void CGameTrackObj::OnObjCollision(CGameMap*, CGameObj* other)
 	{
-
+		if (other->GetTag() == "player" && _counter <= 0)
+		{
+			this->SetEnable(false);
+		}
 	}
 
-	void CGameTrackObj::OnDie(CGameMap*)
+	void CGameTrackObj::SetTarget(CGameObj* target)
 	{
-
+		_target = target;
+		_moveSpeed = _target->GetMoveSpeed();
 	}
 }
