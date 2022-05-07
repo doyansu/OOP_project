@@ -37,6 +37,10 @@ namespace game_framework
 	{
 		if (_rooms == nullptr)
 			return;
+		for (int i = 0; i < MYMAXNOFROOM; i++)
+		{
+
+		}
 		/*vector<CAnimation>::iterator p;
 		p = GetAnima(Anima::END);
 		p->SetTopLeft(_sx, _sy);

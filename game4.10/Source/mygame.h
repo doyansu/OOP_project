@@ -128,8 +128,6 @@ namespace game_framework {
 		CGameMap gameMap;
 		CGameObjCenter gameObjCenter;
 		CCharacter character;
-		CGameTransferGate TransferGate;
-		CGameTreasure gameTreasure;
 
 		// debug
 		CInteger debugx, debugy;

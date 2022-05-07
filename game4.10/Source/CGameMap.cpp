@@ -809,7 +809,7 @@ namespace game_framework {
 		_centerY = 0;
 		_width = _high = 1;
 		_hasRoad[0] = _hasRoad[1] = _hasRoad[2] = _hasRoad[3] = false;
-		_hasRoom = false;
+		_hasRoom = _explored = _playerIn = false;
 		_roomType = RoomData::RoomType::NOROOM;
 	}
 
@@ -838,6 +838,16 @@ namespace game_framework {
 		if (index < 0 || index > 3)
 			ASSERT(0);	
 		return _hasRoad[index];
+	}
+
+	void RoomData::SetExplored(bool explored)
+	{
+		_explored = explored;
+	}
+
+	void RoomData::SetPlayerIn(bool playerIn)
+	{
+		_playerIn = playerIn;
 	}
 
 	RoomData::RoomType RoomData::GetRoomType()

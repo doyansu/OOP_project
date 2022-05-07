@@ -267,6 +267,14 @@ void CGameStateRun::OnBeginState()
 	for (int i = 0; i < MYMAXNOFROOM; i++)
 		for (int j = 0; j < MYMAXNOFROOM; j++)
 		{
+			CGameRoom* room = new CGameRoom(gameMap.GetRoom(i, j));
+			room->Initialization(&gameMap);
+			CGameObjCenter::AddObj(room);
+		}
+
+	/*for (int i = 0; i < MYMAXNOFROOM; i++)
+		for (int j = 0; j < MYMAXNOFROOM; j++)
+		{
 			RoomData* roomdata = gameMap.GetRoom(i, j);
 			switch (roomdata->GetRoomType())
 			{
@@ -298,7 +306,9 @@ void CGameStateRun::OnBeginState()
 			default:
 				break;
 			}
-		}
+		}*/
+
+
 	// TransferGate.SetXY(character.CenterX(), character.CenterY());
 
 	//test
@@ -418,8 +428,6 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	CGameRoom::Init();				//	房間物件初始化
 	gameMap.LoadBitmap();
 	character.LoadBitmap();
-	TransferGate.LoadBitmap();
-	gameTreasure.LoadBitmap();
 
 	// UI
 	CInteger::LoadBitmap();	// 數字圖片
@@ -452,9 +460,10 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	character.OnKeyDown(nChar);
 
 	// 碰觸傳送門進下一關
-	if (character.IsDoingSomeThing() && character.Collision(&TransferGate))
+	CGameTransferGate* TransferGate = CGameRoom::GetTransFerGate();
+	if (character.IsDoingSomeThing() && character.Collision(TransferGate))
 	{
-		TransferGate.SetDie(false);
+		TransferGate->SetDie(false);
 		GotoGameState(GAME_STATE_RUN);
 	}
 }
@@ -573,12 +582,12 @@ void CGameStateRun::OnShow()
 	debugy.SetInteger(character.GetY1());
 	debugx.ShowBitmap(false);
 	debugy.ShowBitmap(false);
-	debugx.SetTopLeft(160, 460);
+	/*debugx.SetTopLeft(160, 460);
 	debugy.SetTopLeft(240, 460);
 	debugx.SetInteger(TransferGate.GetX1());
 	debugy.SetInteger(TransferGate.GetY1());
 	debugx.ShowBitmap(false);
-	debugy.ShowBitmap(false);
+	debugy.ShowBitmap(false);*/
 	/*debugx.SetTopLeft(320, 460);
 	debugy.SetTopLeft(400, 460);
 	debugx.SetInteger(TransferGate.GetX2());

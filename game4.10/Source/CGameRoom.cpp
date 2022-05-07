@@ -8,7 +8,9 @@
 
 namespace game_framework 
 {
-	CGameRoom::ClearTreasure CGameRoom::clearTreasure;
+	CGameRoom::CGameClearTreasure CGameRoom::clearTreasure;
+	CGameTransferGate CGameRoom::TransferGate;
+	CGameTreasure CGameRoom::gameTreasure;
 
 	CGameRoom::CGameRoom(RoomData* data)
 	{
@@ -34,202 +36,291 @@ namespace game_framework
 
 	void CGameRoom::Initialization(CGameMap* map)
 	{
-		// 新增怪物
-		CEnemy enemy;
-		enemy.LoadBitmap();
-		_enemys.reserve(10);
-		_enemys.push_back(new CEnemy(enemy));
+		switch (_room->GetRoomType())
+		{
+		case RoomData::RoomType::NORMAL:	// 一般房間
+		{
+			// 新增怪物
+			CEnemy enemy;
+			enemy.LoadBitmap();
+			_enemys.reserve(10);
+			_enemys.push_back(new CEnemy(enemy));
 
 
-		// 第一批怪物
-		for (int i = 0; i < _maxEnemy; i++)
-		{
-			CEnemy* newEnemy = new CEnemy(*(_enemys.at(rand() % (int)_enemys.size())));
-			// 碰到障礙重新選位置
-			do {
-				newEnemy->SetXY(_mx + MYMAPWIDTH * (1 + rand() % (_room->Width() - 2)), _my + MYMAPHIGH * (1 + rand() % (_room->High() - 2)));
-			} while (newEnemy->Collision(map));
-			newEnemy->SetFree(false);
-			_roomEnemys.push_back(newEnemy);
-		}
+			// 第一批怪物
+			for (int i = 0; i < _maxEnemy; i++)
+			{
+				CEnemy* newEnemy = new CEnemy(*(_enemys.at(rand() % (int)_enemys.size())));
+				// 碰到障礙重新選位置
+				do {
+					newEnemy->SetXY(_mx + MYMAPWIDTH * (1 + rand() % (_room->Width() - 2)), _my + MYMAPHIGH * (1 + rand() % (_room->High() - 2)));
+				} while (newEnemy->Collision(map));
+				newEnemy->SetFree(false);
+				_roomEnemys.push_back(newEnemy);
+			}
 
-		// 通道牆創建
-		RoomWall wall;
-		wall.LoadBitmap();
-		wall.SetFree(false);
-		int cx = _room->CenterX(), cy = _room->CenterY();
-		int w = _room->Width(), h = _room->High();
+			// 通道牆創建
+			RoomWall wall;
+			wall.LoadBitmap();
+			wall.SetFree(false);
+			int cx = _room->CenterX(), cy = _room->CenterY();
+			int w = _room->Width(), h = _room->High();
 
-		// 上方有通道
-		if (_room->HasRoad(0))
-		{
-			wall.SetVector(0, 1);
-			for (int x = -2; x < 3; x++)
+			// 上方有通道
+			if (_room->HasRoad(0))
 			{
-				wall.SetXY(MYMAPWIDTH * (cx + x), MYMAPHIGH * (cy - (h / 2) - 1));
-				_roomWalls.push_back(new RoomWall(wall));
+				wall.SetVector(0, 1);
+				for (int x = -2; x < 3; x++)
+				{
+					wall.SetXY(MYMAPWIDTH * (cx + x), MYMAPHIGH * (cy - (h / 2) - 1));
+					_roomWalls.push_back(new RoomWall(wall));
+				}
 			}
+			// 下方有通道
+			if (_room->HasRoad(1))
+			{
+				wall.SetVector(0, -1);
+				for (int x = -2; x < 3; x++)
+				{
+					wall.SetXY(MYMAPWIDTH * (cx + x), MYMAPHIGH * (cy + (h / 2) + 1));
+					RoomWall* newWall = new RoomWall(wall);								//	下方的需顯示高於玩家
+					newWall->SetShowPriority(12);
+					_roomWalls.push_back(newWall);
+				}
+			}
+			// 左方有通道
+			if (_room->HasRoad(2))
+			{
+				wall.SetVector(1, 0);
+				for (int y = -2; y < 3; y++)
+				{
+					wall.SetXY(MYMAPWIDTH * (cx - (w / 2) - 1), MYMAPHIGH * (cy + y));
+					_roomWalls.push_back(new RoomWall(wall));
+				}
+			}
+			// 右方有通道
+			if (_room->HasRoad(3))
+			{
+				wall.SetVector(-1, 0);
+				for (int y = -2; y < 3; y++)
+				{
+					wall.SetXY(MYMAPWIDTH * (cx + (w / 2) + 1), MYMAPHIGH * (cy + y));
+					_roomWalls.push_back(new RoomWall(wall));
+				}
+			}
+			break;
 		}
-		// 下方有通道
-		if (_room->HasRoad(1))
+		case RoomData::RoomType::END:		// 傳送房間
 		{
-			wall.SetVector(0, -1);
-			for (int x = -2; x < 3; x++)
-			{
-				wall.SetXY(MYMAPWIDTH * (cx + x), MYMAPHIGH * (cy + (h / 2) + 1));
-				RoomWall* newWall = new RoomWall(wall);								//	下方的需顯示高於玩家
-				newWall->SetShowPriority(12);			
-				_roomWalls.push_back(newWall);
-			}
+			TransferGate.SetXY(_room->CenterX() * MYMAPWIDTH - (TransferGate.Width() >> 1) + (MYMAPWIDTH >> 1),
+				_room->CenterY() * MYMAPHIGH - (TransferGate.Height() >> 1) + (MYMAPHIGH >> 1));
+			CGameObjCenter::AddObj(&TransferGate);
+			break;
 		}
-		// 左方有通道
-		if (_room->HasRoad(2))
+		case RoomData::RoomType::TREASURE:	//	寶箱房間
 		{
-			wall.SetVector(1, 0);
-			for (int y = -2; y < 3; y++)
-			{
-				wall.SetXY(MYMAPWIDTH * (cx - (w / 2) - 1), MYMAPHIGH * (cy + y));
-				_roomWalls.push_back(new RoomWall(wall));
-			}
+			CGameTreasure* treasure = new CGameTreasure(gameTreasure);
+			treasure->SetXY(_room->CenterX() * MYMAPWIDTH - (treasure->Width() >> 1) + (MYMAPWIDTH >> 1),
+				_room->CenterY() * MYMAPHIGH - (treasure->Height() >> 1) + (MYMAPHIGH >> 1));
+			CGameObjCenter::AddObj(treasure);
+			break;
 		}
-		// 右方有通道
-		if (_room->HasRoad(3))
-		{
-			wall.SetVector(-1, 0);
-			for (int y = -2; y < 3; y++)
-			{
-				wall.SetXY(MYMAPWIDTH * (cx + (w / 2) + 1), MYMAPHIGH * (cy + y));
-				_roomWalls.push_back(new RoomWall(wall));
-			}
+		case RoomData::RoomType::BOSS:		//	BOSS房間
+			break;
+		default:
+			break;
 		}
 	}
 
 	CGameRoom::~CGameRoom()
 	{
-		if (_hasEnemys)
+		switch (_room->GetRoomType())
 		{
-			for (CEnemy* obj : _roomEnemys)
+		case RoomData::RoomType::NORMAL:
+		{
+			if (_hasEnemys)
+			{
+				for (CEnemy* obj : _roomEnemys)
+				{
+					if (!obj->NeedFree())
+						delete obj;
+				}
+			}
+			for (RoomWall* obj : _roomWalls)
 			{
 				if (!obj->NeedFree())
 					delete obj;
 			}
-		}	
-		for (RoomWall* obj : _roomWalls)
-		{
-			if (!obj->NeedFree())
-				delete obj;
+			for (CEnemy* enemy : _enemys)
+			{
+				delete enemy;
+			}
+			break;
 		}
-		for (CEnemy* enemy : _enemys)
-		{
-			delete enemy;
+		default:
+			break;
 		}
 	}
 
 	void CGameRoom::OnMove(CGameMap* map)
 	{
-		if (_isStrat)
+		switch (_room->GetRoomType())
 		{
-			if (_generateDelay > 0)
-				_generateDelay--;
-			else if (_generateDelay == 0)
+		case RoomData::RoomType::NORMAL:
+		{
+			if (_isStrat)
 			{
-				_hasEnemys = false;
+				if (_generateDelay > 0)
+					_generateDelay--;
+				else if (_generateDelay == 0)
+				{
+					_hasEnemys = false;
+					for (CEnemy* obj : _roomEnemys)
+					{
+						obj->SetFree(true);
+						CGameObjCenter::AddObj(obj);
+					}
+				}
+
+				// 檢查房間內怪物是否已經全部死亡
 				for (CEnemy* obj : _roomEnemys)
 				{
-					obj->SetFree(true);
-					CGameObjCenter::AddObj(obj);
-				}	
-			}
+					if (obj->IsEnable())
+					{
+						if (obj->NeedFree())
+							_generateDelay = REGENERATETIME;
+						return;
+					}
 
-			// 檢查房間內怪物是否已經全部死亡
-			for (CEnemy* obj : _roomEnemys)
-			{
-				if (obj->IsEnable())
-				{
-					if(obj->NeedFree())
-						_generateDelay = REGENERATETIME;
-					return;
 				}
-					
-			}
 
-			// 全部死亡重新生成
-			_roomEnemys.clear();
-			if (_reGenerate > 0)
-			{
-				int r = 1 + (rand() % (_maxEnemy - 1));
-				for (int i = 0; i < r; i++)
+				// 全部死亡重新生成
+				_roomEnemys.clear();
+				if (_reGenerate > 0)
 				{
-					CEnemy* newEnemy = new CEnemy(*(_enemys.at(rand() % (int)_enemys.size())));
-					// 碰到障礙重新選位置
-					do {
-						newEnemy->SetXY(_mx + MYMAPWIDTH * (1 + rand() % (_room->Width() - 2)), _my + MYMAPHIGH * (1 + rand() % (_room->High() - 2)));
-					} while (newEnemy->Collision(map));
-					newEnemy->SetFree(false);
-					_roomEnemys.push_back(newEnemy);
+					int r = 1 + (rand() % (_maxEnemy - 1));
+					for (int i = 0; i < r; i++)
+					{
+						CEnemy* newEnemy = new CEnemy(*(_enemys.at(rand() % (int)_enemys.size())));
+						// 碰到障礙重新選位置
+						do {
+							newEnemy->SetXY(_mx + MYMAPWIDTH * (1 + rand() % (_room->Width() - 2)), _my + MYMAPHIGH * (1 + rand() % (_room->High() - 2)));
+						} while (newEnemy->Collision(map));
+						newEnemy->SetFree(false);
+						_roomEnemys.push_back(newEnemy);
+					}
+					_reGenerate--;
 				}
-				_reGenerate--;
+				else
+				{
+					this->SetEnable(false);
+					this->SetDie(true);
+				}
 			}
-			else
-			{
-				this->SetEnable(false);
-				this->SetDie(true);
-			}
+			break;
 		}
+		default:
+			break;
+		}
+		
 	}
 
 	void CGameRoom::OnShow(CGameMap* map)
 	{
 		// 這邊有 bug 會在左上顯示物件還沒找出問題 #更 好像又沒問題了 ?.?
-		for (CEnemy* obj : _roomEnemys)
-			if(!obj->NeedFree() && map->InScreen(obj->GetX1(), obj->GetY1(), obj->GetX2(), obj->GetY2()))
-				obj->OnShow(map);
-		//
+
+		switch (_room->GetRoomType())
+		{
+		case RoomData::RoomType::NORMAL:
+		{
+			for (CEnemy* obj : _roomEnemys)
+				if (!obj->NeedFree() && map->InScreen(obj->GetX1(), obj->GetY1(), obj->GetX2(), obj->GetY2()))
+					obj->OnShow(map);
+			break;
+		}
+		default:
+			break;
+		}
+		
 		
 	}
 
 	void CGameRoom::OnObjCollision(CGameMap* map, CGameObj* other)
 	{
-		// 玩家進入房間怪物開始動作
-		if (_isStrat == false && other->GetTag() == "player")
+		switch (_room->GetRoomType())
 		{
-			// 完全進入才開始
+		case RoomData::RoomType::NORMAL:
+		{
+			// 玩家第一次進入房間怪物開始動作
+			if (_isStrat == false && other->GetTag() == "player")
+			{
+				// 完全進入才開始
+				int x1 = other->GetX1(), x2 = other->GetX2(), y1 = other->GetY1(), y2 = other->GetY2();
+				if (this->GetX1() >= x1 || this->GetX2() <= x2 || this->GetY1() >= y1 || this->GetY2() <= y2)
+					return;
+				_room->SetExplored(true);
+				_isStrat = true;
+				_hasEnemys = false;
+				// 第一批怪物開始動作
+				for (CEnemy* obj : _roomEnemys)
+				{
+					obj->SetFree(true);
+					CGameObjCenter::AddObj(obj);
+				}
+				// 通道牆開始動作
+				for (RoomWall* obj : _roomWalls)
+				{
+					obj->SetFree(true);
+					CGameObjCenter::AddObj(obj);
+				}
+
+			}
+			break;
+		}
+		default:
+			break;
+		}
+		
+
+		if (other->GetTag() == "player")		// 判斷玩家是否在房間內
+		{
 			int x1 = other->GetX1(), x2 = other->GetX2(), y1 = other->GetY1(), y2 = other->GetY2();
 			if (this->GetX1() >= x1 || this->GetX2() <= x2 || this->GetY1() >= y1 || this->GetY2() <= y2)
-				return;
-			_isStrat = true;
-			_hasEnemys = false;
-			// 第一批怪物開始動作
-			for (CEnemy* obj : _roomEnemys)
 			{
-				obj->SetFree(true);
-				CGameObjCenter::AddObj(obj);
+				_room->SetPlayerIn(false);
 			}
-			// 通道牆開始動作
-			for (RoomWall* obj : _roomWalls)
+			else
 			{
-				obj->SetFree(true);
-				CGameObjCenter::AddObj(obj);
+				_room->SetPlayerIn(true);
 			}
-
 		}
 			
 	}
 
 	void CGameRoom::OnDie(CGameMap* map)
 	{
-		for (CGameObj* obj : _roomWalls)
+		switch (_room->GetRoomType())
 		{
-			obj->SetEnable(false);
-			obj->SetDie(true);
+		case RoomData::RoomType::NORMAL:
+		{
+			for (CGameObj* obj : _roomWalls)
+			{
+				obj->SetEnable(false);
+				obj->SetDie(true);
+			}
+			CGameClearTreasure* cTreasure = new CGameClearTreasure(clearTreasure);
+			// 碰到障礙重新選位置
+			do {
+				cTreasure->SetXY(_mx + MYMAPWIDTH * (1 + rand() % (_room->Width() - 2)), _my + MYMAPHIGH * (1 + rand() % (_room->High() - 2)));
+			} while (cTreasure->Collision(map));
+			CGameObjCenter::AddObj(cTreasure);
+			this->SetDie(false);
+			break;
 		}
-		ClearTreasure* cTreasure = new ClearTreasure(clearTreasure);
-		// 碰到障礙重新選位置
-		do {
-			cTreasure->SetXY(_mx + MYMAPWIDTH * (1 + rand() % (_room->Width() - 2)), _my + MYMAPHIGH * (1 + rand() % (_room->High() - 2)));
-		} while (cTreasure->Collision(map));
-		CGameObjCenter::AddObj(cTreasure);
-		this->SetDie(false);
+		default:
+			break;
+		}
+		
 	}
 	
 	int CGameRoom::GetX2()

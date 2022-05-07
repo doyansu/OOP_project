@@ -21,10 +21,14 @@ namespace game_framework {
 		int Width();
 		int High();
 		bool HasRoad(int);
+		void SetExplored(bool);
+		void SetPlayerIn(bool);
 		RoomData::RoomType GetRoomType();
 
 	protected:
 		bool _hasRoom;					// 有房間
+		bool _explored;					// 有無探索過
+		bool _playerIn;					// 玩家是否在房間
 		bool _hasRoad[4];				// 上下左右有通道
 		int _centerX, _centerY;			// 在地圖中心位置
 		int _width, _high;				// 寬高
