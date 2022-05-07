@@ -22,6 +22,7 @@
     <ClCompile Include="Source\gamelib.cpp" />
     <ClCompile Include="Source\mygame.cpp" />
     <ClCompile Include="Source\CUIMinMap.cpp" />
+    <ClCompile Include="Source\CGameTrackObj.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\CCharacter.h" />
@@ -46,6 +47,7 @@
     <ClInclude Include="Source\gamelib.h" />
     <ClInclude Include="Source\mygame.h" />
     <ClInclude Include="Source\CUIMinMap.h" />
+    <ClInclude Include="Source\CGameTrackObj.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Source\game.rc" />
@@ -215,6 +217,7 @@
     <Image Include="res\enemy\bmp00048.bmp" />
     <Image Include="res\enemy\bmp00049.bmp" />
     <Image Include="res\enemy\bmp00050.bmp" />
+    <Image Include="res\enemy\bmp00051.bmp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Res\ball.bmp" />

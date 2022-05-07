@@ -370,6 +370,8 @@ IDB_gold_1_2            BITMAP                  "..\\res\\enemy\\bmp00049.bmp"
 
 IDB_gold_1_3            BITMAP                  "..\\res\\enemy\\bmp00050.bmp"
 
+IDB_energyBall_0        BITMAP                  "..\\res\\enemy\\bmp00051.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
