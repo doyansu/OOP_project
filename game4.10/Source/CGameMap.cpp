@@ -183,8 +183,8 @@ namespace game_framework {
 		
 		
 		// 隨機選一個方向開始增加房間
-		queue<CGameMap::Point*> queue;
-		CGameMap::Point* start = new Point(MYORGROOM, MYORGROOM);
+		queue<Point*> queue;
+		Point* start = new Point(MYORGROOM, MYORGROOM);
 		start->Set((rand() % 2), MYORGROOM + (1 ^ ((1 ^ -1) * (rand() % 2))));
 		queue.push(start);
 		_roomTree->AddChild(start);
@@ -196,7 +196,7 @@ namespace game_framework {
 		int dir[4][2] = { {0, -1}, {0, 1}, {-1, 0}, {1, 0} };	// 搜索用向量
 		while (!queue.empty())
 		{
-			CGameMap::Point* point = queue.front();
+			Point* point = queue.front();
 			int x = point->Get(0), y = point->Get(1);
 
 			// 初始化房間參數
@@ -225,7 +225,7 @@ namespace game_framework {
 					{
 						_Rooms[nx][ny]._roomType = RoomData::RoomType::TREASURE;
 						_Rooms[nx][ny]._hasRoom = true;
-						Point* newPoint = new CGameMap::Point(nx, ny);
+						Point* newPoint = new Point(nx, ny);
 						point->AddChild(newPoint);
 						newPoint->SetParent(point);
 						queue.push(newPoint);
@@ -256,7 +256,7 @@ namespace game_framework {
 					{
 						_Rooms[nx][ny]._roomType = RoomData::RoomType::END;
 					}
-					Point* newPoint = new CGameMap::Point(nx, ny);
+					Point* newPoint = new Point(nx, ny);
 					point->AddChild(newPoint);
 					newPoint->SetParent(point);
 					queue.push(newPoint);
@@ -285,7 +285,7 @@ namespace game_framework {
 				if (nx >= 0 && ny >= 0 && nx < MYMAXNOFROOM && ny < MYMAXNOFROOM && m)
 				{
 					_Rooms[nx][ny]._roomType = RoomData::RoomType::END;
-					Point* newPoint = new CGameMap::Point(nx, ny);
+					Point* newPoint = new Point(nx, ny);
 					point->AddChild(newPoint);
 					newPoint->SetParent(point);
 					queue.push(newPoint);
@@ -838,6 +838,16 @@ namespace game_framework {
 		if (index < 0 || index > 3)
 			ASSERT(0);	
 		return _hasRoad[index];
+	}
+
+	bool RoomData::IsExplored()
+	{
+		return _explored;
+	}
+
+	bool RoomData::PlayerIn()
+	{
+		return _playerIn;
 	}
 
 	void RoomData::SetExplored(bool explored)

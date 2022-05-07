@@ -60,14 +60,14 @@ namespace game_framework
 				obj->OnMove(map);
 
 				// debug
-				int x = obj->GetX1();
+				/*int x = obj->GetX1();
 				int y = obj->GetY1();
 				if (x < 0 || y < 0 || x > MYMAPSIZE * MYMAPWIDTH || y > MYMAPSIZE * MYMAPHIGH)
 				{
 					obj->SetEnable(false);
 					obj->SetDie(false);
 					GAME_ASSERT(false, "物件超出地圖!");
-				}
+				}*/
 			}
 			else if(obj->IsDie())
 			{

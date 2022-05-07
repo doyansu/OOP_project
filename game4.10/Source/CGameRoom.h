@@ -177,11 +177,11 @@ namespace game_framework
 		class RoomWall : public CGameObj
 		{
 		public:
-			enum class Anima { START, PILLARSTART, PILLAREND, END };
+			enum class Anima { START, PILLARSTART, PILLAREND, END, ANIMACOUNT};
 			RoomWall()
 			{
 				// °Êµe¸ü¤J
-				const int AnimaSize = 4;
+				const int AnimaSize = (int)Anima::ANIMACOUNT;
 				_animas.clear();
 				_animas.reserve(AnimaSize);
 				for (int i = 0; i < AnimaSize; i++)
@@ -289,6 +289,7 @@ namespace game_framework
 		};
 
 	protected:
+		void Die();
 
 	private:
 		class CGameClearTreasure : public CGameObj

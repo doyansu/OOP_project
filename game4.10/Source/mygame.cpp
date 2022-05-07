@@ -277,7 +277,7 @@ void CGameStateRun::OnBeginState()
 		}
 	
 	// Audio
-	CAudio::Instance()->Play(AUDIO_BGM_0, true);
+	//CAudio::Instance()->Play(AUDIO_BGM_0, true);
 
 	// 舊版房間建構
 	/*for (int i = 0; i < MYMAXNOFROOM; i++)
@@ -452,7 +452,7 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 
 	//	UI小地圖
 	minMap.LoadBitmap();
-	minMap.SetXY(500, 28);
+	minMap.SetXY(415, 28);
 
 	// Audio
 	CAudio::Instance()->Load(AUDIO_BGM_0,  "sounds\\BGM\\bgm_1Low.wav");

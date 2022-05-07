@@ -21,6 +21,8 @@ namespace game_framework {
 		int Width();
 		int High();
 		bool HasRoad(int);
+		bool IsExplored();
+		bool PlayerIn();
 		void SetExplored(bool);
 		void SetPlayerIn(bool);
 		RoomData::RoomType GetRoomType();
@@ -33,6 +35,91 @@ namespace game_framework {
 		int _centerX, _centerY;			// 在地圖中心位置
 		int _width, _high;				// 寬高
 		RoomData::RoomType _roomType;	// 房間類型
+	};
+
+	class Point	// 紀錄2點座標
+	{
+	public:
+		Point()
+		{
+			_xy[0] = _xy[1] = 0;
+			_childs.reserve(3);
+			_parent = nullptr;
+		}
+
+		Point(int x, int y)
+		{
+			_xy[0] = x;
+			_xy[1] = y;
+			_childs.reserve(3);
+			_parent = nullptr;
+		}
+
+		void Set(int index, int value)
+		{
+			if (index > 1 || index < 0)
+				ASSERT(0);
+			_xy[index] = value;
+		}
+
+		void SetParent(Point* parent)
+		{
+			_parent = parent;
+		}
+
+		void AddChild(Point* child)
+		{
+			_childs.push_back(child);
+		}
+
+		int Get(int index)
+		{
+			if (index > 1 || index < 0)
+				ASSERT(0);
+			return _xy[index];
+		}
+
+		Point* GetParent()
+		{
+			return _parent;
+		}
+
+		vector<Point*> GetChilds()
+		{
+			return _childs;
+		}
+
+		void freeTree()
+		{
+			for (Point* child : _childs)
+			{
+				child->freeTree();
+			}
+			delete this;
+		}
+
+		void Travel()
+		{
+			for (Point* child : _childs)
+			{
+				child->freeTree();
+			}
+		}
+
+		bool operator!=(const Point& other)
+		{
+			return (this->_xy[0] != other._xy[0] || this->_xy[1] != other._xy[1]);
+		}
+
+		bool operator==(const Point& other)
+		{
+			return (this->_xy[0] == other._xy[0] && this->_xy[1] == other._xy[1]);
+		}
+
+	private:
+		int _xy[2];
+		Point* _parent;
+		vector<Point*> _childs;
 	};
 
 	class CGameMap
@@ -106,7 +193,6 @@ namespace game_framework {
 			bool _cover, _show;						//	是否覆蓋物件、是否特殊顯示
 		private:
 		};
-
 		CGameMap::MapContent _map[MYMAPSIZE][MYMAPSIZE];			
 		int _sx, _sy, _moveSpeed;						// 螢幕點座標、移動速度			
 		vector<vector<CAnimation>> _animas;				// 地圖動畫
@@ -119,81 +205,6 @@ namespace game_framework {
 		void free();
 		void normalRoomGenerate(int, int);
 		vector<CAnimation>::iterator GetAnima(CGameMap::ContentType, int=-1);
-		
-		class Point	// 地圖生成使用
-		{
-		public:
-			Point()
-			{
-				_xy[0] = _xy[1] = 0;
-				_childs.reserve(3);
-				_parent = nullptr;
-			}
-
-			Point(int x, int y)
-			{
-				_xy[0] = x;
-				_xy[1] = y;
-				_childs.reserve(3);
-				_parent = nullptr;
-			}
-
-			void Set(int index, int value)
-			{
-				if (index > 1 || index < 0)
-					ASSERT(0);
-				_xy[index] = value;
-			}
-
-			void SetParent(Point* parent)
-			{
-				_parent = parent;
-			}
-
-			void AddChild(Point* child)
-			{
-				_childs.push_back(child);
-			}
-
-			int Get(int index)
-			{
-				if (index > 1 || index < 0)
-					ASSERT(0);
-				return _xy[index];
-			}
-
-			Point* GetParent()
-			{
-				return _parent;
-			}
-
-			vector<Point*> GetChilds()
-			{
-				return _childs;
-			}
-
-			void freeTree()
-			{
-				for (Point* child : _childs)
-				{
-					child->freeTree();
-				}
-				delete this;
-			}
-
-			void Travel()
-			{
-				for (Point* child : _childs)
-				{
-					child->freeTree();
-				}
-			}
-
-		private:
-			int _xy[2];
-			Point* _parent;
-			vector<Point*> _childs;
-		};
 		Point* _roomTree;
 	};
 }

@@ -214,8 +214,7 @@ namespace game_framework
 				}
 				else
 				{
-					this->SetEnable(false);
-					this->SetDie(true);
+					this->Die();
 				}
 			}
 			break;
@@ -253,13 +252,12 @@ namespace game_framework
 		case RoomData::RoomType::NORMAL:
 		{
 			// 玩家第一次進入房間怪物開始動作
-			if (_isStrat == false && other->GetTag() == "player")
+			if (_isDie == false && _isStrat == false && other->GetTag() == "player")
 			{
 				// 完全進入才開始
 				int x1 = other->GetX1(), x2 = other->GetX2(), y1 = other->GetY1(), y2 = other->GetY2();
 				if (this->GetX1() >= x1 || this->GetX2() <= x2 || this->GetY1() >= y1 || this->GetY2() <= y2)
 					return;
-				_room->SetExplored(true);
 				_isStrat = true;
 				_hasEnemys = false;
 				// 第一批怪物開始動作
@@ -292,10 +290,17 @@ namespace game_framework
 			}
 			else
 			{
+				_room->SetExplored(true);
 				_room->SetPlayerIn(true);
 			}
 		}
 			
+	}
+
+	void CGameRoom::Die() // 暫時沒用到
+	{
+		this->SetEnable(false);
+		this->SetDie(true);
 	}
 
 	void CGameRoom::OnDie(CGameMap* map)
@@ -304,24 +309,26 @@ namespace game_framework
 		{
 		case RoomData::RoomType::NORMAL:
 		{
+			if (!_isStrat)	// 用_isStrat來判斷只做一次 _isStart 與 OnMove 、 OnObjCollision 有關需檢查
+				break;
 			for (CGameObj* obj : _roomWalls)
 			{
 				obj->SetEnable(false);
 				obj->SetDie(true);
 			}
+			_roomWalls.clear();
 			CGameClearTreasure* cTreasure = new CGameClearTreasure(clearTreasure);
 			// 碰到障礙重新選位置
 			do {
 				cTreasure->SetXY(_mx + MYMAPWIDTH * (1 + rand() % (_room->Width() - 2)), _my + MYMAPHIGH * (1 + rand() % (_room->High() - 2)));
 			} while (cTreasure->Collision(map));
 			CGameObjCenter::AddObj(cTreasure);
-			this->SetDie(false);
+			_isStrat = false;
 			break;
 		}
 		default:
 			break;
 		}
-		
 	}
 	
 	int CGameRoom::GetX2()
