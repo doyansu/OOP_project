@@ -368,14 +368,18 @@ namespace game_framework {
 
 	void CCharacter::OnObjCollision(CGameMap* map, CGameObj* other)
 	{
-		if (other->GetTag() == "cleartreasure" && other->IsEnable())
+		if (other->GetTag() == "cleartreasure" && other->IsEnable())	//	通關寶相物件
 		{
 			other->TakeDmg(99999);
-		}
-		else if (other->GetTag() == "treasure")
+		}	
+		else if (other->GetTag() == "treasure")			//	一般寶箱
 		{
 			if(_doSomeThing)
 				other->TakeDmg(99999);
+		}
+		else if (other->GetTag() == "gold")				//	金幣
+		{
+			this->ModifyGold(1 + rand() % 2);
 		}
 		/*if (other->GetTag() == "enemy")
 		{

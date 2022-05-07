@@ -14,11 +14,21 @@ namespace game_framework
 		_target = nullptr;
 		_type = type;
 		_counter = GAME_ONE_SECONED;
+		_isCollision = false;
 
 		double x = -10 + rand() % 20, y = -10 + rand() % 20;
 		double d = 5 * sqrt((double)(x * x + y * y));
 		_vector[0] = x / d;
 		_vector[1] = y / d;
+
+		if (type == TYPE::GOLD)
+		{
+			_tag = "gold";
+		}
+		else
+		{
+			_tag = "energy";
+		}
 
 		//	°Êµe³]©w
 		_animas.push_back(CAnimation());
@@ -52,17 +62,32 @@ namespace game_framework
 			return;
 		}
 
-		double d = this->Distance(_target);
-		const int maxd = 300;				//	·j¯Á¶ZÂ÷
 		if (_counter > 0)
 		{
 			_counter--;
 			_mx += (int)(10 * _vector[0]);
 			_my += (int)(10 * _vector[1]);
 		}
-		else if(d < maxd)
+		else
 		{
-			
+			Die();
+			_isCollision = true;
+		}
+		
+	}
+
+	void CGameTrackObj::OnDie(CGameMap*)
+	{
+		_animaIter->OnMove();
+		if (_target == nullptr)
+		{
+			return;
+		}
+
+		double d = this->Distance(_target);
+		const int maxd = 200;				//	·j¯Á¶ZÂ÷
+		if (d < maxd)
+		{
 			double vx = (double)(_target->CenterX() - this->CenterX()) / d;
 			double vy = (double)(_target->CenterY() - this->CenterY()) / d;
 			_mx += (int)((double)_moveSpeed * vx);
@@ -70,12 +95,11 @@ namespace game_framework
 		}
 	}
 
-
 	void CGameTrackObj::OnObjCollision(CGameMap*, CGameObj* other)
 	{
-		if (other->GetTag() == "player" && _counter <= 0)
+		if (other->GetTag() == "player")
 		{
-			this->SetEnable(false);
+			this->SetDie(false);
 		}
 	}
 

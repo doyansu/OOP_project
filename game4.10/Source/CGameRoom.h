@@ -395,7 +395,7 @@ namespace game_framework
 			{
 				this->SetEnable(false);
 				this->SetDie(true);
-				int t = 2 + rand() % 4;
+				int t = 3 + rand() % 6;
 				CGameObj* player = CGameObjCenter::FindObjBy(
 					[](CGameObj* obj)
 					{
