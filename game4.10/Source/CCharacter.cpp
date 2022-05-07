@@ -35,7 +35,7 @@ namespace game_framework {
 		_weapons[1] = nullptr;
 		_nowWeapon = &_weapons[0];
 		(*_nowWeapon)->SetTarget("enemy");
-		(*_nowWeapon)->SetAttributes(10, 0, 25, 2);
+		(*_nowWeapon)->SetAttributes(10, 1, 25, 2);
 	}
 
 	void CCharacter::Init()
@@ -52,7 +52,7 @@ namespace game_framework {
 		_nowWeapon = &_weapons[0];
 		(*_nowWeapon)->LoadBitmap();
 		(*_nowWeapon)->SetTarget("enemy");
-		(*_nowWeapon)->SetAttributes(10, 0, 25, 2);
+		(*_nowWeapon)->SetAttributes(10, 1, 25, 2);
 	}
 
 	void CCharacter::Reset()
@@ -332,6 +332,7 @@ namespace game_framework {
 				double vx = (double)(target->CenterX() - this->CenterX()) / d;
 				double vy = (double)(target->CenterY() - this->CenterY()) / d;
 				(*_nowWeapon)->Shoot(vx, vy);
+				this->ModifyMp(-(*_nowWeapon)->GetCost());
 			}
 			else if(target != nullptr && _attCounter == 0 && d < MINSEARCH) // 近戰攻擊
 			{
@@ -341,6 +342,7 @@ namespace game_framework {
 			else if ((*_nowWeapon)->CanFire()) // 沒找到敵人朝 vector 射擊
 			{
 				(*_nowWeapon)->Shoot(_vector[0], _vector[1]);
+				this->ModifyMp(-(*_nowWeapon)->GetCost());
 			}
 		}
 		
@@ -381,6 +383,12 @@ namespace game_framework {
 		{
 			this->ModifyGold(1 + rand() % 2);
 		}
+		else if (other->GetTag() == "energyball")		//	能量球(MP)
+		{
+			this->ModifyMp((1 + rand() % 4) << 1);
+		}
+
+
 		/*if (other->GetTag() == "enemy")
 		{
 			other->SetXY(other->GetX1(), other->GetX2());
@@ -528,6 +536,15 @@ namespace game_framework {
 	void CCharacter::ModifyGold(int value)
 	{
 		_gold += value;
+	}
+
+	void CCharacter::ModifyMp(int value)
+	{
+		_mp += value;
+		if (_mp < 0)
+			_mp = 0;
+		else if (_mp > _maxMp)
+			_mp = _maxMp;
 	}
 
 	void CCharacter::SetXY(int x, int y)

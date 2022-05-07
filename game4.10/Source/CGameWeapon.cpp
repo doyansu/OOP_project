@@ -249,4 +249,9 @@ namespace game_framework
 		_center[0] = x;
 		_center[1] = y;
 	}
+
+	int CGameWeapon::GetCost()
+	{
+		return _cost;
+	}
 }

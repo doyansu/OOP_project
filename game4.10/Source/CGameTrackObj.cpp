@@ -16,6 +16,7 @@ namespace game_framework
 		_counter = GAME_ONE_SECONED;
 		_isCollision = false;
 
+		//	¥­²¾¶ZÂ÷
 		double x = -10 + rand() % 20, y = -10 + rand() % 20;
 		double d = 4 * sqrt((double)(x * x + y * y));
 		_vector[0] = x / d;
@@ -27,7 +28,7 @@ namespace game_framework
 		}
 		else
 		{
-			_tag = "energy";
+			_tag = "energyball";
 		}
 
 		//	°Êµe³]©w
@@ -85,7 +86,7 @@ namespace game_framework
 		}
 
 		double d = this->Distance(_target);
-		const int maxd = 200;				//	·j¯Á¶ZÂ÷
+		const int maxd = 250;				//	·j¯Á¶ZÂ÷
 		if (d < maxd)
 		{
 			double vx = (double)(_target->CenterX() - this->CenterX()) / d;

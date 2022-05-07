@@ -26,6 +26,7 @@ namespace game_framework {
 
 		void SetXY(int x, int y);
 		void ModifyGold(int);
+		void ModifyMp(int);
 
 		void TakeDmg(int);
 		void LoadBitmap();				// ¸ü¤J¹Ï§Î
