@@ -360,6 +360,8 @@ IDB_MinMap_AILSES       BITMAP                  "..\\res\\enemy\\bmp00044.bmp"
 
 IDB_MinMap_BOSS         BITMAP                  "..\\res\\enemy\\bmp00045.bmp"
 
+IDB_gold_1_0            BITMAP                  "..\\res\\enemy\\bmp00046.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //

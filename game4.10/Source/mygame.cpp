@@ -261,7 +261,7 @@ void CGameStateRun::OnBeginState()
 	//	清空地圖物件
 	gameObjCenter.FreeALLObj();	
 	//	生成地圖
-	if(gameLevel%5 == 4)
+	if(gameLevel % 5 == 4)		//	第五關為 boss 關
 		gameMap.GenerateMap(true);		
 	else
 		gameMap.GenerateMap();
