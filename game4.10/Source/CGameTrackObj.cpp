@@ -18,7 +18,7 @@ namespace game_framework
 
 		//	¥­²¾¶ZÂ÷
 		double x = -10 + rand() % 20, y = -10 + rand() % 20;
-		double d = 4 * sqrt((double)(x * x + y * y));
+		double d = 2 * sqrt((double)(x * x + y * y));
 		_vector[0] = x / d;
 		_vector[1] = y / d;
 
@@ -66,8 +66,11 @@ namespace game_framework
 		if (_counter > 0)
 		{
 			_counter--;
-			_mx += (int)(10 * _vector[0]);
-			_my += (int)(10 * _vector[1]);
+			if (_counter > (GAME_ONE_SECONED >> 1))
+			{
+				_mx += (int)(10 * _vector[0]);
+				_my += (int)(10 * _vector[1]);
+			}
 		}
 		else
 		{
