@@ -319,6 +319,15 @@ namespace game_framework
 	{
 		this->SetEnable(false);
 		this->SetDie(true);
+
+		switch (_room->GetRoomType())
+		{
+		case RoomData::RoomType::BOSS:
+			_generateDelay = GAME_ONE_SECONED << 1;
+			break;
+		default:
+			break;
+		}
 	}
 
 	void CGameRoom::OnDie(CGameMap* map)
@@ -349,7 +358,7 @@ namespace game_framework
 		}
 		case RoomData::RoomType::BOSS:
 		{
-			if (!_isStrat)	// 用_isStrat來判斷只做一次 _isStart 與 OnMove 、 OnObjCollision 有關需檢查
+			if (!_isStrat || _generateDelay-- > 0)	// 用_isStrat來判斷只做一次 _isStart 與 OnMove 、 OnObjCollision 有關需檢查
 				break;
 			_isStrat = false;
 

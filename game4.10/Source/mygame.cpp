@@ -396,7 +396,7 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	int px = minMap.GetPlayerIn(0), py = minMap.GetPlayerIn(1);
 	if (Rooms[px][py]->IsStrat())// 進一般、Boss房間小地圖收起
 	{
-		if (dMinMap < 175)
+		if (dMinMap < 180)
 			dMinMap += 5;
 	}
 	else
