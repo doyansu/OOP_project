@@ -323,8 +323,21 @@ namespace game_framework
 		switch (_room->GetRoomType())
 		{
 		case RoomData::RoomType::BOSS:
+		{
 			_generateDelay = GAME_ONE_SECONED << 1;
+			for (CGameObj* obj : _roomWalls)
+			{
+				obj->SetEnable(false);
+				obj->SetDie(true);
+			}
+			_roomWalls.clear();
+
+			CGameTreasure* treasure = new CGameTreasure(gameTreasure);
+			treasure->SetXY(_room->CenterX() * MYMAPWIDTH - (treasure->Width() >> 1) + (MYMAPWIDTH >> 1),
+				_room->CenterY() * MYMAPHIGH + -(treasure->Height() >> 1) + TransferGate.Height() + (MYMAPHIGH >> 1));
+			CGameObjCenter::AddObj(treasure);
 			break;
+		}
 		default:
 			break;
 		}
@@ -358,21 +371,9 @@ namespace game_framework
 		}
 		case RoomData::RoomType::BOSS:
 		{
-			if (!_isStrat || _generateDelay-- > 0)	// 用_isStrat來判斷只做一次 _isStart 與 OnMove 、 OnObjCollision 有關需檢查
+			if (_isStrat && _generateDelay-- > 0)	// 用_isStrat來判斷只做一次 _isStart 與 OnMove 、 OnObjCollision 有關需檢查
 				break;
 			_isStrat = false;
-
-			for (CGameObj* obj : _roomWalls)
-			{
-				obj->SetEnable(false);
-				obj->SetDie(true);
-			}
-			_roomWalls.clear();
-
-			CGameTreasure* treasure = new CGameTreasure(gameTreasure);
-			treasure->SetXY(_room->CenterX() * MYMAPWIDTH - (treasure->Width() >> 1) + (MYMAPWIDTH >> 1),
-				_room->CenterY() * MYMAPHIGH +  - (treasure->Height() >> 1) + TransferGate.Height() + (MYMAPHIGH >> 1));
-			CGameObjCenter::AddObj(treasure);
 			
 			TransferGate.SetXY(_room->CenterX() * MYMAPWIDTH - (TransferGate.Width() >> 1) + (MYMAPWIDTH >> 1),
 				_room->CenterY() * MYMAPHIGH - (TransferGate.Height() >> 1) + (MYMAPHIGH >> 1));
