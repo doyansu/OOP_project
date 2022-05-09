@@ -49,6 +49,7 @@
 #include "CGameObjCenter.h"
 #include "CGameRoom.h"
 #include "CUIMinMap.h"
+#include "CGameTool.h"
 
 
 
@@ -129,7 +130,6 @@ namespace game_framework {
 		// GAME
 		int gameLevel;						//	關卡數
 		CGameMap gameMap;					//	地圖
-		CGameObjCenter gameObjCenter;		//	物件管理
 		CCharacter character;				//	角色
 		CGameRoom* Rooms[MYMAXNOFROOM][MYMAXNOFROOM];				//	房間物件
 

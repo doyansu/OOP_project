@@ -2,6 +2,7 @@
 #define CGAMEOBJ_H
 
 #include "CGameMap.h"
+#include "CGameTool.h"
 
 
 namespace game_framework {
@@ -69,6 +70,46 @@ namespace game_framework {
 
 		// operator
 		CGameObj& operator=(const CGameObj& other);
+
+		static vector<CGameObj*> _allObj;
+		static vector<CGameObj*> _temp;
+		static void Init()
+		{
+			_allObj.reserve(256);
+			_temp.reserve(256);
+		}
+
+		static void AddObj(CGameObj* obj)	// 將物件加入,依優先級插入
+		{
+			//CGameObjCenter::_allObj.push_back(obj);
+			/*CGameObjCenter::_allObj.insert(lower_bound(_allObj.begin(), _allObj.end(), obj,
+				[](CGameObj* a, CGameObj* b)
+				{
+					return a->GetShowPriority() < b->GetShowPriority();
+				}
+			), obj);*/
+			_temp.push_back(obj);
+		}
+
+		static void FreeAllObj()
+		{
+			for (CGameObj* p : _allObj)
+			{
+				if (p->NeedFree())
+				{
+					delete p;
+				}
+			}
+			for (CGameObj* p : _temp)
+			{
+				if (p->NeedFree())
+				{
+					delete p;
+				}
+			}
+			_temp.clear();
+			_allObj.clear();
+		}
 
 	protected:
 		vector<CAnimation> _animas;						//	動畫清單

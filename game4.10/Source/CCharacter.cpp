@@ -36,6 +36,7 @@ namespace game_framework {
 		_nowWeapon = &_weapons[0];
 		(*_nowWeapon)->SetTarget("enemy");
 		(*_nowWeapon)->SetAttributes(10, 1, 25, 2);
+
 	}
 
 	void CCharacter::Init()
@@ -151,7 +152,7 @@ namespace game_framework {
 				
 
 		//	角色移動
-		vector<CGameObj*> roomWalls = CGameObjCenter::FindObjsBy(
+		vector<CGameObj*> roomWalls = CGameTool::FindObjsBy(CGameObj::_allObj,
 			[](CGameObj* obj)
 			{
 				return obj->GetTag() == "roomwall";
@@ -284,7 +285,7 @@ namespace game_framework {
 			const double MAXSEARCH = 500.0;	// 最大搜索範圍 
 			const double MINSEARCH = 0.0;	// 最小搜索範圍 
 			// 找到存活的敵人
-			vector<CGameObj*> enemys = CGameObjCenter::FindObjsBy(
+			vector<CGameObj*> enemys = CGameTool::FindObjsBy(CGameObj::_allObj,
 				[](CGameObj* obj)
 				{
 					return obj->IsEnable() && obj->GetTag() == "enemy";

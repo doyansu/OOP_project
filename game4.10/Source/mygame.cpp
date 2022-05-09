@@ -225,6 +225,7 @@ CGameStateRun::CGameStateRun(CGame *g)
 CGameStateRun::~CGameStateRun()
 {
 	//delete [] ball;
+	CGameObj::FreeAllObj();
 }
 
 void CGameStateRun::OnBeginState()
@@ -259,7 +260,7 @@ void CGameStateRun::OnBeginState()
 
 	// Game
 	//	清空地圖物件
-	gameObjCenter.FreeALLObj();	
+	CGameObj::FreeAllObj();
 	//	生成地圖
 	if(gameLevel % 5 == 4)		//	第五關為 boss 關
 		gameMap.GenerateMap(true);		
@@ -270,7 +271,7 @@ void CGameStateRun::OnBeginState()
 	//	重設角色屬性
 	character.Reset();			
 	character.SetXY(MYMAPWIDTH * gameMap.GetRoom(MYORGROOM, MYORGROOM)->CenterX(), MYMAPHIGH * gameMap.GetRoom(MYORGROOM, MYORGROOM)->CenterY());	//	暫時設定初始位置
-	CGameObjCenter::AddObj(&character);
+	CGameObj::AddObj(&character);
 
 	//	房間建構
 	for (int i = 0; i < MYMAXNOFROOM; i++)
@@ -278,7 +279,7 @@ void CGameStateRun::OnBeginState()
 		{
 			CGameRoom* room = new CGameRoom(gameMap.GetRoom(i, j));
 			room->Initialization(&gameMap);
-			CGameObjCenter::AddObj(room);
+			CGameObj::AddObj(room);
 			Rooms[i][j] = room;
 		}
 	
@@ -383,7 +384,70 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 
 	// GAME
 	gameMap.OnMove(character.CenterX(), character.CenterY());
-	gameObjCenter.OnMove(&gameMap);
+
+
+	// 加入物件
+	if ((int)CGameObj::_temp.size() > 0)
+	{
+		for (CGameObj* obj : CGameObj::_temp)
+			CGameObj::_allObj.push_back(obj);
+		std::sort(CGameObj::_allObj.begin(), CGameObj::_allObj.end(),
+			[](CGameObj* a, CGameObj* b)
+		{
+			return a->GetShowPriority() < b->GetShowPriority();
+		});
+		CGameObj::_temp.clear();
+	}
+
+
+	// 刪除物件
+	for (int i = 0; i < (int)CGameObj::_allObj.size(); i++)
+	{
+		if (!CGameObj::_allObj.at(i)->IsEnable() && !CGameObj::_allObj.at(i)->IsDie())
+		{
+			delete CGameObj::_allObj.at(i);
+			CGameObj::_allObj.erase(CGameObj::_allObj.begin() + i);
+		}
+	}
+
+	// 移動、新增物件
+	for (int i = 0; i < (int)CGameObj::_allObj.size(); i++)
+	{
+		CGameObj* obj = CGameObj::_allObj.at(i);
+		if (obj->IsEnable())
+		{
+			obj->OnMove(&gameMap);
+
+			// debug
+			/*int x = obj->GetX1();
+			int y = obj->GetY1();
+			if (x < 0 || y < 0 || x > MYMAPSIZE * MYMAPWIDTH || y > MYMAPSIZE * MYMAPHIGH)
+			{
+				obj->SetEnable(false);
+				obj->SetDie(false);
+				GAME_ASSERT(false, "物件超出地圖!");
+			}*/
+		}
+		else if (obj->IsDie())
+		{
+			obj->OnDie(&gameMap);
+		}
+	}
+
+	// 處理碰撞
+	for (int i = 0; i < (int)CGameObj::_allObj.size(); i++)
+	{
+		if (!CGameObj::_allObj.at(i)->IsCollision())
+			continue;
+		for (int j = i + 1; j < (int)CGameObj::_allObj.size(); j++)
+			if (CGameObj::_allObj.at(j)->IsCollision() && CGameObj::_allObj.at(i)->Collision(CGameObj::_allObj.at(j)))
+			{
+				CGameObj::_allObj.at(i)->OnObjCollision(&gameMap, CGameObj::_allObj.at(j));
+				CGameObj::_allObj.at(j)->OnObjCollision(&gameMap, CGameObj::_allObj.at(i));
+			}
+	}
+
+
 	if (!character.IsEnable() && !character.IsDie())
 	{
 		character.Init();
@@ -444,6 +508,7 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	// GAME
 	gameLevel = 0;					//	關卡數
 	CGameRoom::Init();				//	房間物件初始化
+	CGameObj::Init();				//	遊戲物件初始化
 	gameMap.LoadBitmap();
 	character.LoadBitmap();
 
@@ -559,7 +624,13 @@ void CGameStateRun::OnShow()
 
 	// GAME
 	gameMap.OnShow(false);
-	gameObjCenter.OnShow(&gameMap);
+
+	for (CGameObj* obj : CGameObj::_allObj)
+	{
+		if (gameMap.InScreen(obj->GetX1(), obj->GetY1(), obj->GetX2(), obj->GetY2()))
+			obj->OnShow(&gameMap);
+	}
+
 	gameMap.OnShow(true);
 
 	// UI

@@ -25,7 +25,7 @@ namespace game_framework
 			), obj);*/
 			_temp.push_back(obj);
 		}
-
+		/*
 		template<typename condition>	// 依條件尋找單個物件
 		static CGameObj* FindObjBy(condition function)
 		{
@@ -65,7 +65,7 @@ namespace game_framework
 		static vector<CGameObj*> GetAllObj()
 		{
 			return _allObj;
-		}
+		}*/
 
 
 	protected:

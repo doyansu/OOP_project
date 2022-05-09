@@ -164,7 +164,7 @@ namespace game_framework
 				_bullet.SetXY(this->GetX2(), this->CenterY());*/
 			_bullet->SetXY(this->CenterX(), this->CenterY());
 			_bullet->SetVector(x, y);
-			CGameObjCenter::AddObj(new CGameBullet(*_bullet));
+			CGameObj::AddObj(new CGameBullet(*_bullet));
 			_fire = false;
 			_fireCounter = _shootDelay;
 		}

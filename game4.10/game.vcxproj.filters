@@ -23,6 +23,7 @@
     <ClCompile Include="Source\mygame.cpp" />
     <ClCompile Include="Source\CUIMinMap.cpp" />
     <ClCompile Include="Source\CGameTrackObj.cpp" />
+    <ClCompile Include="Source\CGameTool.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\CCharacter.h" />
@@ -48,6 +49,7 @@
     <ClInclude Include="Source\mygame.h" />
     <ClInclude Include="Source\CUIMinMap.h" />
     <ClInclude Include="Source\CGameTrackObj.h" />
+    <ClInclude Include="Source\CGameTool.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Source\game.rc" />

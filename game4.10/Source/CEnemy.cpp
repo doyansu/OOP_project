@@ -125,7 +125,7 @@ namespace game_framework {
 		// ªZ¾¹®gÀ»
 		if (_weapon->CanFire() && (rand() % 10 == 0))
 		{
-			CGameObj* player= CGameObjCenter::FindObjBy(
+			CGameObj* player= CGameTool::FindObjBy(CGameObj::_allObj,
 				[](CGameObj* obj)
 				{
 					return obj->GetTag() == "player";

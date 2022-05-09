@@ -1,7 +1,6 @@
 #pragma once
 #include "CEnemy.h"
 #include "CCharacter.h"
-#include "CGameObjCenter.h"
 #include "CGameTrackObj.h"
 
 #define REGENERATETIME GAME_ONE_SECONED >> 1
@@ -396,7 +395,7 @@ namespace game_framework
 				this->SetEnable(false);
 				this->SetDie(true);
 				int t = 3 + rand() % 6;
-				CGameObj* player = CGameObjCenter::FindObjBy(
+				CGameObj* player = CGameTool::FindObjBy(CGameObj::_allObj,
 					[](CGameObj* obj)
 					{
 						return obj->GetTag() == "player";
@@ -407,7 +406,7 @@ namespace game_framework
 					obj->SetXY(this->CenterX(), this->CenterY());
 					obj->SetTarget(player);
 					obj->LoadBitmap();
-					CGameObjCenter::AddObj(obj);
+					CGameObj::AddObj(obj);
 				}
 			}
 

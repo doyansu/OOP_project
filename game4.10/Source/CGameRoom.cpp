@@ -131,7 +131,7 @@ namespace game_framework
 		{
 			TransferGate.SetXY(_room->CenterX() * MYMAPWIDTH - (TransferGate.Width() >> 1) + (MYMAPWIDTH >> 1),
 				_room->CenterY() * MYMAPHIGH - (TransferGate.Height() >> 1) + (MYMAPHIGH >> 1));
-			CGameObjCenter::AddObj(&TransferGate);
+			CGameObj::AddObj(&TransferGate);
 			break;
 		}
 		case RoomData::RoomType::TREASURE:	//	寶箱房間
@@ -139,7 +139,7 @@ namespace game_framework
 			CGameTreasure* treasure = new CGameTreasure(gameTreasure);
 			treasure->SetXY(_room->CenterX() * MYMAPWIDTH - (treasure->Width() >> 1) + (MYMAPWIDTH >> 1),
 				_room->CenterY() * MYMAPHIGH - (treasure->Height() >> 1) + (MYMAPHIGH >> 1));
-			CGameObjCenter::AddObj(treasure);
+			CGameObj::AddObj(treasure);
 			break;
 		}
 		default:
@@ -195,7 +195,7 @@ namespace game_framework
 					for (CEnemy* obj : _roomEnemys)
 					{
 						obj->SetFree(true);
-						CGameObjCenter::AddObj(obj);
+						CGameObj::AddObj(obj);
 					}
 				}
 
@@ -282,13 +282,13 @@ namespace game_framework
 				for (CEnemy* obj : _roomEnemys)
 				{
 					obj->SetFree(true);
-					CGameObjCenter::AddObj(obj);
+					CGameObj::AddObj(obj);
 				}
 				// 通道牆開始動作
 				for (RoomWall* obj : _roomWalls)
 				{
 					obj->SetFree(true);
-					CGameObjCenter::AddObj(obj);
+					CGameObj::AddObj(obj);
 				}
 
 			}
@@ -335,7 +335,7 @@ namespace game_framework
 			CGameTreasure* treasure = new CGameTreasure(gameTreasure);
 			treasure->SetXY(_room->CenterX() * MYMAPWIDTH - (treasure->Width() >> 1) + (MYMAPWIDTH >> 1),
 				_room->CenterY() * MYMAPHIGH + -(treasure->Height() >> 1) + TransferGate.Height() + (MYMAPHIGH >> 1));
-			CGameObjCenter::AddObj(treasure);
+			CGameObj::AddObj(treasure);
 			break;
 		}
 		default:
@@ -365,7 +365,7 @@ namespace game_framework
 			do {
 				cTreasure->SetXY(_mx + MYMAPWIDTH * (1 + rand() % (_room->Width() - 2)), _my + MYMAPHIGH * (1 + rand() % (_room->High() - 2)));
 			} while (cTreasure->Collision(map));
-			CGameObjCenter::AddObj(cTreasure);
+			CGameObj::AddObj(cTreasure);
 			
 			break;
 		}
@@ -377,7 +377,7 @@ namespace game_framework
 			
 			TransferGate.SetXY(_room->CenterX() * MYMAPWIDTH - (TransferGate.Width() >> 1) + (MYMAPWIDTH >> 1),
 				_room->CenterY() * MYMAPHIGH - (TransferGate.Height() >> 1) + (MYMAPHIGH >> 1));
-			CGameObjCenter::AddObj(&TransferGate);
+			CGameObj::AddObj(&TransferGate);
 			break;
 		}
 		default:

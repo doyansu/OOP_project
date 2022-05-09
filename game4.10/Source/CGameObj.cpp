@@ -9,6 +9,8 @@
 
 namespace game_framework {
 
+	vector<CGameObj*> CGameObj::_allObj, CGameObj::_temp;
+
 	CGameObj::CGameObj()
 	{
 		_animas.reserve(20);
