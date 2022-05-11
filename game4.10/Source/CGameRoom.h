@@ -143,6 +143,18 @@ namespace game_framework
 		{
 			this->SetEnable(false);
 			this->SetDie(true);
+
+			//	暫時各 50 %
+			if (rand() % 2)
+			{
+
+			}
+			else
+			{
+				CGameInteractOnceObj* obj = CGameInteractOnceObj::CreateObj(rand() % 4);
+				obj->SetXY(this->CenterX() - (obj->Width() >> 1), this->GetY1() - (obj->Height() >> 1));
+				CGameObj::AddObj(obj);
+			}
 		}
 
 	private:
@@ -440,8 +452,7 @@ namespace game_framework
 				}
 				else				//	隨機產生藥水
 				{
-					int r = rand() % 4;
-					CGameInteractOnceObj* obj = CGameInteractOnceObj::CreateObj(r);
+					CGameInteractOnceObj* obj = CGameInteractOnceObj::CreateObj(rand() % 4);
 					obj->SetXY(this->CenterX() - (obj->Width() >> 1), this->GetY1() - (obj->Height() >> 1));
 					CGameObj::AddObj(obj);
 				}

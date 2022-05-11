@@ -385,12 +385,12 @@ namespace game_framework {
 		}
 		else if (other->GetTag() == "treasure")			//	¤@¯ëÄ_½c
 		{
-			if (_doSomeThing)
+			if (_doSomeThing && other->IsEnable())
 				other->TakeDmg(99999);
 		}
 		else if (other->GetTag() == "redpotion")		//	¬õÃÄ¤ô
 		{
-			if (_doSomeThing)
+			if (_doSomeThing && other->IsEnable())
 			{
 				this->TakeDmg(-2);
 				other->TakeDmg(99999);
@@ -398,7 +398,7 @@ namespace game_framework {
 		}
 		else if (other->GetTag() == "bigredpotion")		//	¤j¬õÃÄ¤ô
 		{
-			if (_doSomeThing)
+			if (_doSomeThing && other->IsEnable())
 			{
 				this->TakeDmg(-4);
 				other->TakeDmg(99999);
@@ -406,7 +406,7 @@ namespace game_framework {
 		}
 		else if (other->GetTag() == "bulepotion")		//	ÂÅÃÄ¤ô
 		{
-			if (_doSomeThing)
+			if (_doSomeThing && other->IsEnable())
 			{
 				this->ModifyMp(40);
 				other->TakeDmg(99999);
@@ -414,7 +414,7 @@ namespace game_framework {
 		}
 		else if (other->GetTag() == "bigbulepotion")	//	¤jÂÅÃÄ¤ô
 		{
-			if (_doSomeThing)
+			if (_doSomeThing && other->IsEnable())
 			{
 				this->ModifyMp(80);
 				other->TakeDmg(99999);
