@@ -375,11 +375,6 @@ namespace game_framework {
 		{
 			other->TakeDmg(99999);
 		}	
-		else if (other->GetTag() == "treasure")			//	一般寶箱
-		{
-			if(_doSomeThing)
-				other->TakeDmg(99999);
-		}
 		else if (other->GetTag() == "gold")				//	金幣
 		{
 			this->ModifyGold(1 + rand() % 2);
@@ -388,7 +383,43 @@ namespace game_framework {
 		{
 			this->ModifyMp((1 + rand() % 4) << 1);
 		}
-
+		else if (other->GetTag() == "treasure")			//	一般寶箱
+		{
+			if (_doSomeThing)
+				other->TakeDmg(99999);
+		}
+		else if (other->GetTag() == "redpotion")		//	紅藥水
+		{
+			if (_doSomeThing)
+			{
+				this->TakeDmg(-2);
+				other->TakeDmg(99999);
+			}
+		}
+		else if (other->GetTag() == "bigredpotion")		//	大紅藥水
+		{
+			if (_doSomeThing)
+			{
+				this->TakeDmg(-4);
+				other->TakeDmg(99999);
+			}
+		}
+		else if (other->GetTag() == "bulepotion")		//	藍藥水
+		{
+			if (_doSomeThing)
+			{
+				this->ModifyMp(40);
+				other->TakeDmg(99999);
+			}
+		}
+		else if (other->GetTag() == "bigbulepotion")	//	大藍藥水
+		{
+			if (_doSomeThing)
+			{
+				this->ModifyMp(80);
+				other->TakeDmg(99999);
+			}
+		}
 
 		/*if (other->GetTag() == "enemy")
 		{
@@ -425,14 +456,21 @@ namespace game_framework {
 
 	void CCharacter::TakeDmg(int dmg)
 	{
-		_shieldCounter = GAME_ONE_SECONED * 5; // 5秒(約)
-		if (_shield)
+		if (dmg > 0)
 		{
-			_shield -= dmg;
-			if (_shield < 0)
+			_shieldCounter = GAME_ONE_SECONED * 5; // 約 5 秒
+			if (_shield)
 			{
-				CGameObj::TakeDmg(-_shield);
-				_shield = 0;
+				_shield -= dmg;
+				if (_shield < 0)
+				{
+					CGameObj::TakeDmg(-_shield);
+					_shield = 0;
+				}
+			}
+			else
+			{
+				CGameObj::TakeDmg(dmg);
 			}
 		}
 		else

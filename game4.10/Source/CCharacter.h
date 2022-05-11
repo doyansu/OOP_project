@@ -26,8 +26,8 @@ namespace game_framework {
 		void SetXY(int x, int y);
 		void ModifyGold(int);
 		void ModifyMp(int);
-
 		void TakeDmg(int);
+
 		void LoadBitmap();				// 載入圖形
 		void OnShow(CGameMap*);			// 將圖形貼到畫面
 		void OnMove(CGameMap*);			// 移動

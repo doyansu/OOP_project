@@ -2,15 +2,12 @@
 #include "CEnemy.h"
 #include "CCharacter.h"
 #include "CGameTrackObj.h"
+#include "CGameInteractOnceObj.h"
 
 #define REGENERATETIME GAME_ONE_SECONED >> 1
 
 namespace game_framework
 {
-	//class CGameInteractOnceObj
-	//{
-
-	//};
 	class CGameTreasure : public CGameObj
 	{
 	public:
@@ -172,7 +169,19 @@ namespace game_framework
 		{
 			clearTreasure.LoadBitmap();
 			TransferGate.LoadBitmap();
-			gameTreasure.LoadBitmap();
+			Treasure.LoadBitmap();
+
+			for (int i = 0; i < 2; i++)
+			{
+				TrackObj[i] = CGameTrackObj((CGameTrackObj::TYPE)i);
+				TrackObj[i].LoadBitmap();
+			}
+
+			for (int i = 0; i < 4; i++)
+			{
+				potions[i] = CGameInteractOnceObj((CGameInteractOnceObj::Type)i);
+				potions[i].LoadBitmap();
+			}
 		}
 
 		static CGameTransferGate* GetTransFerGate()
@@ -398,20 +407,34 @@ namespace game_framework
 			{
 				this->SetEnable(false);
 				this->SetDie(true);
-				int t = 3 + rand() % 6;
-				CGameObj* player = CGameTool::FindObjBy(CGameObj::_allObj,
-					[](CGameObj* obj)
+
+				//	暫時調成都 50 %
+				if (rand() % 2)	//	隨機生成能量球、金幣
+				{
+					int t = 3 + rand() % 6;
+					CGameObj* player = CGameTool::FindObjBy(CGameObj::_allObj,
+						[](CGameObj* obj)
 					{
 						return obj->GetTag() == "player";
 					});
-				while (t--)
+					while (t--)
+					{
+						int r = rand() % 2;
+						CGameTrackObj* obj = new CGameTrackObj(TrackObj[r]);
+						obj->SetXY(this->CenterX(), this->CenterY());
+						obj->SetTarget(player);
+						CGameObj::AddObj(obj);
+					}
+				}
+				else				//	隨機產生藥水
 				{
-					CGameTrackObj* obj = new CGameTrackObj((CGameTrackObj::TYPE)(rand()%2));
-					obj->SetXY(this->CenterX(), this->CenterY());
-					obj->SetTarget(player);
+					int r = rand() % 4;
+					CGameInteractOnceObj* obj = new CGameInteractOnceObj(potions[r]);
+					obj->SetXY(this->CenterX() - (obj->Width() >> 1), this->CenterY() - (obj->Height() >> 1));
 					obj->LoadBitmap();
 					CGameObj::AddObj(obj);
 				}
+
 			}
 
 		private:
@@ -433,7 +456,9 @@ namespace game_framework
 
 		static CGameClearTreasure clearTreasure;	// 通關寶箱物件
 		static CGameTransferGate TransferGate;		// 傳送門物件
-		static CGameTreasure gameTreasure;			// 寶箱房間物件
+		static CGameTreasure Treasure;				// 寶箱房間物件
+		static CGameInteractOnceObj	potions[4];		// 藥水物件
+		static CGameTrackObj TrackObj[2];			// 能量球、金幣
 	};
 
 	

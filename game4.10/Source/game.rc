@@ -374,6 +374,14 @@ IDB_energyBall_0        BITMAP                  "..\\res\\enemy\\bmp00051.bmp"
 
 IDB_MinMap_SPECIAL      BITMAP                  "..\\res\\enemy\\bmp00052.bmp"
 
+IDB_REDPOTION_0         BITMAP                  "..\\res\\enemy\\bmp00053.bmp"
+
+IDB_REDPOTION_1         BITMAP                  "..\\res\\enemy\\bmp00054.bmp"
+
+IDB_BULEPOTION_0        BITMAP                  "..\\res\\enemy\\bmp00055.bmp"
+
+IDB_BULEPOTION_1        BITMAP                  "..\\res\\enemy\\bmp00056.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //

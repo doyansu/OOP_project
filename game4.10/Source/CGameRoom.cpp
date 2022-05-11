@@ -10,7 +10,9 @@ namespace game_framework
 {
 	CGameRoom::CGameClearTreasure CGameRoom::clearTreasure;
 	CGameTransferGate CGameRoom::TransferGate;
-	CGameTreasure CGameRoom::gameTreasure;
+	CGameTreasure CGameRoom::Treasure;
+	CGameInteractOnceObj CGameRoom::potions[4];
+	CGameTrackObj CGameRoom::TrackObj[2];
 
 	CGameRoom::CGameRoom(RoomData* data)
 	{
@@ -136,13 +138,13 @@ namespace game_framework
 		}
 		case RoomData::RoomType::TREASURE:	//	寶箱房間
 		{
-			CGameTreasure* treasure = new CGameTreasure(gameTreasure);
+			CGameTreasure* treasure = new CGameTreasure(Treasure);
 			treasure->SetXY(_room->CenterX() * MYMAPWIDTH - (treasure->Width() >> 1) + (MYMAPWIDTH >> 1),
 				_room->CenterY() * MYMAPHIGH - (treasure->Height() >> 1) + (MYMAPHIGH >> 1));
 			CGameObj::AddObj(treasure);
 			break;
 		}
-		case RoomData::RoomType::SPECIAL:
+		case RoomData::RoomType::SPECIAL:	//	特殊房間
 			break;
 		default:
 			break;
@@ -334,7 +336,7 @@ namespace game_framework
 			}
 			_roomWalls.clear();
 
-			CGameTreasure* treasure = new CGameTreasure(gameTreasure);
+			CGameTreasure* treasure = new CGameTreasure(Treasure);
 			treasure->SetXY(_room->CenterX() * MYMAPWIDTH - (treasure->Width() >> 1) + (MYMAPWIDTH >> 1),
 				_room->CenterY() * MYMAPHIGH + -(treasure->Height() >> 1) + TransferGate.Height() + (MYMAPHIGH >> 1));
 			CGameObj::AddObj(treasure);

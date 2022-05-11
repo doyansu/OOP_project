@@ -259,6 +259,7 @@
     <ClCompile Include="source\CCharacter.cpp" />
     <ClCompile Include="source\CEnemy.cpp" />
     <ClCompile Include="Source\CGameBullet.cpp" />
+    <ClCompile Include="Source\CGameInteractOnceObj.cpp" />
     <ClCompile Include="Source\CGameMap.cpp" />
     <ClCompile Include="Source\CGameObj.cpp" />
     <ClCompile Include="Source\CGameObjCenter.cpp" />
@@ -317,6 +318,7 @@
     <ClInclude Include="source\CCharacter.h" />
     <ClInclude Include="source\CEnemy.h" />
     <ClInclude Include="Source\CGameBullet.h" />
+    <ClInclude Include="Source\CGameInteractOnceObj.h" />
     <ClInclude Include="Source\CGameMap.h" />
     <ClInclude Include="Source\CGameObj.h" />
     <ClInclude Include="Source\CGameObjCenter.h" />
@@ -457,6 +459,10 @@
     <Image Include="res\enemy\bmp00050.bmp" />
     <Image Include="res\enemy\bmp00051.bmp" />
     <Image Include="res\enemy\bmp00052.bmp" />
+    <Image Include="res\enemy\bmp00053.bmp" />
+    <Image Include="res\enemy\bmp00054.bmp" />
+    <Image Include="res\enemy\bmp00055.bmp" />
+    <Image Include="res\enemy\bmp00056.bmp" />
     <Image Include="RES\enemy\enemy31_0.bmp" />
     <Image Include="RES\enemy\enemy31_0_l.bmp" />
     <Image Include="RES\enemy\enemy31_1.bmp" />

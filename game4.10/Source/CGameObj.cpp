@@ -181,13 +181,14 @@ namespace game_framework {
 
 	void CGameObj::TakeDmg(int damage)
 	{
-		if (_hp <= damage)
+		_hp -= damage;
+		if (_hp <= 0)
 		{
 			_hp = 0;
 			Die();
 		}
-		else
-			_hp -= damage;
+		else if (_hp > _maxHp)
+			_hp = _maxHp;
 	}
 
 	int CGameObj::GetX1()
