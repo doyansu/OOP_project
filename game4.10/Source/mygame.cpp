@@ -512,7 +512,7 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	CGameInteractOnceObj::Init();
 	CGameTrackObj::Init();
 	CGameTreasure::Init();
-	CGameRoom::Init();				
+	CGameRoom::Init();
 				
 	
 	gameMap.LoadBitmap();

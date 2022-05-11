@@ -477,6 +477,8 @@ namespace game_framework {
 		{
 			CGameObj::TakeDmg(dmg);
 		}
+			 
+		
 	}
 
 	void CCharacter::ModifyShield(int add)

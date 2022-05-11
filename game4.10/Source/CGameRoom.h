@@ -139,6 +139,12 @@ namespace game_framework
 
 		static CGameTreasure _treasure[(int)CGameTreasure::Type::TYPECOUNT];
 
+		void Die()
+		{
+			this->SetEnable(false);
+			this->SetDie(true);
+		}
+
 	private:
 		vector<CAnimation>::iterator GetAnima(Anima type)
 		{
@@ -436,8 +442,7 @@ namespace game_framework
 				{
 					int r = rand() % 4;
 					CGameInteractOnceObj* obj = CGameInteractOnceObj::CreateObj(r);
-					obj->SetXY(this->CenterX() - (obj->Width() >> 1), this->CenterY() - (obj->Height() >> 1));
-					obj->LoadBitmap();
+					obj->SetXY(this->CenterX() - (obj->Width() >> 1), this->GetY1() - (obj->Height() >> 1));
 					CGameObj::AddObj(obj);
 				}
 
