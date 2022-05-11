@@ -10,9 +10,8 @@ namespace game_framework
 {
 	CGameRoom::CGameClearTreasure CGameRoom::clearTreasure;
 	CGameTransferGate CGameRoom::TransferGate;
-	CGameTreasure CGameRoom::Treasure;
-	CGameInteractOnceObj CGameRoom::potions[4];
-	CGameTrackObj CGameRoom::TrackObj[2];
+
+	CGameTreasure CGameTreasure::_treasure[(int)CGameTreasure::Type::TYPECOUNT];
 
 	CGameRoom::CGameRoom(RoomData* data)
 	{
@@ -138,7 +137,7 @@ namespace game_framework
 		}
 		case RoomData::RoomType::TREASURE:	//	Ä_½c©Ð¶¡
 		{
-			CGameTreasure* treasure = new CGameTreasure(Treasure);
+			CGameTreasure* treasure = CGameTreasure::CreateObj(rand() % (int)CGameTreasure::Type::TYPECOUNT);
 			treasure->SetXY(_room->CenterX() * MYMAPWIDTH - (treasure->Width() >> 1) + (MYMAPWIDTH >> 1),
 				_room->CenterY() * MYMAPHIGH - (treasure->Height() >> 1) + (MYMAPHIGH >> 1));
 			CGameObj::AddObj(treasure);
@@ -336,7 +335,7 @@ namespace game_framework
 			}
 			_roomWalls.clear();
 
-			CGameTreasure* treasure = new CGameTreasure(Treasure);
+			CGameTreasure* treasure = CGameTreasure::CreateObj((int)CGameTreasure::Type::TYPECOUNT - 1);
 			treasure->SetXY(_room->CenterX() * MYMAPWIDTH - (treasure->Width() >> 1) + (MYMAPWIDTH >> 1),
 				_room->CenterY() * MYMAPHIGH + -(treasure->Height() >> 1) + TransferGate.Height() + (MYMAPHIGH >> 1));
 			CGameObj::AddObj(treasure);

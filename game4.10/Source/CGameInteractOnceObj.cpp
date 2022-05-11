@@ -8,6 +8,8 @@
 
 namespace game_framework
 {
+	CGameInteractOnceObj CGameInteractOnceObj::_interactOnceObjs[(int)Type::TYPECOUNT];
+
 	CGameInteractOnceObj::CGameInteractOnceObj(Type type)
 	{
 		const int AnimaSize = (int)Anima::ANIMACOUNT;

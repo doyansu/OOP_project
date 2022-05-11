@@ -11,8 +11,9 @@ namespace game_framework
 	class CGameTreasure : public CGameObj
 	{
 	public:
+		enum class Type { WHITE, TYPECOUNT };
 		enum class Anima { TREASURE, LEFTCOVER, RIGHTCOVER, TOP, ARROW, ANIMACOUNT };
-		CGameTreasure()
+		CGameTreasure(Type= Type::WHITE)
 		{
 			const int AnimaSize = (int)Anima::ANIMACOUNT;
 			_animas.clear();
@@ -117,16 +118,34 @@ namespace game_framework
 				_animaIter->OnShow();
 			}
 		}
+		static void Init()
+		{
+			for (int i = 0; i < (int)Type::TYPECOUNT; i++)
+			{
+				_treasure[i] = CGameTreasure((CGameTreasure::Type)i);
+				_treasure[i].LoadBitmap();
+			}
+		}
+		static CGameTreasure* CreateObj(int i)
+		{
+			GAME_ASSERT(i >= 0 && i < (int)Type::TYPECOUNT, "create error");
+			return new CGameTreasure(_treasure[i]);
+		}
+		
 
 	protected:
 		int _collPlayer;				//	碰到玩家
 		int _dtop, _dleft, _dright;
+
+		static CGameTreasure _treasure[(int)CGameTreasure::Type::TYPECOUNT];
+
 	private:
 		vector<CAnimation>::iterator GetAnima(Anima type)
 		{
 			return _animas.begin() + (int)type;
 		}
 	};
+	
 	class CGameTransferGate : public CGameObj
 	{
 	public:
@@ -168,20 +187,7 @@ namespace game_framework
 		static void Init()
 		{
 			clearTreasure.LoadBitmap();
-			TransferGate.LoadBitmap();
-			Treasure.LoadBitmap();
-
-			for (int i = 0; i < 2; i++)
-			{
-				TrackObj[i] = CGameTrackObj((CGameTrackObj::TYPE)i);
-				TrackObj[i].LoadBitmap();
-			}
-
-			for (int i = 0; i < 4; i++)
-			{
-				potions[i] = CGameInteractOnceObj((CGameInteractOnceObj::Type)i);
-				potions[i].LoadBitmap();
-			}
+			TransferGate.LoadBitmap();	
 		}
 
 		static CGameTransferGate* GetTransFerGate()
@@ -420,7 +426,7 @@ namespace game_framework
 					while (t--)
 					{
 						int r = rand() % 2;
-						CGameTrackObj* obj = new CGameTrackObj(TrackObj[r]);
+						CGameTrackObj* obj = CGameTrackObj::CreateObj(r);
 						obj->SetXY(this->CenterX(), this->CenterY());
 						obj->SetTarget(player);
 						CGameObj::AddObj(obj);
@@ -429,7 +435,7 @@ namespace game_framework
 				else				//	隨機產生藥水
 				{
 					int r = rand() % 4;
-					CGameInteractOnceObj* obj = new CGameInteractOnceObj(potions[r]);
+					CGameInteractOnceObj* obj = CGameInteractOnceObj::CreateObj(r);
 					obj->SetXY(this->CenterX() - (obj->Width() >> 1), this->CenterY() - (obj->Height() >> 1));
 					obj->LoadBitmap();
 					CGameObj::AddObj(obj);
@@ -456,9 +462,6 @@ namespace game_framework
 
 		static CGameClearTreasure clearTreasure;	// 通關寶箱物件
 		static CGameTransferGate TransferGate;		// 傳送門物件
-		static CGameTreasure Treasure;				// 寶箱房間物件
-		static CGameInteractOnceObj	potions[4];		// 藥水物件
-		static CGameTrackObj TrackObj[2];			// 能量球、金幣
 	};
 
 	

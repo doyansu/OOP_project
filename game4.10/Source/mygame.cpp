@@ -506,11 +506,20 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	//
 
 	// GAME
-	gameLevel = 0;					//	關卡數
-	CGameRoom::Init();				//	房間物件初始化
-	CGameObj::Init();				//	遊戲物件初始化
+	
+	//	遊戲物件初始化
+	CGameObj::Init();	
+	CGameInteractOnceObj::Init();
+	CGameTrackObj::Init();
+	CGameTreasure::Init();
+	CGameRoom::Init();				
+				
+	
 	gameMap.LoadBitmap();
 	character.LoadBitmap();
+
+	gameLevel = 0;					//	關卡數
+	
 
 	// UI
 	CInteger::LoadBitmap();	// 數字圖片

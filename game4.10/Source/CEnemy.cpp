@@ -178,6 +178,24 @@ namespace game_framework {
 		this->SetCollision(false);
 		this->SetShowPriority(0);
 		_animaIter = GetAnima(CEnemy::Anima::DIE);
+
+		if (rand() % 10 < 2)	//	20 % 掉落金幣或能量球
+		{
+			int t = 1 + rand() % 3;
+			CGameObj* player = CGameTool::FindObjBy(CGameObj::_allObj,
+				[](CGameObj* obj)
+			{
+				return obj->GetTag() == "player";
+			});
+			while (t--)
+			{
+				int r = rand() % 2;
+				CGameTrackObj* obj = CGameTrackObj::CreateObj(r);
+				obj->SetXY(this->CenterX(), this->CenterY());
+				obj->SetTarget(player);
+				CGameObj::AddObj(obj);
+			}
+		}
 	}
 
 	void CEnemy::OnDie(CGameMap* map)
