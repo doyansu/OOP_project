@@ -39,15 +39,15 @@ namespace game_framework
 			return;
 
 		// 從起始房間開始顯示
-		queue<Point> queue;
+		queue<CGameTool::Point> queue;
 		vector<CAnimation>::iterator p;
-		Point start = Point(MYORGROOM, MYORGROOM);	//	 從起點開始
-		start.SetParent(new Point(start));
+		CGameTool::Point start = CGameTool::Point(MYORGROOM, MYORGROOM);	//	 從起點開始
+		start.SetParent(new CGameTool::Point(start));
 		queue.push(start);
 		int dir[4][2] = { {0, -1}, {0, 1}, {-1, 0}, {1, 0} };	// 搜索用向量
 		while (!queue.empty())
 		{
-			Point point = queue.front();
+			CGameTool::Point point = queue.front();
 			int x = point.Get(0), y = point.Get(1);
 			RoomData room = _rooms[x][y];
 
@@ -71,10 +71,10 @@ namespace game_framework
 					if (room.HasRoad(i))
 					{
 						int nx = x + dir[i][0], ny = y + +dir[i][1];
-						Point newPoint(nx, ny);
+						CGameTool::Point newPoint(nx, ny);
 						if (newPoint != *(point.GetParent()))		// 不回到上一點
 						{
-							newPoint.SetParent(new Point(point));
+							newPoint.SetParent(new CGameTool::Point(point));
 							queue.push(newPoint);
 
 							//	顯示通道
@@ -115,7 +115,7 @@ namespace game_framework
 			}
 
 			// 顯示玩家位置
-			if (point == Point(_px, _py))
+			if (point == CGameTool::Point(_px, _py))
 			{
 				p = GetAnima(Anima::PLAYERIN);
 				p->SetTopLeft(_sx + _px * MYMAPWIDTH, _sy + _py * MYMAPHIGH);
@@ -142,6 +142,11 @@ namespace game_framework
 				break;
 			case RoomData::RoomType::BOSS:	
 				p = GetAnima(Anima::BOSS);
+				p->SetTopLeft(_sx + x * MYMAPWIDTH, _sy + y * MYMAPHIGH);
+				p->OnShow();
+				break;
+			case RoomData::RoomType::SPECIAL:
+				p = GetAnima(Anima::SPECIAL);
 				p->SetTopLeft(_sx + x * MYMAPWIDTH, _sy + y * MYMAPHIGH);
 				p->OnShow();
 				break;
@@ -180,6 +185,8 @@ namespace game_framework
 		p->AddBitmap(IDB_MinMap_AILSES, RGB(255, 255, 255));
 		p = GetAnima(Anima::AILSEH);
 		p->AddBitmap(IDB_MinMap_AILSEH, RGB(255, 255, 255));
+		p = GetAnima(Anima::SPECIAL);
+		p->AddBitmap(IDB_MinMap_SPECIAL, RGB(255, 255, 255));
 	}
 
 	void CUIMinMap::SetXY(int x, int y)

@@ -179,12 +179,12 @@ namespace game_framework {
 		_Rooms[MYORGROOM][MYORGROOM]._centerX = (INTERNAL >> 1) + INTERNAL * MYORGROOM;
 		_Rooms[MYORGROOM][MYORGROOM]._centerY = (INTERNAL >> 1) + INTERNAL * MYORGROOM;
 
-		_roomTree = new Point(MYORGROOM, MYORGROOM);
+		_roomTree = new CGameTool::Point(MYORGROOM, MYORGROOM);
 		
 		
 		// 隨機選一個方向開始增加房間
-		queue<Point*> queue;
-		Point* start = new Point(MYORGROOM, MYORGROOM);
+		queue<CGameTool::Point*> queue;
+		CGameTool::Point* start = new CGameTool::Point(MYORGROOM, MYORGROOM);
 		start->Set((rand() % 2), MYORGROOM + (1 ^ ((1 ^ -1) * (rand() % 2))));
 		queue.push(start);
 		_roomTree->AddChild(start);
@@ -197,7 +197,7 @@ namespace game_framework {
 		bool hasEnd = false;									// 判斷是否已經有傳送房間
 		while (!queue.empty())
 		{
-			Point* point = queue.front();
+			CGameTool::Point* point = queue.front();
 			int x = point->Get(0), y = point->Get(1);
 
 			// 初始化房間參數
@@ -224,9 +224,13 @@ namespace game_framework {
 
 					if (nx >= 0 && ny >= 0 && nx < MYMAXNOFROOM && ny < MYMAXNOFROOM && m)
 					{
-						_Rooms[nx][ny]._roomType = RoomData::RoomType::TREASURE;
 						_Rooms[nx][ny]._hasRoom = true;
-						Point* newPoint = new Point(nx, ny);
+						if (rand() & 1)	// 寶箱或特殊房間
+							_Rooms[nx][ny]._roomType = RoomData::RoomType::TREASURE;
+						else
+							_Rooms[nx][ny]._roomType = RoomData::RoomType::SPECIAL;
+						
+						CGameTool::Point* newPoint = new CGameTool::Point(nx, ny);
 						point->AddChild(newPoint);
 						newPoint->SetParent(point);
 						queue.push(newPoint);
@@ -264,7 +268,7 @@ namespace game_framework {
 						_Rooms[nx][ny]._roomType = RoomData::RoomType::TREASURE;
 					}
 					_Rooms[nx][ny]._hasRoom = true;
-					Point* newPoint = new Point(nx, ny);
+					CGameTool::Point* newPoint = new CGameTool::Point(nx, ny);
 					point->AddChild(newPoint);
 					newPoint->SetParent(point);
 					queue.push(newPoint);
@@ -301,10 +305,15 @@ namespace game_framework {
 				_Rooms[x][y]._high = 25;
 				break;
 			}
+
 			case RoomData::RoomType::TREASURE:
 			case RoomData::RoomType::END:
 				_Rooms[x][y]._width = 11;
 				_Rooms[x][y]._high = 11;
+				break;
+			case RoomData::RoomType::SPECIAL:
+				_Rooms[x][y]._width = 15;
+				_Rooms[x][y]._high = 15;
 				break;
 			default:
 				break;
@@ -438,11 +447,11 @@ namespace game_framework {
 		queue.push(_roomTree);
 		while (!queue.empty())
 		{
-			Point* parent = queue.front();
-			vector<Point*> childs = parent->GetChilds();
+			CGameTool::Point* parent = queue.front();
+			vector<CGameTool::Point*> childs = parent->GetChilds();
 			if (childs.size() > 0)
 			{
-				for (Point* child : childs)
+				for (CGameTool::Point* child : childs)
 				{
 					if (parent->Get(0) == child->Get(0))
 					{

@@ -2,9 +2,11 @@
 
 namespace game_framework
 {
-	class CGameTool
+	class CGameTool	// 工具函式、類別定義
 	{
 	public:
+
+		// function
 		template<typename condition, typename source>	// 依條件尋找單個物件
 		static source FindObjBy(vector<source> objs, condition function)
 		{
@@ -40,6 +42,94 @@ namespace game_framework
 			}
 			return maxObj;
 		}
+
+		// class
+		class Point	// 紀錄2點座標
+		{
+		public:
+			Point()
+			{
+				_xy[0] = _xy[1] = 0;
+				_childs.reserve(3);
+				_parent = nullptr;
+			}
+
+			Point(int x, int y)
+			{
+				_xy[0] = x;
+				_xy[1] = y;
+				_childs.reserve(3);
+				_parent = nullptr;
+			}
+
+			void Set(int index, int value)
+			{
+				if (index > 1 || index < 0)
+					ASSERT(0);
+				_xy[index] = value;
+			}
+
+			void SetParent(Point* parent)
+			{
+				_parent = parent;
+			}
+
+			void AddChild(Point* child)
+			{
+				_childs.push_back(child);
+			}
+
+			int Get(int index)
+			{
+				if (index > 1 || index < 0)
+					ASSERT(0);
+				return _xy[index];
+			}
+
+			Point* GetParent()
+			{
+				return _parent;
+			}
+
+			vector<Point*> GetChilds()
+			{
+				return _childs;
+			}
+
+			void freeTree()
+			{
+				for (Point* child : _childs)
+				{
+					child->freeTree();
+				}
+				delete this;
+			}
+
+			void Travel()
+			{
+				for (Point* child : _childs)
+				{
+					child->freeTree();
+				}
+			}
+
+			bool operator!=(const Point& other)
+			{
+				return (this->_xy[0] != other._xy[0] || this->_xy[1] != other._xy[1]);
+			}
+
+			bool operator==(const Point& other)
+			{
+				return (this->_xy[0] == other._xy[0] && this->_xy[1] == other._xy[1]);
+			}
+
+		private:
+			int _xy[2];
+			Point* _parent;
+			vector<Point*> _childs;
+		};
+
+
 	};
 }
 

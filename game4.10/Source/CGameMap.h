@@ -1,6 +1,7 @@
 #pragma once
 #include <queue>
 #include <cmath>
+#include "CGameTool.h"
 
 #define MYMAXNOFROOM 7								// 最大房間數 7 X 7
 #define ROOMINTERNAL 35								// 房間中心的間隔距離
@@ -14,7 +15,7 @@ namespace game_framework {
 	{
 	friend class CGameMap;
 	public:
-		enum class RoomType { NOROOM, INIT, NORMAL, TREASURE, BOSS, END };
+		enum class RoomType { NOROOM, INIT, NORMAL, TREASURE, SPECIAL, BOSS, END };
 		RoomData();
 		int CenterX();
 		int CenterY();
@@ -35,91 +36,6 @@ namespace game_framework {
 		int _centerX, _centerY;			// 在地圖中心位置
 		int _width, _high;				// 寬高
 		RoomData::RoomType _roomType;	// 房間類型
-	};
-
-	class Point	// 紀錄2點座標
-	{
-	public:
-		Point()
-		{
-			_xy[0] = _xy[1] = 0;
-			_childs.reserve(3);
-			_parent = nullptr;
-		}
-
-		Point(int x, int y)
-		{
-			_xy[0] = x;
-			_xy[1] = y;
-			_childs.reserve(3);
-			_parent = nullptr;
-		}
-
-		void Set(int index, int value)
-		{
-			if (index > 1 || index < 0)
-				ASSERT(0);
-			_xy[index] = value;
-		}
-
-		void SetParent(Point* parent)
-		{
-			_parent = parent;
-		}
-
-		void AddChild(Point* child)
-		{
-			_childs.push_back(child);
-		}
-
-		int Get(int index)
-		{
-			if (index > 1 || index < 0)
-				ASSERT(0);
-			return _xy[index];
-		}
-
-		Point* GetParent()
-		{
-			return _parent;
-		}
-
-		vector<Point*> GetChilds()
-		{
-			return _childs;
-		}
-
-		void freeTree()
-		{
-			for (Point* child : _childs)
-			{
-				child->freeTree();
-			}
-			delete this;
-		}
-
-		void Travel()
-		{
-			for (Point* child : _childs)
-			{
-				child->freeTree();
-			}
-		}
-
-		bool operator!=(const Point& other)
-		{
-			return (this->_xy[0] != other._xy[0] || this->_xy[1] != other._xy[1]);
-		}
-
-		bool operator==(const Point& other)
-		{
-			return (this->_xy[0] == other._xy[0] && this->_xy[1] == other._xy[1]);
-		}
-
-	private:
-		int _xy[2];
-		Point* _parent;
-		vector<Point*> _childs;
 	};
 
 	class CGameMap
@@ -205,6 +121,6 @@ namespace game_framework {
 		void free();
 		void normalRoomGenerate(int, int);
 		vector<CAnimation>::iterator GetAnima(CGameMap::ContentType, int=-1);
-		Point* _roomTree;
+		CGameTool::Point* _roomTree;
 	};
 }

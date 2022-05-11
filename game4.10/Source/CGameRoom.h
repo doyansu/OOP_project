@@ -7,6 +7,10 @@
 
 namespace game_framework
 {
+	//class CGameInteractOnceObj
+	//{
+
+	//};
 	class CGameTreasure : public CGameObj
 	{
 	public:

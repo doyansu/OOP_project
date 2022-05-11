@@ -142,6 +142,8 @@ namespace game_framework
 			CGameObj::AddObj(treasure);
 			break;
 		}
+		case RoomData::RoomType::SPECIAL:
+			break;
 		default:
 			break;
 		}

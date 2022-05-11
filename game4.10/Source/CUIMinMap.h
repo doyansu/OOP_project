@@ -8,7 +8,7 @@ namespace game_framework
 	class CUIMinMap
 	{
 	public:
-		enum class Anima { NOTEXPLORED, EXPLORED, PLAYERIN, INIT, TREASURE, BOSS, END, AILSES, AILSEH, ANIMACOUNT };
+		enum class Anima { NOTEXPLORED, EXPLORED, PLAYERIN, INIT, TREASURE, SPECIAL, BOSS, END, AILSES, AILSEH, ANIMACOUNT };
 		CUIMinMap();
 		void SetXY(int, int);
 		void SetRoom(RoomData **);

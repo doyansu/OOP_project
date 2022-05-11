@@ -371,6 +371,8 @@
     <Image Include="..\解包內容\enemy_bmp\enemy34_7.bmp" />
     <Image Include="..\解包內容\enemy_bmp\enemy34_8.bmp" />
     <Image Include="..\解包內容\Sprite\c01_4.png" />
+    <Image Include="res\ball.bmp" />
+    <Image Include="res\bitmap5.bmp" />
     <Image Include="res\bmp00003.bmp" />
     <Image Include="RES\bullet\bullet2_52.bmp" />
     <Image Include="RES\bullet\bullet2_53.bmp" />
@@ -454,6 +456,7 @@
     <Image Include="res\enemy\bmp00049.bmp" />
     <Image Include="res\enemy\bmp00050.bmp" />
     <Image Include="res\enemy\bmp00051.bmp" />
+    <Image Include="res\enemy\bmp00052.bmp" />
     <Image Include="RES\enemy\enemy31_0.bmp" />
     <Image Include="RES\enemy\enemy31_0_l.bmp" />
     <Image Include="RES\enemy\enemy31_1.bmp" />
