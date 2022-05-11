@@ -13,7 +13,7 @@ namespace game_framework
 	public:
 		enum class Type { WHITE, TYPECOUNT };
 		enum class Anima { TREASURE, LEFTCOVER, RIGHTCOVER, TOP, ARROW, ANIMACOUNT };
-		CGameTreasure(Type= Type::WHITE)
+		CGameTreasure(Type type = Type::WHITE)
 		{
 			const int AnimaSize = (int)Anima::ANIMACOUNT;
 			_animas.clear();
@@ -23,6 +23,7 @@ namespace game_framework
 
 			_dtop = _dleft = _dright = 0;
 			_collPlayer = false;
+			_type = type;
 			this->SetTag("treasure");
 		}
 
@@ -44,6 +45,15 @@ namespace game_framework
 		}
 		void LoadBitmap()
 		{
+			switch (_type)
+			{
+			case CGameTreasure::Type::WHITE:
+				break;
+			case CGameTreasure::Type::TYPECOUNT:
+				break;
+			default:
+				break;
+			}
 			_animaIter = GetAnima(Anima::TREASURE);
 			_animaIter->AddBitmap(IDB_TREASURE_0_0, RGB(255, 255, 255));
 			_animaIter = GetAnima(Anima::TOP);
@@ -52,6 +62,8 @@ namespace game_framework
 			_animaIter->AddBitmap(IDB_TREASURE_0_left, RGB(255, 255, 255));
 			_animaIter = GetAnima(Anima::RIGHTCOVER);
 			_animaIter->AddBitmap(IDB_TREASURE_0_right, RGB(255, 255, 255));
+
+
 			_animaIter = GetAnima(Anima::ARROW);
 			_animaIter->SetDelayCount(2);
 			_animaIter->AddBitmap(IDB_ItemArrow_0, RGB(0, 0, 0));
@@ -136,6 +148,7 @@ namespace game_framework
 	protected:
 		int _collPlayer;				//	¸I¨ìª±®a
 		int _dtop, _dleft, _dright;
+		Type _type;
 
 		static CGameTreasure _treasure[(int)CGameTreasure::Type::TYPECOUNT];
 
