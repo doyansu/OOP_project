@@ -7,6 +7,8 @@
 #include "CCharacter.h"
 
 namespace game_framework {
+	CCharacter* CCharacter::_nowPlayer = nullptr;
+
 	CCharacter::CCharacter():_ATTDELAY(10)
 	{
 		//	動畫載入
@@ -60,6 +62,7 @@ namespace game_framework {
 	{
 		_doSomeThing = false;
 		_canAttack = true;
+		_canInteractive = false;
 		_attCounter = 0;
 		_deathCounter = GAME_ONE_SECONED * 2;
 		_shieldCounter = GAME_ONE_SECONED;
@@ -317,8 +320,11 @@ namespace game_framework {
 		//	按下 Q 鍵
 		if (_doSomeThing)
 		{
-			// 射擊
-			if (target != nullptr)	// 找到敵人朝敵人射擊
+			if (_canInteractive)		// 物件互動優先
+			{
+				_canInteractive = false;
+			}
+			else if (target != nullptr)	// 找到敵人朝敵人射擊
 			{
 				const double MINSEARCH = 0.0;	// 最小搜索範圍 (目前沒有)
 				if ((*_nowWeapon)->CanFire() && d <= MAXSEARCH)// 找到敵人朝敵人射擊
@@ -381,6 +387,7 @@ namespace game_framework {
 		{
 			if (_doSomeThing && other->IsEnable())
 				other->TakeDmg(99999);
+			_canInteractive = true;
 		}
 		else if (other->GetTag() == "redpotion")		//	紅藥水
 		{
@@ -389,6 +396,7 @@ namespace game_framework {
 				this->TakeDmg(-2);
 				other->TakeDmg(99999);
 			}
+			_canInteractive = true;
 		}
 		else if (other->GetTag() == "bigredpotion")		//	大紅藥水
 		{
@@ -397,6 +405,7 @@ namespace game_framework {
 				this->TakeDmg(-4);
 				other->TakeDmg(99999);
 			}
+			_canInteractive = true;
 		}
 		else if (other->GetTag() == "bulepotion")		//	藍藥水
 		{
@@ -405,6 +414,7 @@ namespace game_framework {
 				this->ModifyMp(40);
 				other->TakeDmg(99999);
 			}
+			_canInteractive = true;
 		}
 		else if (other->GetTag() == "bigbulepotion")	//	大藍藥水
 		{
@@ -413,6 +423,7 @@ namespace game_framework {
 				this->ModifyMp(80);
 				other->TakeDmg(99999);
 			}
+			_canInteractive = true;
 		}
 
 		/*if (other->GetTag() == "enemy")
@@ -554,11 +565,11 @@ namespace game_framework {
 		return _maxShield;
 	}
 
-	int CCharacter::GetX2()
+	int CCharacter::GetX2()	//	碰撞範圍調整
 	{
-		return _mx + 50;
+		return _mx + 49;
 	}
-	int CCharacter::GetY2()
+	int CCharacter::GetY2() //	碰撞範圍調整
 	{
 		return _my + 30;
 	}

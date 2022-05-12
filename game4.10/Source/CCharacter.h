@@ -37,6 +37,8 @@ namespace game_framework {
 		void OnKeyDown(char);		
 		void Reset();					// 重置狀態
 		void Init();					// 初始狀態
+
+		static CCharacter* _nowPlayer;
 	
 	protected:
 		const int _ATTDELAY;						// 近戰攻擊間隔

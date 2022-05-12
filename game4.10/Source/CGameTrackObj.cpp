@@ -91,7 +91,7 @@ namespace game_framework
 		}
 
 		double d = this->Distance(_target);
-		const int maxd = 250;				//	·j¯Á¶ZÂ÷
+		const int maxd = 150;				//	·j¯Á¶ZÂ÷
 		if (d < maxd)
 		{
 			double vx = (double)(_target->CenterX() - this->CenterX()) / d;

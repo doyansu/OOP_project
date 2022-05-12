@@ -449,11 +449,13 @@ namespace game_framework
 				if (rand() % 2)	//	隨機生成能量球、金幣
 				{
 					int t = 3 + rand() % 6;
-					CGameObj* player = CGameTool::FindObjBy(CGameObj::_allObj,
+					/*CGameObj* player = CGameTool::FindObjBy(CGameObj::_allObj,
 						[](CGameObj* obj)
 					{
 						return obj->GetTag() == "player";
-					});
+					});*/
+
+					CGameObj* player = CCharacter::_nowPlayer;
 					while (t--)
 					{
 						int r = rand() % 2;

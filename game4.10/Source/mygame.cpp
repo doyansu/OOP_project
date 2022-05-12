@@ -385,30 +385,7 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	// GAME
 	gameMap.OnMove(character.CenterX(), character.CenterY());
 
-
-	// 加入物件
-	if ((int)CGameObj::_temp.size() > 0)
-	{
-		for (CGameObj* obj : CGameObj::_temp)
-			CGameObj::_allObj.push_back(obj);
-		std::sort(CGameObj::_allObj.begin(), CGameObj::_allObj.end(),
-			[](CGameObj* a, CGameObj* b)
-		{
-			return a->GetShowPriority() < b->GetShowPriority();
-		});
-		CGameObj::_temp.clear();
-	}
-
-
-	// 刪除物件
-	for (int i = 0; i < (int)CGameObj::_allObj.size(); i++)
-	{
-		if (!CGameObj::_allObj.at(i)->IsEnable() && !CGameObj::_allObj.at(i)->IsDie())
-		{
-			delete CGameObj::_allObj.at(i);
-			CGameObj::_allObj.erase(CGameObj::_allObj.begin() + i);
-		}
-	}
+	CGameObj::UpdateObjs();
 
 	// 移動、新增物件
 	for (int i = 0; i < (int)CGameObj::_allObj.size(); i++)
@@ -417,16 +394,6 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 		if (obj->IsEnable())
 		{
 			obj->OnMove(&gameMap);
-
-			// debug
-			/*int x = obj->GetX1();
-			int y = obj->GetY1();
-			if (x < 0 || y < 0 || x > MYMAPSIZE * MYMAPWIDTH || y > MYMAPSIZE * MYMAPHIGH)
-			{
-				obj->SetEnable(false);
-				obj->SetDie(false);
-				GAME_ASSERT(false, "物件超出地圖!");
-			}*/
 		}
 		else if (obj->IsDie())
 		{
@@ -513,6 +480,7 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	CGameTrackObj::Init();
 	CGameTreasure::Init();
 	CGameRoom::Init();
+	CCharacter::_nowPlayer = &character;
 				
 	
 	gameMap.LoadBitmap();

@@ -1,5 +1,5 @@
 #pragma once
-#include "CGameObj.h"
+#include "CCharacter.h"
 #include "CGameWeapon.h"
 #include "CGameTrackObj.h"
 

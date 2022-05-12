@@ -72,7 +72,6 @@ namespace game_framework {
 		CGameObj& operator=(const CGameObj& other);
 
 		static vector<CGameObj*> _allObj;
-		static vector<CGameObj*> _temp;
 		static void Init()
 		{
 			_allObj.reserve(256);
@@ -89,6 +88,32 @@ namespace game_framework {
 				}
 			), obj);*/
 			_temp.push_back(obj);
+		}
+
+		static void UpdateObjs()
+		{
+			// 加入物件
+			if ((int)CGameObj::_temp.size() > 0)
+			{
+				for (CGameObj* obj : CGameObj::_temp)
+					CGameObj::_allObj.push_back(obj);
+				std::sort(CGameObj::_allObj.begin(), CGameObj::_allObj.end(),
+					[](CGameObj* a, CGameObj* b)
+				{
+					return a->GetShowPriority() < b->GetShowPriority();
+				});
+				CGameObj::_temp.clear();
+			}
+
+			// 刪除物件
+			for (int i = 0; i < (int)CGameObj::_allObj.size(); i++)
+			{
+				if (!CGameObj::_allObj.at(i)->IsEnable() && !CGameObj::_allObj.at(i)->IsDie())
+				{
+					delete CGameObj::_allObj.at(i);
+					CGameObj::_allObj.erase(CGameObj::_allObj.begin() + i);
+				}
+			}
 		}
 
 		static void FreeAllObj()
@@ -130,6 +155,8 @@ namespace game_framework {
 	private:
 		bool HitRectangle(int tx1, int ty1, int tx2, int ty2);
 		void copy(const CGameObj&);
+
+		static vector<CGameObj*> _temp;
 	};
 }
 

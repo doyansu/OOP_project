@@ -640,7 +640,7 @@ namespace game_framework {
 		// 隨機類型
 		int type = rand() % 7;
 		MapContent wall = MapContent(ContentType::WALL, GetAnima(ContentType::WALL, 1), true);
-		//test type = 0;
+		//test type = 6;
 		switch (type)
 		{
 		case 0:	// 空的

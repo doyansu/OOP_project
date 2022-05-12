@@ -125,12 +125,14 @@ namespace game_framework {
 		// ªZ¾¹®gÀ»
 		if (_weapon->CanFire() && (rand() % 10 == 0))
 		{
-			CGameObj* player= CGameTool::FindObjBy(CGameObj::_allObj,
+			/*CGameObj* player= CGameTool::FindObjBy(CGameObj::_allObj,
 				[](CGameObj* obj)
 				{
 					return obj->GetTag() == "player";
 				}
-			);
+			);*/
+
+			CGameObj* player = CCharacter::_nowPlayer;
 
 			const double MAXSEARCH = 300.0;	// ³Ì¤j·j¯Á½d³ò
 			if (player)
