@@ -8,9 +8,9 @@ namespace game_framework
 
 		// function
 		template<typename condition, typename source>	// 依條件尋找單個物件
-		static source FindObjBy(vector<source> objs, condition function)
+		static source* FindObjBy(const vector<source*>& objs, condition function)
 		{
-			for (source obj : objs)
+			for (source* obj : objs)
 			{
 				if (function(obj))
 					return obj;
@@ -19,11 +19,11 @@ namespace game_framework
 		}
 
 		template<typename condition, typename source>	// 依條件尋找多個物件
-		static vector<source> FindObjsBy(vector<source> objs, condition function)
+		static vector<source*> FindObjsBy(const vector<source*>& objs, condition function)
 		{
-			vector<source> result;
+			vector<source*> result;
 			result.reserve(objs.capacity());
-			for (CGameObj* obj : objs)
+			for (source* obj : objs)
 			{
 				if (function(obj))
 					result.push_back(obj);
@@ -32,10 +32,10 @@ namespace game_framework
 		}
 
 		template<typename compare, typename source>	//	依比較函式找到最符合物件
-		static vector<source> FindMaxObjBy(vector<source> objs, compare cmp)
+		static vector<source*> FindMaxObjBy(const vector<source*>& objs, compare cmp)
 		{
-			source maxObj = objs.begin();
-			for (CGameObj* obj : objs)
+			source* maxObj = *(objs.begin());
+			for (source* obj : objs)
 			{
 				if (cmp(maxObj, obj))
 					maxObj = obj;
