@@ -108,13 +108,36 @@ namespace game_framework
 		if (_user == nullptr)
 			return;
 
-		if (_DT == 1) {
-			this->SetXY(this->_center[0], this->_center[1] - (this->GetHeight() / 3));
-			CGameWeapon::CGameObj::_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima::Theta_0);
-		}
-		else if (_DT == 0) {
-			this->SetXY(this->_center[0] - this->GetWidth(), this->_center[1] - (this->GetHeight() / 3));
-			CGameWeapon::CGameObj::_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima::Theta_180);
+		this->SetXY(this->_center[0] - (this->GetWidth() >> 1), this->_center[1] - (this->GetHeight() >> 2));
+		switch (_DT)
+		{
+		case 0:
+			_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima::Theta_0);
+			break;
+		case 1:
+			_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima::Theta_45);
+			break;
+		case 2:
+			_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima::Theta_90);
+			break;
+		case 3:
+			_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima::Theta_135);
+			break;
+		case 4:
+			_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima::Theta_180);
+			break;
+		case 5:
+			_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima::Theta_225);
+			break;
+		case 6:
+			_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima::Theta_270);
+			break;
+		case 7:
+			_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima::Theta_315);
+			break;
+		default:
+			_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima::Theta_0);
+			break;
 		}
 
 		/*

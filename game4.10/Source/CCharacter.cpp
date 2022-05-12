@@ -68,7 +68,7 @@ namespace game_framework {
 		_shieldCounter = GAME_ONE_SECONED;
 		CCharacter::CGameObj::Reset();
 		_vector[0] = 1;	//預設朝右
-		_DT = 1;
+		_DT = 0;
 	}
 
 	CCharacter::~CCharacter()
@@ -137,18 +137,18 @@ namespace game_framework {
 
 		//	動畫判斷
 		if (_isMovingRight) 
-			_DT = 1;
-		else if (_isMovingLeft) 
 			_DT = 0;
+		else if (_isMovingLeft) 
+			_DT = 4;
 		
 		if (this->IsMoveing())
 		{
-			if (_DT)
+			if (_DT == 0)
 				_animaIter = GetAnima(Anima::RUN_R);
 			else
 				_animaIter = GetAnima(Anima::RUN_L);
 		}
-		else if (_DT)
+		else if (_DT == 0)
 			_animaIter = GetAnima(Anima::INIT_R);
 		else
 			_animaIter = GetAnima(Anima::INIT_L);
@@ -301,7 +301,7 @@ namespace game_framework {
 		{
 			if (target->CenterX() - this->CenterX() > 0)
 			{
-				(*_nowWeapon)->SetDT(1); 
+				(*_nowWeapon)->SetDT(0); 
 				if (this->IsMoveing())
 					_animaIter = GetAnima(Anima::RUN_R);
 				else
@@ -309,7 +309,7 @@ namespace game_framework {
 			}
 			else
 			{
-				(*_nowWeapon)->SetDT(0);
+				(*_nowWeapon)->SetDT(4);
 				if (this->IsMoveing())
 					_animaIter = GetAnima(Anima::RUN_L);
 				else
