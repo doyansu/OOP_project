@@ -16,7 +16,7 @@ namespace game_framework {
 		CAnimation animation;
 		animation.SetDelayCount(3);
 		for (int i = 0; i < AnimaSize; i++)
-			_animas.push_back(CAnimation(animation));
+			_animas.push_back(animation);
 
 		//	屬性設定
 		_hp = _maxHp = 6;
@@ -159,6 +159,7 @@ namespace game_framework {
 			}
 		);
 		int tempx = _mx, tempy = _my;
+
 		for (int i = 0; i < _moveSpeed; i++)
 		{
 			
@@ -264,81 +265,74 @@ namespace game_framework {
 			_vector[1] = -1;
 		else if (!_isMovingUp && !_isMovingDown && (_isMovingLeft ^ _isMovingRight))
 			_vector[1] = 0;
-		/*if ((_isMovingLeft != _isMovingRight) && !_isMovingDown  && !_isMovingUp && _vector[0] != 0)
-			_vector[1] = 0;
-		else if ((_isMovingDown != !_isMovingUp) && !_isMovingLeft && !_isMovingRight && _vector[1] != 0)
-			_vector[0] = 0;*/
 
 		//	武器移動
 		(*_nowWeapon)->SetCenter(this->CenterX(), this->CenterY() - 10);
 		(*_nowWeapon)->OnMove(map);
 		(*_nowWeapon)->SetDT(_DT);
-		
-		/*if(DT)
-			_nowWeapon->SetXY(this->CenterX(), this->CenterY());
-		else 
-			_nowWeapon->SetXY(this->CenterX() - (_nowWeapon->GetX2() - _nowWeapon->GetX1()), this->CenterY());*/
 
-		//	武器射擊判斷
+
+		const double MAXSEARCH = 500.0;	// 最大搜索範圍 
+		// 找到存活的敵人
+		vector<CGameObj*> enemys = CGameTool::FindObjsBy(CGameObj::_allObj,
+			[](CGameObj* obj)
+		{
+			return obj->IsEnable() && obj->GetTag() == "enemy";
+		}
+		);
+		// 找到最近的敵人
+		double d = MAXSEARCH;
+		CGameObj* target = nullptr;
+		for (CGameObj* enemy : enemys)
+		{
+			double ed = this->Distance(enemy);
+			if (d > ed && !hasObstacle(map, this, enemy))
+			{
+				d = ed;
+				target = enemy;
+			}
+		}
+
+		// 射擊時變更角色、武器朝向
+		if (target != nullptr && d <= MAXSEARCH)
+		{
+			if (target->CenterX() - this->CenterX() > 0)
+			{
+				(*_nowWeapon)->SetDT(1); 
+				if (this->IsMoveing())
+					_animaIter = GetAnima(Anima::RUN_R);
+				else
+					_animaIter = GetAnima(Anima::INIT_R);
+			}
+			else
+			{
+				(*_nowWeapon)->SetDT(0);
+				if (this->IsMoveing())
+					_animaIter = GetAnima(Anima::RUN_L);
+				else
+					_animaIter = GetAnima(Anima::INIT_L);
+			}
+		}
+
+		//	按下 Q 鍵
 		if (_doSomeThing)
 		{
-			const double MAXSEARCH = 500.0;	// 最大搜索範圍 
-			const double MINSEARCH = 0.0;	// 最小搜索範圍 
-			// 找到存活的敵人
-			vector<CGameObj*> enemys = CGameTool::FindObjsBy(CGameObj::_allObj,
-				[](CGameObj* obj)
-				{
-					return obj->IsEnable() && obj->GetTag() == "enemy";
-				}
-			);
-			// 找到最近的敵人
-			double d = MAXSEARCH;
-			CGameObj* target = nullptr;
-			for (CGameObj* enemy : enemys)
-			{
-				double ed = this->Distance(enemy);
-				if (d > ed && ed > MINSEARCH && !hasObstacle(map, this, enemy))
-				{
-					d = ed;
-					target = enemy;
-				}
-			}
-
-			// 射擊時變更角色、武器朝向
-			if (target != nullptr && d <= MAXSEARCH)
-			{
-				if (target->CenterX() - this->CenterX() > 0)
-				{
-					(*_nowWeapon)->SetDT(1);
-					//_nowWeapon->SetXY(this->CenterX(), this->CenterY()); 
-					if (this->IsMoveing())
-						_animaIter = GetAnima(Anima::RUN_R);
-					else
-						_animaIter = GetAnima(Anima::INIT_R);
-				}
-				else
-				{
-					(*_nowWeapon)->SetDT(0);
-					//_nowWeapon->SetXY(this->CenterX() - (_nowWeapon->GetX2() - _nowWeapon->GetX1()), this->CenterY());
-					if(this->IsMoveing())
-						_animaIter = GetAnima(Anima::RUN_L);
-					else 
-						_animaIter = GetAnima(Anima::INIT_L);
-				}	
-			}
-
 			// 射擊
-			if ((*_nowWeapon)->CanFire() && target != nullptr && d >= MINSEARCH && d <= MAXSEARCH)// 找到敵人朝敵人射擊
+			if (target != nullptr)	// 找到敵人朝敵人射擊
 			{
-				double vx = (double)(target->CenterX() - this->CenterX()) / d;
-				double vy = (double)(target->CenterY() - this->CenterY()) / d;
-				(*_nowWeapon)->Shoot(vx, vy);
-				this->ModifyMp(-(*_nowWeapon)->GetCost());
-			}
-			else if(target != nullptr && _attCounter == 0 && d < MINSEARCH) // 近戰攻擊
-			{
-				_attCounter = _ATTDELAY;
-				target->TakeDmg(_damage);
+				const double MINSEARCH = 0.0;	// 最小搜索範圍 (目前沒有)
+				if ((*_nowWeapon)->CanFire() && d <= MAXSEARCH)// 找到敵人朝敵人射擊
+				{
+					double vx = (double)(target->CenterX() - this->CenterX()) / d;
+					double vy = (double)(target->CenterY() - this->CenterY()) / d;
+					(*_nowWeapon)->Shoot(vx, vy);
+					this->ModifyMp(-(*_nowWeapon)->GetCost());
+				}
+				else if (_attCounter == 0 && d < MINSEARCH) // 近戰攻擊
+				{
+					_attCounter = _ATTDELAY;
+					target->TakeDmg(_damage);
+				}
 			}
 			else if ((*_nowWeapon)->CanFire()) // 沒找到敵人朝 vector 射擊
 			{

@@ -44,8 +44,9 @@ namespace game_framework {
 		int _mp, _maxMp, _shield, _maxShield;		// 魔力值、最大魔力值、護盾、最大護盾值
 		int _gold;									// 金幣數
 		int _damage;								// 近戰傷害
-		bool _doSomeThing;							// 射擊判斷
+		bool _doSomeThing;							// 鍵盤按鍵判斷
 		bool _canAttack;							// 近戰攻擊判斷
+		bool _canInteractive;						// 是否有物件可互動
 		CGameWeapon* _weapons[2];					// 可擁有2把武器
 		CGameWeapon** _nowWeapon;					// 當前武器 index
 		int _attCounter;							// 近戰計數器
