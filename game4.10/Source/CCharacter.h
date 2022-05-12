@@ -40,7 +40,7 @@ namespace game_framework {
 	
 	protected:
 		const int _ATTDELAY;						// 近戰攻擊間隔
-		int DT;										// direction 朝向控制 1 朝右 0 朝左
+		int _DT;									// direction 朝向控制 1 朝右 0 朝左
 		int _mp, _maxMp, _shield, _maxShield;		// 魔力值、最大魔力值、護盾、最大護盾值
 		int _gold;									// 金幣數
 		int _damage;								// 近戰傷害
