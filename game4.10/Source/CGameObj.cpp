@@ -97,7 +97,7 @@ namespace game_framework {
 		int y1 = this->GetY1();
 		int x2 = this->GetX2();
 		int y2 = this->GetY2();
-		return (tx2 >= x1 && tx1 <= x2 && ty2 >= y1 && ty1 <= y2);
+		return (tx2 > x1 && tx1 <= x2 && ty2 > y1 && ty1 <= y2);
 	}
 
 	void CGameObj::LoadBitmap(int id)
