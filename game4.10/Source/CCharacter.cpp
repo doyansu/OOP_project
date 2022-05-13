@@ -12,7 +12,7 @@ namespace game_framework {
 	CCharacter::CCharacter():_ATTDELAY(10)
 	{
 		//	動畫載入
-		const int AnimaSize = 5;
+		const int AnimaSize = (int)Anima::ANIMACOUNT;
 		_animas.clear();
 		_animas.reserve(AnimaSize);
 		CAnimation animation;
@@ -48,6 +48,7 @@ namespace game_framework {
 		_mp = _maxMp;
 		_shield = _maxShield;
 		_gold = 0;
+
 		// 重置為初始武器
 		free();
 		_weapons[0] = new CGameWeapon(this);
@@ -56,6 +57,7 @@ namespace game_framework {
 		(*_nowWeapon)->LoadBitmap();
 		(*_nowWeapon)->SetTarget("enemy");
 		(*_nowWeapon)->SetAttributes(10, 1, 25, 2);
+
 	}
 
 	void CCharacter::Reset()
@@ -69,6 +71,10 @@ namespace game_framework {
 		CCharacter::CGameObj::Reset();
 		_vector[0] = 1;	//預設朝右
 		_DT = 0;
+
+		// 出場動畫重置
+		if(GetAnima(Anima::APPEARANCE)->BmpSize() != 0)
+			GetAnima(Anima::APPEARANCE)->Reset();
 	}
 
 	CCharacter::~CCharacter()
@@ -117,6 +123,13 @@ namespace game_framework {
 		_animaIter = GetAnima(Anima::DIE);
 		_animaIter->AddBitmap(IDB_CH1_DIE, RGB(255, 255, 255));
 
+		_animaIter = GetAnima(Anima::APPEARANCE);
+		_animaIter->AddBitmap(IDB_playerAppearance_0, RGB(0, 0, 0));
+		_animaIter->AddBitmap(IDB_playerAppearance_1, RGB(0, 0, 0));
+		_animaIter->AddBitmap(IDB_playerAppearance_2, RGB(0, 0, 0));
+		_animaIter->AddBitmap(IDB_playerAppearance_3, RGB(0, 0, 0));
+		_animaIter->AddBitmap(IDB_playerAppearance_4, RGB(0, 0, 0));
+
 		_animaIter = _animas.begin();
 
 		(*_nowWeapon)->LoadBitmap();
@@ -128,10 +141,20 @@ namespace game_framework {
 		_animaIter->OnShow();
 		if(!_isDie)
 			(*_nowWeapon)->OnShow(map);
+		if (!GetAnima(Anima::APPEARANCE)->IsFinalBitmap())
+		{
+			GetAnima(Anima::APPEARANCE)->SetTopLeft(map->ScreenX(_mx), map->ScreenY(_my - 20));
+			GetAnima(Anima::APPEARANCE)->OnShow();
+		}
 	}
 
 	void CCharacter::OnMove(CGameMap *map)
 	{
+		if (!GetAnima(Anima::APPEARANCE)->IsFinalBitmap())
+		{
+			GetAnima(Anima::APPEARANCE)->OnMove();
+			return;
+		}
 		//	動畫移動
 		_animaIter->OnMove();
 
@@ -630,6 +653,7 @@ namespace game_framework {
 	{
 		_mx = x;
 		_my = y;
+		(*_nowWeapon)->SetCenter(this->CenterX(), this->CenterY() - 10);
 	}
 	
 

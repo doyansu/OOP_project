@@ -7,7 +7,7 @@ namespace game_framework {
 	class CCharacter : public CGameObj
 	{
 	public:
-		enum class Anima {INIT_R, INIT_L, RUN_R, RUN_L, DIE};	//動畫種類
+		enum class Anima {INIT_R, INIT_L, RUN_R, RUN_L, DIE, APPEARANCE, ANIMACOUNT};	//動畫種類
 		CCharacter();
 		~CCharacter();
 

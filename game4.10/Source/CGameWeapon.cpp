@@ -271,6 +271,7 @@ namespace game_framework
 	{
 		_center[0] = x;
 		_center[1] = y;
+		this->SetXY(this->_center[0] - (this->GetWidth() >> 1), this->_center[1] - (this->GetHeight() >> 2));
 	}
 
 	int CGameWeapon::GetCost()
