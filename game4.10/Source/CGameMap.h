@@ -56,8 +56,8 @@ namespace game_framework {
 		RoomData** GetRooms();
 
 		void SetScreen(int x, int y);	
-		void ModifyDsx(int);
-		void ModifyDsy(int);
+		void ModifyDsx(int, bool=false);
+		void ModifyDsy(int, bool=false);
 
 		void OnMove(int x, int y);
 		void OnShow(bool cover = false);
