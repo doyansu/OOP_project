@@ -114,4 +114,14 @@ namespace game_framework
 		_target = target;
 		_moveSpeed = _target->GetMoveSpeed();
 	}
+
+	void CGameTrackObj::SetXY(int mx, int my)
+	{
+		CGameObj::SetXY(mx, my);
+		double x = -10 + rand() % 20, y = -10 + rand() % 20;
+		double d = 2 * sqrt((double)(x * x + y * y));
+		_vector[0] = x / d;
+		_vector[1] = y / d;
+	}
+
 }

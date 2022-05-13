@@ -10,6 +10,7 @@ namespace game_framework
 		CGameTrackObj(TYPE=TYPE::GOLD);
 
 		void SetTarget(CGameObj*);
+		void SetXY(int, int);
 
 		void LoadBitmap();									
 		void OnMove(CGameMap*);
