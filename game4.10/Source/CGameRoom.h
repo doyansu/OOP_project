@@ -157,10 +157,12 @@ namespace game_framework
 			this->SetEnable(false);
 			this->SetDie(true);
 
-			//	暫時各 50 %
+			//	暫時各 100 %
 			if (rand() % 2)
 			{
-
+				CGameInteractOnceObj* obj = CGameInteractOnceObj::CreateObj(rand() % 4);
+				obj->SetXY(this->CenterX() - (obj->Width() >> 1), this->GetY1() - (obj->Height() >> 1));
+				CGameObj::AddObj(obj);
 			}
 			else
 			{
@@ -448,7 +450,7 @@ namespace game_framework
 				//	暫時調成都 50 %
 				if (rand() % 2)	//	隨機生成能量球、金幣
 				{
-					int t = 3 + rand() % 6;
+					int t = 4 + rand() % 8;
 					/*CGameObj* player = CGameTool::FindObjBy(CGameObj::_allObj,
 						[](CGameObj* obj)
 					{

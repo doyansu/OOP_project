@@ -25,7 +25,7 @@ namespace game_framework {
 		_mp = _maxMp = 180;
 		_shield = _maxShield = 5;
 		_damage = 4;
-		_moveSpeed = 25;
+		_moveSpeed = 15;
 		_showPriority = 10;
 		_gold = 0;
 		this->Reset();
