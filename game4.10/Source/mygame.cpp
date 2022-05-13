@@ -417,8 +417,7 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 
 	if (!character.IsEnable() && !character.IsDie())
 	{
-		character.Init();
-		CAudio::Instance()->Stop(AUDIO_BGM_0);
+		this->GameEnd();
 		GotoGameState(GAME_STATE_OVER);
 	}
 
@@ -514,17 +513,23 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
 	if (nChar == 0x47)	// 按 G 扣血
 		character.TakeDmg(9999);
-	else if (nChar == 82)	// 按 R 重新進入關卡
+	else if (nChar == 82)	// 按 R 進入下一關卡
 	{
 		//test
 		gameLevel++;
-		GotoGameState(GAME_STATE_RUN);
+		if (gameLevel == 15)//	打完 3-5 通關	
+		{
+			this->GameEnd();
+			GotoGameState(GAME_STATE_INIT);
+		}
+		else
+			GotoGameState(GAME_STATE_RUN);
 	}
-	else if (nChar == 80)
+	/*else if (nChar == 80)
 	{
 		// test
 		character.ModifyGold(500);
-	}
+	}*/
 
 
 
@@ -538,7 +543,13 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 		TransferGate->SetDie(false);
 		//	關卡數加一
 		gameLevel++;
-		GotoGameState(GAME_STATE_RUN);
+		if (gameLevel == 15)				//	打完 3-5 通關	
+		{
+			this->GameEnd();
+			GotoGameState(GAME_STATE_INIT);
+		}
+		else
+			GotoGameState(GAME_STATE_RUN);
 	}
 }
 
@@ -699,5 +710,11 @@ void CGameStateRun::OnShow()
 	debugx.ShowBitmap(false);
 	debugy.ShowBitmap(false);*/
 
+}
+void CGameStateRun::GameEnd()
+{
+	character.Init();
+	CAudio::Instance()->Stop(AUDIO_BGM_0);
+	gameLevel = 0;
 }
 }

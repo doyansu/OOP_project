@@ -132,6 +132,9 @@ namespace game_framework {
 
 		// debug
 		CInteger debugx, debugy;
+
+		// function
+		void GameEnd();		// 遊戲結束重製	
 	};
 
 	/////////////////////////////////////////////////////////////////////////////
