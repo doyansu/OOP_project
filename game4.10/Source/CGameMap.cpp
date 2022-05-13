@@ -193,7 +193,7 @@ namespace game_framework {
 		_Rooms[start->Get(0)][start->Get(1)]._roomType = RoomData::RoomType::NORMAL;
 
 		int specialRoom = 1 + (rand() % 2);						// 特殊房間數
-		int normalRoom = 2 + (rand() % 3);						// 一般房間數
+		int normalRoom = 1 + (rand() % 3);						// 一般房間數
 		int dir[4][2] = { {0, -1}, {0, 1}, {-1, 0}, {1, 0} };	// 搜索用向量
 		bool hasEnd = false;									// 判斷是否已經有傳送房間
 		while (!queue.empty())
@@ -773,14 +773,62 @@ namespace game_framework {
 		_sy = y;
 	}
 
-	void CGameMap::ModifyDsx(int value)
+	// 調整螢幕偏移 (SIZE_X >> 3 為偏移最遠範圍)
+	void CGameMap::ModifyDsx(int value, bool moveToZero)
 	{
-		_dsx += value;
+		if (moveToZero)
+		{
+			value = abs(value);
+			if (_dsx > 0)
+			{
+				_dsx -= value;
+			}
+			else if(_dsx < 0)
+			{
+				_dsx += value;
+			}
+		}
+		else
+		{
+			_dsx += value;
+			if (_dsx > (SIZE_X >> 3))
+			{
+				_dsx = (SIZE_X >> 3);
+			}
+			else if(_dsx < -(SIZE_X >> 3))
+			{
+				_dsx = -(SIZE_X >> 3);
+			}
+		}
 	}
 
-	void CGameMap::ModifyDsy(int value)
+	void CGameMap::ModifyDsy(int value, bool moveToZero)
 	{
-		_dsy += value;
+		if (moveToZero)
+		{
+			value = abs(value);
+			if (_dsy > 0)
+			{
+				_dsy -= value;
+			}
+			else if (_dsy < 0)
+			{
+				_dsy += value;
+			}
+		}
+		else
+		{
+			_dsy += value;
+			if (_dsy > (SIZE_Y >> 3))
+			{
+				_dsy = (SIZE_Y >> 3);
+			}
+			else if (_dsy < -(SIZE_Y >> 3))
+			{
+				_dsy = -(SIZE_Y >> 3);
+			}
+		}
+		
 	}
 
 	vector<CAnimation>::iterator CGameMap::GetAnima(ContentType Type, int index)

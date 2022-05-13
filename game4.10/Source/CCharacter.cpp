@@ -162,6 +162,7 @@ namespace game_framework {
 			}
 		);
 		int tempx = _mx, tempy = _my;
+		bool j = false;
 
 		for (int i = 0; i < _moveSpeed; i++)
 		{
@@ -179,7 +180,7 @@ namespace game_framework {
 				break;
 			}
 
-			bool j = false;
+			j = false;
 			if (CCharacter::CGameObj::Collision(map))
 			{
 				j = true;
@@ -209,6 +210,23 @@ namespace game_framework {
 
 		}
 
+		//	撞到障礙螢幕移動
+		if (j)
+		{
+			if (_isMovingLeft)
+			{
+				map->ModifyDsx(-10);
+			}
+			else if (_isMovingRight)
+			{
+				map->ModifyDsx(10);
+			}
+		}
+		else
+		{
+			map->ModifyDsx(10, true);
+		}
+
 		for (int i = 0; i < _moveSpeed; i++)
 		{
 
@@ -225,7 +243,7 @@ namespace game_framework {
 				break;
 			}
 
-			bool j = false;
+			j = false;
 			if (CCharacter::CGameObj::Collision(map))
 			{
 				j = true;
@@ -253,6 +271,21 @@ namespace game_framework {
 			}
 		}
 		
+		if (j)
+		{
+			if (_isMovingUp)
+			{
+				map->ModifyDsy(-10);
+			}
+			else if(_isMovingDown)
+			{
+				map->ModifyDsy(10);
+			}
+		}
+		else
+		{
+			map->ModifyDsy(10, true);
+		}
 
 		//變更 vector 給子彈用
 		if(!(_isMovingUp && _isMovingDown) && !_isMovingLeft && _isMovingRight)
