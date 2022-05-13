@@ -30,7 +30,8 @@ namespace game_framework {
 
 	void CGameMap::Reset()
 	{
-		_sx = _sy = 0;
+		_sx = _sy = _dsx = _dsy = 0;
+		
 		for (int i = 0; i < MYMAPSIZE; i++)
 		{
 			for (int j = 0; j < MYMAPSIZE; j++)
@@ -114,7 +115,7 @@ namespace game_framework {
 				_animas.at(i).at(j).OnMove();
 			
 		//	¿Ã¹õ¸òÀH¨¤¦â
-		this->SetScreen(px - (SIZE_X>>1), py - (SIZE_Y>>1));
+		this->SetScreen(px - (SIZE_X>>1) + _dsx, py - (SIZE_Y>>1) + _dsy);
 	}
 
 	void CGameMap::OnShow(bool cover)
@@ -770,6 +771,16 @@ namespace game_framework {
 	{
 		_sx = x;
 		_sy = y;
+	}
+
+	void CGameMap::ModifyDsx(int value)
+	{
+		_dsx += value;
+	}
+
+	void CGameMap::ModifyDsy(int value)
+	{
+		_dsy += value;
 	}
 
 	vector<CAnimation>::iterator CGameMap::GetAnima(ContentType Type, int index)

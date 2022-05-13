@@ -56,6 +56,8 @@ namespace game_framework {
 		RoomData** GetRooms();
 
 		void SetScreen(int x, int y);	
+		void ModifyDsx(int);
+		void ModifyDsy(int);
 
 		void OnMove(int x, int y);
 		void OnShow(bool cover = false);
@@ -110,7 +112,8 @@ namespace game_framework {
 		private:
 		};
 		CGameMap::MapContent _map[MYMAPSIZE][MYMAPSIZE];			
-		int _sx, _sy, _moveSpeed;						// 螢幕點座標、移動速度			
+		int _sx, _sy, _moveSpeed;						// 螢幕點座標、移動速度	
+		int _dsx, _dsy;									// 螢幕位置偏移量
 		vector<vector<CAnimation>> _animas;				// 地圖動畫
 		const int _MAPW, _MAPH;							// 地圖每格寬高
 		const int _MAXNOFROOM;							// 最大房間數 _MAXNOFROOM * _MAXNOFROOM

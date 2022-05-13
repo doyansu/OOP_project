@@ -671,28 +671,28 @@ void CGameStateRun::OnShow()
 
 	//	金幣
 	GOLDINTGER.SetInteger(character.GetGold());
-	GOLDINTGER.SetTopLeft(640 - GOLDINTGER.GetLen() * GOLDINTGER.GetWidth(), 4);
+	GOLDINTGER.SetTopLeft(SIZE_X - GOLDINTGER.GetLen() * GOLDINTGER.GetWidth(), 4);
 	GOLDINTGER.ShowBitmap(false);
-	GOLD.SetTopLeft(640 - GOLDINTGER.GetLen() * GOLDINTGER.GetWidth() - GOLD.Width(), 5);
+	GOLD.SetTopLeft(SIZE_X - GOLDINTGER.GetLen() * GOLDINTGER.GetWidth() - GOLD.Width(), 5);
 	GOLD.ShowBitmap();
 
 	//	關卡數
 	GAMELEVEL.SetInteger(1 + gameLevel / 5);
-	GAMELEVEL.SetTopLeft(600 + dMinMap, 200);
+	GAMELEVEL.SetTopLeft(SIZE_X - 40 + dMinMap, 200);
 	GAMELEVEL.ShowBitmap(false);
 	GAMELEVEL.SetInteger(1 + gameLevel % 5);
-	GAMELEVEL.SetTopLeft(620 + dMinMap, 200);
+	GAMELEVEL.SetTopLeft(SIZE_X - 20 + dMinMap, 200);
 	GAMELEVEL.ShowBitmap(false);
-	MINUS.SetTopLeft(610 + dMinMap, 200);
+	MINUS.SetTopLeft(SIZE_X - 30 + dMinMap, 200);
 	MINUS.ShowBitmap();
 
 	//	UI小地圖
-	minMap.SetXY(460 + dMinMap, 25);
+	minMap.SetXY(SIZE_X - 180 + dMinMap, 25);
 	minMap.OnShow();
 
 	//debug
-	debugx.SetTopLeft(0, 460);
-	debugy.SetTopLeft(80, 460);
+	debugx.SetTopLeft(0, SIZE_Y - 20);
+	debugy.SetTopLeft(80, SIZE_Y - 20);
 	debugx.SetInteger(character.GetX1());
 	debugy.SetInteger(character.GetY1());
 	debugx.ShowBitmap(false);
