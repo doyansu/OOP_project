@@ -284,7 +284,7 @@ void CGameStateRun::OnBeginState()
 		}
 	
 	// Audio
-	//CAudio::Instance()->Play(AUDIO_BGM_0, true);
+	CAudio::Instance()->Play(AUDIO_BGM_0, true);
 
 	// ÂÂª©©Ð¶¡«Øºc
 	/*for (int i = 0; i < MYMAXNOFROOM; i++)
