@@ -86,6 +86,21 @@ void CGameStateInit::OnInit()
 	//
 	background.LoadBitmap(IDB_Homepage, RGB(0, 0, 0));
 	title.LoadBitmap(IDB_Homepage_title, RGB(0, 0, 0));
+	start.AddBitmap(IDB_start0, RGB(0, 0, 0));
+	start.AddBitmap(IDB_start1, RGB(0, 0, 0));
+	start.AddBitmap(IDB_start2, RGB(0, 0, 0));
+	start.AddBitmap(IDB_start3, RGB(0, 0, 0));
+	start.AddBitmap(IDB_start4, RGB(0, 0, 0));
+	start.AddBitmap(IDB_start5, RGB(0, 0, 0));
+	start.AddBitmap(IDB_start6, RGB(0, 0, 0));
+	start.AddBitmap(IDB_start7, RGB(0, 0, 0));
+	start.AddBitmap(IDB_start6, RGB(0, 0, 0));
+	start.AddBitmap(IDB_start5, RGB(0, 0, 0));
+	start.AddBitmap(IDB_start4, RGB(0, 0, 0));
+	start.AddBitmap(IDB_start3, RGB(0, 0, 0));
+	start.AddBitmap(IDB_start2, RGB(0, 0, 0));
+	start.AddBitmap(IDB_start1, RGB(0, 0, 0));
+	start.SetDelayCount(3);
 }
 
 void CGameStateInit::OnBeginState()
@@ -120,7 +135,7 @@ void CGameStateInit::OnRButtonUp(UINT nFlags, CPoint point)
 
 void CGameStateInit::OnMove()
 {
-	
+	start.OnMove();
 }
 
 void CGameStateInit::OnShow()
@@ -150,8 +165,10 @@ void CGameStateInit::OnShow()
 	*/
 	background.SetTopLeft(0, 0);
 	title.SetTopLeft(20, 10);
+	start.SetTopLeft(250, 330);
 	background.ShowBitmap();
 	title.ShowBitmap();
+	start.OnShow();
 }								
 
 /////////////////////////////////////////////////////////////////////////////

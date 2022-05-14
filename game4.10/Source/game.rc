@@ -396,6 +396,22 @@ IDB_Homepage            BITMAP                  "..\\res\\enemy\\bmp00062.bmp"
 
 IDB_Homepage_title      BITMAP                  "..\\res\\enemy\\bitmap58.bmp"
 
+IDB_start0              BITMAP                  "..\\res\\enemy\\bmp00063.bmp"
+
+IDB_start1              BITMAP                  "..\\res\\enemy\\bmp00064.bmp"
+
+IDB_start2              BITMAP                  "..\\res\\enemy\\bitmap59.bmp"
+
+IDB_start3              BITMAP                  "..\\res\\enemy\\bitmap60.bmp"
+
+IDB_start4              BITMAP                  "..\\res\\enemy\\bitmap61.bmp"
+
+IDB_start5              BITMAP                  "..\\res\\enemy\\bitmap62.bmp"
+
+IDB_start6              BITMAP                  "..\\res\\enemy\\bitmap63.bmp"
+
+IDB_start7              BITMAP                  "..\\res\\enemy\\bitmap64.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //

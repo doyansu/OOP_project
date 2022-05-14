@@ -82,6 +82,7 @@ namespace game_framework {
 		void OnMove();
 	private:
 		CMovingBitmap background, title;
+		CAnimation start;
 	};
 
 	/////////////////////////////////////////////////////////////////////////////
