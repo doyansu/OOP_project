@@ -15,7 +15,7 @@ namespace game_framework
 		//	屬性設定
 		_target = nullptr;
 		_type = type;
-		_counter = GAME_ONE_SECONED;
+		_counter = (GAME_ONE_SECONED >> 1);
 		_isCollision = false;
 
 		//	平移距離
@@ -68,7 +68,7 @@ namespace game_framework
 		if (_counter > 0)
 		{
 			_counter--;
-			if (_counter > (GAME_ONE_SECONED >> 1))
+			if (_counter > (GAME_ONE_SECONED >> 2))
 			{
 				_mx += (int)(10 * _vector[0]);
 				_my += (int)(10 * _vector[1]);

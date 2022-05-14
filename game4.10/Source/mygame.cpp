@@ -84,7 +84,7 @@ void CGameStateInit::OnInit()
 	//
 	// 此OnInit動作會接到CGameStaterRun::OnInit()，所以進度還沒到100%
 	//
-	background.LoadBitmap(IDB_Homepage, RGB(0, 0, 0));
+	background.LoadBitmap(IDB_Homepage);
 	title.LoadBitmap(IDB_Homepage_title, RGB(0, 0, 0));
 	start.AddBitmap(IDB_start0, RGB(0, 0, 0));
 	start.AddBitmap(IDB_start1, RGB(0, 0, 0));
@@ -609,8 +609,6 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 		character.ModifyGold(500);
 	}*/
 
-
-
 	gameMap.OnKeyDown(nChar);
 	character.OnKeyDown(nChar);
 
@@ -629,11 +627,11 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 		else
 			GotoGameState(GAME_STATE_RUN);
 	}
+
 }
 
 void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
-
 	gameMap.OnKeyUp(nChar);
 	character.OnKeyUp(nChar);
 }
@@ -832,10 +830,6 @@ void CGameStateRun::OnShow()
 	minMap.SetXY(SIZE_X - 180 + dMinMap, 25 + btn_pause.Height());
 	minMap.OnShow();
 
-	//	暫停介面
-	pause_UI.SetTopLeft(55, btn_posy);
-	pause_UI.ShowBitmap();
-
 	//	按鈕
 	btn_pause.SetTopLeft(SIZE_X - btn_pause.Width() - 10, 10 + UI_posy);
 	btn_pause.OnShow();
@@ -843,6 +837,10 @@ void CGameStateRun::OnShow()
 	btn_goBack.OnShow();
 	btn_continue.SetTopLeft(75 + btn_goBack.Width(), btn_posy + 181);
 	btn_continue.OnShow();
+
+	//	暫停介面
+	pause_UI.SetTopLeft(55, btn_posy);
+	pause_UI.ShowBitmap();
 
 	//debug
 	/*debugx.SetTopLeft(0, SIZE_Y - 20);

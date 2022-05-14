@@ -16,7 +16,7 @@ namespace game_framework {
 		_animas.clear();
 		_animas.reserve(AnimaSize);
 		CAnimation animation;
-		animation.SetDelayCount(3);
+		animation.SetDelayCount(5);
 		for (int i = 0; i < AnimaSize; i++)
 			_animas.push_back(animation);
 
@@ -25,7 +25,7 @@ namespace game_framework {
 		_mp = _maxMp = 180;
 		_shield = _maxShield = 5;
 		_damage = 4;
-		_moveSpeed = 10;
+		_moveSpeed = 8;
 		_showPriority = 10;
 		_gold = 0;
 		this->Reset();
@@ -37,7 +37,7 @@ namespace game_framework {
 		_weapons[1] = nullptr;
 		_nowWeapon = &_weapons[0];
 		(*_nowWeapon)->SetTarget("enemy");
-		(*_nowWeapon)->SetAttributes(10, 1, 25, 2);
+		(*_nowWeapon)->SetAttributes(4, 1, 20, 15);
 
 	}
 

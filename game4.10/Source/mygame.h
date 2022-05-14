@@ -38,12 +38,10 @@
  *      3. Use ShowInitProgress(percent) to display loading progress.
 */
 
-#include "CInitialPlayer.h"
 #include "CGameObj.h"
 #include "CGameMap.h"
 #include "CCharacter.h"
 #include "CEnemy.h"
-#include "CGameObjCenter.h"
 #include "CGameRoom.h"
 #include "CUIMinMap.h"
 #include "CGameTool.h"
