@@ -570,11 +570,11 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 
 	//	按鈕
 	btn_goBack.SetDelayCount(1);
-	btn_goBack.AddBitmap(IDB_BTN_pause_0, RGB(255, 255, 255));
-	btn_goBack.AddBitmap(IDB_BTN_pause_1, RGB(255, 255, 255));
+	btn_goBack.AddBitmap(IDB_BTN_goback_0, RGB(255, 255, 255));
+	btn_goBack.AddBitmap(IDB_BTN_goback_1, RGB(255, 255, 255));
 	btn_continue.SetDelayCount(1);
-	btn_continue.AddBitmap(IDB_BTN_pause_0, RGB(255, 255, 255));
-	btn_continue.AddBitmap(IDB_BTN_pause_1, RGB(255, 255, 255));
+	btn_continue.AddBitmap(IDB_BTN_continue_0, RGB(255, 255, 255));
+	btn_continue.AddBitmap(IDB_BTN_continue_1, RGB(255, 255, 255));
 	btn_pause.SetDelayCount(1);
 	btn_pause.AddBitmap(IDB_BTN_pause_0, RGB(255, 255, 255));
 	btn_pause.AddBitmap(IDB_BTN_pause_1, RGB(255, 255, 255));
