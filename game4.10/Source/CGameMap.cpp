@@ -774,16 +774,21 @@ namespace game_framework {
 	}
 
 	// 調整螢幕偏移 (SIZE_X >> 3 為偏移最遠範圍)
-	void CGameMap::ModifyDsx(int value, bool moveToZero)
+	void CGameMap::ModifyDsx(int value, int moveToValue)
 	{
-		if (moveToZero)
+		const int limit = SCREEN_MOVE_XLIMIT;
+		if (moveToValue != 0x7fffffff)
 		{
 			value = abs(value);
-			if (_dsx > 0)
+			if(abs(moveToValue - _dsx) < abs(value))
+			{
+				_dsx = moveToValue;
+			}
+			else if (_dsx > moveToValue)
 			{
 				_dsx -= value;
 			}
-			else if(_dsx < 0)
+			else if(_dsx < moveToValue)
 			{
 				_dsx += value;
 			}
@@ -791,27 +796,33 @@ namespace game_framework {
 		else
 		{
 			_dsx += value;
-			if (_dsx > (SIZE_X >> 3))
-			{
-				_dsx = (SIZE_X >> 3);
-			}
-			else if(_dsx < -(SIZE_X >> 3))
-			{
-				_dsx = -(SIZE_X >> 3);
-			}
+		}
+
+		if (_dsx > limit)
+		{
+			_dsx = limit;
+		}
+		else if (_dsx < -limit)
+		{
+			_dsx = -limit;
 		}
 	}
 
-	void CGameMap::ModifyDsy(int value, bool moveToZero)
+	void CGameMap::ModifyDsy(int value, int moveToValue)
 	{
-		if (moveToZero)
+		const int limit = SCREEN_MOVE_YLIMIT;
+		if (moveToValue != 0x7fffffff)
 		{
 			value = abs(value);
-			if (_dsy > 0)
+			if (abs(moveToValue - _dsy) < abs(value))
+			{
+				_dsy = moveToValue;
+			}
+			else if (_dsy > moveToValue)
 			{
 				_dsy -= value;
 			}
-			else if (_dsy < 0)
+			else if (_dsy < moveToValue)
 			{
 				_dsy += value;
 			}
@@ -819,14 +830,14 @@ namespace game_framework {
 		else
 		{
 			_dsy += value;
-			if (_dsy > (SIZE_Y >> 3))
-			{
-				_dsy = (SIZE_Y >> 3);
-			}
-			else if (_dsy < -(SIZE_Y >> 3))
-			{
-				_dsy = -(SIZE_Y >> 3);
-			}
+		}	
+		if (_dsy > limit)
+		{
+			_dsy = limit;
+		}
+		else if (_dsy < -limit)
+		{
+			_dsy = -limit;
 		}
 		
 	}

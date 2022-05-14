@@ -9,6 +9,8 @@
 #define MYMAPWIDTH 25								// 地圖每格寬
 #define MYMAPHIGH 25								// 地圖每格高
 #define MYORGROOM (MYMAXNOFROOM>>1)					// 中心點起始房間
+#define SCREEN_MOVE_XLIMIT (SIZE_X>>2)
+#define SCREEN_MOVE_YLIMIT (SIZE_Y>>2)
 
 namespace game_framework {
 	class RoomData
@@ -56,8 +58,8 @@ namespace game_framework {
 		RoomData** GetRooms();
 
 		void SetScreen(int x, int y);	
-		void ModifyDsx(int, bool=false);
-		void ModifyDsy(int, bool=false);
+		void ModifyDsx(int, int=0x7fffffff);
+		void ModifyDsy(int, int=0x7fffffff);
 
 		void OnMove(int x, int y);
 		void OnShow(bool cover = false);

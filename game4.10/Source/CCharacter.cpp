@@ -25,7 +25,7 @@ namespace game_framework {
 		_mp = _maxMp = 180;
 		_shield = _maxShield = 5;
 		_damage = 4;
-		_moveSpeed = 15;
+		_moveSpeed = 10;
 		_showPriority = 10;
 		_gold = 0;
 		this->Reset();
@@ -177,6 +177,27 @@ namespace game_framework {
 			_animaIter = GetAnima(Anima::INIT_L);
 				
 
+		const double MAXSEARCH = 500.0;	// 最大搜索範圍 
+		// 找到存活的敵人
+		vector<CGameObj*> enemys = CGameTool::FindObjsBy(CGameObj::_allObj,
+			[](CGameObj* obj)
+		{
+			return obj->IsEnable() && obj->GetTag() == "enemy";
+		}
+		);
+		// 找到最近的敵人
+		double d = MAXSEARCH;
+		CGameObj* target = nullptr;
+		for (CGameObj* enemy : enemys)
+		{
+			double ed = this->Distance(enemy);
+			if (d > ed && !hasObstacle(map, this, enemy))
+			{
+				d = ed;
+				target = enemy;
+			}
+		}
+
 		//	角色移動
 		vector<CGameObj*> roomWalls = CGameTool::FindObjsBy(CGameObj::_allObj,
 			[](CGameObj* obj)
@@ -233,21 +254,25 @@ namespace game_framework {
 
 		}
 
-		//	撞到障礙螢幕移動
-		if (j)
+		//	螢幕移動 (朝找到的敵人，或撞到障礙移動)
+		int screenSpeed = 5;
+		if (target == nullptr)
 		{
-			if (_isMovingLeft)
+			if (j)
 			{
-				map->ModifyDsx(-10);
+				if (_isMovingLeft)
+				{
+					map->ModifyDsx(-screenSpeed);
+				}
+				else if (_isMovingRight)
+				{
+					map->ModifyDsx(screenSpeed);
+				}
 			}
-			else if (_isMovingRight)
+			else
 			{
-				map->ModifyDsx(10);
+				map->ModifyDsx(screenSpeed, 0);
 			}
-		}
-		else
-		{
-			map->ModifyDsx(10, true);
 		}
 
 		for (int i = 0; i < _moveSpeed; i++)
@@ -294,20 +319,23 @@ namespace game_framework {
 			}
 		}
 		
-		if (j)
+		if (target == nullptr)
 		{
-			if (_isMovingUp)
+			if (j)
 			{
-				map->ModifyDsy(-10);
+				if (_isMovingUp)
+				{
+					map->ModifyDsy(-screenSpeed);
+				}
+				else if (_isMovingDown)
+				{
+					map->ModifyDsy(screenSpeed);
+				}
 			}
-			else if(_isMovingDown)
+			else
 			{
-				map->ModifyDsy(10);
+				map->ModifyDsy(screenSpeed, 0);
 			}
-		}
-		else
-		{
-			map->ModifyDsy(10, true);
 		}
 
 		//變更 vector 給子彈用
@@ -330,31 +358,23 @@ namespace game_framework {
 		(*_nowWeapon)->OnMove(map);
 		(*_nowWeapon)->SetDT(_DT);
 
-
-		const double MAXSEARCH = 500.0;	// 最大搜索範圍 
-		// 找到存活的敵人
-		vector<CGameObj*> enemys = CGameTool::FindObjsBy(CGameObj::_allObj,
-			[](CGameObj* obj)
+		// 射擊時變更角色、武器朝向、螢幕移動
+		if (target != nullptr)
 		{
-			return obj->IsEnable() && obj->GetTag() == "enemy";
-		}
-		);
-		// 找到最近的敵人
-		double d = MAXSEARCH;
-		CGameObj* target = nullptr;
-		for (CGameObj* enemy : enemys)
-		{
-			double ed = this->Distance(enemy);
-			if (d > ed && !hasObstacle(map, this, enemy))
+			//	螢幕
+			int vx = target->CenterX() - this->CenterX();
+			int vy = target->CenterY() - this->CenterY();
+			int rx = vx, ry = vy;
+			
+			while (rx < SCREEN_MOVE_XLIMIT && rx > -SCREEN_MOVE_XLIMIT && ry < SCREEN_MOVE_YLIMIT && ry > -SCREEN_MOVE_YLIMIT)
 			{
-				d = ed;
-				target = enemy;
+				rx += vx, ry += vy;
 			}
-		}
-
-		// 射擊時變更角色、武器朝向
-		if (target != nullptr && d <= MAXSEARCH)
-		{
+			
+			map->ModifyDsx(screenSpeed, rx);
+			map->ModifyDsy(screenSpeed, ry);
+		
+			//	動畫
 			if (target->CenterX() - this->CenterX() > 0)
 			{
 				(*_nowWeapon)->SetDT(0); 
