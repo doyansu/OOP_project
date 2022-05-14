@@ -312,7 +312,7 @@ void CGameStateRun::OnBeginState()
 	// UI
 	dMinMap = 0;
 	//	暫停介面
-	btn_posy = 0;
+	btn_posy = -100;
 	UI_posy = 0;
 	isPaused = false;
 	
@@ -570,14 +570,14 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 
 	//	按鈕
 	btn_goBack.SetDelayCount(1);
-	btn_goBack.AddBitmap(IDB_BTN_pause_0, RGB(0, 0, 0));
-	btn_goBack.AddBitmap(IDB_BTN_pause_1, RGB(0, 0, 0));
+	btn_goBack.AddBitmap(IDB_BTN_pause_0, RGB(255, 255, 255));
+	btn_goBack.AddBitmap(IDB_BTN_pause_1, RGB(255, 255, 255));
 	btn_continue.SetDelayCount(1);
-	btn_continue.AddBitmap(IDB_BTN_pause_0, RGB(0, 0, 0));
-	btn_continue.AddBitmap(IDB_BTN_pause_1, RGB(0, 0, 0));
+	btn_continue.AddBitmap(IDB_BTN_pause_0, RGB(255, 255, 255));
+	btn_continue.AddBitmap(IDB_BTN_pause_1, RGB(255, 255, 255));
 	btn_pause.SetDelayCount(1);
-	btn_pause.AddBitmap(IDB_BTN_pause_0, RGB(0, 0, 0));
-	btn_pause.AddBitmap(IDB_BTN_pause_1, RGB(0, 0, 0));
+	btn_pause.AddBitmap(IDB_BTN_pause_0, RGB(255, 255, 255));
+	btn_pause.AddBitmap(IDB_BTN_pause_1, RGB(255, 255, 255));
 
 	// Audio
 	CAudio::Instance()->Load(AUDIO_BGM_0,  "sounds\\BGM\\bgm_1Low.wav");
@@ -675,7 +675,7 @@ void CGameStateRun::OnLButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動作
 	{
 		if (point.x > 300 && point.x < 300 + btn_goBack.Width() && point.y > btn_posy && point.y < btn_posy + btn_goBack.Height())
 		{
-
+			GotoGameState(GAME_STATE_INIT);
 		}
 		else if (point.x > 400 && point.x < 400 + btn_continue.Width() && point.y > btn_posy && point.y < btn_posy + btn_continue.Height())
 		{
