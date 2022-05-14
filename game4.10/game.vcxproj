@@ -478,6 +478,10 @@
     <Image Include="res\enemy\bmp00062.bmp" />
     <Image Include="res\enemy\bmp00063.bmp" />
     <Image Include="res\enemy\bmp00064.bmp" />
+    <Image Include="res\enemy\bmp00065.bmp" />
+    <Image Include="res\enemy\bmp00066.bmp" />
+    <Image Include="res\enemy\bmp00067.bmp" />
+    <Image Include="res\enemy\bmp00068.bmp" />
     <Image Include="RES\enemy\enemy31_0.bmp" />
     <Image Include="RES\enemy\enemy31_0_l.bmp" />
     <Image Include="RES\enemy\enemy31_1.bmp" />

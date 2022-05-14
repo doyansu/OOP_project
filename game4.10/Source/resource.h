@@ -250,8 +250,12 @@
 #define IDB_start4                      388
 #define IDB_start5                      389
 #define IDB_start6                      390
-#define IDB_BITMAP64                    391
 #define IDB_start7                      391
+#define IDB_newgame0                    392
+#define IDB_newgame1                    393
+#define IDB_gamenote0                   394
+#define IDB_BITMAP60                    395
+#define IDB_gamenote1                   395
 #define IDC_README                      1001
 #define ID_FILE_PAUSE                   32771
 #define ID_TOGGLE_FULLSCREEN            32772
@@ -264,7 +268,7 @@
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_3D_CONTROLS                     1
-#define _APS_NEXT_RESOURCE_VALUE        392
+#define _APS_NEXT_RESOURCE_VALUE        396
 #define _APS_NEXT_COMMAND_VALUE         32776
 #define _APS_NEXT_CONTROL_VALUE         1003
 #define _APS_NEXT_SYMED_VALUE           101

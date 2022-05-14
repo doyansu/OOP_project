@@ -110,25 +110,10 @@ void CGameStateInit::OnBeginState()
 
 void CGameStateInit::OnLButtonDown(UINT nFlags, CPoint point)
 {
-	//GotoGameState(GAME_STATE_RUN);		// ち传GAME_STATE_RUN
+	GotoGameState(GAME_STATE_RUN);		// ち传GAME_STATE_RUN
 }
 
 void CGameStateInit::OnLButtonUp(UINT nFlags, CPoint point)
-{
-	//GotoGameState(GAME_STATE_RUN);		// ち传GAME_STATE_RUN
-}
-
-void CGameStateInit::OnMouseMove(UINT nFlags, CPoint point)
-{
-	//GotoGameState(GAME_STATE_RUN);		// ち传GAME_STATE_RUN
-}
-
-void CGameStateInit::OnRButtonDown(UINT nFlags, CPoint point)
-{
-	//GotoGameState(GAME_STATE_RUN);		// ち传GAME_STATE_RUN
-}
-
-void CGameStateInit::OnRButtonUp(UINT nFlags, CPoint point)
 {
 	//GotoGameState(GAME_STATE_RUN);		// ち传GAME_STATE_RUN
 }

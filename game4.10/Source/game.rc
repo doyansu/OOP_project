@@ -412,6 +412,14 @@ IDB_start6              BITMAP                  "..\\res\\enemy\\bitmap63.bmp"
 
 IDB_start7              BITMAP                  "..\\res\\enemy\\bitmap64.bmp"
 
+IDB_newgame0            BITMAP                  "..\\res\\enemy\\bmp00065.bmp"
+
+IDB_newgame1            BITMAP                  "..\\res\\enemy\\bmp00066.bmp"
+
+IDB_gamenote0           BITMAP                  "..\\res\\enemy\\bmp00067.bmp"
+
+IDB_gamenote1           BITMAP                  "..\\res\\enemy\\bmp00068.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
