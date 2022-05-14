@@ -119,8 +119,11 @@ namespace game_framework {
 		// UI
 		CInteger HP, MP, SP, MAXHP, MAXMP, MAXSP, GAMELEVEL, GOLDINTGER;
 		CMovingBitmap HPBACKGROUND, SLASH, HPBAR, SPBAR, MPBAR, MINUS, GOLD;
+		CAnimation btn_pause, btn_goBack, btn_continue;
 		CUIMinMap minMap;
 		int dMinMap;						//	小地圖位移
+		int btn_posy, UI_posy;						//	暫停介面位移
+		bool isPaused;								//	暫停判斷
 
 		// GAME
 		int gameLevel;						//	關卡數

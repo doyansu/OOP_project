@@ -422,6 +422,10 @@ IDB_gamenote1           BITMAP                  "..\\res\\enemy\\bmp00068.bmp"
 
 IDB_note_test           BITMAP                  "..\\res\\enemy\\bmp00069.bmp"
 
+IDB_BTN_pause_0         BITMAP                  "..\\res\\enemy\\bmp00070.bmp"
+
+IDB_BTN_pause_1         BITMAP                  "..\\res\\enemy\\bmp00071.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //

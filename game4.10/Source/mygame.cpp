@@ -311,6 +311,10 @@ void CGameStateRun::OnBeginState()
 	
 	// UI
 	dMinMap = 0;
+	//	暫停介面
+	btn_posy = 0;
+	UI_posy = 0;
+	isPaused = false;
 	
 
 	// Game
@@ -437,6 +441,10 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	//
 	bball.OnMove();*/
 
+	//	暫停
+	if (isPaused)
+		return;
+
 	// GAME
 	gameMap.OnMove(character.CenterX(), character.CenterY());
 
@@ -560,6 +568,17 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	//	UI小地圖
 	minMap.LoadBitmap();
 
+	//	按鈕
+	btn_goBack.SetDelayCount(1);
+	btn_goBack.AddBitmap(IDB_BTN_pause_0, RGB(0, 0, 0));
+	btn_goBack.AddBitmap(IDB_BTN_pause_1, RGB(0, 0, 0));
+	btn_continue.SetDelayCount(1);
+	btn_continue.AddBitmap(IDB_BTN_pause_0, RGB(0, 0, 0));
+	btn_continue.AddBitmap(IDB_BTN_pause_1, RGB(0, 0, 0));
+	btn_pause.SetDelayCount(1);
+	btn_pause.AddBitmap(IDB_BTN_pause_0, RGB(0, 0, 0));
+	btn_pause.AddBitmap(IDB_BTN_pause_1, RGB(0, 0, 0));
+
 	// Audio
 	CAudio::Instance()->Load(AUDIO_BGM_0,  "sounds\\BGM\\bgm_1Low.wav");
 }
@@ -617,12 +636,57 @@ void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 
 void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的動作
 {
-	
+	if (!isPaused)
+	{
+		if (point.x > SIZE_X - btn_pause.Width() - 10 && point.x < SIZE_X - btn_pause.Width() - 10 + btn_pause.Width() && point.y > 10 && point.y < 10 + btn_pause.Height()) {
+			//	暫停按鈕動畫變換
+			if (!btn_pause.IsFinalBitmap()) {
+				btn_pause.OnMove();
+			}
+		}
+	}
+	else
+	{
+		if (point.x > 300 && point.x < 300 + btn_goBack.Width() && point.y > btn_posy && point.y < btn_posy + btn_goBack.Height())
+		{
+			if (!btn_goBack.IsFinalBitmap()) {
+				btn_goBack.OnMove();
+			}
+		}
+		else if (point.x > 400 && point.x < 400 + btn_continue.Width() && point.y > btn_posy && point.y < btn_posy + btn_continue.Height())
+		{
+			if (!btn_continue.IsFinalBitmap()) {
+				btn_continue.OnMove();
+			}
+		}
+	}
+
 }
 
 void CGameStateRun::OnLButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動作
 {
-	
+	if (!isPaused)
+	{
+		if (point.x > SIZE_X - btn_pause.Width() - 10 && point.x < SIZE_X - btn_pause.Width() - 10 + btn_pause.Width() && point.y > 10 && point.y < 10 + btn_pause.Height()) {
+			isPaused = true;
+		}
+	}
+	else
+	{
+		if (point.x > 300 && point.x < 300 + btn_goBack.Width() && point.y > btn_posy && point.y < btn_posy + btn_goBack.Height())
+		{
+
+		}
+		else if (point.x > 400 && point.x < 400 + btn_continue.Width() && point.y > btn_posy && point.y < btn_posy + btn_continue.Height())
+		{
+			isPaused = false;
+			UI_posy = 0;
+		}
+	}
+
+	btn_pause.Reset();
+	btn_goBack.Reset();
+	btn_continue.Reset();
 }
 
 void CGameStateRun::OnMouseMove(UINT nFlags, CPoint point)	// 處理滑鼠的動作
@@ -677,28 +741,46 @@ void CGameStateRun::OnShow()
 	gameMap.OnShow(true);
 
 	// UI
+	// 暫停時
+	if (isPaused)
+	{
+		if (UI_posy > -HPBACKGROUND.Height() - 50)
+			UI_posy -= 10;
+		if (btn_posy < 200)
+			btn_posy += 10;
+	}
+	else
+	{
+		if (btn_posy > -100)
+			btn_posy -= 10;
+	}
+
 	HPBACKGROUND.ShowBitmap();
+	MAXHP.SetTopLeft(82, 7 + UI_posy);
+	MAXSP.SetTopLeft(82, 28 + UI_posy);
+	MAXMP.SetTopLeft(82, 48 + UI_posy);
+	HPBACKGROUND.SetTopLeft(0, UI_posy);
 
 	// 血量、魔量、護頓 動畫
 	int percent = character.GetHP() * 100 / character.GetMAXHP();
 	for (int i = 0; i < percent; i++)
 	{
-		HPBAR.SetTopLeft(27 + i, 10);
+		HPBAR.SetTopLeft(27 + i, 10 + UI_posy);
 		HPBAR.ShowBitmap();
 	}
 	percent = character.GetShield() * 100 / character.GetMAXShield();
 	for (int i = 0; i < percent; i++)
 	{
-		SPBAR.SetTopLeft(27 + i, 31);
+		SPBAR.SetTopLeft(27 + i, 31 + UI_posy);
 		SPBAR.ShowBitmap();
 	}
 	percent = character.GetMP() * 100 / character.GetMAXMP();
 	for (int i = 0; i < percent; i++)
 	{
-		MPBAR.SetTopLeft(26 + i, 51);
+		MPBAR.SetTopLeft(26 + i, 51 + UI_posy);
 		MPBAR.ShowBitmap();
 	}
-	
+
 	// 血量、魔量、護頓數字
 	HP.SetInteger(character.GetHP());
 	SP.SetInteger(character.GetShield());
@@ -706,9 +788,9 @@ void CGameStateRun::OnShow()
 	MAXHP.SetInteger(character.GetMAXHP());
 	MAXSP.SetInteger(character.GetMAXShield());
 	MAXMP.SetInteger(character.GetMAXMP());
-	HP.SetTopLeft(70 - HP.GetLen() * HP.GetWidth(), 7);
-	SP.SetTopLeft(70 - SP.GetLen() * SP.GetWidth(), 28);
-	MP.SetTopLeft(70 - MP.GetLen() * MP.GetWidth(), 48);
+	HP.SetTopLeft(70 - HP.GetLen() * HP.GetWidth(), 7 + UI_posy);
+	SP.SetTopLeft(70 - SP.GetLen() * SP.GetWidth(), 28 + UI_posy);
+	MP.SetTopLeft(70 - MP.GetLen() * MP.GetWidth(), 48 + UI_posy);
 	HP.ShowBitmap(false);
 	MP.ShowBitmap(false);
 	SP.ShowBitmap(false);
@@ -717,18 +799,18 @@ void CGameStateRun::OnShow()
 	MAXSP.ShowBitmap(false);
 
 	// 斜線
-	SLASH.SetTopLeft(68, 8);
+	SLASH.SetTopLeft(68, 8 + UI_posy);
 	SLASH.ShowBitmap();
-	SLASH.SetTopLeft(68, 28);
+	SLASH.SetTopLeft(68, 28 + UI_posy);
 	SLASH.ShowBitmap();
-	SLASH.SetTopLeft(68, 48);
+	SLASH.SetTopLeft(68, 48 + UI_posy);
 	SLASH.ShowBitmap();
 
 	//	金幣
 	GOLDINTGER.SetInteger(character.GetGold());
-	GOLDINTGER.SetTopLeft(SIZE_X - GOLDINTGER.GetLen() * GOLDINTGER.GetWidth(), 4);
+	GOLDINTGER.SetTopLeft((SIZE_X - btn_pause.Width() - 50) - GOLDINTGER.GetLen() * GOLDINTGER.GetWidth(), 8 + UI_posy);
 	GOLDINTGER.ShowBitmap(false);
-	GOLD.SetTopLeft(SIZE_X - GOLDINTGER.GetLen() * GOLDINTGER.GetWidth() - GOLD.Width(), 5);
+	GOLD.SetTopLeft((SIZE_X - btn_pause.Width() - 70) - (GOLDINTGER.GetLen() * GOLDINTGER.GetWidth() + GOLD.Width()), 10 + UI_posy);
 	GOLD.ShowBitmap();
 
 	//	關卡數
@@ -744,6 +826,14 @@ void CGameStateRun::OnShow()
 	//	UI小地圖
 	minMap.SetXY(SIZE_X - 180 + dMinMap, 25);
 	minMap.OnShow();
+
+	//	按鈕
+	btn_pause.SetTopLeft(SIZE_X - btn_pause.Width() - 10, 10 + UI_posy);
+	btn_pause.OnShow();
+	btn_goBack.SetTopLeft(300, btn_posy);
+	btn_goBack.OnShow();
+	btn_continue.SetTopLeft(400, btn_posy);
+	btn_continue.OnShow();
 
 	//debug
 	debugx.SetTopLeft(0, SIZE_Y - 20);
