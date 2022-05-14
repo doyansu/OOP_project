@@ -4,7 +4,7 @@ import numpy as np
 
 kernel = np.ones((3, 3), np.uint8)
 
-img = cv2.imread("./start_0.png")
+img = cv2.imread("./start_{}.png".format(i))
 
 img = cv2.resize(img, (0,0), fx = 3.2, fy = 3.2)
 

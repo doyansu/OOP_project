@@ -105,12 +105,15 @@ void CGameStateInit::OnInit()
 	newgame.AddBitmap(IDB_newgame1, RGB(0, 0, 0));
 	gamenote.AddBitmap(IDB_gamenote0, RGB(0, 0, 0));
 	gamenote.AddBitmap(IDB_gamenote1, RGB(0, 0, 0));
+	noteboard.AddBitmap(IDB_note_test, RGB(255, 255, 255));
 	newgame.SetDelayCount(1);
 	gamenote.SetDelayCount(1);
 }
 
 void CGameStateInit::OnBeginState()
 {
+	board_posy = -330;
+	board_movey = -20;
 	btn_posy = SIZE_Y;
 	btn_movey = 10;
 }
@@ -127,7 +130,7 @@ void CGameStateInit::OnLButtonDown(UINT nFlags, CPoint point)
 			gamenote.OnMove();
 		}
 	}
-	else {
+	else if (board_movey < 0) {
 		btn_movey *= -1;
 	}
 }
@@ -136,6 +139,12 @@ void CGameStateInit::OnLButtonUp(UINT nFlags, CPoint point)
 {
 	if (point.x > 90 && point.x < 90 + newgame.Width() && point.y > btn_posy && point.y < btn_posy + newgame.Height()) {
 		GotoGameState(GAME_STATE_RUN);
+	}
+	if (point.x > 120 + newgame.Width() && point.x < 120 + 2 * newgame.Width() && point.y > btn_posy && point.y < btn_posy + newgame.Height()) {
+		board_movey *= -1;
+	}
+	else if (board_movey > 0){
+		board_movey *= -1;
 	}
 	newgame.Reset();
 	gamenote.Reset();
@@ -150,7 +159,14 @@ void CGameStateInit::OnMove()
 	}
 	else if (btn_posy < (SIZE_Y - newgame.Height()-20)) {
 		btn_posy = SIZE_Y - newgame.Height()-20;
+	}
 
+	board_posy += board_movey;
+	if (board_posy < -noteboard.Height()) {
+		board_posy = -noteboard.Height();
+	}
+	else if (board_posy > (30)) {
+		board_posy = 30;
 	}
 }
 
@@ -179,6 +195,7 @@ void CGameStateInit::OnShow()
 	pDC->SelectObject(fp);						// 放掉 font f (千萬不要漏了放掉)
 	CDDraw::ReleaseBackCDC();					// 放掉 Back Plain 的 CDC
 	*/
+	noteboard.SetTopLeft(110, board_posy);
 	newgame.SetTopLeft(90, btn_posy);
 	gamenote.SetTopLeft(120 + newgame.Width(), btn_posy);
 	background.SetTopLeft(0, 0);
@@ -191,6 +208,7 @@ void CGameStateInit::OnShow()
 	}
 	newgame.OnShow();
 	gamenote.OnShow();
+	noteboard.OnShow();
 }								
 
 /////////////////////////////////////////////////////////////////////////////
