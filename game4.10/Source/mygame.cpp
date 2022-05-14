@@ -746,13 +746,13 @@ void CGameStateRun::OnShow()
 	{
 		if (UI_posy > -HPBACKGROUND.Height() - 50)
 			UI_posy -= 10;
-		if (btn_posy < 200)
-			btn_posy += 10;
+		if (btn_posy < 250)
+			btn_posy += 25;
 	}
 	else
 	{
 		if (btn_posy > -100)
-			btn_posy -= 10;
+			btn_posy -= 25;
 	}
 
 	HPBACKGROUND.ShowBitmap();
@@ -815,33 +815,33 @@ void CGameStateRun::OnShow()
 
 	//	關卡數
 	GAMELEVEL.SetInteger(1 + gameLevel / 5);
-	GAMELEVEL.SetTopLeft(SIZE_X - 40 + dMinMap, 200);
+	GAMELEVEL.SetTopLeft(SIZE_X - 40 + dMinMap, 200 + btn_pause.Height());
 	GAMELEVEL.ShowBitmap(false);
 	GAMELEVEL.SetInteger(1 + gameLevel % 5);
-	GAMELEVEL.SetTopLeft(SIZE_X - 20 + dMinMap, 200);
+	GAMELEVEL.SetTopLeft(SIZE_X - 20 + dMinMap, 200 + btn_pause.Height());
 	GAMELEVEL.ShowBitmap(false);
-	MINUS.SetTopLeft(SIZE_X - 30 + dMinMap, 200);
+	MINUS.SetTopLeft(SIZE_X - 30 + dMinMap, 200 + btn_pause.Height());
 	MINUS.ShowBitmap();
 
 	//	UI小地圖
-	minMap.SetXY(SIZE_X - 180 + dMinMap, 25);
+	minMap.SetXY(SIZE_X - 180 + dMinMap, 25 + btn_pause.Height());
 	minMap.OnShow();
 
 	//	按鈕
 	btn_pause.SetTopLeft(SIZE_X - btn_pause.Width() - 10, 10 + UI_posy);
 	btn_pause.OnShow();
-	btn_goBack.SetTopLeft(300, btn_posy);
+	btn_goBack.SetTopLeft(150, btn_posy);
 	btn_goBack.OnShow();
-	btn_continue.SetTopLeft(400, btn_posy);
+	btn_continue.SetTopLeft(160 + btn_goBack.Width(), btn_posy);
 	btn_continue.OnShow();
 
 	//debug
-	debugx.SetTopLeft(0, SIZE_Y - 20);
+	/*debugx.SetTopLeft(0, SIZE_Y - 20);
 	debugy.SetTopLeft(80, SIZE_Y - 20);
 	debugx.SetInteger(character.GetX1());
 	debugy.SetInteger(character.GetY1());
 	debugx.ShowBitmap(false);
-	debugy.ShowBitmap(false);
+	debugy.ShowBitmap(false);*/
 	/*debugx.SetTopLeft(160, 460);
 	debugy.SetTopLeft(240, 460);
 	debugx.SetInteger(TransferGate.GetX1());
