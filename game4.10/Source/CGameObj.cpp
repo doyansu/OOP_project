@@ -124,7 +124,7 @@ namespace game_framework {
 			_my += _moveSpeed;
 	}
 
-	void CGameObj::OnKeyUp(char nChar)
+	/*void CGameObj::OnKeyUp(char nChar)
 	{
 		const char KEY_LEFT = 0x25; // keyboard¥ª½bÀY
 		const char KEY_UP = 0x26; // keyboard¤W½bÀY
@@ -154,7 +154,7 @@ namespace game_framework {
 			this->SetMovingUp(true);
 		if (nChar == KEY_DOWN)
 			this->SetMovingDown(true);
-	}
+	}*/
 
 	int CGameObj::CenterX()
 	{

@@ -513,12 +513,28 @@ namespace game_framework {
 		//	Q 或 空白 射擊
 		const char KEY_SPACE = 0x20;
 		const char KEY_Q = 0x51;
+		const char KEY_W = 0x57;
+		const char KEY_S = 0x53;
+		const char KEY_A = 0x41;
+		const char KEY_D = 0x44;
+		const char KEY_LEFT = 0x25; // keyboard左箭頭
+		const char KEY_UP = 0x26; // keyboard上箭頭
+		const char KEY_RIGHT = 0x27; // keyboard右箭頭
+		const char KEY_DOWN = 0x28; // keyboard下箭頭
+
 		if (nChar == KEY_SPACE || nChar == KEY_Q)
 		{
 			_doSomeThing = false;
 		}
 
-		CCharacter::CGameObj::OnKeyUp(nChar);
+		if (nChar == KEY_LEFT || nChar == KEY_A)
+			this->SetMovingLeft(false);
+		if (nChar == KEY_RIGHT || nChar == KEY_D)
+			this->SetMovingRight(false);
+		if (nChar == KEY_UP || nChar == KEY_W)
+			this->SetMovingUp(false);
+		if (nChar == KEY_DOWN || nChar == KEY_S)
+			this->SetMovingDown(false);
 	}
 
 	void CCharacter::OnKeyDown(char nChar)
@@ -526,12 +542,28 @@ namespace game_framework {
 		//	Q 或 空白 射擊
 		const char KEY_SPACE = 0x20;
 		const char KEY_Q = 0x51;
+		const char KEY_W = 0x57;
+		const char KEY_S = 0x53;
+		const char KEY_A = 0x41;
+		const char KEY_D = 0x44;
+		const char KEY_LEFT = 0x25;		// keyboard左箭頭
+		const char KEY_UP = 0x26;		// keyboard上箭頭
+		const char KEY_RIGHT = 0x27;	// keyboard右箭頭
+		const char KEY_DOWN = 0x28;		// keyboard下箭頭
+
 		if (nChar == KEY_SPACE || nChar == KEY_Q)
 		{
 			_doSomeThing = true;
 		}
 
-		CCharacter::CGameObj::OnKeyDown(nChar);
+		if (nChar == KEY_LEFT || nChar == KEY_A)
+			this->SetMovingLeft(true);
+		if (nChar == KEY_RIGHT || nChar == KEY_D)
+			this->SetMovingRight(true);
+		if (nChar == KEY_UP || nChar == KEY_W)
+			this->SetMovingUp(true);
+		if (nChar == KEY_DOWN || nChar == KEY_S)
+			this->SetMovingDown(true);
 	}
 
 	void CCharacter::TakeDmg(int dmg)

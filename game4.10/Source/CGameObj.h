@@ -60,8 +60,8 @@ namespace game_framework {
 		virtual void OnMove(CGameMap*);
 		virtual void OnObjCollision(CGameMap*, CGameObj*) {};
 		virtual void OnDie(CGameMap*) {};					// ¦º¤`»Ý°µ
-		virtual void OnKeyUp(char);
-		virtual void OnKeyDown(char);
+		//virtual void OnKeyUp(char);
+		//virtual void OnKeyDown(char);
 		virtual void Reset();
 		virtual void TakeDmg(int);
 		double Distance(CGameObj*);
