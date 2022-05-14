@@ -101,26 +101,57 @@ void CGameStateInit::OnInit()
 	start.AddBitmap(IDB_start2, RGB(0, 0, 0));
 	start.AddBitmap(IDB_start1, RGB(0, 0, 0));
 	start.SetDelayCount(3);
+	newgame.AddBitmap(IDB_newgame0, RGB(0, 0, 0));
+	newgame.AddBitmap(IDB_newgame1, RGB(0, 0, 0));
+	gamenote.AddBitmap(IDB_gamenote0, RGB(0, 0, 0));
+	gamenote.AddBitmap(IDB_gamenote1, RGB(0, 0, 0));
+	newgame.SetDelayCount(1);
+	gamenote.SetDelayCount(1);
 }
 
 void CGameStateInit::OnBeginState()
 {
-	
+	btn_posy = SIZE_Y;
+	btn_movey = 10;
 }
 
 void CGameStateInit::OnLButtonDown(UINT nFlags, CPoint point)
 {
-	GotoGameState(GAME_STATE_RUN);		// 切換至GAME_STATE_RUN
+	if (point.x > 90 && point.x < 90 + newgame.Width() && point.y > btn_posy && point.y < btn_posy + newgame.Height()) {
+		if (!newgame.IsFinalBitmap()) {
+			newgame.OnMove();
+		}
+	}
+	else if (point.x > 120 + newgame.Width() && point.x < 120 + 2*newgame.Width() && point.y > btn_posy && point.y < btn_posy + newgame.Height()) {
+		if (!gamenote.IsFinalBitmap()) {
+			gamenote.OnMove();
+		}
+	}
+	else {
+		btn_movey *= -1;
+	}
 }
 
 void CGameStateInit::OnLButtonUp(UINT nFlags, CPoint point)
 {
-	//GotoGameState(GAME_STATE_RUN);		// 切換至GAME_STATE_RUN
+	if (point.x > 90 && point.x < 90 + newgame.Width() && point.y > btn_posy && point.y < btn_posy + newgame.Height()) {
+		GotoGameState(GAME_STATE_RUN);
+	}
+	newgame.Reset();
+	gamenote.Reset();
 }
 
 void CGameStateInit::OnMove()
 {
 	start.OnMove();
+	btn_posy += btn_movey;
+	if (btn_posy > SIZE_Y) {
+		btn_posy = SIZE_Y;
+	}
+	else if (btn_posy < (SIZE_Y - newgame.Height()-20)) {
+		btn_posy = SIZE_Y - newgame.Height()-20;
+
+	}
 }
 
 void CGameStateInit::OnShow()
@@ -148,12 +179,18 @@ void CGameStateInit::OnShow()
 	pDC->SelectObject(fp);						// 放掉 font f (千萬不要漏了放掉)
 	CDDraw::ReleaseBackCDC();					// 放掉 Back Plain 的 CDC
 	*/
+	newgame.SetTopLeft(90, btn_posy);
+	gamenote.SetTopLeft(120 + newgame.Width(), btn_posy);
 	background.SetTopLeft(0, 0);
 	title.SetTopLeft(20, 10);
 	start.SetTopLeft(250, 330);
 	background.ShowBitmap();
 	title.ShowBitmap();
-	start.OnShow();
+	if (btn_posy == SIZE_Y) {
+		start.OnShow();
+	}
+	newgame.OnShow();
+	gamenote.OnShow();
 }								
 
 /////////////////////////////////////////////////////////////////////////////

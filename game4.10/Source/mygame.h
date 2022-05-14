@@ -80,7 +80,8 @@ namespace game_framework {
 		//void Onclick();
 	private:
 		CMovingBitmap background, title;
-		CAnimation start;
+		CAnimation start, newgame, gamenote;
+		int btn_posy, btn_movey;
 	};
 
 	/////////////////////////////////////////////////////////////////////////////
