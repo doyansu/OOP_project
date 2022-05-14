@@ -361,18 +361,17 @@ namespace game_framework {
 		// 射擊時變更角色、武器朝向、螢幕移動
 		if (target != nullptr)
 		{
-			//	螢幕
-			int vx = target->CenterX() - this->CenterX();
-			int vy = target->CenterY() - this->CenterY();
-			int rx = vx, ry = vy;
+			//	螢幕(聚焦到敵人與玩家中間)
+			int vx = (target->CenterX() - this->CenterX()) >> 1;
+			int vy = (target->CenterY() - this->CenterY()) >> 1;
 			
-			while (rx < SCREEN_MOVE_XLIMIT && rx > -SCREEN_MOVE_XLIMIT && ry < SCREEN_MOVE_YLIMIT && ry > -SCREEN_MOVE_YLIMIT)
+			while (vx > SCREEN_MOVE_XLIMIT || vx < -SCREEN_MOVE_XLIMIT || vy > SCREEN_MOVE_YLIMIT || vy < -SCREEN_MOVE_YLIMIT)
 			{
-				rx += vx, ry += vy;
+				vx >>= 1, vy >>= 1;
 			}
 			
-			map->ModifyDsx(screenSpeed, rx);
-			map->ModifyDsy(screenSpeed, ry);
+			map->ModifyDsx(screenSpeed, vx);
+			map->ModifyDsy(screenSpeed, vy);
 		
 			//	動畫
 			if (target->CenterX() - this->CenterX() > 0)
