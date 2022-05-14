@@ -312,7 +312,7 @@ void CGameStateRun::OnBeginState()
 	// UI
 	dMinMap = 0;
 	//	暫停介面
-	btn_posy = -100;
+	btn_posy = -300;
 	UI_posy = 0;
 	isPaused = false;
 	
@@ -651,13 +651,13 @@ void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的動作
 	}
 	else
 	{
-		if (point.x > 300 && point.x < 300 + btn_goBack.Width() && point.y > btn_posy && point.y < btn_posy + btn_goBack.Height())
+		if (point.x > 67 && point.x < 67 + btn_goBack.Width() && point.y > btn_posy + 181 && point.y < btn_posy + 181 + btn_goBack.Height())
 		{
 			if (!btn_goBack.IsFinalBitmap()) {
 				btn_goBack.OnMove();
 			}
 		}
-		else if (point.x > 400 && point.x < 400 + btn_continue.Width() && point.y > btn_posy && point.y < btn_posy + btn_continue.Height())
+		else if (point.x > 75 + btn_goBack.Width() && point.x < 75 + btn_goBack.Width() + btn_continue.Width() && point.y > btn_posy + 181 && point.y < btn_posy + 181 + btn_continue.Height())
 		{
 			if (!btn_continue.IsFinalBitmap()) {
 				btn_continue.OnMove();
@@ -677,11 +677,12 @@ void CGameStateRun::OnLButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動作
 	}
 	else
 	{
-		if (point.x > 300 && point.x < 300 + btn_goBack.Width() && point.y > btn_posy && point.y < btn_posy + btn_goBack.Height())
+		if (point.x > 67 && point.x < 67 + btn_goBack.Width() && point.y > btn_posy + 181 && point.y < btn_posy + 181 + btn_goBack.Height())
 		{
+			GameEnd();
 			GotoGameState(GAME_STATE_INIT);
 		}
-		else if (point.x > 400 && point.x < 400 + btn_continue.Width() && point.y > btn_posy && point.y < btn_posy + btn_continue.Height())
+		else if (point.x > 75 + btn_goBack.Width() && point.x < 75 + btn_goBack.Width() + btn_continue.Width() && point.y > btn_posy + 181 && point.y < btn_posy + 181 + btn_continue.Height())
 		{
 			isPaused = false;
 			UI_posy = 0;
@@ -750,13 +751,13 @@ void CGameStateRun::OnShow()
 	{
 		if (UI_posy > -HPBACKGROUND.Height() - 50)
 			UI_posy -= 10;
-		if (btn_posy < 250)
-			btn_posy += 25;
+		if (btn_posy < 100)
+			btn_posy += 50;
 	}
 	else
 	{
-		if (btn_posy > -100)
-			btn_posy -= 25;
+		if (btn_posy > -300)
+			btn_posy -= 50;
 	}
 
 	HPBACKGROUND.ShowBitmap();
@@ -831,12 +832,16 @@ void CGameStateRun::OnShow()
 	minMap.SetXY(SIZE_X - 180 + dMinMap, 25 + btn_pause.Height());
 	minMap.OnShow();
 
+	//	暫停介面
+	pause_UI.SetTopLeft(55, btn_posy);
+	pause_UI.ShowBitmap();
+
 	//	按鈕
 	btn_pause.SetTopLeft(SIZE_X - btn_pause.Width() - 10, 10 + UI_posy);
 	btn_pause.OnShow();
-	btn_goBack.SetTopLeft(150, btn_posy);
+	btn_goBack.SetTopLeft(67, btn_posy + 181);
 	btn_goBack.OnShow();
-	btn_continue.SetTopLeft(160 + btn_goBack.Width(), btn_posy);
+	btn_continue.SetTopLeft(75 + btn_goBack.Width(), btn_posy + 181);
 	btn_continue.OnShow();
 
 	//debug
