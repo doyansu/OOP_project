@@ -392,6 +392,10 @@ IDB_playerAppearance_3  BITMAP                  "..\\res\\enemy\\bmp00060.bmp"
 
 IDB_playerAppearance_4  BITMAP                  "..\\res\\enemy\\bmp00061.bmp"
 
+IDB_Homepage            BITMAP                  "..\\res\\enemy\\bmp00062.bmp"
+
+IDB_Homepage_title      BITMAP                  "..\\res\\enemy\\bitmap58.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //

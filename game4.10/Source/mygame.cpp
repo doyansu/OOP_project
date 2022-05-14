@@ -84,33 +84,13 @@ void CGameStateInit::OnInit()
 	//
 	// 此OnInit動作會接到CGameStaterRun::OnInit()，所以進度還沒到100%
 	//
-	player.LoadBitmap();
-	gate.LoadBitmap(IDB_GATE1);
-	map.LoadBitmap();
+	background.LoadBitmap(IDB_Homepage, RGB(0, 0, 0));
+	title.LoadBitmap(IDB_Homepage_title, RGB(0, 0, 0));
 }
 
 void CGameStateInit::OnBeginState()
 {
-	player.Initialize();
-	gate.SetXY(270, 100);
-}
-
-void CGameStateInit::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
-{
-	player.OnKeyDown(nChar);
-}
-
-void CGameStateInit::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
-{
-	/*const char KEY_ESC = 27;
-	const char KEY_SPACE = ' ';
-	if (nChar == KEY_SPACE)
-		GotoGameState(GAME_STATE_RUN);						// 切換至GAME_STATE_RUN
-	else if (nChar == KEY_ESC)								// Demo 關閉遊戲的方法
-		PostMessage(AfxGetMainWnd()->m_hWnd, WM_CLOSE,0,0);	// 關閉遊戲
-		*/
-
-	player.OnKeyUp(nChar);
+	
 }
 
 void CGameStateInit::OnLButtonDown(UINT nFlags, CPoint point)
@@ -118,11 +98,29 @@ void CGameStateInit::OnLButtonDown(UINT nFlags, CPoint point)
 	//GotoGameState(GAME_STATE_RUN);		// 切換至GAME_STATE_RUN
 }
 
+void CGameStateInit::OnLButtonUp(UINT nFlags, CPoint point)
+{
+	//GotoGameState(GAME_STATE_RUN);		// 切換至GAME_STATE_RUN
+}
+
+void CGameStateInit::OnMouseMove(UINT nFlags, CPoint point)
+{
+	//GotoGameState(GAME_STATE_RUN);		// 切換至GAME_STATE_RUN
+}
+
+void CGameStateInit::OnRButtonDown(UINT nFlags, CPoint point)
+{
+	//GotoGameState(GAME_STATE_RUN);		// 切換至GAME_STATE_RUN
+}
+
+void CGameStateInit::OnRButtonUp(UINT nFlags, CPoint point)
+{
+	//GotoGameState(GAME_STATE_RUN);		// 切換至GAME_STATE_RUN
+}
+
 void CGameStateInit::OnMove()
 {
-	player.OnMove(&map);
-	if(gate.Collision(&player))
-		GotoGameState(GAME_STATE_RUN);
+	
 }
 
 void CGameStateInit::OnShow()
@@ -150,10 +148,10 @@ void CGameStateInit::OnShow()
 	pDC->SelectObject(fp);						// 放掉 font f (千萬不要漏了放掉)
 	CDDraw::ReleaseBackCDC();					// 放掉 Back Plain 的 CDC
 	*/
-
-	gate.OnShow(&map);
-	player.OnShow(&map);
-	
+	background.SetTopLeft(0, 0);
+	title.SetTopLeft(20, 10);
+	background.ShowBitmap();
+	title.ShowBitmap();
 }								
 
 /////////////////////////////////////////////////////////////////////////////
