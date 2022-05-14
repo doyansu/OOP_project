@@ -568,6 +568,10 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	//	UI小地圖
 	minMap.LoadBitmap();
 
+
+	//	暫停UI
+	pause_UI.LoadBitmap(IDB_pause_UI, RGB(255, 255, 255));
+
 	//	按鈕
 	btn_goBack.SetDelayCount(1);
 	btn_goBack.AddBitmap(IDB_BTN_goback_0, RGB(255, 255, 255));

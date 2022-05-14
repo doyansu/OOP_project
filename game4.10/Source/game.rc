@@ -434,6 +434,8 @@ IDB_BTN_goback_0        BITMAP                  "..\\res\\enemy\\bmp00074.bmp"
 
 IDB_BTN_goback_1        BITMAP                  "..\\res\\enemy\\bmp00075.bmp"
 
+IDB_pause_UI            BITMAP                  "..\\res\\enemy\\bmp00076.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
