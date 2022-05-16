@@ -830,6 +830,10 @@ void CGameStateRun::OnShow()
 	minMap.SetXY(SIZE_X - 180 + dMinMap, 25 + btn_pause.Height());
 	minMap.OnShow();
 
+	//	¼È°±¤¶­±
+	pause_UI.SetTopLeft(55, btn_posy);
+	pause_UI.ShowBitmap();
+
 	//	«ö¶s
 	btn_pause.SetTopLeft(SIZE_X - btn_pause.Width() - 10, 10 + UI_posy);
 	btn_pause.OnShow();
@@ -837,10 +841,6 @@ void CGameStateRun::OnShow()
 	btn_goBack.OnShow();
 	btn_continue.SetTopLeft(75 + btn_goBack.Width(), btn_posy + 181);
 	btn_continue.OnShow();
-
-	//	¼È°±¤¶­±
-	pause_UI.SetTopLeft(55, btn_posy);
-	pause_UI.ShowBitmap();
 
 	//debug
 	/*debugx.SetTopLeft(0, SIZE_Y - 20);
