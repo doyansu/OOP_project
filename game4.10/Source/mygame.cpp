@@ -93,11 +93,25 @@ void CGameStateInit::OnInit()
 	// BGM
 	CAudio::Instance()->Load(AUDIO_BGM_INIT, "sounds\\BGM\\bgm_1Low.wav");
 	CAudio::Instance()->Load(AUDIO_BGM_SNOW, "sounds\\BGM\\bgm_5Low.wav"); 
+	
+	// BTN
+	CAudio::Instance()->Load(AUDIO_BTN_DOWN, "sounds\\Btn\\fx_btn1.wav");
+
+	// BOX
+	CAudio::Instance()->Load(AUDIO_BOX_OPEN, "sounds\\Box\\fx_chest_open.wav");
+
+	// COIN, ENERGY
+	CAudio::Instance()->Load(AUDIO_GET_COIN, "sounds\\Coin\\fx_coin.wav");
+	CAudio::Instance()->Load(AUDIO_GET_ENERGY, "sounds\\Coin\\fx_energy.wav");
+
+	// HEALTH
+	CAudio::Instance()->Load(AUDIO_HEALTH, "sounds\\Health\\fx_healthpot.wav");
+	
+
+	// WEAPON
 	CAudio::Instance()->Load(AUDIO_GUN_0, "sounds\\Shoot\\fx_gun_1.wav");
 
 
-	// BTN
-	CAudio::Instance()->Load(AUDIO_BTN_DOWN, "sounds\\Btn\\fx_btn1.wav");
 
 	// UI
 	background.LoadBitmap(IDB_Homepage);

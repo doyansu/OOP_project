@@ -157,6 +157,9 @@ namespace game_framework
 			this->SetEnable(false);
 			this->SetDie(true);
 
+			//	開箱音效
+			CAudio::Instance()->Play(AUDIO_ID::AUDIO_BOX_OPEN);
+
 			//	暫時各 100 %
 			if (rand() % 2)
 			{
@@ -459,6 +462,9 @@ namespace game_framework
 			{
 				this->SetEnable(false);
 				this->SetDie(true);
+
+				//	開箱音效
+				CAudio::Instance()->Play(AUDIO_ID::AUDIO_BOX_OPEN);
 
 				//	暫時調成都 50 %
 				if (rand() % 2)	//	隨機生成能量球、金幣

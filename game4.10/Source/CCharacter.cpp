@@ -456,10 +456,14 @@ namespace game_framework {
 		else if (other->GetTag() == "gold")				//	金幣
 		{
 			this->ModifyGold(1 + rand() % 2);
+			//	播放音效
+			CAudio::Instance()->Play(AUDIO_ID::AUDIO_GET_COIN);
 		}
 		else if (other->GetTag() == "energyball")		//	能量球(MP)
 		{
 			this->ModifyMp((1 + rand() % 4) << 1);
+			//	播放音效
+			CAudio::Instance()->Play(AUDIO_ID::AUDIO_GET_ENERGY);
 		}
 		else if (other->GetTag() == "treasure")			//	一般寶箱
 		{
@@ -473,6 +477,7 @@ namespace game_framework {
 			{
 				this->TakeDmg(-2);
 				other->TakeDmg(99999);
+				CAudio::Instance()->Play(AUDIO_ID::AUDIO_HEALTH);
 			}
 			_canInteractive = true;
 		}
@@ -482,6 +487,7 @@ namespace game_framework {
 			{
 				this->TakeDmg(-4);
 				other->TakeDmg(99999);
+				CAudio::Instance()->Play(AUDIO_ID::AUDIO_HEALTH);
 			}
 			_canInteractive = true;
 		}
@@ -491,6 +497,7 @@ namespace game_framework {
 			{
 				this->ModifyMp(40);
 				other->TakeDmg(99999);
+				CAudio::Instance()->Play(AUDIO_ID::AUDIO_HEALTH);
 			}
 			_canInteractive = true;
 		}
@@ -500,6 +507,7 @@ namespace game_framework {
 			{
 				this->ModifyMp(80);
 				other->TakeDmg(99999);
+				CAudio::Instance()->Play(AUDIO_ID::AUDIO_HEALTH);
 			}
 			_canInteractive = true;
 		}
@@ -679,6 +687,7 @@ namespace game_framework {
 	{
 		return _mx + 49;
 	}
+
 	int CCharacter::GetY2() //	碰撞範圍調整
 	{
 		return _my + 30;
