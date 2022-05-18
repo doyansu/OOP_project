@@ -28,6 +28,7 @@ namespace game_framework
 		_DT = 1;
 		CGameWeapon::CGameObj::SetTag("weapon");
 		_center[0] = _center[1] = 0;
+		_shootID = AUDIO_ID::AUDIO_GUN_0;
 
 
 		// 子彈設定
@@ -71,6 +72,7 @@ namespace game_framework
 		this->_user = other._user;
 		this->_center[0] = other._center[0];
 		this->_center[1] = other._center[1];
+		this->_shootID = other._shootID;
 	}
 
 	void CGameWeapon::free()
@@ -181,10 +183,9 @@ namespace game_framework
 	{
 		if (_fire)
 		{
-			/*if(_DT == 0) // 從槍口開槍
-				_bullet.SetXY(this->GetX1(), this->CenterY());
-			else if (_DT == 1)
-				_bullet.SetXY(this->GetX2(), this->CenterY());*/
+			// 音效播放
+			CAudio::Instance()->Play(_shootID);
+
 			_bullet->SetXY(this->CenterX(), this->CenterY());
 			_bullet->SetVector(x, y);
 			CGameObj::AddObj(new CGameBullet(*_bullet));

@@ -1,4 +1,5 @@
 #pragma once
+#include "audio.h"
 #include "CGameBullet.h"
 
 namespace game_framework
@@ -38,6 +39,7 @@ namespace game_framework
 		int _DT;									//	動畫判斷
 		CGameBullet* _bullet;						//	子彈設定
 		CGameObj* _user;
+		AUDIO_ID _shootID;
 						
 
 	private:

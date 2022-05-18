@@ -15,11 +15,13 @@ namespace game_framework {
 	CEnemy::CEnemy()
 	{
 		// 動畫載入
-		const int AnimaSize = 3;
+		const int AnimaSize = (int)Anima::ANIMACOUNT;
 		_animas.clear();
 		_animas.reserve(AnimaSize);
+		CAnimation animation;
+		animation.SetDelayCount(5);
 		for (int i = 0; i < AnimaSize; i++)
-			_animas.push_back(CAnimation());
+			_animas.push_back(animation);
 
 		// 屬性設定
 		this->SetXY(400, 400);
@@ -85,6 +87,14 @@ namespace game_framework {
 		_animaIter = GetAnima(CEnemy::Anima::DIE);
 		_animaIter->AddBitmap(IDB_enemy0_die, RGB(255, 255, 255));
 
+		_animaIter = GetAnima(Anima::APPEARANCE); 
+		_animaIter->SetDelayCount(2);
+		_animaIter->AddBitmap(IDB_enemyAppearance_0, RGB(0, 0, 0));
+		_animaIter->AddBitmap(IDB_enemyAppearance_1, RGB(0, 0, 0));
+		_animaIter->AddBitmap(IDB_enemyAppearance_2, RGB(0, 0, 0));
+		_animaIter->AddBitmap(IDB_enemyAppearance_3, RGB(0, 0, 0));
+		_animaIter->AddBitmap(IDB_enemyAppearance_4, RGB(0, 0, 0));
+
 		_animaIter = _animas.begin();
 
 		_weapon->LoadBitmap();
@@ -92,13 +102,28 @@ namespace game_framework {
 
 	void CEnemy::OnShow(CGameMap* map)
 	{
-		CEnemy::CGameObj::OnShow(map);
-		if(!_isDie)
-			_weapon->OnShow(map);
+		if (GetAnima(Anima::APPEARANCE)->IsFinalBitmap())
+		{
+			CEnemy::CGameObj::OnShow(map);
+			if(!_isDie)
+				_weapon->OnShow(map);
+		}
+		else
+		{
+			GetAnima(Anima::APPEARANCE)->SetTopLeft(map->ScreenX(_mx), map->ScreenY(_my - 50));
+			GetAnima(Anima::APPEARANCE)->OnShow();
+		}
+		
 	}
 
 	void CEnemy::OnMove(CGameMap *map)
 	{
+		if (!GetAnima(Anima::APPEARANCE)->IsFinalBitmap())
+		{
+			GetAnima(Anima::APPEARANCE)->OnMove();
+			return;
+		}
+
 		// 敵人移動
 		const int randomRange = 20;	// 隨機變方向
 
@@ -203,6 +228,11 @@ namespace game_framework {
 	void CEnemy::OnDie(CGameMap* map)
 	{
 		_animaIter->OnMove();
+	}
+
+	bool CEnemy::hasAppeared()
+	{
+		return GetAnima(Anima::APPEARANCE)->IsFinalBitmap();
 	}
 
 	vector<CAnimation>::iterator CEnemy::GetAnima(Anima type)

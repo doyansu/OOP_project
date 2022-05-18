@@ -53,12 +53,12 @@ namespace game_framework {
 	// Constants
 	/////////////////////////////////////////////////////////////////////////////
 
-	enum AUDIO_ID {				// 定義各種音效的編號
+	/*enum AUDIO_ID {				// 定義各種音效的編號
 		AUDIO_DING,				// 0
 		AUDIO_LAKE,				// 1
 		AUDIO_NTUT, 			// 2
 		AUDIO_BGM_0
-	};
+	};*/
 
 	/////////////////////////////////////////////////////////////////////////////
 	// 這個class為遊戲的遊戲開頭畫面物件
@@ -80,6 +80,7 @@ namespace game_framework {
 		CMovingBitmap background, title;
 		CAnimation start, newgame, gamenote, noteboard;
 		int btn_posy, btn_movey, board_posy, board_movey;
+		bool isLoad;	//	不知為何 OnBeginState() 會比 OnInit() 先執行 用來判斷是否已下載資料
 	};
 
 	/////////////////////////////////////////////////////////////////////////////

@@ -436,6 +436,40 @@ IDB_BTN_goback_1        BITMAP                  "..\\res\\enemy\\bmp00075.bmp"
 
 IDB_pause_UI            BITMAP                  "..\\res\\enemy\\bmp00076.bmp"
 
+IDB_RoomMarking         BITMAP                  "..\\res\\enemy\\bmp00077.bmp"
+
+IDB_RoomMarking_0       BITMAP                  "..\\res\\enemy\\bmp00078.bmp"
+
+IDB_RoomMarking_1       BITMAP                  "..\\res\\enemy\\bmp00079.bmp"
+
+IDB_RoomMarking_2       BITMAP                  "..\\res\\enemy\\roommark.bmp"
+
+IDB_RoomMarking_3       BITMAP                  "..\\res\\enemy\\bmp00080.bmp"
+
+IDB_RoomMarking_4       BITMAP                  "..\\res\\enemy\\bmp00081.bmp"
+
+IDB_RoomMarking_5       BITMAP                  "..\\res\\enemy\\bmp00082.bmp"
+
+IDB_RoomMarking_6       BITMAP                  "..\\res\\enemy\\bmp00083.bmp"
+
+IDB_RoomMarking_7       BITMAP                  "..\\res\\enemy\\bmp00084.bmp"
+
+IDB_RoomMarking_8       BITMAP                  "..\\res\\enemy\\bmp00085.bmp"
+
+IDB_RoomMarking_9       BITMAP                  "..\\res\\enemy\\bmp00086.bmp"
+
+IDB_RoomMarking_10      BITMAP                  "..\\res\\enemy\\bmp00087.bmp"
+
+IDB_enemyAppearance_0   BITMAP                  "..\\res\\enemy\\playerap.bmp"
+
+IDB_enemyAppearance_1   BITMAP                  "..\\res\\enemy\\enemyapp.bmp"
+
+IDB_enemyAppearance_2   BITMAP                  "..\\res\\enemy\\bmp00088.bmp"
+
+IDB_enemyAppearance_3   BITMAP                  "..\\res\\enemy\\bmp00089.bmp"
+
+IDB_enemyAppearance_4   BITMAP                  "..\\res\\enemy\\bmp00090.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //

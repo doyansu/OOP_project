@@ -56,7 +56,7 @@ namespace game_framework {
 		_nowWeapon = &_weapons[0];
 		(*_nowWeapon)->LoadBitmap();
 		(*_nowWeapon)->SetTarget("enemy");
-		(*_nowWeapon)->SetAttributes(10, 1, 25, 2);
+		(*_nowWeapon)->SetAttributes(4, 1, 20, 15);
 
 	}
 
@@ -137,13 +137,16 @@ namespace game_framework {
 
 	void CCharacter::OnShow(CGameMap* map)
 	{
-		_animaIter->SetTopLeft(map->ScreenX(_mx), map->ScreenY(_my - 20));
-		_animaIter->OnShow();
-		if(!_isDie)
-			(*_nowWeapon)->OnShow(map);
-		if (!GetAnima(Anima::APPEARANCE)->IsFinalBitmap())
+		if (GetAnima(Anima::APPEARANCE)->IsFinalBitmap())
 		{
-			GetAnima(Anima::APPEARANCE)->SetTopLeft(map->ScreenX(_mx), map->ScreenY(_my - 20));
+			_animaIter->SetTopLeft(map->ScreenX(_mx), map->ScreenY(_my - 20));
+			_animaIter->OnShow();
+			if(!_isDie)
+				(*_nowWeapon)->OnShow(map);
+		}
+		else
+		{
+			GetAnima(Anima::APPEARANCE)->SetTopLeft(map->ScreenX(_mx), map->ScreenY(_my - 50));
 			GetAnima(Anima::APPEARANCE)->OnShow();
 		}
 	}

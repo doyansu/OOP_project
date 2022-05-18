@@ -62,6 +62,7 @@
  *      1. Rewrite CAudio with MCI commands to eliminate dependency with DirectMusic.
 */
 
+#pragma once
 #include <list>
 #include <vector>
 #include <map>
@@ -109,6 +110,14 @@ private:
     HANDLE				hThread;	// MCI command thread
 	HANDLE				hWriteEnd;	// Pipe write handle for thread
 	const static int	MAX_MCI_COMMAND_SIZE = 400;
+};
+
+enum AUDIO_ID {				//  定義各種音效的編號
+	AUDIO_NULL,				//	無定義
+	AUDIO_BGM_INIT,			// 	初始畫面 BGM
+	AUDIO_BGM_SNOW,			//	雪地 BGM
+	AUDIO_BTN_DOWN,			// 	按鈕點擊
+	AUDIO_GUN_0				//	武器音效
 };
 
 }

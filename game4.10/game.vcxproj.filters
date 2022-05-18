@@ -255,6 +255,23 @@
     <Image Include="res\enemy\bmp00074.bmp" />
     <Image Include="res\enemy\bmp00075.bmp" />
     <Image Include="res\enemy\bmp00076.bmp" />
+    <Image Include="res\enemy\bmp00077.bmp" />
+    <Image Include="res\enemy\bmp00078.bmp" />
+    <Image Include="res\enemy\bmp00079.bmp" />
+    <Image Include="res\enemy\roommark.bmp" />
+    <Image Include="res\enemy\bmp00080.bmp" />
+    <Image Include="res\enemy\bmp00081.bmp" />
+    <Image Include="res\enemy\bmp00082.bmp" />
+    <Image Include="res\enemy\bmp00083.bmp" />
+    <Image Include="res\enemy\bmp00084.bmp" />
+    <Image Include="res\enemy\bmp00085.bmp" />
+    <Image Include="res\enemy\bmp00086.bmp" />
+    <Image Include="res\enemy\bmp00087.bmp" />
+    <Image Include="res\enemy\playerap.bmp" />
+    <Image Include="res\enemy\enemyapp.bmp" />
+    <Image Include="res\enemy\bmp00088.bmp" />
+    <Image Include="res\enemy\bmp00089.bmp" />
+    <Image Include="res\enemy\bmp00090.bmp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="RES\bmp0.bmp" />

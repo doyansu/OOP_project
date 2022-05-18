@@ -10,6 +10,7 @@ namespace game_framework
 {
 	CGameRoom::CGameClearTreasure CGameRoom::clearTreasure;
 	CGameTransferGate CGameRoom::TransferGate;
+	CAnimation CGameRoom::_marking;
 
 	CGameTreasure CGameTreasure::_treasure[(int)CGameTreasure::Type::TYPECOUNT];
 
@@ -26,8 +27,8 @@ namespace game_framework
 		// 開發中調整
 		//_maxEnemy = 4 + (rand() % 3);
 		//_reGenerate = 3 + (rand() % 3);
-		_maxEnemy = 2;
-		_reGenerate = 1;
+		_maxEnemy = 5;
+		_reGenerate = 2;
 
 		// 暫時設定 boss 房間
 		switch (data->GetRoomType())
@@ -62,7 +63,8 @@ namespace game_framework
 
 
 			// 第一批怪物
-			for (int i = 0; i < _maxEnemy; i++)
+			int n = 1 + rand() % _maxEnemy;
+			for (int i = 0; i < n; i++)
 			{
 				CEnemy* newEnemy = new CEnemy(*(_enemys.at(rand() % (int)_enemys.size())));
 				// 碰到障礙重新選位置
@@ -190,6 +192,9 @@ namespace game_framework
 		{
 			if (_isStrat)
 			{
+				if (!_marking.IsFinalBitmap())
+					_marking.OnMove();
+
 				if (_generateDelay > 0)
 					_generateDelay--;
 				else if (_generateDelay == 0)
@@ -216,6 +221,7 @@ namespace game_framework
 
 				// 全部死亡重新生成
 				_roomEnemys.clear();
+				_marking.Reset();
 				if (_reGenerate > 0)
 				{
 					int r = 1 + (rand() % (_maxEnemy - 1));
@@ -236,6 +242,14 @@ namespace game_framework
 					this->Die();
 				}
 			}
+			else
+			{
+				for (CEnemy* obj : _roomEnemys)
+				{
+					if(!obj->hasAppeared())
+						obj->OnMove(map);
+				}
+			}
 			break;
 		}
 		default:
@@ -253,9 +267,22 @@ namespace game_framework
 		case RoomData::RoomType::BOSS:
 		case RoomData::RoomType::NORMAL:
 		{
+			const int w = (_marking.Width() >> 1);
+			const int h = (_marking.Height() >> 1);
 			for (CEnemy* obj : _roomEnemys)
-				if (!obj->NeedFree() && map->InScreen(obj->GetX1(), obj->GetY1(), obj->GetX2(), obj->GetY2()))
-					obj->OnShow(map);
+			{
+				if (!obj->NeedFree())
+				{
+					if (_isStrat && map->InScreen(obj->GetX1(), obj->GetY1(), obj->GetX2(), obj->GetY2()))
+					{
+						_marking.SetTopLeft(map->ScreenX(obj->CenterX() - w), map->ScreenY(obj->CenterY() - h));
+						_marking.OnShow();
+					}
+					else if (map->InScreen(obj->GetX1(), obj->GetY1(), obj->GetX2(), obj->GetY2()))
+						obj->OnShow(map);
+				}
+				
+			}
 			break;
 		}
 		default:

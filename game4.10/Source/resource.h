@@ -263,8 +263,25 @@
 #define IDB_BTN_continue_1              400
 #define IDB_BTN_goback_0                401
 #define IDB_BTN_goback_1                402
-#define IDB_BITMAP58                    403
 #define IDB_pause_UI                    403
+#define IDB_RoomMarking                 404
+#define IDB_RoomMarking_0               405
+#define IDB_RoomMarking_1               406
+#define IDB_RoomMarking_2               407
+#define IDB_RoomMarking_3               408
+#define IDB_RoomMarking_4               409
+#define IDB_RoomMarking_5               410
+#define IDB_RoomMarking_6               411
+#define IDB_RoomMarking_7               412
+#define IDB_RoomMarking_8               413
+#define IDB_RoomMarking_9               414
+#define IDB_RoomMarking_10              415
+#define IDB_playerAppearance_5          416
+#define IDB_enemyAppearance_0           416
+#define IDB_enemyAppearance_1           417
+#define IDB_enemyAppearance_2           418
+#define IDB_enemyAppearance_3           419
+#define IDB_enemyAppearance_4           420
 #define IDC_README                      1001
 #define ID_FILE_PAUSE                   32771
 #define ID_TOGGLE_FULLSCREEN            32772
@@ -277,7 +294,7 @@
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_3D_CONTROLS                     1
-#define _APS_NEXT_RESOURCE_VALUE        404
+#define _APS_NEXT_RESOURCE_VALUE        407
 #define _APS_NEXT_COMMAND_VALUE         32776
 #define _APS_NEXT_CONTROL_VALUE         1003
 #define _APS_NEXT_SYMED_VALUE           101

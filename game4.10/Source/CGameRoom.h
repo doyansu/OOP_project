@@ -4,7 +4,7 @@
 #include "CGameTrackObj.h"
 #include "CGameInteractOnceObj.h"
 
-#define REGENERATETIME GAME_ONE_SECONED >> 1
+#define REGENERATETIME GAME_ONE_SECONED + (GAME_ONE_SECONED >> 1)
 
 namespace game_framework
 {
@@ -221,6 +221,19 @@ namespace game_framework
 		{
 			clearTreasure.LoadBitmap();
 			TransferGate.LoadBitmap();	
+			_marking.SetDelayCount(2);
+			_marking.AddBitmap(IDB_RoomMarking_10, RGB(255, 255, 255));
+			_marking.AddBitmap(IDB_RoomMarking_9, RGB(255, 255, 255));
+			_marking.AddBitmap(IDB_RoomMarking_8, RGB(255, 255, 255));
+			_marking.AddBitmap(IDB_RoomMarking_7, RGB(255, 255, 255));
+			_marking.AddBitmap(IDB_RoomMarking_6, RGB(255, 255, 255));
+			_marking.AddBitmap(IDB_RoomMarking_5, RGB(255, 255, 255));
+			_marking.AddBitmap(IDB_RoomMarking_4, RGB(255, 255, 255));
+			_marking.AddBitmap(IDB_RoomMarking_3, RGB(255, 255, 255));
+			_marking.AddBitmap(IDB_RoomMarking_2, RGB(255, 255, 255));
+			_marking.AddBitmap(IDB_RoomMarking_1, RGB(255, 255, 255));
+			_marking.AddBitmap(IDB_RoomMarking_0, RGB(255, 255, 255));
+			_marking.AddBitmap(IDB_RoomMarking, RGB(255, 255, 255));
 		}
 
 		static CGameTransferGate* GetTransFerGate()
@@ -495,6 +508,7 @@ namespace game_framework
 
 		static CGameClearTreasure clearTreasure;	// 通關寶箱物件
 		static CGameTransferGate TransferGate;		// 傳送門物件
+		static CAnimation _marking;					// 標記動畫
 	};
 
 	

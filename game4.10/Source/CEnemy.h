@@ -8,10 +8,13 @@ namespace game_framework {
 	class CEnemy : public CGameObj
 	{
 	public:
-		enum class Anima { RUN_R, RUN_L, DIE};
+		enum class Anima { RUN_R, RUN_L, DIE, APPEARANCE, ANIMACOUNT};
 		CEnemy();
 		~CEnemy() override;
 		CEnemy(const CEnemy&);
+
+		bool hasAppeared();
+
 		void LoadBitmap();				// 載入圖形
 		void OnShow(CGameMap*);					// 將圖形貼到畫面
 		void OnMove(CGameMap*);

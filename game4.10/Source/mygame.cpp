@@ -67,10 +67,14 @@ namespace game_framework {
 CGameStateInit::CGameStateInit(CGame *g)
 : CGameState(g)
 {
+	isLoad = false;
 }
 
 void CGameStateInit::OnInit()
 {
+	if (isLoad)
+		return;
+
 	//
 	// 當圖很多時，OnInit載入所有的圖要花很多時間。為避免玩遊戲的人
 	//     等的不耐煩，遊戲會出現「Loading ...」，顯示Loading的進度。
@@ -84,6 +88,18 @@ void CGameStateInit::OnInit()
 	//
 	// 此OnInit動作會接到CGameStaterRun::OnInit()，所以進度還沒到100%
 	//
+
+	// Audio
+	// BGM
+	CAudio::Instance()->Load(AUDIO_BGM_INIT, "sounds\\BGM\\bgm_1Low.wav");
+	CAudio::Instance()->Load(AUDIO_BGM_SNOW, "sounds\\BGM\\bgm_5Low.wav"); 
+	CAudio::Instance()->Load(AUDIO_GUN_0, "sounds\\Shoot\\fx_gun_1.wav");
+
+
+	// BTN
+	CAudio::Instance()->Load(AUDIO_BTN_DOWN, "sounds\\Btn\\fx_btn1.wav");
+
+	// UI
 	background.LoadBitmap(IDB_Homepage);
 	title.LoadBitmap(IDB_Homepage_title, RGB(0, 0, 0));
 	start.AddBitmap(IDB_start0, RGB(0, 0, 0));
@@ -108,6 +124,8 @@ void CGameStateInit::OnInit()
 	noteboard.AddBitmap(IDB_note_test, RGB(255, 255, 255));
 	newgame.SetDelayCount(1);
 	gamenote.SetDelayCount(1);
+
+	isLoad = true;
 }
 
 void CGameStateInit::OnBeginState()
@@ -116,6 +134,10 @@ void CGameStateInit::OnBeginState()
 	board_movey = -20;
 	btn_posy = SIZE_Y;
 	btn_movey = 10;
+
+	this->OnInit();
+	CAudio::Instance()->Play(AUDIO_BGM_INIT);
+	
 }
 
 void CGameStateInit::OnLButtonDown(UINT nFlags, CPoint point)
@@ -123,11 +145,13 @@ void CGameStateInit::OnLButtonDown(UINT nFlags, CPoint point)
 	if (point.x > 90 && point.x < 90 + newgame.Width() && point.y > btn_posy && point.y < btn_posy + newgame.Height()) {
 		if (!newgame.IsFinalBitmap()) {
 			newgame.OnMove();
+			CAudio::Instance()->Play(AUDIO_BTN_DOWN);
 		}
 	}
 	else if (point.x > 120 + newgame.Width() && point.x < 120 + 2*newgame.Width() && point.y > btn_posy && point.y < btn_posy + newgame.Height()) {
 		if (!gamenote.IsFinalBitmap()) {
 			gamenote.OnMove();
+			CAudio::Instance()->Play(AUDIO_BTN_DOWN);
 		}
 	}
 	else if (board_movey < 0) {
@@ -138,6 +162,8 @@ void CGameStateInit::OnLButtonDown(UINT nFlags, CPoint point)
 void CGameStateInit::OnLButtonUp(UINT nFlags, CPoint point)
 {
 	if (point.x > 90 && point.x < 90 + newgame.Width() && point.y > btn_posy && point.y < btn_posy + newgame.Height()) {
+		Sleep(300);	// 延遲一下再進入遊戲
+		CAudio::Instance()->Stop(AUDIO_BGM_INIT);
 		GotoGameState(GAME_STATE_RUN);
 	}
 	if (point.x > 120 + newgame.Width() && point.x < 120 + 2 * newgame.Width() && point.y > btn_posy && point.y < btn_posy + newgame.Height()) {
@@ -343,7 +369,7 @@ void CGameStateRun::OnBeginState()
 		}
 	
 	// Audio
-	//CAudio::Instance()->Play(AUDIO_BGM_0, true);
+	CAudio::Instance()->Play(AUDIO_BGM_SNOW, true);
 
 	// 舊版房間建構
 	/*for (int i = 0; i < MYMAXNOFROOM; i++)
@@ -441,9 +467,20 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	//
 	bball.OnMove();*/
 
-	//	暫停
+	// 暫停處理
 	if (isPaused)
+	{
+		if (UI_posy > -HPBACKGROUND.Height() - 50)
+			UI_posy -= 10;
+		if (btn_posy < 100)
+			btn_posy += 50;
 		return;
+	}
+	else
+	{
+		if (btn_posy > -300)
+			btn_posy -= 50;
+	}
 
 	// GAME
 	gameMap.OnMove(character.CenterX(), character.CenterY());
@@ -583,8 +620,6 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	btn_pause.AddBitmap(IDB_BTN_pause_0, RGB(255, 255, 255));
 	btn_pause.AddBitmap(IDB_BTN_pause_1, RGB(255, 255, 255));
 
-	// Audio
-	CAudio::Instance()->Load(AUDIO_BGM_0,  "sounds\\BGM\\bgm_1Low.wav");
 }
 
 void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
@@ -644,6 +679,7 @@ void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的動作
 			//	暫停按鈕動畫變換
 			if (!btn_pause.IsFinalBitmap()) {
 				btn_pause.OnMove();
+				CAudio::Instance()->Play(AUDIO_BTN_DOWN);
 			}
 		}
 	}
@@ -653,12 +689,14 @@ void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的動作
 		{
 			if (!btn_goBack.IsFinalBitmap()) {
 				btn_goBack.OnMove();
+				CAudio::Instance()->Play(AUDIO_BTN_DOWN);
 			}
 		}
 		else if (point.x > 75 + btn_goBack.Width() && point.x < 75 + btn_goBack.Width() + btn_continue.Width() && point.y > btn_posy + 181 && point.y < btn_posy + 181 + btn_continue.Height())
 		{
 			if (!btn_continue.IsFinalBitmap()) {
 				btn_continue.OnMove();
+				CAudio::Instance()->Play(AUDIO_BTN_DOWN);
 			}
 		}
 	}
@@ -744,19 +782,6 @@ void CGameStateRun::OnShow()
 	gameMap.OnShow(true);
 
 	// UI
-	// 暫停時
-	if (isPaused)
-	{
-		if (UI_posy > -HPBACKGROUND.Height() - 50)
-			UI_posy -= 10;
-		if (btn_posy < 100)
-			btn_posy += 50;
-	}
-	else
-	{
-		if (btn_posy > -300)
-			btn_posy -= 50;
-	}
 
 	HPBACKGROUND.ShowBitmap();
 	MAXHP.SetTopLeft(82, 7 + UI_posy);
@@ -863,10 +888,11 @@ void CGameStateRun::OnShow()
 	debugy.ShowBitmap(false);*/
 
 }
+
 void CGameStateRun::GameEnd()
 {
 	character.Init();
-	CAudio::Instance()->Stop(AUDIO_BGM_0);
+	CAudio::Instance()->Stop(AUDIO_BGM_SNOW);
 	gameLevel = 0;
 }
 }
