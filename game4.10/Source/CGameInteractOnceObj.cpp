@@ -81,17 +81,7 @@ namespace game_framework
 		}
 
 		_animaIter = GetAnima(Anima::ARROW);
-		_animaIter->SetDelayCount(2);
-		_animaIter->AddBitmap(IDB_ItemArrow_0, RGB(0, 0, 0));
-		_animaIter->AddBitmap(IDB_ItemArrow_1, RGB(0, 0, 0));
-		_animaIter->AddBitmap(IDB_ItemArrow_2, RGB(0, 0, 0));
-		_animaIter->AddBitmap(IDB_ItemArrow_3, RGB(0, 0, 0));
-		_animaIter->AddBitmap(IDB_ItemArrow_4, RGB(0, 0, 0));
-		_animaIter->AddBitmap(IDB_ItemArrow_5, RGB(0, 0, 0));
-		_animaIter->AddBitmap(IDB_ItemArrow_4, RGB(0, 0, 0));
-		_animaIter->AddBitmap(IDB_ItemArrow_3, RGB(0, 0, 0));
-		_animaIter->AddBitmap(IDB_ItemArrow_2, RGB(0, 0, 0));
-		_animaIter->AddBitmap(IDB_ItemArrow_1, RGB(0, 0, 0));
+		*_animaIter = CGameArrow::instance;
 	}
 	void CGameInteractOnceObj::OnObjCollision(CGameMap* map, CGameObj* other)
 	{

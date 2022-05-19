@@ -1,5 +1,6 @@
 #pragma once
 #include "CGameObj.h"
+#include "CGameArrow.h"
 
 namespace game_framework
 {

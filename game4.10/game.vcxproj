@@ -258,6 +258,7 @@
   <ItemGroup>
     <ClCompile Include="source\CCharacter.cpp" />
     <ClCompile Include="source\CEnemy.cpp" />
+    <ClCompile Include="Source\CGameArrow.cpp" />
     <ClCompile Include="Source\CGameBullet.cpp" />
     <ClCompile Include="Source\CGameInteractOnceObj.cpp" />
     <ClCompile Include="Source\CGameMap.cpp" />
@@ -317,6 +318,7 @@
   <ItemGroup>
     <ClInclude Include="source\CCharacter.h" />
     <ClInclude Include="source\CEnemy.h" />
+    <ClInclude Include="Source\CGameArrow.h" />
     <ClInclude Include="Source\CGameBullet.h" />
     <ClInclude Include="Source\CGameInteractOnceObj.h" />
     <ClInclude Include="Source\CGameMap.h" />
