@@ -240,6 +240,8 @@ public:
 	int   Top();					// 取得動畫的左上角的 y 座標
 	int   Width();					// 取得動畫的寬度
 	int   BmpSize();				// 取得圖片數量
+	bool  PointIn(int, int);
+
 private:
 	list<CMovingBitmap>				bmp;			// list of CMovingBitmap
 	list<CMovingBitmap>::iterator	bmp_iter;		// list iterator

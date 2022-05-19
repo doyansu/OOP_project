@@ -171,6 +171,11 @@ void CAnimation::copy(const CAnimation& other)
 	this->y = other.y;
 }
 
+bool  CAnimation::PointIn(int x, int y)
+{
+	return x > this->Left() && x < this->Left() + this->Width() && y > this->Top() && y < this->Top() + this->Height();
+}
+
 void CAnimation::AddBitmap(int IDB_BITMAP, COLORREF colorkey) 
 {
 	CMovingBitmap add_bmp;

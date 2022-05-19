@@ -156,13 +156,13 @@ void CGameStateInit::OnBeginState()
 
 void CGameStateInit::OnLButtonDown(UINT nFlags, CPoint point)
 {
-	if (point.x > 90 && point.x < 90 + newgame.Width() && point.y > btn_posy && point.y < btn_posy + newgame.Height()) {
+	if (newgame.PointIn(point.x, point.y)) {
 		if (!newgame.IsFinalBitmap()) {
 			newgame.OnMove();
 			CAudio::Instance()->Play(AUDIO_BTN_DOWN);
 		}
 	}
-	else if (point.x > 120 + newgame.Width() && point.x < 120 + 2*newgame.Width() && point.y > btn_posy && point.y < btn_posy + newgame.Height()) {
+	else if (gamenote.PointIn(point.x, point.y)) {
 		if (!gamenote.IsFinalBitmap()) {
 			gamenote.OnMove();
 			CAudio::Instance()->Play(AUDIO_BTN_DOWN);
@@ -175,12 +175,12 @@ void CGameStateInit::OnLButtonDown(UINT nFlags, CPoint point)
 
 void CGameStateInit::OnLButtonUp(UINT nFlags, CPoint point)
 {
-	if (point.x > 90 && point.x < 90 + newgame.Width() && point.y > btn_posy && point.y < btn_posy + newgame.Height()) {
+	if (newgame.PointIn(point.x, point.y)) {
 		Sleep(300);	// 延遲一下再進入遊戲
 		CAudio::Instance()->Stop(AUDIO_BGM_INIT);
 		GotoGameState(GAME_STATE_RUN);
 	}
-	if (point.x > 120 + newgame.Width() && point.x < 120 + 2 * newgame.Width() && point.y > btn_posy && point.y < btn_posy + newgame.Height()) {
+	if (gamenote.PointIn(point.x, point.y)) {
 		board_movey *= -1;
 	}
 	else if (board_movey > 0){
@@ -689,7 +689,7 @@ void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的動作
 {
 	if (!isPaused)
 	{
-		if (point.x > SIZE_X - btn_pause.Width() - 10 && point.x < SIZE_X - btn_pause.Width() - 10 + btn_pause.Width() && point.y > 10 && point.y < 10 + btn_pause.Height()) {
+		if (btn_pause.PointIn(point.x, point.y)) {
 			//	暫停按鈕動畫變換
 			if (!btn_pause.IsFinalBitmap()) {
 				btn_pause.OnMove();
@@ -699,14 +699,14 @@ void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的動作
 	}
 	else
 	{
-		if (point.x > 67 && point.x < 67 + btn_goBack.Width() && point.y > btn_posy + 181 && point.y < btn_posy + 181 + btn_goBack.Height())
+		if (btn_goBack.PointIn(point.x, point.y))
 		{
 			if (!btn_goBack.IsFinalBitmap()) {
 				btn_goBack.OnMove();
 				CAudio::Instance()->Play(AUDIO_BTN_DOWN);
 			}
 		}
-		else if (point.x > 75 + btn_goBack.Width() && point.x < 75 + btn_goBack.Width() + btn_continue.Width() && point.y > btn_posy + 181 && point.y < btn_posy + 181 + btn_continue.Height())
+		else if (btn_continue.PointIn(point.x, point.y))
 		{
 			if (!btn_continue.IsFinalBitmap()) {
 				btn_continue.OnMove();
@@ -721,18 +721,18 @@ void CGameStateRun::OnLButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動作
 {
 	if (!isPaused)
 	{
-		if (point.x > SIZE_X - btn_pause.Width() - 10 && point.x < SIZE_X - btn_pause.Width() - 10 + btn_pause.Width() && point.y > 10 && point.y < 10 + btn_pause.Height()) {
+		if (btn_pause.PointIn(point.x, point.y)) {
 			isPaused = true;
 		}
 	}
 	else
 	{
-		if (point.x > 67 && point.x < 67 + btn_goBack.Width() && point.y > btn_posy + 181 && point.y < btn_posy + 181 + btn_goBack.Height())
+		if (btn_goBack.PointIn(point.x, point.y))
 		{
 			GameEnd();
 			GotoGameState(GAME_STATE_INIT);
 		}
-		else if (point.x > 75 + btn_goBack.Width() && point.x < 75 + btn_goBack.Width() + btn_continue.Width() && point.y > btn_posy + 181 && point.y < btn_posy + 181 + btn_continue.Height())
+		else if (btn_continue.PointIn(point.x, point.y))
 		{
 			isPaused = false;
 			UI_posy = 0;

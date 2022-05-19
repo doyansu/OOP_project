@@ -52,6 +52,7 @@
     <ClInclude Include="Source\CGameTrackObj.h" />
     <ClInclude Include="Source\CGameTool.h" />
     <ClInclude Include="Source\CGameInteractOnceObj.h" />
+    <ClInclude Include="Source\CUIButton.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Source\game.rc" />
