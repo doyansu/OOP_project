@@ -283,8 +283,22 @@ void CAudio::Pause()
 			char command[MAX_MCI_COMMAND_SIZE];
 			sprintf(command, "pause device%d wait", i->first);
 			SendMciCommand(command);
+			i->second.isGood = false;						//	Pause 後要 Resume 才能 Play
 		}
 	}
+}
+
+void CAudio::Pause(unsigned id)
+{
+	if (!isOpened)
+		return;
+	if (info[id].isGood) {
+		char command[MAX_MCI_COMMAND_SIZE];
+		sprintf(command, "pause device%d wait", id);
+		SendMciCommand(command);
+		info[id].isGood = false;						//	Pause 後要 Resume 才能 Play
+	}
+	
 }
 
 void CAudio::Play(unsigned id, bool repeat_flag)
@@ -321,7 +335,19 @@ void CAudio::Resume()
 		char command[MAX_MCI_COMMAND_SIZE];
 		sprintf(command, "resume device%d", i->first);
 		SendMciCommand(command);
+		i->second.isGood = true;						//	Pause 後要 Resume 才能 Play
 	}
+}
+
+void CAudio::Resume(unsigned id)
+{
+	if (!isOpened)
+		return;
+	char command[MAX_MCI_COMMAND_SIZE];
+	sprintf(command, "resume device%d", id);
+	SendMciCommand(command);
+	info[id].isGood = true;								//	Pause 後要 Resume 才能 Play
+	
 }
 
 void CAudio::Stop(unsigned id)

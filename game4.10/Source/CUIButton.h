@@ -8,7 +8,7 @@ namespace game_framework
 	public:
 		CUIButton()
 		{
-
+			this->SetDelayCount(1);
 		}
 
 		bool  PointIn(int x, int y)

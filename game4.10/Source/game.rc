@@ -478,6 +478,20 @@ IDB_weapon_0_225        BITMAP                  "..\\res\\enemy\\bmp00092.bmp"
 
 IDB_weapon_0_315        BITMAP                  "..\\res\\enemy\\bmp00093.bmp"
 
+IDB_BTN_setup_0         BITMAP                  "..\\res\\enemy\\bmp00094.bmp"
+
+IDB_BTN_setup_1         BITMAP                  "..\\res\\enemy\\btn_setu.bmp"
+
+IDB_setup_UI            BITMAP                  "..\\res\\enemy\\bmp00095.bmp"
+
+IDB_BTN_BGM_0           BITMAP                  "..\\res\\enemy\\bmp00096.bmp"
+
+IDB_BTN_BGM_1           BITMAP                  "..\\res\\enemy\\btn_bgm_.bmp"
+
+IDB_BTN_soundEffect_0   BITMAP                  "..\\res\\enemy\\bmp00097.bmp"
+
+IDB_BTN_soundEffect_1   BITMAP                  "..\\res\\enemy\\btn_soun.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //

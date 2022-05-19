@@ -462,9 +462,7 @@ namespace game_framework
 		_animaIter->AddBitmap(IDB_TransferGate_6, RGB(255, 255, 255));
 		_animaIter->AddBitmap(IDB_TransferGate_7, RGB(255, 255, 255));
 
-		_animaIter = GetAnima(CGameTransferGate::Anima::ARROW);
-		*_animaIter = CGameArrow::instance;
-	
+		*GetAnima(CGameTransferGate::Anima::ARROW) = CGameArrow::instance;
 		
 	}
 

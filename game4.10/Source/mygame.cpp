@@ -351,10 +351,13 @@ void CGameStateRun::OnBeginState()
 	
 	// UI
 	dMinMap = 0;
+	btn_setup.Reset();
 	//	暫停介面
 	btn_posy = -300;
 	UI_posy = 0;
+	setup_posy = SIZE_Y;
 	isPaused = false;
+
 	
 
 	// Game
@@ -480,6 +483,19 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	// 移動彈跳的球
 	//
 	bball.OnMove();*/
+
+
+	// UI
+	if (btn_setup.IsFinalBitmap())
+	{
+		if (setup_posy > SIZE_Y - setup_UI.Height())
+			setup_posy -= 15;
+	}
+	else
+	{
+		if (setup_posy < SIZE_Y)
+			setup_posy += 15;
+	}
 
 	// 暫停處理
 	if (isPaused)
@@ -623,18 +639,21 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 
 	//	暫停UI
 	pause_UI.LoadBitmap(IDB_pause_UI, RGB(255, 255, 255));
+	setup_UI.LoadBitmap(IDB_setup_UI, RGB(255, 255, 255));
 
 	//	按鈕
-	btn_goBack.SetDelayCount(1);
 	btn_goBack.AddBitmap(IDB_BTN_goback_0, RGB(255, 255, 255));
 	btn_goBack.AddBitmap(IDB_BTN_goback_1, RGB(255, 255, 255));
-	btn_continue.SetDelayCount(1);
 	btn_continue.AddBitmap(IDB_BTN_continue_0, RGB(255, 255, 255));
 	btn_continue.AddBitmap(IDB_BTN_continue_1, RGB(255, 255, 255));
-	btn_pause.SetDelayCount(1);
 	btn_pause.AddBitmap(IDB_BTN_pause_0, RGB(255, 255, 255));
 	btn_pause.AddBitmap(IDB_BTN_pause_1, RGB(255, 255, 255));
-
+	btn_setup.AddBitmap(IDB_BTN_setup_0, RGB(255, 255, 255));
+	btn_setup.AddBitmap(IDB_BTN_setup_1, RGB(255, 255, 255));
+	btn_BGM.AddBitmap(IDB_BTN_BGM_0, RGB(255, 255, 255));
+	btn_BGM.AddBitmap(IDB_BTN_BGM_1, RGB(255, 255, 255));
+	btn_soundEffect.AddBitmap(IDB_BTN_soundEffect_0, RGB(255, 255, 255));
+	btn_soundEffect.AddBitmap(IDB_BTN_soundEffect_1, RGB(255, 255, 255));
 }
 
 void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
@@ -694,7 +713,6 @@ void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的動作
 			//	暫停按鈕動畫變換
 			if (!btn_pause.IsFinalBitmap()) {
 				btn_pause.OnMove();
-				CAudio::Instance()->Play(AUDIO_BTN_DOWN);
 			}
 		}
 	}
@@ -704,14 +722,12 @@ void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的動作
 		{
 			if (!btn_goBack.IsFinalBitmap()) {
 				btn_goBack.OnMove();
-				CAudio::Instance()->Play(AUDIO_BTN_DOWN);
 			}
 		}
 		else if (btn_continue.PointIn(point.x, point.y))
 		{
 			if (!btn_continue.IsFinalBitmap()) {
 				btn_continue.OnMove();
-				CAudio::Instance()->Play(AUDIO_BTN_DOWN);
 			}
 		}
 	}
@@ -724,19 +740,80 @@ void CGameStateRun::OnLButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動作
 	{
 		if (btn_pause.PointIn(point.x, point.y)) {
 			isPaused = true;
+			CAudio::Instance()->Play(AUDIO_BTN_DOWN);
 		}
 	}
 	else
 	{
 		if (btn_goBack.PointIn(point.x, point.y))
 		{
+			CAudio::Instance()->Play(AUDIO_BTN_DOWN);
 			GameEnd();
 			GotoGameState(GAME_STATE_INIT);
 		}
 		else if (btn_continue.PointIn(point.x, point.y))
 		{
+			CAudio::Instance()->Play(AUDIO_BTN_DOWN);
 			isPaused = false;
 			UI_posy = 0;
+			btn_setup.Reset();
+		}
+		else if (btn_setup.PointIn(point.x, point.y))
+		{
+			CAudio::Instance()->Play(AUDIO_BTN_DOWN);
+			btn_setup.OnMove();
+		}
+		else if (btn_BGM.PointIn(point.x, point.y))
+		{
+			btn_BGM.OnMove();
+			if(!btn_soundEffect.IsFinalBitmap())
+				CAudio::Instance()->Play(AUDIO_BTN_DOWN);
+			if (btn_BGM.IsFinalBitmap())
+			{		
+				// 暫停所有 BGM
+				for (unsigned int id = AUDIO_ID::AUDIO_BGM_INIT; id < AUDIO_ID::AUDIO_BGM_COUNT; id++)
+				{
+					CAudio::Instance()->Pause(id);
+				}
+			}
+			else
+			{
+				// 恢復所有 BGM
+				for (unsigned int id = AUDIO_ID::AUDIO_BGM_INIT; id < AUDIO_ID::AUDIO_BGM_COUNT; id++)
+				{
+					CAudio::Instance()->Resume(id);
+				}
+			}
+		}
+		else if (btn_soundEffect.PointIn(point.x, point.y))
+		{
+			btn_soundEffect.OnMove();
+			if (btn_soundEffect.IsFinalBitmap())
+			{
+				CAudio::Instance()->Pause();
+			}
+			else
+			{
+				CAudio::Instance()->Resume();
+				CAudio::Instance()->Play(AUDIO_BTN_DOWN);
+			}
+				
+			if (btn_BGM.IsFinalBitmap())
+			{
+				// 暫停所有 BGM
+				for (unsigned int id = AUDIO_ID::AUDIO_BGM_INIT; id < AUDIO_ID::AUDIO_BGM_COUNT; id++)
+				{
+					CAudio::Instance()->Pause(id);
+				}
+			}
+			else
+			{
+				// 恢復所有 BGM
+				for (unsigned int id = AUDIO_ID::AUDIO_BGM_INIT; id < AUDIO_ID::AUDIO_BGM_COUNT; id++)
+				{
+					CAudio::Instance()->Resume(id);
+				}
+			}
 		}
 	}
 
@@ -871,16 +948,24 @@ void CGameStateRun::OnShow()
 	minMap.OnShow();
 
 	//	暫停介面
-	pause_UI.SetTopLeft(55, btn_posy);
+	pause_UI.SetTopLeft(((SIZE_X - pause_UI.Width()) >> 1), btn_posy);
 	pause_UI.ShowBitmap();
+	setup_UI.SetTopLeft((SIZE_X >> 1) - (setup_UI.Width() >> 1), setup_posy);
+	setup_UI.ShowBitmap();
 
 	//	按鈕
 	btn_pause.SetTopLeft(SIZE_X - btn_pause.Width() - 10, 10 + UI_posy);
 	btn_pause.OnShow();
-	btn_goBack.SetTopLeft(67, btn_posy + 181);
+	btn_goBack.SetTopLeft(12 + pause_UI.Left(), btn_posy + 181);
 	btn_goBack.OnShow();
-	btn_continue.SetTopLeft(75 + btn_goBack.Width(), btn_posy + 181);
+	btn_continue.SetTopLeft(8 + btn_goBack.Left() + btn_goBack.Width(), btn_posy + 181);
 	btn_continue.OnShow();
+	btn_setup.SetTopLeft(8 + btn_continue.Left() + btn_continue.Width(), btn_posy + 181);
+	btn_setup.OnShow();
+	btn_BGM.SetTopLeft(11 + setup_UI.Left(), 11 + setup_posy);
+	btn_BGM.OnShow();
+	btn_soundEffect.SetTopLeft(5 + btn_BGM.Left() + btn_BGM.Width(), 11 + setup_posy);
+	btn_soundEffect.OnShow();
 
 	//debug
 	/*debugx.SetTopLeft(0, SIZE_Y - 20);

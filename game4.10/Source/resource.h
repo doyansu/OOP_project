@@ -284,8 +284,15 @@
 #define IDB_weapon_0_45                 421
 #define IDB_weapon_0_135                422
 #define IDB_weapon_0_225                423
-#define IDB_weapon_0_48                 424
 #define IDB_weapon_0_315                424
+#define IDB_BTN_setup_0                 425
+#define IDB_BTN_setup_1                 426
+#define IDB_setup_UI                    427
+#define IDB_BTN_BGM_0                   428
+#define IDB_BTN_BGM_1                   429
+#define IDB_BITMAP58                    430
+#define IDB_BTN_soundEffect_0           430
+#define IDB_BTN_soundEffect_1           431
 #define IDC_README                      1001
 #define ID_FILE_PAUSE                   32771
 #define ID_TOGGLE_FULLSCREEN            32772
@@ -298,7 +305,7 @@
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_3D_CONTROLS                     1
-#define _APS_NEXT_RESOURCE_VALUE        422
+#define _APS_NEXT_RESOURCE_VALUE        431
 #define _APS_NEXT_COMMAND_VALUE         32776
 #define _APS_NEXT_CONTROL_VALUE         1003
 #define _APS_NEXT_SYMED_VALUE           101

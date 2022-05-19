@@ -80,8 +80,7 @@ namespace game_framework
 			break;
 		}
 
-		_animaIter = GetAnima(Anima::ARROW);
-		*_animaIter = CGameArrow::instance;
+		*GetAnima(Anima::ARROW) = CGameArrow::instance;
 	}
 	void CGameInteractOnceObj::OnObjCollision(CGameMap* map, CGameObj* other)
 	{

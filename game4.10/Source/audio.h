@@ -87,8 +87,10 @@ public:
 	bool           Load(unsigned, char *);		// 載入編號i的聲音，指定MIDI檔案
 	bool           Open();						// 開啟Direct Sound介面
 	void		   Pause();						// 暫停播放所有音效
+	void		   Pause(unsigned id);			// 暫停某個 id 音效(自己加的不知會不會出錯)
 	void           Play(unsigned, bool=false);	// 開始撥放編號i的聲音，指定是否重覆撥放
 	void		   Resume();					// 復原暫停播放的音效
+	void		   Resume(unsigned id);			// 復原暫停播放的某個 id 音效(自己加的不知會不會出錯)
 	void           SetPowerResume();			// 電源恢復
 	void           Stop(unsigned);				// 停止撥放編號i的聲音
 private:
@@ -114,8 +116,14 @@ private:
 
 enum AUDIO_ID {						//  定義各種音效的編號
 	AUDIO_NULL,						//	無定義
+
+	/////////////////////////////////////////////////////////////////////////////
+	//	BGM 包含範圍
 	AUDIO_BGM_INIT,					// 	初始畫面 BGM
 	AUDIO_BGM_SNOW,					//	雪地 BGM
+	AUDIO_BGM_COUNT,				//	用於關閉 BGM 的計數
+	/////////////////////////////////////////////////////////////////////////////
+
 	AUDIO_BTN_DOWN,					// 	按鈕點擊
 	AUDIO_BOX_OPEN,					//	打開箱子
 	AUDIO_GET_COIN,					//	得到金幣
