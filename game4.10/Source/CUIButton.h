@@ -3,14 +3,17 @@
 
 namespace game_framework
 {
-	class CUIButton
+	class CUIButton : public CAnimation
 	{
 	public:
 		CUIButton()
 		{
 
 		}
-		
-		CAnimation Anima;
+
+		bool  PointIn(int x, int y)
+		{
+			return x > this->Left() && x < this->Left() + this->Width() && y > this->Top() && y < this->Top() + this->Height();
+		}
 	};
 }

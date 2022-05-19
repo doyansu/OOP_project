@@ -44,6 +44,7 @@
 #include "CEnemy.h"
 #include "CGameRoom.h"
 #include "CUIMinMap.h"
+#include "CUIButton.h"
 #include "CGameTool.h"
 
 
@@ -78,7 +79,7 @@ namespace game_framework {
 		//void Onclick();
 	private:
 		CMovingBitmap background, title;
-		CAnimation start, newgame, gamenote, noteboard;
+		CUIButton start, newgame, gamenote, noteboard;
 		int btn_posy, btn_movey, board_posy, board_movey;
 		bool isLoad;	//	不知為何 OnBeginState() 會比 OnInit() 先執行 用來判斷是否已下載資料
 	};
@@ -118,7 +119,7 @@ namespace game_framework {
 		// UI
 		CInteger HP, MP, SP, MAXHP, MAXMP, MAXSP, GAMELEVEL, GOLDINTGER;
 		CMovingBitmap HPBACKGROUND, SLASH, HPBAR, SPBAR, MPBAR, MINUS, GOLD, pause_UI;
-		CAnimation btn_pause, btn_goBack, btn_continue;
+		CUIButton btn_pause, btn_goBack, btn_continue;
 		CUIMinMap minMap;
 		int dMinMap;								//	小地圖位移
 		int btn_posy, UI_posy;						//	暫停介面位移
