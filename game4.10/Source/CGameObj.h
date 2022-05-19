@@ -56,15 +56,16 @@ namespace game_framework {
 		// member function
 		void LoadBitmap(int);
 		virtual void LoadBitmap() {};
-		virtual void OnShow(CGameMap*);				// 在地圖顯示物件
+		virtual void OnShow(CGameMap*);						// 在地圖顯示物件
 		virtual void OnMove(CGameMap*);
 		virtual void OnObjCollision(CGameMap*, CGameObj*) {};
-		virtual void OnDie(CGameMap*) {};					// 死亡需做
+		virtual void OnDie(CGameMap*) {};					// 死亡狀態
 		//virtual void OnKeyUp(char);
 		//virtual void OnKeyDown(char);
 		virtual void Reset();
 		virtual void TakeDmg(int);
 		double Distance(CGameObj*);
+		bool hasObstacle(CGameMap*, CGameObj*);				//	中間有無障礙(概略判斷)
 		int CenterX();
 		int CenterY();
 

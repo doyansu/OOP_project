@@ -504,6 +504,9 @@
     <Image Include="res\enemy\bmp00088.bmp" />
     <Image Include="res\enemy\bmp00089.bmp" />
     <Image Include="res\enemy\bmp00090.bmp" />
+    <Image Include="res\enemy\bmp00091.bmp" />
+    <Image Include="res\enemy\bmp00092.bmp" />
+    <Image Include="res\enemy\bmp00093.bmp" />
     <Image Include="RES\enemy\enemy31_0.bmp" />
     <Image Include="RES\enemy\enemy31_0_l.bmp" />
     <Image Include="RES\enemy\enemy31_1.bmp" />
@@ -550,6 +553,7 @@
     <Image Include="res\enemy\enemyapp.bmp" />
     <Image Include="res\enemy\playerap.bmp" />
     <Image Include="res\enemy\roommark.bmp" />
+    <Image Include="res\enemy\weapon_0.bmp" />
     <Image Include="res\floorwall\bitmap50.bmp" />
     <Image Include="res\floorwall\bitmap51.bmp" />
     <Image Include="RES\floorwall\Wall0_0.bmp" />

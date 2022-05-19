@@ -56,7 +56,6 @@ namespace game_framework {
 		int _shieldCounter;							// Å@¹y«ì´_­Ë¼Æ
 
 		void ModifyShield(int);
-		bool hasObstacle(CGameMap*, CGameObj*, CGameObj*);
 		void free();
 
 	private:

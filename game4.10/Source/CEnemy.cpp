@@ -170,15 +170,14 @@ namespace game_framework {
 
 				// ¤Á´«°Êµe
 				if (vx > 0)
-				{
 					_animaIter = GetAnima(CEnemy::Anima::RUN_R);	
-					_weapon->SetDT(1);
-				}
 				else
-				{
 					_animaIter = GetAnima(CEnemy::Anima::RUN_L);
-					_weapon->SetDT(0);
-				}
+
+				if (vy <= 0)
+					_weapon->SetDT(CGameTool::TwoVectorAngle(vx * d, vy * d, 1.0, 0.0) / 45);
+				else
+					_weapon->SetDT(8 - CGameTool::TwoVectorAngle(vx * d, vy * d, 1.0, 0.0) / 45);
 					
 			}
 		}

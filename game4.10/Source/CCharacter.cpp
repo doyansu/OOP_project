@@ -70,7 +70,7 @@ namespace game_framework {
 		_shieldCounter = GAME_ONE_SECONED;
 		CCharacter::CGameObj::Reset();
 		_vector[0] = 1;	//預設朝右
-		_DT = 0;
+		_DT = 1;
 
 		// 出場動畫重置
 		if(GetAnima(Anima::APPEARANCE)->BmpSize() != 0)
@@ -161,20 +161,20 @@ namespace game_framework {
 		//	動畫移動
 		_animaIter->OnMove();
 
-		//	動畫判斷
-		if (_isMovingRight) 
+		if (_isMovingRight)
+			_DT = 1;
+		else if (_isMovingLeft)
 			_DT = 0;
-		else if (_isMovingLeft) 
-			_DT = 4;
-		
+
+		//	動畫判斷	
 		if (this->IsMoveing())
 		{
-			if (_DT == 0)
+			if (_isMovingRight)
 				_animaIter = GetAnima(Anima::RUN_R);
 			else
 				_animaIter = GetAnima(Anima::RUN_L);
 		}
-		else if (_DT == 0)
+		else if (_DT == 1)
 			_animaIter = GetAnima(Anima::INIT_R);
 		else
 			_animaIter = GetAnima(Anima::INIT_L);
@@ -194,7 +194,7 @@ namespace game_framework {
 		for (CGameObj* enemy : enemys)
 		{
 			double ed = this->Distance(enemy);
-			if (d > ed && !hasObstacle(map, this, enemy))
+			if (d > ed && !this->hasObstacle(map, enemy))
 			{
 				d = ed;
 				target = enemy;
@@ -359,9 +359,12 @@ namespace game_framework {
 		//	武器移動
 		(*_nowWeapon)->SetCenter(this->CenterX(), this->CenterY() - 10);
 		(*_nowWeapon)->OnMove(map);
-		(*_nowWeapon)->SetDT(_DT);
+		if(_vector[1] <= 0)
+			(*_nowWeapon)->SetDT(CGameTool::TwoVectorAngle(_vector[0], _vector[1], 1.0, 0.0) / 45);
+		else
+			(*_nowWeapon)->SetDT(8 - CGameTool::TwoVectorAngle(_vector[0], _vector[1], 1.0, 0.0) / 45);
 
-		// 射擊時變更角色、武器朝向、螢幕移動
+		// 找到敵人時變更角色、武器朝向、螢幕移動
 		if (target != nullptr)
 		{
 			//	螢幕(聚焦到敵人與玩家中間)
@@ -376,10 +379,9 @@ namespace game_framework {
 			map->ModifyDsx(screenSpeed, vx);
 			map->ModifyDsy(screenSpeed, vy);
 		
-			//	動畫
+			//	角色動畫
 			if (target->CenterX() - this->CenterX() > 0)
 			{
-				(*_nowWeapon)->SetDT(0); 
 				if (this->IsMoveing())
 					_animaIter = GetAnima(Anima::RUN_R);
 				else
@@ -387,12 +389,20 @@ namespace game_framework {
 			}
 			else
 			{
-				(*_nowWeapon)->SetDT(4);
 				if (this->IsMoveing())
 					_animaIter = GetAnima(Anima::RUN_L);
 				else
 					_animaIter = GetAnima(Anima::INIT_L);
 			}
+
+			//	武器動畫
+			int tx = target->CenterX() - this->CenterX();
+			int ty = target->CenterY() - this->CenterY();
+			if (ty <= 0)
+				(*_nowWeapon)->SetDT(CGameTool::TwoVectorAngle(tx, ty, 1.0, 0.0) / 45);
+			else
+				(*_nowWeapon)->SetDT(8 - CGameTool::TwoVectorAngle(tx, ty, 1.0, 0.0) / 45);
+			
 		}
 
 		//	按下 Q 鍵
@@ -620,27 +630,6 @@ namespace game_framework {
 			_vector[index] = 1;
 		else if (_vector[index] < -1)
 			_vector[index] = -1;
-	}
-
-	bool CCharacter::hasObstacle(CGameMap* map, CGameObj* obj1, CGameObj* obj2)
-	{
-		bool has = false;
-		double d = obj1->Distance(obj2);
-		int t = (int)(d / MYMAPHIGH);
-		int x = obj1->CenterX(), y = obj1->CenterY();
-		int vx = (int)((double)(obj2->CenterX() - x) * MYMAPWIDTH / d);
-		int vy = (int)((double)(obj2->CenterY() - y) * MYMAPHIGH / d);
-		while (t--)
-		{
-			if (map->IsContent(x, y, CGameMap::ContentType::WALL))
-			{
-				has = true;
-				break;
-			}
-			x += vx;
-			y += vy;
-		}
-		return has;
 	}
 
 	bool CCharacter::IsDoingSomeThing()

@@ -348,4 +348,25 @@ namespace game_framework {
 		_tag = tag;
 	}
 
+	bool CGameObj::hasObstacle(CGameMap* map, CGameObj* obj)
+	{
+		bool has = false;
+		double d = this->Distance(obj);
+		int t = (int)(d / MYMAPHIGH);
+		int x = this->CenterX(), y = this->CenterY();
+		int vx = (int)((double)(obj->CenterX() - x) * MYMAPWIDTH / d);
+		int vy = (int)((double)(obj->CenterY() - y) * MYMAPHIGH / d);
+		while (t--)
+		{
+			if (map->IsContent(x, y, CGameMap::ContentType::WALL))
+			{
+				has = true;
+				break;
+			}
+			x += vx;
+			y += vy;
+		}
+		return has;
+	}
+
 }

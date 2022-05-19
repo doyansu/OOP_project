@@ -470,6 +470,14 @@ IDB_enemyAppearance_3   BITMAP                  "..\\res\\enemy\\bmp00089.bmp"
 
 IDB_enemyAppearance_4   BITMAP                  "..\\res\\enemy\\bmp00090.bmp"
 
+IDB_weapon_0_45         BITMAP                  "..\\res\\enemy\\bmp00091.bmp"
+
+IDB_weapon_0_135        BITMAP                  "..\\res\\enemy\\weapon_0.bmp"
+
+IDB_weapon_0_225        BITMAP                  "..\\res\\enemy\\bmp00092.bmp"
+
+IDB_weapon_0_315        BITMAP                  "..\\res\\enemy\\bmp00093.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //

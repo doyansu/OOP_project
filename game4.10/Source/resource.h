@@ -276,12 +276,16 @@
 #define IDB_RoomMarking_8               413
 #define IDB_RoomMarking_9               414
 #define IDB_RoomMarking_10              415
-#define IDB_playerAppearance_5          416
 #define IDB_enemyAppearance_0           416
 #define IDB_enemyAppearance_1           417
 #define IDB_enemyAppearance_2           418
 #define IDB_enemyAppearance_3           419
 #define IDB_enemyAppearance_4           420
+#define IDB_weapon_0_45                 421
+#define IDB_weapon_0_135                422
+#define IDB_weapon_0_225                423
+#define IDB_weapon_0_48                 424
+#define IDB_weapon_0_315                424
 #define IDC_README                      1001
 #define ID_FILE_PAUSE                   32771
 #define ID_TOGGLE_FULLSCREEN            32772
@@ -294,7 +298,7 @@
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_3D_CONTROLS                     1
-#define _APS_NEXT_RESOURCE_VALUE        407
+#define _APS_NEXT_RESOURCE_VALUE        422
 #define _APS_NEXT_COMMAND_VALUE         32776
 #define _APS_NEXT_CONTROL_VALUE         1003
 #define _APS_NEXT_SYMED_VALUE           101

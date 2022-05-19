@@ -43,6 +43,13 @@ namespace game_framework
 			return maxObj;
 		}
 
+		static int TwoVectorAngle(double v1x, double v1y, double v2x, double v2y)
+		{
+			double d1 = sqrt(v1x * v1x + v1y * v1y);
+			double d2 = sqrt(v2x * v2x + v2y * v2y);
+			return (int)(acos((v1x * v2x + v1y * v2y) / (d1 * d2)) * 180.0 / acos(-1)) ;
+		}
+
 		// class
 		class Point	// ¬ö¿ý2ÂI®y¼Ð
 		{
