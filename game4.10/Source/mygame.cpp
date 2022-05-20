@@ -660,7 +660,7 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
 	if (nChar == 0x47)	// 按 G 扣血
 		character.TakeDmg(9999);
-	else if (nChar == 82)	// 按 R 進入下一關卡
+	else if (nChar == 78)	// 按 N 進入下一關卡
 	{
 		//test
 		gameLevel++;

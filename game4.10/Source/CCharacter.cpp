@@ -538,12 +538,13 @@ namespace game_framework {
 		const char KEY_S = 0x53;
 		const char KEY_A = 0x41;
 		const char KEY_D = 0x44;
+		const char KEY_Z = 0x5A;
 		const char KEY_LEFT = 0x25; // keyboard左箭頭
 		const char KEY_UP = 0x26; // keyboard上箭頭
 		const char KEY_RIGHT = 0x27; // keyboard右箭頭
 		const char KEY_DOWN = 0x28; // keyboard下箭頭
 
-		if (nChar == KEY_SPACE || nChar == KEY_Q)
+		if (nChar == KEY_SPACE || nChar == KEY_Z)
 		{
 			_doSomeThing = false;
 		}
@@ -567,12 +568,13 @@ namespace game_framework {
 		const char KEY_S = 0x53;
 		const char KEY_A = 0x41;
 		const char KEY_D = 0x44;
+		const char KEY_Z = 0x5A;
 		const char KEY_LEFT = 0x25;		// keyboard左箭頭
 		const char KEY_UP = 0x26;		// keyboard上箭頭
 		const char KEY_RIGHT = 0x27;	// keyboard右箭頭
 		const char KEY_DOWN = 0x28;		// keyboard下箭頭
 
-		if (nChar == KEY_SPACE || nChar == KEY_Q)
+		if (nChar == KEY_SPACE || nChar == KEY_Z)
 		{
 			_doSomeThing = true;
 		}
