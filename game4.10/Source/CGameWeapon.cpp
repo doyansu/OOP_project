@@ -144,28 +144,6 @@ namespace game_framework
 			break;
 		}
 
-		/*
-		// 旋轉角度
-		const int STEPS = 8;
-		const double THETA = 360 / STEPS;
-		const double PI = acos(-1);
-		static int index = 0;
-		static double DIFFVECTOR[STEPS][2] = { {0, 0} };
-		if (DIFFVECTOR[0][0] == 0 && DIFFVECTOR[0][1] == 0)
-		{
-			for (int i = 0; i < STEPS; i++)
-			{
-				DIFFVECTOR[i][0] = cos(PI * i * THETA / 180);
-				DIFFVECTOR[i][1] = sin(PI * i * THETA / 180);
-			}
-		}
-
-		if ((++index) >= STEPS)
-			index = 0;
-		this->SetXY(_user->CenterX() + (int)(DIFFVECTOR[index][0] * _animaIter->Width()), _user->CenterY() + (int)(DIFFVECTOR[index][1] * _animaIter->Height()));
-		*/
-
-
 		//	射擊間隔計數
 		if (!_fire && --_fireCounter == 0)
 			_fire = true;
@@ -212,43 +190,6 @@ namespace game_framework
 		// 動畫判斷
 		if (_user == nullptr)
 			return;
-
-		/*if (_DT == 1) {
-			this->SetXY(_user->CenterX(), _user->CenterY() - (this->GetHeight() / 3));
-			CGameWeapon::CGameObj::_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima::Theta_0);
-		}
-		else if (_DT == 0) {
-			this->SetXY(_user->CenterX() - this->GetWidth(), _user->CenterY() - (this->GetHeight() / 3));
-			CGameWeapon::CGameObj::_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima::Theta_180);
-		}*/
-		/*
-		// 旋轉角度
-		const int STEPS = 8;									// 分 STEPS 個方向
-		const double THETA = 360 / STEPS;						// 間隔角度
-		const double PI = acos(-1);								// PI
-		static double DIFFVECTOR[STEPS][2] = { {0, 0} };		// 對應角度
-		if (DIFFVECTOR[0][0] == 0 && DIFFVECTOR[0][1] == 0)		// 角度初始化
-		{
-			for (int i = 0; i < STEPS; i++)
-			{
-				DIFFVECTOR[i][0] = cos(PI * i * THETA / 180);
-				DIFFVECTOR[i][1] = sin(PI * i * THETA / 180);
-			}
-		}
-
-		theta %= 360;
-		if (theta < 0)
-		{
-			theta += 360;
-		}
-		_DT = theta;
-
-		this->SetXY(_user->CenterX() - (_animaIter->Width() >> 1) + (int)(DIFFVECTOR[_DT / (int)THETA][0] * _animaIter->Width()),
-			_user->CenterY() - (_animaIter->Height() >> 1) + (int)(DIFFVECTOR[_DT / (int)THETA][1] * _animaIter->Height()));
-
-		// 動畫判斷
-		CGameWeapon::CGameObj::_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima(_DT / (int)THETA));*/
-
 	}
 
 	void CGameWeapon::SetTarget(string target)
