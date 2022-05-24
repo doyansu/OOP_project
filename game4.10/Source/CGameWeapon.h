@@ -8,6 +8,7 @@ namespace game_framework
 	class CGameWeapon : public CGameObj
 	{
 	public:
+		enum class Type { INIT, TYPECOUNT };
 		enum class Anima { Theta_0, Theta_45, Theta_90, Theta_135, Theta_180, Theta_225, Theta_270, Theta_315, ARROW, ANIMACOUNT};	// 動畫種類
 
 		CGameWeapon(CGameObj* = nullptr);
@@ -29,8 +30,23 @@ namespace game_framework
 		//void Shoot(CGameMap*, CGameObj*);	//	暫時沒用
 		void Shoot(double, double);			//	武器射擊
 		void SetDT(int);					//	根據朝向更改動畫		
+		void OnObjCollision(CGameMap* map, CGameObj* other);
 
 		//CGameWeapon& operator=(const CGameWeapon&);
+
+		static void Init()
+		{
+			for (int i = 0; i < (int)Type::TYPECOUNT; i++)
+			{
+				//_Weapons[i] = CGameWeapon();
+				_Weapons[i].LoadBitmap();
+			}
+		}
+		static CGameWeapon* CreateObj(int i)
+		{
+			GAME_ASSERT(i >= 0 && i < (int)Type::TYPECOUNT, "create error");
+			return new CGameWeapon(_Weapons[i]);
+		}
 
 	protected:
 		bool _fire;		
@@ -38,10 +54,12 @@ namespace game_framework
 		int _cost, _bulletSpeed, _shootDelay;		//	消耗能量、子彈速度、攻擊速度
 		int _fireCounter;							//	射擊間格計數
 		int _DT;									//	動畫判斷
+		int _collPlayer;							//	碰撞玩家判定
 		CGameBullet* _bullet;						//	子彈設定
 		CGameObj* _user;
 		AUDIO_ID _shootID;
 						
+		static CGameWeapon _Weapons[(int)Type::TYPECOUNT];
 
 	private:
 		void copy(const CGameWeapon&);

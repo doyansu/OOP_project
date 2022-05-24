@@ -153,11 +153,11 @@ namespace game_framework
 			//	¼È®É¦U 100 %
 			if (rand() % 2)
 			{
-				CGameInteractOnceObj* obj = CGameInteractOnceObj::CreateObj(rand() % 4);
-				obj->SetXY(this->CenterX() - (obj->Width() >> 1), this->GetY1() - (obj->Height() >> 1));
+				CGameWeapon* obj = CGameWeapon::CreateObj(0);
+				obj->SetXY(this->CenterX() - (obj->GetWidth() >> 1), this->GetY1() - (obj->GetHeight() >> 1));
 				CGameObj::AddObj(obj);
 			}
-			else
+			else  //	ÃÄ¤ô
 			{
 				CGameInteractOnceObj* obj = CGameInteractOnceObj::CreateObj(rand() % 4);
 				obj->SetXY(this->CenterX() - (obj->Width() >> 1), this->GetY1() - (obj->Height() >> 1));

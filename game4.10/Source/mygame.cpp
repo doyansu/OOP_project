@@ -606,6 +606,7 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	//	遊戲物件初始化
 	CGameArrow::Init();
 	CGameObj::Init();	
+	CGameWeapon::Init();
 	CGameInteractOnceObj::Init();
 	CGameTrackObj::Init();
 	CGameTreasure::Init();

@@ -9,6 +9,8 @@
 
 namespace game_framework
 {
+	CGameWeapon CGameWeapon::_Weapons[(int)Type::TYPECOUNT];
+
 	CGameWeapon::CGameWeapon(CGameObj* user)
 	{
 		// 動畫載入
@@ -29,6 +31,7 @@ namespace game_framework
 		CGameWeapon::CGameObj::SetTag("weapon");
 		_center[0] = _center[1] = 0;
 		_shootID = AUDIO_ID::AUDIO_GUN_0;
+		_collPlayer = false;
 
 
 		// 子彈設定
@@ -73,6 +76,7 @@ namespace game_framework
 		this->_center[0] = other._center[0];
 		this->_center[1] = other._center[1];
 		this->_shootID = other._shootID;
+		this->_collPlayer = other._collPlayer;
 	}
 
 	void CGameWeapon::free()
@@ -109,54 +113,84 @@ namespace game_framework
 	{
 		CGameWeapon::CGameObj::_animaIter->OnMove();
 
-		if (_user == nullptr)
-			return;
-
-		this->SetXY(this->_center[0] - (this->GetWidth() >> 1), this->_center[1] - (this->GetHeight() >> 2));
-		switch (_DT)
+		if (_user == nullptr)	// 無使用者
 		{
-		case 0:
 			_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima::Theta_0);
-			break;
-		case 1:
-			_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima::Theta_45);
-			break;
-		case 2:
-			_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima::Theta_90);
-			break;
-		case 3:
-			_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima::Theta_135);
-			break;
-		case 4:
-			_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima::Theta_180);
-			break;
-		case 5:
-			_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima::Theta_225);
-			break;
-		case 6:
-			_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima::Theta_270);
-			break;
-		case 7:
-			_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima::Theta_315);
-			break;
-		default:
-			_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima::Theta_0);
-			break;
+			if (_collPlayer)
+			{
+				GetAnima(Anima::ARROW)->OnMove();
+				_collPlayer = false;
+			}
+			else // 重製動畫
+			{
+				GetAnima(Anima::ARROW)->Reset();
+			}
+		}
+		else
+		{
+			this->SetXY(this->_center[0] - (this->GetWidth() >> 1), this->_center[1] - (this->GetHeight() >> 2));
+			switch (_DT)
+			{
+			case 0:
+				_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima::Theta_0);
+				break;
+			case 1:
+				_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima::Theta_45);
+				break;
+			case 2:
+				_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima::Theta_90);
+				break;
+			case 3:
+				_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima::Theta_135);
+				break;
+			case 4:
+				_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima::Theta_180);
+				break;
+			case 5:
+				_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima::Theta_225);
+				break;
+			case 6:
+				_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima::Theta_270);
+				break;
+			case 7:
+				_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima::Theta_315);
+				break;
+			default:
+				_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima::Theta_0);
+				break;
+			}
+
+			//	射擊間隔計數
+			if (!_fire && --_fireCounter == 0)
+				_fire = true;
+		
+			// debug
+			/*if (_mx < 0 || _my < 0 || _mx > MYMAPSIZE * MYMAPSIZE || _my > MYMAPSIZE * MYMAPSIZE)
+				GAME_ASSERT(false, "武器超出地圖!");*/
 		}
 
-		//	射擊間隔計數
-		if (!_fire && --_fireCounter == 0)
-			_fire = true;
 		
-		// debug
-		/*if (_mx < 0 || _my < 0 || _mx > MYMAPSIZE * MYMAPSIZE || _my > MYMAPSIZE * MYMAPSIZE)
-			GAME_ASSERT(false, "武器超出地圖!");*/
 	}
 
 	void CGameWeapon::OnShow(CGameMap* map)
 	{
 		_animaIter->SetTopLeft(map->ScreenX(_mx), map->ScreenY(_my));	
 		_animaIter->OnShow();
+		if (_collPlayer && _user == nullptr)
+		{
+			vector<CAnimation>::iterator iterator = GetAnima(Anima::ARROW);
+			iterator->SetTopLeft(map->ScreenX(_mx + ((_animaIter->Width() - iterator->Width()) >> 1)),
+				map->ScreenY(_my - iterator->Height()));
+			iterator->OnShow();
+		}
+	}
+
+	void CGameWeapon::OnObjCollision(CGameMap* map, CGameObj* other)
+	{
+		if (!_collPlayer && other->GetTag() == "player")
+		{
+			_collPlayer = true;
+		}
 	}
 
 	void CGameWeapon::Shoot(double x, double y)
