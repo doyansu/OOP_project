@@ -12,7 +12,7 @@ namespace game_framework
 	CGameWeapon::CGameWeapon(CGameObj* user)
 	{
 		// °Êµe¸ü¤J
-		const int AnimaSize = 8;
+		const int AnimaSize = (int)Anima::ANIMACOUNT;
 		_animas.clear();
 		_animas.reserve(AnimaSize);
 		for (int i = 0; i < AnimaSize; i++)
@@ -101,6 +101,8 @@ namespace game_framework
 		_animaIter->AddBitmap(IDB_weapon_0_315, RGB(255, 255, 255));
 
 		_bullet->LoadBitmap();
+
+		*GetAnima(Anima::ARROW) = CGameArrow::instance;
 	}
 
 	void CGameWeapon::OnMove(CGameMap* map)

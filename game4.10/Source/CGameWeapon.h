@@ -1,13 +1,14 @@
 #pragma once
 #include "audio.h"
 #include "CGameBullet.h"
+#include "CGameArrow.h"
 
 namespace game_framework
 {
 	class CGameWeapon : public CGameObj
 	{
 	public:
-		enum class Anima { Theta_0, Theta_45, Theta_90, Theta_135, Theta_180, Theta_225, Theta_270, Theta_315};	// 動畫種類
+		enum class Anima { Theta_0, Theta_45, Theta_90, Theta_135, Theta_180, Theta_225, Theta_270, Theta_315, ARROW, ANIMACOUNT};	// 動畫種類
 
 		CGameWeapon(CGameObj* = nullptr);
 		~CGameWeapon();
