@@ -81,8 +81,11 @@ namespace game_framework
 
 	void CGameWeapon::free()
 	{
-		delete _bullet;
-		_bullet = nullptr;
+		if (_bullet != nullptr)
+		{
+			delete _bullet;
+			_bullet = nullptr;
+		}
 	}
 
 	void CGameWeapon::LoadBitmap()
