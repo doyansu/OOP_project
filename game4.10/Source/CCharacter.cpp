@@ -405,7 +405,7 @@ namespace game_framework {
 			
 		}
 
-		//	按下 Q 鍵
+		//	按下 Z 鍵
 		if (_doSomeThing)
 		{
 			if (_canInteractive)		// 物件互動優先
@@ -531,7 +531,7 @@ namespace game_framework {
 
 	void CCharacter::OnKeyUp(char nChar)
 	{
-		//	Q 或 空白 射擊
+		//	Z或 空白 射擊
 		const char KEY_SPACE = 0x20;
 		const char KEY_Q = 0x51;
 		const char KEY_W = 0x57;
@@ -561,7 +561,7 @@ namespace game_framework {
 
 	void CCharacter::OnKeyDown(char nChar)
 	{
-		//	Q 或 空白 射擊
+		//	Z 或 空白 射擊
 		const char KEY_SPACE = 0x20;
 		const char KEY_Q = 0x51;
 		const char KEY_W = 0x57;

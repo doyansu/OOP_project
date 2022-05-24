@@ -147,40 +147,36 @@ namespace game_framework {
 		_weapon->SetCenter(this->CenterX(), this->CenterY());
 		_weapon->OnMove(map);
 		
-		// 武器射擊
-		if (_weapon->CanFire() && (rand() % 10 == 0))
+		CGameObj* player = CCharacter::_nowPlayer;
+		const double MAXSEARCH = 300.0;	// 最大搜索範圍
+		double d = MAXSEARCH;
+		double vx = 0;
+		double vy = 0;
+		
+		// 找到玩家
+		if (player && !player->hasObstacle(map, this))
 		{
-			/*CGameObj* player= CGameTool::FindObjBy(CGameObj::_allObj,
-				[](CGameObj* obj)
-				{
-					return obj->GetTag() == "player";
-				}
-			);*/
+			d = this->Distance(player);
+			vx = (double)(player->CenterX() - this->CenterX()) / d;
+			vy = (double)(player->CenterY() - this->CenterY()) / d;
+			// 切換動畫
+			if (vx > 0)
+				_animaIter = GetAnima(CEnemy::Anima::RUN_R);
+			else
+				_animaIter = GetAnima(CEnemy::Anima::RUN_L);
 
-			CGameObj* player = CCharacter::_nowPlayer;
+			if (vy <= 0)
+				_weapon->SetDT(CGameTool::TwoVectorAngle(vx * d, vy * d, 1.0, 0.0) / 45);
+			else
+				_weapon->SetDT(8 - CGameTool::TwoVectorAngle(vx * d, vy * d, 1.0, 0.0) / 45);
 
-			const double MAXSEARCH = 300.0;	// 最大搜索範圍
-			if (player)
+			// 武器射擊
+			if (_weapon->CanFire()  && d < MAXSEARCH  && (rand() % 20 == 0))
 			{
-				double d = this->Distance(player);
-				double vx = (double)(player->CenterX() - this->CenterX()) / d;
-				double vy = (double)(player->CenterY() - this->CenterY()) / d;
-				if (d <= MAXSEARCH)
-					_weapon->Shoot(vx, vy);
-
-				// 切換動畫
-				if (vx > 0)
-					_animaIter = GetAnima(CEnemy::Anima::RUN_R);	
-				else
-					_animaIter = GetAnima(CEnemy::Anima::RUN_L);
-
-				if (vy <= 0)
-					_weapon->SetDT(CGameTool::TwoVectorAngle(vx * d, vy * d, 1.0, 0.0) / 45);
-				else
-					_weapon->SetDT(8 - CGameTool::TwoVectorAngle(vx * d, vy * d, 1.0, 0.0) / 45);
-					
+				_weapon->Shoot(vx, vy);
 			}
 		}
+		
 	}
 
 	void CEnemy::OnObjCollision(CGameMap* map, CGameObj* other)
