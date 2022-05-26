@@ -46,6 +46,7 @@
 #include "CUIMinMap.h"
 #include "CUIButton.h"
 #include "CGameTool.h"
+#include "CGameFactorys.h"
 
 
 
