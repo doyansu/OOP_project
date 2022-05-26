@@ -8,11 +8,7 @@
 
 namespace game_framework 
 {
-	CGameRoom::CGameClearTreasure CGameRoom::clearTreasure;
-	CGameTransferGate CGameRoom::TransferGate;
 	CAnimation CGameRoom::_marking;
-
-	CGameTreasure CGameTreasure::_treasure[(int)CGameTreasure::Type::TYPECOUNT];
 
 	CGameRoom::CGameRoom(RoomData* data)
 	{
@@ -132,9 +128,9 @@ namespace game_framework
 		}
 		case RoomData::RoomType::END:		// 傳送房間
 		{
-			TransferGate.SetXY(_room->CenterX() * MYMAPWIDTH - (TransferGate.Width() >> 1) + (MYMAPWIDTH >> 1),
-				_room->CenterY() * MYMAPHIGH - (TransferGate.Height() >> 1) + (MYMAPHIGH >> 1));
-			CGameObj::AddObj(&TransferGate);
+			CGameTransferGate::Instance()->SetXY(_room->CenterX() * MYMAPWIDTH - (CGameTransferGate::Instance()->Width() >> 1) + (MYMAPWIDTH >> 1),
+				_room->CenterY() * MYMAPHIGH - (CGameTransferGate::Instance()->Height() >> 1) + (MYMAPHIGH >> 1));
+			CGameObj::AddObj(CGameTransferGate::Instance());
 			break;
 		}
 		case RoomData::RoomType::TREASURE:	//	寶箱房間
@@ -364,7 +360,7 @@ namespace game_framework
 
 			CGameTreasure* treasure = CGameTreasure::CreateObj((int)CGameTreasure::Type::TYPECOUNT - 1);
 			treasure->SetXY(_room->CenterX() * MYMAPWIDTH - (treasure->Width() >> 1) + (MYMAPWIDTH >> 1),
-				_room->CenterY() * MYMAPHIGH + -(treasure->Height() >> 1) + TransferGate.Height() + (MYMAPHIGH >> 1));
+				_room->CenterY() * MYMAPHIGH + -(treasure->Height() >> 1) + CGameTransferGate::Instance()->Height() + (MYMAPHIGH >> 1));
 			CGameObj::AddObj(treasure);
 			break;
 		}
@@ -390,7 +386,7 @@ namespace game_framework
 			}
 			_roomWalls.clear();
 
-			CGameClearTreasure* cTreasure = new CGameClearTreasure(clearTreasure);
+			CGameClearTreasure* cTreasure = CGameClearTreasure::CreateObj();
 			// 碰到障礙重新選位置
 			do {
 				cTreasure->SetXY(_mx + MYMAPWIDTH * (1 + rand() % (_room->Width() - 2)), _my + MYMAPHIGH * (1 + rand() % (_room->High() - 2)));
@@ -407,9 +403,9 @@ namespace game_framework
 				break;
 			}
 			_isStrat = false;
-			TransferGate.SetXY(_room->CenterX() * MYMAPWIDTH - (TransferGate.Width() >> 1) + (MYMAPWIDTH >> 1),
-				_room->CenterY() * MYMAPHIGH - (TransferGate.Height() >> 1) + (MYMAPHIGH >> 1));
-			CGameObj::AddObj(&TransferGate);
+			CGameTransferGate::Instance()->SetXY(_room->CenterX() * MYMAPWIDTH - (CGameTransferGate::Instance()->Width() >> 1) + (MYMAPWIDTH >> 1),
+				_room->CenterY() * MYMAPHIGH - (CGameTransferGate::Instance()->Height() >> 1) + (MYMAPHIGH >> 1));
+			CGameObj::AddObj(CGameTransferGate::Instance());
 			break;
 		}
 		default:

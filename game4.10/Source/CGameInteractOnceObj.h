@@ -9,8 +9,6 @@ namespace game_framework
 	public:
 		enum class Type { REDPOTION, BIGREDPOTION, BULEPOTION, BIGBULEPOTION, TYPECOUNT };
 		enum class Anima { MAIN, ARROW, ANIMACOUNT };
-		
-		CGameInteractOnceObj(Type= Type::REDPOTION);
 
 		int GetX2();
 		int GetY2();
@@ -23,16 +21,20 @@ namespace game_framework
 		void OnShow(CGameMap* map);
 
 		
-		static void Init()
-		{
-			for (int i = 0; i < (int)Type::TYPECOUNT; i++)
-			{
-				_interactOnceObjs[i] = CGameInteractOnceObj((CGameInteractOnceObj::Type)i);
-				_interactOnceObjs[i].LoadBitmap();
-			}
-		}
 		static CGameInteractOnceObj* CreateObj(int i)
 		{
+			static CGameInteractOnceObj _interactOnceObjs[(int)Type::TYPECOUNT];
+			static bool isLoad = false;
+			if(isLoad == false)
+			{
+				for (int i = 0; i < (int)Type::TYPECOUNT; i++)
+				{
+					_interactOnceObjs[i] = CGameInteractOnceObj((CGameInteractOnceObj::Type)i);
+					_interactOnceObjs[i].LoadBitmap();
+				}
+				isLoad = true;
+			}
+			
 			GAME_ASSERT(i >= 0 && i < (int)Type::TYPECOUNT, "create error");
 			return new CGameInteractOnceObj(_interactOnceObjs[i]);
 		}
@@ -43,9 +45,10 @@ namespace game_framework
 
 		void Die();
 
-		static CGameInteractOnceObj _interactOnceObjs[(int)Type::TYPECOUNT];
+		
 
 	private:
+		CGameInteractOnceObj(Type = Type::REDPOTION);
 		vector<CAnimation>::iterator GetAnima(Anima type);
 
 	};

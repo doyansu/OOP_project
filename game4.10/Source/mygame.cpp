@@ -603,12 +603,8 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	// GAME
 	
 	//	遊戲物件初始化
-	//CGameArrow::Init();
 	CGameObj::Init();	
 	CGameWeapon::Init();
-	CGameInteractOnceObj::Init();
-	CGameTrackObj::Init();
-	CGameTreasure::Init();
 	CGameRoom::Init();
 	CCharacter::_nowPlayer = &character;
 		
@@ -682,7 +678,7 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	character.OnKeyDown(nChar);
 
 	// 碰觸傳送門進下一關
-	CGameTransferGate* TransferGate = CGameRoom::GetTransFerGate();
+	CGameTransferGate* TransferGate = CGameTransferGate::Instance();
 	if (character.IsDoingSomeThing() && character.Collision(TransferGate))
 	{
 		TransferGate->SetDie(false);

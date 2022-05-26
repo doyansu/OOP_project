@@ -8,7 +8,6 @@
 
 namespace game_framework
 {
-	CGameTrackObj CGameTrackObj::_trackObjs[(int)TYPE::TYPECOUNT];
 
 	CGameTrackObj::CGameTrackObj(TYPE type)
 	{

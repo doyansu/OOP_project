@@ -14,19 +14,6 @@ namespace game_framework
 	public:
 		enum class Type { WHITE, TYPECOUNT };
 		enum class Anima { TREASURE, LEFTCOVER, RIGHTCOVER, TOP, ARROW, ANIMACOUNT };
-		CGameTreasure(Type type = Type::WHITE)
-		{
-			const int AnimaSize = (int)Anima::ANIMACOUNT;
-			_animas.clear();
-			_animas.reserve(AnimaSize);
-			for (int i = 0; i < AnimaSize; i++)
-				_animas.push_back(CAnimation());
-
-			_dtop = _dleft = _dright = 0;
-			_collPlayer = false;
-			_type = type;
-			this->SetTag("treasure");
-		}
 
 		int GetX2()
 		{
@@ -120,16 +107,19 @@ namespace game_framework
 				_animaIter->OnShow();
 			}
 		}
-		static void Init()
-		{
-			for (int i = 0; i < (int)Type::TYPECOUNT; i++)
-			{
-				_treasure[i] = CGameTreasure((CGameTreasure::Type)i);
-				_treasure[i].LoadBitmap();
-			}
-		}
 		static CGameTreasure* CreateObj(int i)
 		{
+			static CGameTreasure _treasure[(int)CGameTreasure::Type::TYPECOUNT];
+			static bool isLoad = false;
+			if (isLoad == false)
+			{
+				for (int i = 0; i < (int)Type::TYPECOUNT; i++)
+				{
+					_treasure[i] = CGameTreasure((CGameTreasure::Type)i);
+					_treasure[i].LoadBitmap();
+				}
+				isLoad = true;
+			}
 			GAME_ASSERT(i >= 0 && i < (int)Type::TYPECOUNT, "create error");
 			return new CGameTreasure(_treasure[i]);
 		}
@@ -139,8 +129,6 @@ namespace game_framework
 		int _collPlayer;				//	碰到玩家
 		int _dtop, _dleft, _dright;
 		Type _type;
-
-		static CGameTreasure _treasure[(int)CGameTreasure::Type::TYPECOUNT];
 
 		void Die()
 		{
@@ -166,6 +154,20 @@ namespace game_framework
 		}
 
 	private:
+		CGameTreasure(Type type = Type::WHITE)
+		{
+			const int AnimaSize = (int)Anima::ANIMACOUNT;
+			_animas.clear();
+			_animas.reserve(AnimaSize);
+			for (int i = 0; i < AnimaSize; i++)
+				_animas.push_back(CAnimation());
+
+			_dtop = _dleft = _dright = 0;
+			_collPlayer = false;
+			_type = type;
+			this->SetTag("treasure");
+		}
+
 		vector<CAnimation>::iterator GetAnima(Anima type)
 		{
 			return _animas.begin() + (int)type;
@@ -176,7 +178,6 @@ namespace game_framework
 	{
 	public:
 		enum class Anima { ARROW, TransferGate };
-		CGameTransferGate();
 
 		void LoadBitmap();
 		void OnMove(CGameMap* map);
@@ -187,10 +188,23 @@ namespace game_framework
 		int GetY2();
 		int Width();
 		int Height();
+		static CGameTransferGate* Instance()
+		{
+			static CGameTransferGate TransferGate;
+			static bool isLoad = false;
+			if (isLoad == false)
+			{
+				TransferGate.LoadBitmap();
+				isLoad = true;
+			}
+			return &TransferGate;
+		}
+		
 
 	protected:
 
 	private:
+		CGameTransferGate();
 		vector<CAnimation>::iterator GetAnima(CGameTransferGate::Anima type);
 	};
 
@@ -212,8 +226,6 @@ namespace game_framework
 
 		static void Init()
 		{
-			clearTreasure.LoadBitmap();
-			TransferGate.LoadBitmap();	
 			_marking.SetDelayCount(2);
 			_marking.AddBitmap(IDB_RoomMarking_10, RGB(255, 255, 255));
 			_marking.AddBitmap(IDB_RoomMarking_9, RGB(255, 255, 255));
@@ -227,11 +239,6 @@ namespace game_framework
 			_marking.AddBitmap(IDB_RoomMarking_1, RGB(255, 255, 255));
 			_marking.AddBitmap(IDB_RoomMarking_0, RGB(255, 255, 255));
 			_marking.AddBitmap(IDB_RoomMarking, RGB(255, 255, 255));
-		}
-
-		static CGameTransferGate* GetTransFerGate()
-		{
-			return &TransferGate;
 		}
 
 		// 間隔通道物件
@@ -357,16 +364,17 @@ namespace game_framework
 		{
 		public:
 			enum class Anima { TREASURE, TREASUREDIE, LEFTCOVER, RIGHTCOVER, TOP, ANIMACOUNT };
-			CGameClearTreasure()
-			{
-				const int AnimaSize = (int)Anima::ANIMACOUNT;
-				_animas.clear();
-				_animas.reserve(AnimaSize);
-				for (int i = 0; i < AnimaSize; i++)
-					_animas.push_back(CAnimation());
 
-				_dtop = _dleft = _dright = 0;
-				this->SetTag("cleartreasure");
+			static CGameClearTreasure* CreateObj()
+			{
+				static CGameClearTreasure clearTreasure;
+				static bool isLoad = false;
+				if (isLoad == false)
+				{
+					clearTreasure.LoadBitmap();
+					isLoad = true;
+				}
+				return new CGameClearTreasure(clearTreasure);
 			}
 
 			int GetX2()
@@ -445,6 +453,7 @@ namespace game_framework
 				_animaIter->OnShow();
 			}
 
+
 		protected:
 			int _dtop, _dleft, _dright;
 
@@ -486,6 +495,17 @@ namespace game_framework
 			}
 
 		private:
+			CGameClearTreasure()
+			{
+				const int AnimaSize = (int)Anima::ANIMACOUNT;
+				_animas.clear();
+				_animas.reserve(AnimaSize);
+				for (int i = 0; i < AnimaSize; i++)
+					_animas.push_back(CAnimation());
+
+				_dtop = _dleft = _dright = 0;
+				this->SetTag("cleartreasure");
+			}
 			vector<CAnimation>::iterator GetAnima(Anima type)
 			{
 				return _animas.begin() + (int)type;
@@ -502,9 +522,7 @@ namespace game_framework
 		vector<RoomWall*> _roomWalls;		// 通道阻隔物件控制
 		vector<CEnemy*> _enemys;			// 可以生成的怪物類型
 
-		static CGameClearTreasure clearTreasure;	// 通關寶箱物件
-		static CGameTransferGate TransferGate;		// 傳送門物件
-		static CAnimation _marking;					// 標記動畫
+		static CAnimation _marking;			// 標記動畫
 	};
 
 	

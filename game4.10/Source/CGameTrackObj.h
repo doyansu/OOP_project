@@ -7,7 +7,6 @@ namespace game_framework
 	{
 	public:
 		enum class TYPE { GOLD, ENERGYBALL, TYPECOUNT };
-		CGameTrackObj(TYPE=TYPE::GOLD);
 
 		void SetTarget(CGameObj*);
 		void SetXY(int, int);
@@ -17,16 +16,19 @@ namespace game_framework
 		void OnDie(CGameMap*);
 		void OnObjCollision(CGameMap*, CGameObj*);
 
-		static void Init()
-		{
-			for (int i = 0; i < (int)TYPE::TYPECOUNT; i++)
-			{
-				_trackObjs[i] = CGameTrackObj((CGameTrackObj::TYPE)i);
-				_trackObjs[i].LoadBitmap();
-			}
-		}
 		static CGameTrackObj* CreateObj(int i)
 		{
+			static CGameTrackObj _trackObjs[(int)TYPE::TYPECOUNT];
+			static bool isLoad = false;
+			if (isLoad == false)
+			{
+				for (int i = 0; i < (int)TYPE::TYPECOUNT; i++)
+				{
+					_trackObjs[i] = CGameTrackObj((CGameTrackObj::TYPE)i);
+					_trackObjs[i].LoadBitmap();
+				}
+				isLoad = true;
+			}
 			GAME_ASSERT(i >= 0 && i < (int)TYPE::TYPECOUNT, "create error");
 			return new CGameTrackObj(_trackObjs[i]);
 		}
@@ -36,9 +38,8 @@ namespace game_framework
 		TYPE _type;
 		int _counter;
 
-		static CGameTrackObj _trackObjs[(int)TYPE::TYPECOUNT];
-
 	private:
+		CGameTrackObj(TYPE = TYPE::GOLD);
 	};
 }
 
