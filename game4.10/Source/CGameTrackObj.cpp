@@ -95,8 +95,8 @@ namespace game_framework
 		{
 			double vx = (double)(_target->CenterX() - this->CenterX()) / d;
 			double vy = (double)(_target->CenterY() - this->CenterY()) / d;
-			_mx += (int)((double)_moveSpeed * vx);
-			_my += (int)((double)_moveSpeed * vy);
+			_mx += (int)(((double)_moveSpeed + 0.5) * vx);
+			_my += (int)(((double)_moveSpeed + 0.5) * vy);
 		}
 	}
 

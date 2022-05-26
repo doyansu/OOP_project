@@ -141,7 +141,8 @@ namespace game_framework
 			//	�ȮɦU 100 %
 			if (rand() % 2)
 			{
-				CGameWeapon* obj = CGameWeapon::CreateObj(0);
+				CGameWeapon* obj = new CGameWeapon();
+				obj->LoadBitmap();
 				obj->SetXY(this->CenterX() - (obj->GetWidth() >> 1), this->GetY1() - (obj->GetHeight() >> 1));
 				CGameObj::AddObj(obj);
 			}
@@ -218,6 +219,7 @@ namespace game_framework
 		int GetY2();
 		bool IsStrat();
 
+		void LoadBitmap() {};
 		void OnMove(CGameMap*);
 		void OnObjCollision(CGameMap*, CGameObj*);
 		void OnDie(CGameMap*);

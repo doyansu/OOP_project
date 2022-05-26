@@ -604,9 +604,11 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	
 	//	遊戲物件初始化
 	CGameObj::Init();	
-	CGameWeapon::Init();
 	CGameRoom::Init();
 	CCharacter::_nowPlayer = &character;
+
+	// Factory 註冊
+	//ProductRegistrar<CGameWeapon, >
 		
 	
 	gameMap.LoadBitmap();

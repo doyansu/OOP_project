@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-//https://zhuanlan.zhihu.com/p/83537599
+//參考網址 https://zhuanlan.zhihu.com/p/83537599
 
 namespace game_framework
 {
@@ -30,13 +30,13 @@ namespace game_framework
 		}
 
 		// 產品註冊
-		void RegisterProduct(IProductRegistrar<ProductType_t> *registrar, std::string name)
+		void RegisterProduct(IProductRegistrar<ProductType_t> *registrar, int name)
 		{
 			m_ProductRegistry[name] = registrar;
 		}
 
 		// 
-		ProductType_t *GetProduct(std::string name)
+		ProductType_t *GetProduct(int name)
 		{
 			if (m_ProductRegistry.find(name) != m_ProductRegistry.end())
 			{
@@ -54,7 +54,7 @@ namespace game_framework
 		const ProductFactory &operator=(const ProductFactory &) {};
 
 		// 保存註冊過的產品，key:產品名字，value:產品類型
-		std::map<std::string, IProductRegistrar<ProductType_t> *> m_ProductRegistry;
+		map<int, IProductRegistrar<ProductType_t> *> m_ProductRegistry;
 	};
 
 	// ProductBase_t 是產品的 BaseClass, ProductType_t 是產品的類別
@@ -63,7 +63,7 @@ namespace game_framework
 	{
 	public:
 		// 註冊產品到工廠
-		explicit ProductRegistrar(string name)
+		explicit ProductRegistrar(int name)
 		{
 			ProductFactory<ProductBase_t>::Instance().RegisterProduct(this, name);
 		}

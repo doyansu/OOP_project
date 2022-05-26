@@ -2,6 +2,7 @@
 #include "audio.h"
 #include "CGameBullet.h"
 #include "CGameArrow.h"
+#include "CGameFactorys.h"
 
 namespace game_framework
 {
@@ -24,29 +25,13 @@ namespace game_framework
 
 		int GetCost();
 
-		void LoadBitmap();
-		void OnMove(CGameMap* map);
-		void OnShow(CGameMap* map);
+		virtual void LoadBitmap();
+		virtual void OnMove(CGameMap* map);
+		virtual void OnShow(CGameMap* map);
 		//void Shoot(CGameMap*, CGameObj*);	//	暫時沒用
-		void Shoot(double, double);			//	武器射擊
+		virtual void Shoot(double, double);			//	武器射擊
 		void SetDT(int);					//	根據朝向更改動畫		
 		void OnObjCollision(CGameMap* map, CGameObj* other);
-
-		//CGameWeapon& operator=(const CGameWeapon&);
-
-		static void Init()
-		{
-			for (int i = 0; i < (int)Type::TYPECOUNT; i++)
-			{
-				//_Weapons[i] = CGameWeapon();
-				_Weapons[i].LoadBitmap();
-			}
-		}
-		static CGameWeapon* CreateObj(int i)
-		{
-			GAME_ASSERT(i >= 0 && i < (int)Type::TYPECOUNT, "create error");
-			return new CGameWeapon(_Weapons[i]);
-		}
 
 	protected:
 		bool _fire;		
@@ -59,9 +44,9 @@ namespace game_framework
 		CGameObj* _user;
 		AUDIO_ID _shootID;
 						
-		static CGameWeapon _Weapons[(int)Type::TYPECOUNT];
 
 	private:
+		CGameWeapon& operator=(const CGameWeapon&);
 		void copy(const CGameWeapon&);
 		void free();
 		vector<CAnimation>::iterator GetAnima(Anima);	// 取得動畫

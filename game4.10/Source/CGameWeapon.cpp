@@ -9,7 +9,6 @@
 
 namespace game_framework
 {
-	CGameWeapon CGameWeapon::_Weapons[(int)Type::TYPECOUNT];
 
 	CGameWeapon::CGameWeapon(CGameObj* user)
 	{

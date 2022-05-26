@@ -226,7 +226,7 @@ namespace game_framework {
 					if (nx >= 0 && ny >= 0 && nx < MYMAXNOFROOM && ny < MYMAXNOFROOM && m > 0)
 					{
 						_Rooms[nx][ny]._hasRoom = true;
-						if (rand() & 1)	// 寶箱或特殊房間
+						if ((rand() % 100) >= 30)	// 寶箱或特殊房間
 							_Rooms[nx][ny]._roomType = RoomData::RoomType::TREASURE;
 						else
 							_Rooms[nx][ny]._roomType = RoomData::RoomType::SPECIAL;
