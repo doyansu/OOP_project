@@ -33,9 +33,10 @@ namespace game_framework {
 		this->SetFree(false);
 
 		//	武器設定
-		_weapons[0] = new CGameWeapon(this);
+		_weapons[0] = new CGameWeapon_Init();
 		_weapons[1] = nullptr;
 		_nowWeapon = &_weapons[0];
+		(*_nowWeapon)->SetUser(this);
 		(*_nowWeapon)->SetTarget("enemy");
 		(*_nowWeapon)->SetAttributes(4, 1, 20, 15);
 
@@ -51,10 +52,11 @@ namespace game_framework {
 
 		// 重置為初始武器
 		free();
-		_weapons[0] = new CGameWeapon(this);
+		_weapons[0] = new CGameWeapon_Init();
 		_weapons[1] = nullptr;
 		_nowWeapon = &_weapons[0];
 		(*_nowWeapon)->LoadBitmap();
+		(*_nowWeapon)->SetUser(this);
 		(*_nowWeapon)->SetTarget("enemy");
 		(*_nowWeapon)->SetAttributes(4, 1, 20, 15);
 

@@ -23,8 +23,8 @@ namespace game_framework
 		// 開發中調整
 		//_maxEnemy = 4 + (rand() % 3);
 		//_reGenerate = 3 + (rand() % 3);
-		_maxEnemy = 5;
-		_reGenerate = 2;
+		_maxEnemy = 3;
+		_reGenerate = 1;
 
 		// 暫時設定 boss 房間
 		switch (data->GetRoomType())

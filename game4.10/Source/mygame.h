@@ -47,6 +47,7 @@
 #include "CUIButton.h"
 #include "CGameTool.h"
 #include "CGameFactorys.h"
+#include "CGameWeapons.h"
 
 
 

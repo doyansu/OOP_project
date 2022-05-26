@@ -2,7 +2,6 @@
 #include "audio.h"
 #include "CGameBullet.h"
 #include "CGameArrow.h"
-#include "CGameFactorys.h"
 
 namespace game_framework
 {
@@ -12,7 +11,7 @@ namespace game_framework
 		enum class Type { INIT, TYPECOUNT };
 		enum class Anima { Theta_0, Theta_45, Theta_90, Theta_135, Theta_180, Theta_225, Theta_270, Theta_315, ARROW, ANIMACOUNT};	// 動畫種類
 
-		CGameWeapon(CGameObj* = nullptr);
+		CGameWeapon(CGameObj* = nullptr, Type = Type::INIT);
 		~CGameWeapon();
 		CGameWeapon(const CGameWeapon&);
 
@@ -43,13 +42,15 @@ namespace game_framework
 		CGameBullet* _bullet;						//	子彈設定
 		CGameObj* _user;
 		AUDIO_ID _shootID;
-						
+		Type _weaponType;
+
+		vector<CAnimation>::iterator GetAnima(Anima);	// 取得動畫
 
 	private:
 		CGameWeapon& operator=(const CGameWeapon&);
 		void copy(const CGameWeapon&);
 		void free();
-		vector<CAnimation>::iterator GetAnima(Anima);	// 取得動畫
+		
 
 	};
 }

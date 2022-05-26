@@ -314,7 +314,8 @@ void CGameStateOver::OnShow()
 CGameStateRun::CGameStateRun(CGame *g)
 : CGameState(g)//, NUMBALLS(28)
 {
-	//ball = new CBall [NUMBALLS];
+	//	註冊
+	ProductRegistrar<CGameObj, CCharacter>::Register();
 }
 
 CGameStateRun::~CGameStateRun()
@@ -607,8 +608,8 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	CGameRoom::Init();
 	CCharacter::_nowPlayer = &character;
 
-	// Factory 註冊
-	//ProductRegistrar<CGameWeapon, >
+	
+	//ProductRegistrar<CGameWeapon, CGameWeapon_Init> test1(2);
 		
 	
 	gameMap.LoadBitmap();

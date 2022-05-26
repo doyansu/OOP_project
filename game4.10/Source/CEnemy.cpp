@@ -31,7 +31,8 @@ namespace game_framework {
 		CEnemy::CGameObj::SetTag("enemy");
 
 		// ªZ¾¹³]©w
-		_weapon = new CGameWeapon(this);
+		_weapon = new CGameWeapon_Init();
+		_weapon->SetUser(this);
 		_weapon->SetAttributes(1, 0, 5, 50);
 		_weapon->SetTarget("player");
 	}
@@ -58,8 +59,11 @@ namespace game_framework {
 
 	void CEnemy::copy(const CEnemy& other)
 	{
-		_weapon = new CGameWeapon(*(other._weapon));
+		_weapon = new CGameWeapon_Init();
+		_weapon->LoadBitmap();
 		_weapon->SetUser(this);
+		_weapon->SetAttributes(1, 0, 5, 50);
+		_weapon->SetTarget("player");
 	}
 
 	void CEnemy::free()

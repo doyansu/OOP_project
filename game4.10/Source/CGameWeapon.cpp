@@ -10,7 +10,7 @@
 namespace game_framework
 {
 
-	CGameWeapon::CGameWeapon(CGameObj* user)
+	CGameWeapon::CGameWeapon(CGameObj* user, Type type)
 	{
 		// 動畫載入
 		const int AnimaSize = (int)Anima::ANIMACOUNT;
@@ -31,7 +31,7 @@ namespace game_framework
 		_center[0] = _center[1] = 0;
 		_shootID = AUDIO_ID::AUDIO_GUN_0;
 		_collPlayer = false;
-
+		_weaponType = type;
 
 		// 子彈設定
 		//_bullet = new CGameBullet(this->CenterX(), this->CenterY());
@@ -76,6 +76,7 @@ namespace game_framework
 		this->_center[1] = other._center[1];
 		this->_shootID = other._shootID;
 		this->_collPlayer = other._collPlayer;
+		this->_weaponType = other._weaponType;
 	}
 
 	void CGameWeapon::free()

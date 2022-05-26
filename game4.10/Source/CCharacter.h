@@ -1,6 +1,6 @@
 #pragma once
 #include "CGameObj.h"
-#include "CGameWeapon.h"
+#include "CGameWeapons.h"
 
 namespace game_framework {
 

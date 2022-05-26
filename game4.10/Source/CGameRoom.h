@@ -4,6 +4,7 @@
 #include "CGameTrackObj.h"
 #include "CGameInteractOnceObj.h"
 #include "CGameArrow.h"
+#include "CGameFactorys.h"
 
 #define REGENERATETIME GAME_ONE_SECONED + (GAME_ONE_SECONED >> 1)
 
@@ -139,9 +140,9 @@ namespace game_framework
 			CAudio::Instance()->Play(AUDIO_ID::AUDIO_BOX_OPEN);
 
 			//	�ȮɦU 100 %
-			if (rand() % 2)
+			if (true)
 			{
-				CGameWeapon* obj = new CGameWeapon();
+				CGameWeapon* obj = ProductFactory<CGameWeapon>::Instance().GetProduct(rand() % (int)CGameWeapon::Type::TYPECOUNT);
 				obj->LoadBitmap();
 				obj->SetXY(this->CenterX() - (obj->GetWidth() >> 1), this->GetY1() - (obj->GetHeight() >> 1));
 				CGameObj::AddObj(obj);

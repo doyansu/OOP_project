@@ -260,6 +260,7 @@
     <ClCompile Include="source\CEnemy.cpp" />
     <ClCompile Include="Source\CGameArrow.cpp" />
     <ClCompile Include="Source\CGameBullet.cpp" />
+    <ClCompile Include="Source\CGameFactorys.cpp" />
     <ClCompile Include="Source\CGameInteractOnceObj.cpp" />
     <ClCompile Include="Source\CGameMap.cpp" />
     <ClCompile Include="Source\CGameObj.cpp" />
@@ -268,6 +269,7 @@
     <ClCompile Include="Source\CGameTool.cpp" />
     <ClCompile Include="Source\CGameTrackObj.cpp" />
     <ClCompile Include="Source\CGameWeapon.cpp" />
+    <ClCompile Include="Source\CGameWeapons.cpp" />
     <ClCompile Include="Source\CInitialPlayer.cpp" />
     <ClCompile Include="Source\audio.cpp" />
     <ClCompile Include="Source\CBall.cpp" />
@@ -329,6 +331,7 @@
     <ClInclude Include="Source\CGameTool.h" />
     <ClInclude Include="Source\CGameTrackObj.h" />
     <ClInclude Include="Source\CGameWeapon.h" />
+    <ClInclude Include="Source\CGameWeapons.h" />
     <ClInclude Include="Source\CInitialPlayer.h" />
     <ClInclude Include="Source\audio.h" />
     <ClInclude Include="Source\CBall.h" />
