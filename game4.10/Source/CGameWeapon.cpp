@@ -109,7 +109,7 @@ namespace game_framework
 
 		_bullet->LoadBitmap();
 
-		*GetAnima(Anima::ARROW) = CGameArrow::instance;
+		*GetAnima(Anima::ARROW) = CGameArrow::Instance();
 	}
 
 	void CGameWeapon::OnMove(CGameMap* map)

@@ -604,7 +604,7 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	// GAME
 	
 	//	遊戲物件初始化
-	CGameArrow::Init();
+	//CGameArrow::Init();
 	CGameObj::Init();	
 	CGameWeapon::Init();
 	CGameInteractOnceObj::Init();

@@ -65,7 +65,7 @@ namespace game_framework
 			_animaIter->AddBitmap(IDB_TREASURE_0_right, RGB(255, 255, 255));
 
 
-			*GetAnima(Anima::ARROW) = CGameArrow::instance;
+			*GetAnima(Anima::ARROW) = CGameArrow::Instance();
 		}
 		void OnObjCollision(CGameMap* map, CGameObj* other)
 		{

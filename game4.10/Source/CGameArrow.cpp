@@ -7,8 +7,6 @@
 #include "CGameArrow.h"
 
 namespace game_framework {
-	CGameArrow CGameArrow::instance;
-
 	CGameArrow::CGameArrow()
 	{
 
