@@ -144,6 +144,8 @@ namespace game_framework {
 	{
 		if (GetAnima(Anima::APPEARANCE)->IsFinalBitmap())
 		{
+			if (!_isDie && _weapons[_nowWeapon ^ 1] != nullptr)
+				_weapons[_nowWeapon^1]->OnShow(map);
 			_animaIter->SetTopLeft(map->ScreenX(_mx), map->ScreenY(_my - 20));
 			_animaIter->OnShow();
 			if(!_isDie)
@@ -363,6 +365,8 @@ namespace game_framework {
 
 		//	ªZ¾¹²¾°Ê
 		_weapons[_nowWeapon]->SetCenter(this->CenterX(), this->CenterY() - 10);
+		if(_weapons[_nowWeapon ^ 1] != nullptr)
+			_weapons[_nowWeapon ^ 1]->SetCenter(this->CenterX(), this->CenterY() - 10);
 		_weapons[_nowWeapon]->OnMove(map);
 		if(_vector[1] <= 0)
 			_weapons[_nowWeapon]->SetDT(CGameTool::TwoVectorAngle(_vector[0], _vector[1], 1.0, 0.0) / 45);
@@ -530,10 +534,10 @@ namespace game_framework {
 		{
 			if (_doSomeThing)
 			{
-				if (_weapons[1] == nullptr)
+				if (_weapons[_nowWeapon ^ 1] == nullptr)
 				{
-
-					_weapons[1] = CGameWeapon::WeaponMap[other];
+					//_weapons[_nowWeapon ^ 1] = ProductFactory<CGameWeapon>::Instance().GetProduct((int)CGameWeapon::WeaponMap[other]->GetType());
+					//_weapons[_nowWeapon ^ 1]->SetUser(this);
 				}
 				else
 				{
@@ -541,7 +545,7 @@ namespace game_framework {
 				}
 				_doSomeThing = false;
 			}
-			//_canInteractive = true;
+			_canInteractive = true;
 		}
 
 		/*if (other->GetTag() == "enemy")

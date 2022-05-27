@@ -49,7 +49,7 @@ namespace game_framework
 		vector<CAnimation>::iterator GetAnima(Anima);	// 取得動畫
 
 	private:
-		CGameWeapon& operator=(const CGameWeapon&);
+		CGameWeapon& operator=(const CGameWeapon&) {};
 		void copy(const CGameWeapon&);
 		void free();
 		
