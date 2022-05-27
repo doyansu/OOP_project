@@ -315,7 +315,7 @@ CGameStateRun::CGameStateRun(CGame *g)
 : CGameState(g)//, NUMBALLS(28)
 {
 	//	註冊
-	ProductRegistrar<CGameObj, CCharacter>::Register();
+	ProductRegistrar<CGameWeapon, CGameWeapon_Init>::Register();
 }
 
 CGameStateRun::~CGameStateRun()

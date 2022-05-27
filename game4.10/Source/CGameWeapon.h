@@ -23,6 +23,7 @@ namespace game_framework
 		void SetCenter(int, int);
 
 		int GetCost();
+		Type GetType();
 
 		virtual void LoadBitmap();
 		virtual void OnMove(CGameMap* map);
@@ -31,6 +32,7 @@ namespace game_framework
 		virtual void Shoot(double, double);			//	武器射擊
 		void SetDT(int);					//	根據朝向更改動畫		
 		void OnObjCollision(CGameMap* map, CGameObj* other);
+		static map<CGameObj*, CGameWeapon*> WeaponMap;
 
 	protected:
 		bool _fire;		

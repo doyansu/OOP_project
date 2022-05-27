@@ -9,6 +9,7 @@
 
 namespace game_framework
 {
+	map<CGameObj*, CGameWeapon*> CGameWeapon::WeaponMap;
 
 	CGameWeapon::CGameWeapon(CGameObj* user, Type type)
 	{
@@ -38,11 +39,14 @@ namespace game_framework
 		_bullet = new CGameBullet(this->GetX1(), this->GetY1());
 		//_bullet->SetXY(this->CenterX(), this->CenterY());
 		_bullet->SetSpeed(_bulletSpeed);
+
+		WeaponMap[(CGameObj*)this] = this;
 	}
 
 	CGameWeapon::~CGameWeapon()
 	{
 		free();
+		WeaponMap.erase((CGameObj*)this);
 	}
 
 	CGameWeapon::CGameWeapon(const CGameWeapon& other):CGameObj(other)
@@ -110,6 +114,7 @@ namespace game_framework
 		_bullet->LoadBitmap();
 
 		*GetAnima(Anima::ARROW) = CGameArrow::Instance();
+		_isLoad = true;
 	}
 
 	void CGameWeapon::OnMove(CGameMap* map)
@@ -258,5 +263,10 @@ namespace game_framework
 	int CGameWeapon::GetCost()
 	{
 		return _cost;
+	}
+
+	CGameWeapon::Type CGameWeapon::GetType()
+	{
+		return _weaponType;
 	}
 }

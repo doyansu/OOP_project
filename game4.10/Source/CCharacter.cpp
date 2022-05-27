@@ -6,6 +6,7 @@
 #include "gamelib.h"
 #include "CCharacter.h"
 
+
 namespace game_framework {
 	CCharacter* CCharacter::_nowPlayer = nullptr;
 
@@ -31,15 +32,6 @@ namespace game_framework {
 		this->Reset();
 		this->SetTag("player");
 		this->SetFree(false);
-
-		//	武器設定
-		_weapons[0] = new CGameWeapon_Init();
-		_weapons[1] = nullptr;
-		_nowWeapon = &_weapons[0];
-		(*_nowWeapon)->SetUser(this);
-		(*_nowWeapon)->SetTarget("enemy");
-		(*_nowWeapon)->SetAttributes(4, 1, 20, 15);
-
 	}
 
 	void CCharacter::Init()
@@ -52,10 +44,9 @@ namespace game_framework {
 
 		// 重置為初始武器
 		free();
-		_weapons[0] = new CGameWeapon_Init();
+		_weapons[0] = ProductFactory<CGameWeapon>::Instance().GetProduct((int)CGameWeapon::Type::INIT);
 		_weapons[1] = nullptr;
 		_nowWeapon = &_weapons[0];
-		(*_nowWeapon)->LoadBitmap();
 		(*_nowWeapon)->SetUser(this);
 		(*_nowWeapon)->SetTarget("enemy");
 		(*_nowWeapon)->SetAttributes(4, 1, 20, 15);
@@ -94,6 +85,9 @@ namespace game_framework {
 
 	void CCharacter::LoadBitmap()
 	{
+		if (_isLoad)
+			return;
+
 		_animaIter = GetAnima(Anima::INIT_L);
 		_animaIter->AddBitmap(IDB_CH1_4_L, RGB(255, 255, 255));
 		_animaIter->AddBitmap(IDB_CH1_5_L, RGB(255, 255, 255));
@@ -134,7 +128,16 @@ namespace game_framework {
 
 		_animaIter = _animas.begin();
 
-		(*_nowWeapon)->LoadBitmap();
+
+		//	武器設定
+		_weapons[0] = ProductFactory<CGameWeapon>::Instance().GetProduct((int)CGameWeapon::Type::INIT);
+		_weapons[1] = nullptr;
+		_nowWeapon = &_weapons[0];
+		(*_nowWeapon)->SetUser(this);
+		(*_nowWeapon)->SetTarget("enemy");
+		(*_nowWeapon)->SetAttributes(4, 1, 20, 15);
+
+		_isLoad = true;
 	}
 
 	void CCharacter::OnShow(CGameMap* map)
@@ -171,7 +174,7 @@ namespace game_framework {
 		//	動畫判斷	
 		if (this->IsMoveing())
 		{
-			if (_isMovingRight)
+			if (_DT == 1)
 				_animaIter = GetAnima(Anima::RUN_R);
 			else
 				_animaIter = GetAnima(Anima::RUN_L);
@@ -522,6 +525,22 @@ namespace game_framework {
 				CAudio::Instance()->Play(AUDIO_ID::AUDIO_HEALTH);
 			}
 			_canInteractive = true;
+		}
+		else if (other->GetTag() == "weapon")
+		{
+			if (_doSomeThing)
+			{
+				if (_weapons[1] == nullptr)
+				{
+					//CGameWeapon::WeaponMap
+				}
+				else
+				{
+
+				}
+				_doSomeThing = false;
+			}
+			//_canInteractive = true;
 		}
 
 		/*if (other->GetTag() == "enemy")

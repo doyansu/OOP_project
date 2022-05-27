@@ -30,11 +30,6 @@ namespace game_framework {
 		this->_moveSpeed = 3;
 		CEnemy::CGameObj::SetTag("enemy");
 
-		// 武器設定
-		_weapon = new CGameWeapon_Init();
-		_weapon->SetUser(this);
-		_weapon->SetAttributes(1, 0, 5, 50);
-		_weapon->SetTarget("player");
 	}
 
 	CEnemy::~CEnemy()
@@ -59,8 +54,7 @@ namespace game_framework {
 
 	void CEnemy::copy(const CEnemy& other)
 	{
-		_weapon = new CGameWeapon_Init();
-		_weapon->LoadBitmap();
+		_weapon = ProductFactory<CGameWeapon>::Instance().GetProduct((int)CGameWeapon::Type::INIT);
 		_weapon->SetUser(this);
 		_weapon->SetAttributes(1, 0, 5, 50);
 		_weapon->SetTarget("player");
@@ -101,7 +95,12 @@ namespace game_framework {
 
 		_animaIter = _animas.begin();
 
-		_weapon->LoadBitmap();
+
+		// 武器設定
+		_weapon = ProductFactory<CGameWeapon>::Instance().GetProduct((int)CGameWeapon::Type::INIT);
+		_weapon->SetUser(this);
+		_weapon->SetAttributes(1, 0, 5, 50);
+		_weapon->SetTarget("player");
 	}
 
 	void CEnemy::OnShow(CGameMap* map)

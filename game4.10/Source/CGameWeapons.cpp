@@ -35,6 +35,8 @@ namespace game_framework {
 		_bullet->LoadBitmap();
 
 		*GetAnima(Anima::ARROW) = CGameArrow::Instance();
+
+		_isLoad = true;
 	}
 
 }

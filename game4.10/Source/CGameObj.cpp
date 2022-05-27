@@ -20,6 +20,7 @@ namespace game_framework {
 		_showPriority = 0;
 		_needFree = true;
 		_hp = _maxHp = 5;
+		_isLoad = false;
 		Reset();
 	}
 
@@ -268,6 +269,11 @@ namespace game_framework {
 	bool CGameObj::IsMoveing()
 	{
 		return _isMovingDown || _isMovingLeft || _isMovingRight || _isMovingUp;
+	}
+
+	bool CGameObj::IsLoad()
+	{
+		return _isLoad;
 	}
 
 	void CGameObj::SetEnable(bool enable)

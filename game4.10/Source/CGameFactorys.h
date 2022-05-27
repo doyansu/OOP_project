@@ -2,7 +2,6 @@
 
 //參考網址 https://zhuanlan.zhihu.com/p/83537599
 
-#include "CGameWeapons.h"
 
 namespace game_framework
 {
@@ -25,6 +24,7 @@ namespace game_framework
 	class ProductFactory
 	{
 	public:
+		// 取得實體
 		static ProductFactory<ProductType_t> &Instance()
 		{
 			static ProductFactory<ProductType_t> instance;
@@ -37,7 +37,7 @@ namespace game_framework
 			m_ProductRegistry[name] = registrar;
 		}
 
-		// 
+		// 創建產品
 		ProductType_t* GetProduct(int name)
 		{
 			if (m_ProductRegistry.find(name) != m_ProductRegistry.end())
@@ -73,15 +73,13 @@ namespace game_framework
 		// 創建產品
 		ProductBase_t* CreateProduct()
 		{
-			return new ProductType_t();
+			return new ProductType_t(ProductType_t::Instance());
 		}
 
 		// Factory 註冊
-
 		static void Register()
 		{
-			static ProductRegistrar<CGameWeapon, CGameWeapon_Init> a((int)CGameWeapon::Type::INIT);
-
+			static ProductRegistrar<CGameWeapon, CGameWeapon_Init> Register((int)CGameWeapon::Type::INIT);
 		}
 	};
 

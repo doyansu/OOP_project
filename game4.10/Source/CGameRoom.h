@@ -143,7 +143,7 @@ namespace game_framework
 			if (true)
 			{
 				CGameWeapon* obj = ProductFactory<CGameWeapon>::Instance().GetProduct(rand() % (int)CGameWeapon::Type::TYPECOUNT);
-				obj->LoadBitmap();
+				//obj->LoadBitmap();
 				obj->SetXY(this->CenterX() - (obj->GetWidth() >> 1), this->GetY1() - (obj->GetHeight() >> 1));
 				CGameObj::AddObj(obj);
 			}

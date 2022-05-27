@@ -22,6 +22,7 @@ namespace game_framework {
 		bool IsDie();					// 是否死亡
 		bool IsMoveing();				// 是否正在移動
 		bool IsCollision();				// 是否啟用碰撞
+		bool IsLoad();					// 是否已執行 LoadBitmap()
 
 		// Getter
 		int GetX1();					// 左上地圖點座標
@@ -149,6 +150,7 @@ namespace game_framework {
 		bool _isMovingLeft;								//	是否正在往左移動
 		bool _isMovingRight;							//	是否正在往右移動
 		bool _isMovingUp;								//	是否正在往上移動
+		bool _isLoad;									//	是否已執行 LoadBitmap()
 		string _tag;									//	TAG
 
 		virtual void Die();								//	死亡初始化
