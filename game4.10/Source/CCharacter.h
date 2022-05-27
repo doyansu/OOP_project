@@ -50,7 +50,7 @@ namespace game_framework {
 		bool _canAttack;							// 近戰攻擊判斷
 		bool _canInteractive;						// 是否有物件可互動
 		CGameWeapon* _weapons[2];					// 可擁有2把武器
-		CGameWeapon** _nowWeapon;					// 當前武器 index
+		int _nowWeapon;								// 當前武器 index
 		int _attCounter;							// 近戰計數器
 		int _deathCounter;							// 死亡倒數
 		int _shieldCounter;							// 護頓恢復倒數

@@ -46,10 +46,10 @@ namespace game_framework {
 		free();
 		_weapons[0] = ProductFactory<CGameWeapon>::Instance().GetProduct((int)CGameWeapon::Type::INIT);
 		_weapons[1] = nullptr;
-		_nowWeapon = &_weapons[0];
-		(*_nowWeapon)->SetUser(this);
-		(*_nowWeapon)->SetTarget("enemy");
-		(*_nowWeapon)->SetAttributes(4, 1, 20, 15);
+		_nowWeapon = 0;
+		_weapons[_nowWeapon]->SetUser(this);
+		_weapons[_nowWeapon]->SetTarget("enemy");
+		_weapons[_nowWeapon]->SetAttributes(4, 1, 20, 15);
 
 	}
 
@@ -132,10 +132,10 @@ namespace game_framework {
 		//	武器設定
 		_weapons[0] = ProductFactory<CGameWeapon>::Instance().GetProduct((int)CGameWeapon::Type::INIT);
 		_weapons[1] = nullptr;
-		_nowWeapon = &_weapons[0];
-		(*_nowWeapon)->SetUser(this);
-		(*_nowWeapon)->SetTarget("enemy");
-		(*_nowWeapon)->SetAttributes(4, 1, 20, 15);
+		_nowWeapon = 0;
+		_weapons[_nowWeapon]->SetUser(this);
+		_weapons[_nowWeapon]->SetTarget("enemy");
+		_weapons[_nowWeapon]->SetAttributes(4, 1, 20, 15);
 
 		_isLoad = true;
 	}
@@ -147,7 +147,7 @@ namespace game_framework {
 			_animaIter->SetTopLeft(map->ScreenX(_mx), map->ScreenY(_my - 20));
 			_animaIter->OnShow();
 			if(!_isDie)
-				(*_nowWeapon)->OnShow(map);
+				_weapons[_nowWeapon]->OnShow(map);
 		}
 		else
 		{
@@ -362,12 +362,12 @@ namespace game_framework {
 			_vector[1] = 0;
 
 		//	武器移動
-		(*_nowWeapon)->SetCenter(this->CenterX(), this->CenterY() - 10);
-		(*_nowWeapon)->OnMove(map);
+		_weapons[_nowWeapon]->SetCenter(this->CenterX(), this->CenterY() - 10);
+		_weapons[_nowWeapon]->OnMove(map);
 		if(_vector[1] <= 0)
-			(*_nowWeapon)->SetDT(CGameTool::TwoVectorAngle(_vector[0], _vector[1], 1.0, 0.0) / 45);
+			_weapons[_nowWeapon]->SetDT(CGameTool::TwoVectorAngle(_vector[0], _vector[1], 1.0, 0.0) / 45);
 		else
-			(*_nowWeapon)->SetDT(8 - CGameTool::TwoVectorAngle(_vector[0], _vector[1], 1.0, 0.0) / 45);
+			_weapons[_nowWeapon]->SetDT(8 - CGameTool::TwoVectorAngle(_vector[0], _vector[1], 1.0, 0.0) / 45);
 
 		// 找到敵人時變更角色、武器朝向、螢幕移動
 		if (target != nullptr)
@@ -404,9 +404,9 @@ namespace game_framework {
 			int tx = target->CenterX() - this->CenterX();
 			int ty = target->CenterY() - this->CenterY();
 			if (ty <= 0)
-				(*_nowWeapon)->SetDT(CGameTool::TwoVectorAngle(tx, ty, 1.0, 0.0) / 45);
+				_weapons[_nowWeapon]->SetDT(CGameTool::TwoVectorAngle(tx, ty, 1.0, 0.0) / 45);
 			else
-				(*_nowWeapon)->SetDT(8 - CGameTool::TwoVectorAngle(tx, ty, 1.0, 0.0) / 45);
+				_weapons[_nowWeapon]->SetDT(8 - CGameTool::TwoVectorAngle(tx, ty, 1.0, 0.0) / 45);
 			
 		}
 
@@ -420,12 +420,12 @@ namespace game_framework {
 			else if (target != nullptr)	// 找到敵人朝敵人射擊
 			{
 				const double MINSEARCH = 0.0;	// 最小搜索範圍 (目前沒有)
-				if ((*_nowWeapon)->CanFire() && d <= MAXSEARCH)// 找到敵人朝敵人射擊
+				if (_weapons[_nowWeapon]->CanFire() && d <= MAXSEARCH)// 找到敵人朝敵人射擊
 				{
 					double vx = (double)(target->CenterX() - this->CenterX()) / d;
 					double vy = (double)(target->CenterY() - this->CenterY()) / d;
-					(*_nowWeapon)->Shoot(vx, vy);
-					this->ModifyMp(-(*_nowWeapon)->GetCost());
+					_weapons[_nowWeapon]->Shoot(vx, vy);
+					this->ModifyMp(-_weapons[_nowWeapon]->GetCost());
 				}
 				else if (_attCounter == 0 && d < MINSEARCH) // 近戰攻擊
 				{
@@ -433,10 +433,10 @@ namespace game_framework {
 					target->TakeDmg(_damage);
 				}
 			}
-			else if ((*_nowWeapon)->CanFire()) // 沒找到敵人朝 vector 射擊
+			else if (_weapons[_nowWeapon]->CanFire()) // 沒找到敵人朝 vector 射擊
 			{
-				(*_nowWeapon)->Shoot(_vector[0], _vector[1]);
-				this->ModifyMp(-(*_nowWeapon)->GetCost());
+				_weapons[_nowWeapon]->Shoot(_vector[0], _vector[1]);
+				this->ModifyMp(-_weapons[_nowWeapon]->GetCost());
 			}
 		}
 		
@@ -532,7 +532,8 @@ namespace game_framework {
 			{
 				if (_weapons[1] == nullptr)
 				{
-					//CGameWeapon::WeaponMap
+
+					_weapons[1] = CGameWeapon::WeaponMap[other];
 				}
 				else
 				{
@@ -728,7 +729,7 @@ namespace game_framework {
 	{
 		_mx = x;
 		_my = y;
-		(*_nowWeapon)->SetCenter(this->CenterX(), this->CenterY() - 10);
+		_weapons[_nowWeapon]->SetCenter(this->CenterX(), this->CenterY() - 10);
 	}
 	
 
