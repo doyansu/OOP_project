@@ -679,8 +679,9 @@ namespace game_framework {
 			if (_shield)
 			{
 				_shield -= dmg;
-				if (_shield < 0)
+				if (_shield <= 0)
 				{
+					CAudio::Instance()->Play(AUDIO_SHIELDBREAK);
 					CGameObj::TakeDmg(-_shield);
 					_shield = 0;
 				}

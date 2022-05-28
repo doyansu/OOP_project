@@ -105,7 +105,8 @@ void CGameStateInit::OnInit()
 	CAudio::Instance()->Load(AUDIO_GET_ENERGY, "sounds\\Coin\\fx_energy.wav");
 
 	// HEALTH
-	CAudio::Instance()->Load(AUDIO_HEALTH, "sounds\\Health\\fx_healthpot.wav");
+	CAudio::Instance()->Load(AUDIO_HEALTH, "sounds\\Health\\fx_healthpot.wav"); 
+	CAudio::Instance()->Load(AUDIO_SHIELDBREAK, "sounds\\Health\\shield_break.wav");
 	
 	// AUDIO_SWITCH_WEAPON
 	CAudio::Instance()->Load(AUDIO_SWITCH_WEAPON, "sounds\\Player\\fx_switch.wav");
