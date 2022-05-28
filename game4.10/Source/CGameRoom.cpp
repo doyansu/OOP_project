@@ -51,18 +51,12 @@ namespace game_framework
 		case RoomData::RoomType::BOSS:		//	BOSS房間
 		case RoomData::RoomType::NORMAL:	// 一般房間
 		{
-			// 新增怪物
-			CEnemy enemy;
-			enemy.LoadBitmap();
-			_enemys.reserve(10);
-			_enemys.push_back(new CEnemy(enemy));
-
 
 			// 第一批怪物
 			int n = 1 + rand() % _maxEnemy;
 			for (int i = 0; i < n; i++)
 			{
-				CEnemy* newEnemy = new CEnemy(*(_enemys.at(rand() % (int)_enemys.size())));
+				CEnemy* newEnemy = ProductFactory<CEnemy>::Instance().GetProduct(rand() % (int)CEnemy::Type::TYPECOUNT);//new CEnemy(*(_enemys.at(rand() % (int)_enemys.size())));
 				// 碰到障礙重新選位置
 				do {
 					newEnemy->SetXY(_mx + MYMAPWIDTH * (1 + rand() % (_room->Width() - 2)), _my + MYMAPHIGH * (1 + rand() % (_room->High() - 2)));
@@ -168,10 +162,6 @@ namespace game_framework
 				if (!obj->NeedFree())
 					delete obj;
 			}
-			for (CEnemy* enemy : _enemys)
-			{
-				delete enemy;
-			}
 			break;
 		}
 		default:
@@ -223,7 +213,7 @@ namespace game_framework
 					int r = 1 + (rand() % (_maxEnemy - 1));
 					for (int i = 0; i < r; i++)
 					{
-						CEnemy* newEnemy = new CEnemy(*(_enemys.at(rand() % (int)_enemys.size())));
+						CEnemy* newEnemy = ProductFactory<CEnemy>::Instance().GetProduct(rand() % (int)CEnemy::Type::TYPECOUNT);;
 						// 碰到障礙重新選位置
 						do {
 							newEnemy->SetXY(_mx + MYMAPWIDTH * (1 + rand() % (_room->Width() - 2)), _my + MYMAPHIGH * (1 + rand() % (_room->High() - 2)));

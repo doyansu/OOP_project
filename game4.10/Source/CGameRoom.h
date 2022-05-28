@@ -1,10 +1,9 @@
 #pragma once
-#include "CEnemy.h"
+#include "CGameEnemys.h"
 #include "CCharacter.h"
 #include "CGameTrackObj.h"
 #include "CGameInteractOnceObj.h"
 #include "CGameArrow.h"
-#include "CGameFactorys.h"
 
 #define REGENERATETIME GAME_ONE_SECONED + (GAME_ONE_SECONED >> 1)
 
@@ -523,7 +522,6 @@ namespace game_framework
 		RoomData* _room;					// 房間資訊生成地圖時建構
 		vector<CEnemy*> _roomEnemys;		// 可由房間管理的怪物
 		vector<RoomWall*> _roomWalls;		// 通道阻隔物件控制
-		vector<CEnemy*> _enemys;			// 可以生成的怪物類型
 
 		static CAnimation _marking;			// 標記動畫
 	};

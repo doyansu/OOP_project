@@ -2,7 +2,6 @@
 
 //參考網址 https://zhuanlan.zhihu.com/p/83537599
 
-
 namespace game_framework
 {
 	template <class ProductType_t>
@@ -74,12 +73,6 @@ namespace game_framework
 		ProductBase_t* CreateProduct()
 		{
 			return new ProductType_t(ProductType_t::Instance());
-		}
-
-		// Factory 註冊
-		static void Register()
-		{
-			static ProductRegistrar<CGameWeapon, CGameWeapon_Init> Register((int)CGameWeapon::Type::INIT);
 		}
 	};
 

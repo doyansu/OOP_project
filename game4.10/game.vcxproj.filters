@@ -29,6 +29,7 @@
     <ClCompile Include="Source\CGameWeapons.cpp" />
     <ClCompile Include="Source\CGameFactorys.cpp" />
     <ClCompile Include="Source\CUIWeapon.cpp" />
+    <ClCompile Include="Source\CGameEnemys.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\CCharacter.h" />

@@ -4,6 +4,7 @@
 #include "CGameTrackObj.h"
 #include "CAnimationEnemyAppear.h"
 
+
 namespace game_framework {
 
 	class CEnemy : public CGameObj

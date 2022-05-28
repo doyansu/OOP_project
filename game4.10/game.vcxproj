@@ -260,6 +260,7 @@
     <ClCompile Include="source\CEnemy.cpp" />
     <ClCompile Include="Source\CGameArrow.cpp" />
     <ClCompile Include="Source\CGameBullet.cpp" />
+    <ClCompile Include="Source\CGameEnemys.cpp" />
     <ClCompile Include="Source\CGameFactorys.cpp" />
     <ClCompile Include="Source\CGameInteractOnceObj.cpp" />
     <ClCompile Include="Source\CGameMap.cpp" />
