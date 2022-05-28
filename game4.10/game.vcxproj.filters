@@ -292,6 +292,7 @@
     <Image Include="res\enemy\btn_bgm_.bmp" />
     <Image Include="res\enemy\bmp00097.bmp" />
     <Image Include="res\enemy\btn_soun.bmp" />
+    <Image Include="res\enemy\bmp00098.bmp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="RES\bmp0.bmp" />

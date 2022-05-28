@@ -492,6 +492,8 @@ IDB_BTN_soundEffect_0   BITMAP                  "..\\res\\enemy\\bmp00097.bmp"
 
 IDB_BTN_soundEffect_1   BITMAP                  "..\\res\\enemy\\btn_soun.bmp"
 
+IDB_Weapon_UI           BITMAP                  "..\\res\\enemy\\bmp00098.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //

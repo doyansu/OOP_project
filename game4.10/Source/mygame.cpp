@@ -389,6 +389,11 @@ void CGameStateRun::OnBeginState()
 	// Audio
 	CAudio::Instance()->Play(AUDIO_BGM_SNOW, true);
 
+	CGameTreasure* treasure = CGameTreasure::CreateObj(rand() % (int)CGameTreasure::Type::TYPECOUNT);
+	treasure->SetXY(MYMAPWIDTH * gameMap.GetRoom(MYORGROOM, MYORGROOM)->CenterX(),
+		MYMAPHIGH * gameMap.GetRoom(MYORGROOM, MYORGROOM)->CenterY());
+	CGameObj::AddObj(treasure);
+
 	// 舊版房間建構
 	/*for (int i = 0; i < MYMAXNOFROOM; i++)
 		for (int j = 0; j < MYMAXNOFROOM; j++)

@@ -11,7 +11,7 @@ namespace game_framework
 			static bool isLoad = false;
 			if (isLoad == false)
 			{
-				instance.AddBitmap(IDB_BACKGROUND);
+				instance.AddBitmap(IDB_Weapon_UI, RGB(255, 255, 255));
 				isLoad = true;
 			}
 			return instance;
