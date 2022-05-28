@@ -15,6 +15,7 @@ namespace game_framework {
 
 		bool hasAppeared();
 
+		void TakeDmg(int);
 		void LoadBitmap();				// 載入圖形
 		void OnShow(CGameMap*);					// 將圖形貼到畫面
 		void OnMove(CGameMap*);
@@ -26,10 +27,12 @@ namespace game_framework {
 		CGameWeapon* _weapon;
 
 		void Die();
-		
-	private:
 		void copy(const CEnemy&);
 		void free();
 		vector<CAnimation>::iterator GetAnima(Anima);
+
+	private:
+		
+		
 	};
 }

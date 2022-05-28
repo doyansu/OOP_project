@@ -107,9 +107,32 @@ void CGameStateInit::OnInit()
 	// HEALTH
 	CAudio::Instance()->Load(AUDIO_HEALTH, "sounds\\Health\\fx_healthpot.wav");
 	
+	// AUDIO_SWITCH_WEAPON
+	CAudio::Instance()->Load(AUDIO_SWITCH_WEAPON, "sounds\\Player\\fx_switch.wav");
 
 	// WEAPON
 	CAudio::Instance()->Load(AUDIO_GUN_0, "sounds\\Shoot\\fx_gun_1.wav");
+
+	//	HIT
+	CAudio::Instance()->Load(AUDIO_HIT_ENEMY_0, "sounds\\Hit\\fx_hit.wav");
+	CAudio::Instance()->Load(AUDIO_HIT_ENEMY_1, "sounds\\Hit\\fx_hit_p1.wav");
+	CAudio::Instance()->Load(AUDIO_HIT_ENEMY_2, "sounds\\Hit\\fx_hit_p2.wav");
+	CAudio::Instance()->Load(AUDIO_HIT_ENEMY_3, "sounds\\Hit\\fx_hit_p3.wav");
+	CAudio::Instance()->Load(AUDIO_HIT_ENEMY_4, "sounds\\Hit\\fx_hit_p4.wav");
+	CAudio::Instance()->Load(AUDIO_HIT_ENEMY_5, "sounds\\Hit\\fx_hit_p5.wav");
+
+	//	DEAD
+	CAudio::Instance()->Load(AUDIO_DEAD_ENEMY_0, "sounds\\Dead\\fx_dead.wav");
+	CAudio::Instance()->Load(AUDIO_DEAD_ENEMY_1, "sounds\\Dead\\fx_dead_cell_absorb.wav");
+	CAudio::Instance()->Load(AUDIO_DEAD_ENEMY_2, "sounds\\Dead\\fx_dead2.wav");
+	CAudio::Instance()->Load(AUDIO_DEAD_ENEMY_3, "sounds\\Dead\\fx_dead3.wav");
+	CAudio::Instance()->Load(AUDIO_DEAD_ENEMY_4, "sounds\\Dead\\fx_dead4.wav");
+	CAudio::Instance()->Load(AUDIO_DEAD_ENEMY_5, "sounds\\Dead\\fx_dead5.wav");
+	CAudio::Instance()->Load(AUDIO_DEAD_ENEMY_6, "sounds\\Dead\\fx_dead6.wav");
+	CAudio::Instance()->Load(AUDIO_DEAD_ENEMY_7, "sounds\\Dead\\fx_dead7.wav");
+	CAudio::Instance()->Load(AUDIO_DEAD_ENEMY_8, "sounds\\Dead\\fx_dead8.wav");
+	CAudio::Instance()->Load(AUDIO_DEAD_ENEMY_9, "sounds\\Dead\\fx_dead_cell_absorb.wav");
+	CAudio::Instance()->Load(AUDIO_DEAD_ENEMY_10, "sounds\\Dead\\fx_dead_note.wav");
 
 
 

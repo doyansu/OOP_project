@@ -486,9 +486,12 @@ namespace game_framework {
 		}
 		else if (other->GetTag() == "treasure")			//	一般寶箱
 		{
-			if (_doSomeThing && other->IsEnable())
-				other->TakeDmg(99999);
-			_canInteractive = true;
+			if (other->IsEnable())
+			{
+				_canInteractive = true;
+				if (_doSomeThing)
+					other->TakeDmg(99999);
+			}
 		}
 		else if (other->GetTag() == "redpotion")		//	紅藥水
 		{
@@ -530,15 +533,17 @@ namespace game_framework {
 			}
 			_canInteractive = true;
 		}
-		else if (other->GetTag() == "weapon")
+		else if (other->GetTag() == "weapon")			//	武器
 		{
 			if (_doSomeThing)
 			{
+				CAudio::Instance()->Play(AUDIO_SWITCH_WEAPON);
 				if (_weapons[_nowWeapon ^ 1] == nullptr)	// 只有一把武器
 				{
 					_weapons[_nowWeapon ^ 1] = ProductFactory<CGameWeapon>::Instance().GetProduct((int)CGameWeapon::WeaponMap[other]->GetType());
 					//_weapons[_nowWeapon ^ 1] = CGameWeapon::WeaponMap[other];
 					_weapons[_nowWeapon ^ 1]->SetUser(this);
+					_weapons[_nowWeapon ^ 1]->SetTarget("enemy");
 					other->SetEnable(false);
 				}
 				else  // 替換當前武器
@@ -547,6 +552,7 @@ namespace game_framework {
 					CGameObj::AddObj(_weapons[_nowWeapon]);
 					_weapons[_nowWeapon] = ProductFactory<CGameWeapon>::Instance().GetProduct((int)CGameWeapon::WeaponMap[other]->GetType());
 					_weapons[_nowWeapon]->SetUser(this);
+					_weapons[_nowWeapon]->SetTarget("enemy");
 					other->SetEnable(false);
 				}
 				_doSomeThing = false;
@@ -574,24 +580,38 @@ namespace game_framework {
 		const char KEY_A = 0x41;
 		const char KEY_D = 0x44;
 		const char KEY_Z = 0x5A;
+		const char KEY_X = 0x58;
+		const char KEY_C = 0x43;
 		const char KEY_LEFT = 0x25; // keyboard左箭頭
 		const char KEY_UP = 0x26; // keyboard上箭頭
 		const char KEY_RIGHT = 0x27; // keyboard右箭頭
 		const char KEY_DOWN = 0x28; // keyboard下箭頭
 
-		if (nChar == KEY_SPACE || nChar == KEY_Z)
+		switch (nChar)
 		{
+		case KEY_SPACE:
+		case KEY_Z:
 			_doSomeThing = false;
-		}
-
-		if (nChar == KEY_LEFT || nChar == KEY_A)
+			break;
+		case KEY_LEFT:
+		case KEY_A:
 			this->SetMovingLeft(false);
-		if (nChar == KEY_RIGHT || nChar == KEY_D)
+			break;
+		case KEY_RIGHT:
+		case KEY_D:
 			this->SetMovingRight(false);
-		if (nChar == KEY_UP || nChar == KEY_W)
+			break;
+		case KEY_UP:
+		case KEY_W:
 			this->SetMovingUp(false);
-		if (nChar == KEY_DOWN || nChar == KEY_S)
+			break;
+		case KEY_DOWN:
+		case KEY_S:
 			this->SetMovingDown(false);
+			break;
+		default:
+			break;
+		}
 	}
 
 	void CCharacter::OnKeyDown(char nChar)
@@ -604,24 +624,47 @@ namespace game_framework {
 		const char KEY_A = 0x41;
 		const char KEY_D = 0x44;
 		const char KEY_Z = 0x5A;
+		const char KEY_X = 0x58;
+		const char KEY_C = 0x43;
 		const char KEY_LEFT = 0x25;		// keyboard左箭頭
 		const char KEY_UP = 0x26;		// keyboard上箭頭
 		const char KEY_RIGHT = 0x27;	// keyboard右箭頭
 		const char KEY_DOWN = 0x28;		// keyboard下箭頭
 
-		if (nChar == KEY_SPACE || nChar == KEY_Z)
+		switch (nChar)
 		{
+		case KEY_SPACE:
+		case KEY_Z:
 			_doSomeThing = true;
-		}
-
-		if (nChar == KEY_LEFT || nChar == KEY_A)
+			break;
+		case KEY_LEFT:
+		case KEY_A:
 			this->SetMovingLeft(true);
-		if (nChar == KEY_RIGHT || nChar == KEY_D)
+			break;
+		case KEY_RIGHT:
+		case KEY_D:
 			this->SetMovingRight(true);
-		if (nChar == KEY_UP || nChar == KEY_W)
+			break;
+		case KEY_UP:
+		case KEY_W:
 			this->SetMovingUp(true);
-		if (nChar == KEY_DOWN || nChar == KEY_S)
+			break;
+		case KEY_DOWN:
+		case KEY_S:
 			this->SetMovingDown(true);
+			break;
+		case  KEY_X:
+			if (_weapons[_nowWeapon ^ 1] != nullptr)
+			{
+				//	切換武器
+				_nowWeapon ^= 1;
+				//	播放音效
+				CAudio::Instance()->Play(AUDIO_SWITCH_WEAPON);
+			}
+			break;
+		default:
+			break;
+		}
 	}
 
 	void CCharacter::TakeDmg(int dmg)

@@ -203,6 +203,8 @@ namespace game_framework {
 		this->SetCollision(false);
 		this->SetShowPriority(0);
 		_animaIter = GetAnima(CEnemy::Anima::DIE);
+		// 隨機 DEAD 音效  CAudio::Instance()->Play(AUDIO_DEAD_ENEMY_0 + rand() % (AUDIO_DEAD_ENEMY_COUNT - AUDIO_DEAD_ENEMY_0));
+		CAudio::Instance()->Play(AUDIO_DEAD_ENEMY_0);
 
 		if (rand() % 10 < 2)	//	20 % 掉落金幣或能量球
 		{
@@ -226,6 +228,14 @@ namespace game_framework {
 	void CEnemy::OnDie(CGameMap* map)
 	{
 		_animaIter->OnMove();
+	}
+
+
+	void CEnemy::TakeDmg(int dmg)
+	{
+		CGameObj::TakeDmg(dmg);
+		// 隨機 HIT 音效 CAudio::Instance()->Play(AUDIO_HIT_ENEMY_0 + rand() % (AUDIO_HIT_ENEMY_COUNT - AUDIO_HIT_ENEMY_0));
+		CAudio::Instance()->Play(AUDIO_HIT_ENEMY_0);
 	}
 
 	bool CEnemy::hasAppeared()
