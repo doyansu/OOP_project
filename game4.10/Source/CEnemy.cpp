@@ -29,7 +29,7 @@ namespace game_framework {
 		this->_hp = 10;
 		this->_moveSpeed = 3;
 		CEnemy::CGameObj::SetTag("enemy");
-
+		_enemyType = Type::INIT;
 	}
 
 	CEnemy::~CEnemy()
@@ -54,6 +54,7 @@ namespace game_framework {
 
 	void CEnemy::copy(const CEnemy& other)
 	{
+		this->_enemyType = other._enemyType;
 		_weapon = ProductFactory<CGameWeapon>::Instance().GetProduct((int)CGameWeapon::Type::INIT);
 		_weapon->SetUser(this);
 		_weapon->SetAttributes(1, 0, 5, 50);
@@ -85,13 +86,8 @@ namespace game_framework {
 		_animaIter = GetAnima(CEnemy::Anima::DIE);
 		_animaIter->AddBitmap(IDB_enemy0_die, RGB(255, 255, 255));
 
-		_animaIter = GetAnima(Anima::APPEARANCE); 
-		_animaIter->SetDelayCount(2);
-		_animaIter->AddBitmap(IDB_enemyAppearance_0, RGB(0, 0, 0));
-		_animaIter->AddBitmap(IDB_enemyAppearance_1, RGB(0, 0, 0));
-		_animaIter->AddBitmap(IDB_enemyAppearance_2, RGB(0, 0, 0));
-		_animaIter->AddBitmap(IDB_enemyAppearance_3, RGB(0, 0, 0));
-		_animaIter->AddBitmap(IDB_enemyAppearance_4, RGB(0, 0, 0));
+		*GetAnima(Anima::APPEARANCE) = CAnimationEnemyAppear::Instance();
+
 
 		_animaIter = _animas.begin();
 
@@ -241,6 +237,11 @@ namespace game_framework {
 	bool CEnemy::hasAppeared()
 	{
 		return GetAnima(Anima::APPEARANCE)->IsFinalBitmap();
+	}
+
+	CEnemy::Type CEnemy::GetType()
+	{
+		return _enemyType;
 	}
 
 	vector<CAnimation>::iterator CEnemy::GetAnima(Anima type)

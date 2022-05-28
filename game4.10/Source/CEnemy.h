@@ -2,18 +2,21 @@
 #include "CCharacter.h"
 #include "CGameWeapons.h"
 #include "CGameTrackObj.h"
+#include "CAnimationEnemyAppear.h"
 
 namespace game_framework {
 
 	class CEnemy : public CGameObj
 	{
 	public:
+		enum class Type { INIT, TYPECOUNT };
 		enum class Anima { RUN_R, RUN_L, DIE, APPEARANCE, ANIMACOUNT};
 		CEnemy();
 		~CEnemy() override;
 		CEnemy(const CEnemy&);
 
 		bool hasAppeared();
+		Type GetType();
 
 		void TakeDmg(int);
 		void LoadBitmap();				// ¸ü¤J¹Ï§Î
@@ -25,14 +28,14 @@ namespace game_framework {
 		//CEnemy& operator=(const CEnemy&);
 	protected:
 		CGameWeapon* _weapon;
+		Type _enemyType;
 
 		void Die();
-		void copy(const CEnemy&);
-		void free();
 		vector<CAnimation>::iterator GetAnima(Anima);
 
 	private:
-		
+		void copy(const CEnemy&);
+		void free();
 		
 	};
 }

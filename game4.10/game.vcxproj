@@ -319,10 +319,12 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\CAnimationEnemyAppear.h" />
     <ClInclude Include="source\CCharacter.h" />
     <ClInclude Include="source\CEnemy.h" />
     <ClInclude Include="Source\CGameArrow.h" />
     <ClInclude Include="Source\CGameBullet.h" />
+    <ClInclude Include="Source\CGameEnemys.h" />
     <ClInclude Include="Source\CGameFactorys.h" />
     <ClInclude Include="Source\CGameInteractOnceObj.h" />
     <ClInclude Include="Source\CGameMap.h" />

@@ -221,8 +221,9 @@ namespace game_framework
 
 			CGameBullet* newbullet = new CGameBullet(*_bullet);
 			// 出發點
-			newbullet->SetDamage(this->_atk * ((rand() % 10 < this->_crit) ? 2 : 1));
 			newbullet->SetXY(this->CenterX(), this->CenterY());
+			// 是否爆擊調整傷害
+			newbullet->SetDamage(this->_atk * ((rand() % 50 < 5 + this->_crit) ? 2 : 1));
 			// 決定方向
 			newbullet->SetVector(x + 0.05 * (-(this->_spread >> 1) + rand() % this->_spread)
 				, y + 0.05 * (-(this->_spread >> 1) + rand() % this->_spread));		

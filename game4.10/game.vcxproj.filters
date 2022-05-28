@@ -61,6 +61,8 @@
     <ClInclude Include="Source\CGameFactorys.h" />
     <ClInclude Include="Source\CGameWeapons.h" />
     <ClInclude Include="Source\CUIWeapon.h" />
+    <ClInclude Include="Source\CGameEnemys.h" />
+    <ClInclude Include="Source\CAnimationEnemyAppear.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Source\game.rc" />
