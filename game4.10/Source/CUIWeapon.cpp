@@ -56,16 +56,16 @@ namespace game_framework
 
 		CInteger integer;
 		integer.SetInteger(_atk);
-		integer.SetTopLeft(x + 10 -integer.GetLen() * integer.GetWidth(), y);
+		integer.SetTopLeft(x + 78 -integer.GetLen() * integer.GetWidth(), y + 10);
 		integer.ShowBitmap(false);
 		integer.SetInteger(_cost);
-		integer.SetTopLeft(x + 30 -integer.GetLen() * integer.GetWidth(), y);
+		integer.SetTopLeft(x + 157 -integer.GetLen() * integer.GetWidth(), y + 10);
 		integer.ShowBitmap(false);
 		integer.SetInteger(_crit);
-		integer.SetTopLeft(x + 50 -integer.GetLen() * integer.GetWidth(), y);
+		integer.SetTopLeft(x + 236 -integer.GetLen() * integer.GetWidth(), y + 10);
 		integer.ShowBitmap(false);
 		integer.SetInteger(_spread);
-		integer.SetTopLeft(x + 70 -integer.GetLen() * integer.GetWidth(), y);
+		integer.SetTopLeft(x + 315 -integer.GetLen() * integer.GetWidth(), y + 10);
 		integer.ShowBitmap(false);
 	}
 }
