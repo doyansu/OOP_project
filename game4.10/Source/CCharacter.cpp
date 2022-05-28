@@ -534,18 +534,27 @@ namespace game_framework {
 		{
 			if (_doSomeThing)
 			{
-				if (_weapons[_nowWeapon ^ 1] == nullptr)
+				if (_weapons[_nowWeapon ^ 1] == nullptr)	// 只有一把武器
 				{
-					//_weapons[_nowWeapon ^ 1] = ProductFactory<CGameWeapon>::Instance().GetProduct((int)CGameWeapon::WeaponMap[other]->GetType());
-					//_weapons[_nowWeapon ^ 1]->SetUser(this);
+					_weapons[_nowWeapon ^ 1] = ProductFactory<CGameWeapon>::Instance().GetProduct((int)CGameWeapon::WeaponMap[other]->GetType());
+					//_weapons[_nowWeapon ^ 1] = CGameWeapon::WeaponMap[other];
+					_weapons[_nowWeapon ^ 1]->SetUser(this);
+					other->SetEnable(false);
 				}
-				else
+				else  // 替換當前武器
 				{
-
+					_weapons[_nowWeapon]->SetUser(nullptr);
+					CGameObj::AddObj(_weapons[_nowWeapon]);
+					_weapons[_nowWeapon] = ProductFactory<CGameWeapon>::Instance().GetProduct((int)CGameWeapon::WeaponMap[other]->GetType());
+					_weapons[_nowWeapon]->SetUser(this);
+					other->SetEnable(false);
 				}
 				_doSomeThing = false;
 			}
 			_canInteractive = true;
+		}
+		else
+		{
 		}
 
 		/*if (other->GetTag() == "enemy")

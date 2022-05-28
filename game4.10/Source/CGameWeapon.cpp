@@ -27,6 +27,9 @@ namespace game_framework
 		_shootDelay = 10;
 		_fireCounter = _shootDelay;
 		_bulletSpeed = 20;
+		_crit = 0;
+		_spread = 0;
+		_atk = 0;
 		_DT = 1;
 		CGameWeapon::CGameObj::SetTag("weapon");
 		_center[0] = _center[1] = 0;
@@ -81,6 +84,10 @@ namespace game_framework
 		this->_shootID = other._shootID;
 		this->_collPlayer = other._collPlayer;
 		this->_weaponType = other._weaponType;
+		this->_crit = other._crit;
+		this->_spread = other._spread;
+		this->_atk = other._atk;
+		WeaponMap[(CGameObj*)this] = this;
 	}
 
 	void CGameWeapon::free()
@@ -128,6 +135,10 @@ namespace game_framework
 			{
 				GetAnima(Anima::ARROW)->OnMove();
 				_collPlayer = false;
+
+				// 武器 UI 調動
+				CUIWeapon::Instance().SetMove(false);
+				CUIWeapon::Instance().SetValue(_atk, _cost, _crit, _spread);
 			}
 			else // 重製動畫
 			{
@@ -246,6 +257,7 @@ namespace game_framework
 
 	void CGameWeapon::SetAttributes(int atk, int cost, int bulletSpeed, int shootDelay)
 	{
+		_atk = atk;
 		_cost = cost;
 		_bulletSpeed = bulletSpeed;
 		_shootDelay = shootDelay;

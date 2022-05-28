@@ -2,6 +2,7 @@
 #include "audio.h"
 #include "CGameBullet.h"
 #include "CGameArrow.h"
+#include "CUIWeapon.h"
 
 namespace game_framework
 {
@@ -38,6 +39,7 @@ namespace game_framework
 		bool _fire;		
 		int _center[2];								//	使用者想要的位置
 		int _cost, _bulletSpeed, _shootDelay;		//	消耗能量、子彈速度、攻擊速度
+		int _atk, _crit, _spread;					//	子彈攻擊力、爆擊加成、散布程度
 		int _fireCounter;							//	射擊間格計數
 		int _DT;									//	動畫判斷
 		int _collPlayer;							//	碰撞玩家判定

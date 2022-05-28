@@ -276,6 +276,7 @@
     <ClCompile Include="Source\CBouncingBall.cpp" />
     <ClCompile Include="Source\CEraser.cpp" />
     <ClCompile Include="Source\CUIMinMap.cpp" />
+    <ClCompile Include="Source\CUIWeapon.cpp" />
     <ClCompile Include="Source\game.cpp">
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -339,6 +340,7 @@
     <ClInclude Include="Source\CEraser.h" />
     <ClInclude Include="Source\CUIButton.h" />
     <ClInclude Include="Source\CUIMinMap.h" />
+    <ClInclude Include="Source\CUIWeapon.h" />
     <ClInclude Include="Source\game.h" />
     <ClInclude Include="Source\gameDoc.h" />
     <ClInclude Include="Source\gameView.h" />

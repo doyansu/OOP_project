@@ -28,6 +28,7 @@
     <ClCompile Include="Source\CGameArrow.cpp" />
     <ClCompile Include="Source\CGameWeapons.cpp" />
     <ClCompile Include="Source\CGameFactorys.cpp" />
+    <ClCompile Include="Source\CUIWeapon.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\CCharacter.h" />
@@ -59,6 +60,7 @@
     <ClInclude Include="Source\CGameArrow.h" />
     <ClInclude Include="Source\CGameFactorys.h" />
     <ClInclude Include="Source\CGameWeapons.h" />
+    <ClInclude Include="Source\CUIWeapon.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Source\game.rc" />

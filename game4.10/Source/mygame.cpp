@@ -486,6 +486,8 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	bball.OnMove();*/
 
 	// UI
+
+	// button
 	if (btn_setup.IsFinalBitmap())
 	{
 		if (setup_posy > SIZE_Y - setup_UI.Height())
@@ -511,6 +513,10 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 		if (btn_posy > -300)
 			btn_posy -= 50;
 	}
+
+	// 武器 UI 調動
+	CUIWeapon::Instance().MoveUI();
+
 
 	// GAME
 	gameMap.OnMove(character.CenterX(), character.CenterY());
@@ -946,6 +952,9 @@ void CGameStateRun::OnShow()
 	minMap.SetXY(SIZE_X - 180 + dMinMap, 25 + btn_pause.Height());
 	minMap.OnShow();
 
+	// 武器 UI 調動
+	CUIWeapon::Instance().ShowUI();
+
 	//	暫停介面
 	pause_UI.SetTopLeft(((SIZE_X - pause_UI.Width()) >> 1), btn_posy);
 	pause_UI.ShowBitmap();
@@ -965,6 +974,9 @@ void CGameStateRun::OnShow()
 	btn_BGM.OnShow();
 	btn_soundEffect.SetTopLeft(5 + btn_BGM.Left() + btn_BGM.Width(), 11 + setup_posy);
 	btn_soundEffect.OnShow();
+
+
+	
 
 	//debug
 	/*debugx.SetTopLeft(0, SIZE_Y - 20);
