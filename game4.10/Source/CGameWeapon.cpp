@@ -219,9 +219,14 @@ namespace game_framework
 			// 音效播放
 			CAudio::Instance()->Play(_shootID);
 
-			_bullet->SetXY(this->CenterX(), this->CenterY());
-			_bullet->SetVector(x, y);
-			CGameObj::AddObj(new CGameBullet(*_bullet));
+			CGameBullet* newbullet = new CGameBullet(*_bullet);
+			// 出發點
+			newbullet->SetDamage(this->_atk * ((rand() % 10 < this->_crit) ? 2 : 1));
+			newbullet->SetXY(this->CenterX(), this->CenterY());
+			// 決定方向
+			newbullet->SetVector(x + 0.05 * (-(this->_spread >> 1) + rand() % this->_spread)
+				, y + 0.05 * (-(this->_spread >> 1) + rand() % this->_spread));		
+			CGameObj::AddObj(newbullet);
 			_fire = false;
 			_fireCounter = _shootDelay;
 		}
