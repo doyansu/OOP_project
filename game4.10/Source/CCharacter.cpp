@@ -215,10 +215,14 @@ namespace game_framework {
 				return obj->GetTag() == "roomwall";
 			}
 		);
+		int Speed = _moveSpeed;
 		int tempx = _mx, tempy = _my;
 		bool j = false;
 
-		for (int i = 0; i < _moveSpeed; i++)
+		if ((_isMovingDown || _isMovingUp) && (_isMovingLeft || _isMovingRight))
+			Speed = Speed * 10 / 13;
+
+		for (int i = 0; i < Speed; i++)
 		{
 			
 			if (_isMovingLeft)
@@ -285,7 +289,7 @@ namespace game_framework {
 			}
 		}
 
-		for (int i = 0; i < _moveSpeed; i++)
+		for (int i = 0; i < Speed; i++)
 		{
 
 			if (_isMovingUp)
