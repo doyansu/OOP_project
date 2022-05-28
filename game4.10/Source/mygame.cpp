@@ -389,6 +389,7 @@ void CGameStateRun::OnBeginState()
 	// Audio
 	CAudio::Instance()->Play(AUDIO_BGM_SNOW, true);
 
+	// TEST
 	CGameTreasure* treasure = CGameTreasure::CreateObj(rand() % (int)CGameTreasure::Type::TYPECOUNT);
 	treasure->SetXY(MYMAPWIDTH * gameMap.GetRoom(MYORGROOM, MYORGROOM)->CenterX(),
 		MYMAPHIGH * gameMap.GetRoom(MYORGROOM, MYORGROOM)->CenterY());

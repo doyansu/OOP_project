@@ -11,6 +11,7 @@ namespace game_framework {
 	CGameWeapon_Init::CGameWeapon_Init():CGameWeapon()
 	{
 		_spread = 5;
+		_atk = 3;
 	}
 
 	void CGameWeapon_Init::LoadBitmap()
