@@ -1,6 +1,4 @@
 #pragma once
-#include <queue>
-#include <cmath>
 #include "CGameTool.h"
 
 #define MYMAXNOFROOM 7								// 最大房間數 7 X 7

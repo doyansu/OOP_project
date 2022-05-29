@@ -149,36 +149,6 @@ namespace game_framework
 		else
 		{
 			this->SetXY(this->_center[0] - (this->GetWidth() >> 1), this->_center[1] - (this->GetHeight() >> 2));
-			switch (_DT)
-			{
-			case 0:
-				_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima::Theta_0);
-				break;
-			case 1:
-				_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima::Theta_45);
-				break;
-			case 2:
-				_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima::Theta_90);
-				break;
-			case 3:
-				_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima::Theta_135);
-				break;
-			case 4:
-				_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima::Theta_180);
-				break;
-			case 5:
-				_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima::Theta_225);
-				break;
-			case 6:
-				_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima::Theta_270);
-				break;
-			case 7:
-				_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima::Theta_315);
-				break;
-			default:
-				_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima::Theta_0);
-				break;
-			}
 
 			//	射擊間隔計數
 			if (!_fire && --_fireCounter == 0)
@@ -247,9 +217,37 @@ namespace game_framework
 	void CGameWeapon::SetDT(int DT)
 	{
 		_DT = DT;
-		// 動畫判斷
-		if (_user == nullptr)
-			return;
+
+		switch (_DT)
+		{
+		case 0:
+			_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima::Theta_0);
+			break;
+		case 1:
+			_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima::Theta_45);
+			break;
+		case 2:
+			_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima::Theta_90);
+			break;
+		case 3:
+			_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima::Theta_135);
+			break;
+		case 4:
+			_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima::Theta_180);
+			break;
+		case 5:
+			_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima::Theta_225);
+			break;
+		case 6:
+			_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima::Theta_270);
+			break;
+		case 7:
+			_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima::Theta_315);
+			break;
+		default:
+			_animaIter = CGameWeapon::GetAnima(CGameWeapon::Anima::Theta_0);
+			break;
+		}
 	}
 
 	void CGameWeapon::SetTarget(string target)

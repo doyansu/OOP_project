@@ -370,8 +370,20 @@ namespace game_framework {
 
 		//	武器移動
 		_weapons[_nowWeapon]->SetCenter(this->CenterX(), this->CenterY() - 10);
-		if(_weapons[_nowWeapon ^ 1] != nullptr)
-			_weapons[_nowWeapon ^ 1]->SetCenter(this->CenterX(), this->CenterY() - 10);
+		if (_weapons[_nowWeapon ^ 1] != nullptr)
+		{
+			//	將第二把武器背在身後
+			if (_DT)
+			{
+				_weapons[_nowWeapon ^ 1]->SetCenter(this->CenterX() - 5, this->CenterY() - 10);
+				_weapons[_nowWeapon ^ 1]->SetDT(5);
+			}
+			else
+			{
+				_weapons[_nowWeapon ^ 1]->SetCenter(this->CenterX() + 5, this->CenterY() - 10);
+				_weapons[_nowWeapon ^ 1]->SetDT(7);
+			}
+		}
 		_weapons[_nowWeapon]->OnMove(map);
 		if(_vector[1] <= 0)
 			_weapons[_nowWeapon]->SetDT(CGameTool::TwoVectorAngle(_vector[0], _vector[1], 1.0, 0.0) / 45);

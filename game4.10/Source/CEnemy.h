@@ -1,5 +1,6 @@
 #pragma once
 #include "CGameWeapons.h"
+#include "CAnimationEnemyAppear.h"
 
 namespace game_framework {
 

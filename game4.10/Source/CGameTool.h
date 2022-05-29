@@ -1,4 +1,6 @@
 #pragma once
+#include <queue>
+#include <cmath>
 
 namespace game_framework
 {

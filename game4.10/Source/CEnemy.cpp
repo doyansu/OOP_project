@@ -8,7 +8,6 @@
 #include "CCharacter.h"
 #include "CGameFactorys.h"
 #include "CGameTrackObj.h"
-#include "CAnimationEnemyAppear.h"
 
 namespace game_framework {
 	/////////////////////////////////////////////////////////////////////////////
