@@ -5,6 +5,7 @@
 #include "audio.h"
 #include "gamelib.h"
 #include "CCharacter.h"
+#include "CGameFactorys.h"
 
 
 namespace game_framework {

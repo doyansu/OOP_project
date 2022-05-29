@@ -4,6 +4,7 @@
 #include "CGameTrackObj.h"
 #include "CGameInteractOnceObj.h"
 #include "CGameArrow.h"
+#include "CGameFactorys.h"
 
 #define REGENERATETIME GAME_ONE_SECONED + (GAME_ONE_SECONED >> 1)
 

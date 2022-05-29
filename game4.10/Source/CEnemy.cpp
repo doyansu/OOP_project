@@ -5,6 +5,10 @@
 #include "audio.h"
 #include "gamelib.h"
 #include "CEnemy.h"
+#include "CCharacter.h"
+#include "CGameFactorys.h"
+#include "CGameTrackObj.h"
+#include "CAnimationEnemyAppear.h"
 
 namespace game_framework {
 	/////////////////////////////////////////////////////////////////////////////

@@ -1,5 +1,7 @@
 ﻿#pragma once
 
+#include "CGameWeapons.h"
+#include "CGameEnemys.h"
 //參考網址 https://zhuanlan.zhihu.com/p/83537599
 
 namespace game_framework
@@ -74,7 +76,20 @@ namespace game_framework
 		{
 			return new ProductType_t(ProductType_t::Instance());
 		}
+
+
 	};
 
+	class Registrar	//	註冊用物件
+	{
+	public:
+		static void Registrars()	//	註冊所有工廠可生產物件
+		{
+			static ProductRegistrar<CGameWeapon, CGameWeapon_Init> Register1((int)CGameWeapon::Type::INIT);
+			static ProductRegistrar<CEnemy, CGameEnemy_Init> Register2((int)CEnemy::Type::INIT);
+		}
+	private:
+		
+	};
 
 }

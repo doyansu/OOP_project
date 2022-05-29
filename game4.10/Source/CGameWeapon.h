@@ -2,7 +2,6 @@
 #include "audio.h"
 #include "CGameBullet.h"
 #include "CGameArrow.h"
-#include "CUIWeapon.h"
 
 namespace game_framework
 {

@@ -5,8 +5,22 @@
 #include "audio.h"
 #include "gamelib.h"
 #include "CGameWeapons.h"
+#include "CGameFactorys.h"
+
 
 namespace game_framework {
+
+	CGameWeapon_Init& CGameWeapon_Init::Instance()
+	{
+		static CGameWeapon_Init Instance;
+		static bool isLoad = false;
+		if (isLoad == false)
+		{
+			Instance.LoadBitmap();
+			isLoad = true;
+		}
+		return Instance;
+	}
 
 	CGameWeapon_Init::CGameWeapon_Init():CGameWeapon()
 	{

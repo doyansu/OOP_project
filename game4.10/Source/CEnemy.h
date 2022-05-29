@@ -1,9 +1,5 @@
 #pragma once
-#include "CCharacter.h"
 #include "CGameWeapons.h"
-#include "CGameTrackObj.h"
-#include "CAnimationEnemyAppear.h"
-
 
 namespace game_framework {
 
