@@ -41,7 +41,7 @@ namespace game_framework {
 		static CCharacter* _nowPlayer;
 	
 	protected:
-		const int _ATTDELAY;						// 近戰攻擊間隔
+		const int _ATTDELAY, _SKILLCD, _SKILLTD;	// 近戰攻擊間隔、技能 CD、技能持續時間
 		int _DT;									// direction 朝向控制 1 朝右 0 朝左
 		int _mp, _maxMp, _shield, _maxShield;		// 魔力值、最大魔力值、護盾、最大護盾值
 		int _gold;									// 金幣數
@@ -49,11 +49,13 @@ namespace game_framework {
 		bool _doSomeThing;							// 鍵盤按鍵判斷
 		bool _canAttack;							// 近戰攻擊判斷
 		bool _canInteractive;						// 是否有物件可互動
-		CGameWeapon* _weapons[2];					// 可擁有2把武器
+		CGameWeapon* _weapons[2], *_skillWeapon;	// 可擁有2把武器
 		int _nowWeapon;								// 當前武器 index
+
 		int _attCounter;							// 近戰計數器
 		int _deathCounter;							// 死亡倒數
 		int _shieldCounter;							// 護頓恢復倒數
+		int _skillCounter;							// 技能使用計數
 
 		void ModifyShield(int);
 		void free();

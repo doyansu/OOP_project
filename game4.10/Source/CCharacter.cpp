@@ -11,7 +11,7 @@
 namespace game_framework {
 	CCharacter* CCharacter::_nowPlayer = nullptr;
 
-	CCharacter::CCharacter():_ATTDELAY(10)
+	CCharacter::CCharacter():_ATTDELAY(10), _SKILLCD(8 * GAME_ONE_SECONED), _SKILLTD(5 * GAME_ONE_SECONED)
 	{
 		//	動畫載入
 		const int AnimaSize = (int)Anima::ANIMACOUNT;
@@ -30,9 +30,11 @@ namespace game_framework {
 		_moveSpeed = 8;
 		_showPriority = 10;
 		_gold = 0;
+		_skillWeapon = nullptr;
+		_tag = "player";
+		_needFree = false;
 		this->Reset();
-		this->SetTag("player");
-		this->SetFree(false);
+
 	}
 
 	void CCharacter::Init()
@@ -59,6 +61,7 @@ namespace game_framework {
 		_doSomeThing = false;
 		_canAttack = true;
 		_canInteractive = false;
+		_skillCounter = _SKILLTD + _SKILLCD;
 		_attCounter = 0;
 		_deathCounter = GAME_ONE_SECONED * 2;
 		_shieldCounter = GAME_ONE_SECONED;
@@ -79,9 +82,20 @@ namespace game_framework {
 	void CCharacter::free()
 	{
 		if (_weapons[0] != nullptr)
+		{
 			delete _weapons[0];
+			_weapons[0] = nullptr;
+		}
 		if (_weapons[1] != nullptr)
+		{
 			delete _weapons[1];
+			_weapons[1] = nullptr;
+		}
+		if (_skillWeapon != nullptr)
+		{
+			delete _skillWeapon;
+			_skillWeapon = nullptr;
+		}
 	}
 
 	void CCharacter::LoadBitmap()
@@ -149,8 +163,12 @@ namespace game_framework {
 				_weapons[_nowWeapon^1]->OnShow(map);
 			_animaIter->SetTopLeft(map->ScreenX(_mx), map->ScreenY(_my - 20));
 			_animaIter->OnShow();
-			if(!_isDie)
+			if (!_isDie)
+			{
 				_weapons[_nowWeapon]->OnShow(map);
+				if (_skillCounter < _SKILLTD)
+					_skillWeapon->OnShow(map);
+			}
 		}
 		else
 		{
@@ -370,6 +388,7 @@ namespace game_framework {
 
 		//	武器移動
 		_weapons[_nowWeapon]->SetCenter(this->CenterX(), this->CenterY() - 10);
+		_weapons[_nowWeapon]->OnMove(map);
 		if (_weapons[_nowWeapon ^ 1] != nullptr)
 		{
 			//	將第二把武器背在身後
@@ -384,11 +403,25 @@ namespace game_framework {
 				_weapons[_nowWeapon ^ 1]->SetDT(7);
 			}
 		}
-		_weapons[_nowWeapon]->OnMove(map);
+		
 		if(_vector[1] <= 0)
 			_weapons[_nowWeapon]->SetDT(CGameTool::TwoVectorAngle(_vector[0], _vector[1], 1.0, 0.0) / 45);
 		else
 			_weapons[_nowWeapon]->SetDT(8 - CGameTool::TwoVectorAngle(_vector[0], _vector[1], 1.0, 0.0) / 45);
+
+		//	技能正在使用
+		if (_skillCounter < _SKILLTD)
+		{
+			_skillWeapon->OnMove(map);
+			if (_DT)
+				_skillWeapon->SetCenter(this->CenterX() + 10, this->CenterY() - 15);
+			else
+				_skillWeapon->SetCenter(this->CenterX() - 10, this->CenterY() - 15);
+			if (_vector[1] <= 0)
+				_skillWeapon->SetDT(CGameTool::TwoVectorAngle(_vector[0], _vector[1], 1.0, 0.0) / 45);
+			else
+				_skillWeapon->SetDT(8 - CGameTool::TwoVectorAngle(_vector[0], _vector[1], 1.0, 0.0) / 45);
+		}
 
 		// 找到敵人時變更角色、武器朝向、螢幕移動
 		if (target != nullptr)
@@ -428,8 +461,17 @@ namespace game_framework {
 				_weapons[_nowWeapon]->SetDT(CGameTool::TwoVectorAngle(tx, ty, 1.0, 0.0) / 45);
 			else
 				_weapons[_nowWeapon]->SetDT(8 - CGameTool::TwoVectorAngle(tx, ty, 1.0, 0.0) / 45);
-			
+
+			//	正在使用技能
+			if (_skillCounter < _SKILLTD)
+			{
+				if (ty <= 0)
+					_skillWeapon->SetDT(CGameTool::TwoVectorAngle(tx, ty, 1.0, 0.0) / 45);
+				else
+					_skillWeapon->SetDT(8 - CGameTool::TwoVectorAngle(tx, ty, 1.0, 0.0) / 45);
+			}
 		}
+
 
 		//	按下 Z 鍵
 		if (_doSomeThing)
@@ -446,18 +488,36 @@ namespace game_framework {
 					double vx = (double)(target->CenterX() - this->CenterX()) / d;
 					double vy = (double)(target->CenterY() - this->CenterY()) / d;
 					_weapons[_nowWeapon]->Shoot(vx, vy);
-					this->ModifyMp(-_weapons[_nowWeapon]->GetCost());
+					this->ModifyMp(-_weapons[_nowWeapon]->GetCost());	
 				}
 				else if (_attCounter == 0 && d < MINSEARCH) // 近戰攻擊
 				{
 					_attCounter = _ATTDELAY;
 					target->TakeDmg(_damage);
 				}
+
+				//	正在使用技能
+				if (_skillCounter < _SKILLTD && _skillWeapon->CanFire())
+				{
+					double vx = (double)(target->CenterX() - this->CenterX()) / d;
+					double vy = (double)(target->CenterY() - this->CenterY()) / d;
+					_skillWeapon->Shoot(vx, vy);
+					this->ModifyMp(-_skillWeapon->GetCost());
+				}
 			}
-			else if (_weapons[_nowWeapon]->CanFire()) // 沒找到敵人朝 vector 射擊
+			else // 沒找到敵人朝 vector 射擊
 			{
-				_weapons[_nowWeapon]->Shoot(_vector[0], _vector[1]);
-				this->ModifyMp(-_weapons[_nowWeapon]->GetCost());
+				if (_weapons[_nowWeapon]->CanFire())
+				{
+					_weapons[_nowWeapon]->Shoot(_vector[0], _vector[1]);
+					this->ModifyMp(-_weapons[_nowWeapon]->GetCost());
+				}
+				//	正在使用技能
+				if (_skillCounter < _SKILLTD && _skillWeapon->CanFire())
+				{
+					_skillWeapon->Shoot(_vector[0], _vector[1]);
+					this->ModifyMp(-_skillWeapon->GetCost());
+				}
 			}
 		}
 		
@@ -470,6 +530,10 @@ namespace game_framework {
 		{
 			_shieldCounter = GAME_ONE_SECONED;
 			ModifyShield(1);
+		}
+		if (_skillCounter < _SKILLTD + _SKILLCD)
+		{
+			_skillCounter++;
 		}
 			
 	}
@@ -678,6 +742,18 @@ namespace game_framework {
 				//	播放音效
 				CAudio::Instance()->Play(AUDIO_SWITCH_WEAPON);
 			}
+			break;
+		case KEY_C:
+			if (_skillCounter >= _SKILLTD + _SKILLCD)
+			{
+				_skillCounter = 0;
+				if (_skillWeapon != nullptr)
+					delete _skillWeapon;
+				_skillWeapon = ProductFactory<CGameWeapon>::Instance().GetProduct((int)_weapons[_nowWeapon]->GetType());
+				_skillWeapon->SetUser(this);
+				_skillWeapon->SetTarget("enemy");
+			}
+				
 			break;
 		default:
 			break;
