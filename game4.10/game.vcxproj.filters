@@ -31,6 +31,7 @@
     <ClCompile Include="Source\CUIWeapon.cpp" />
     <ClCompile Include="Source\CGameEnemys.cpp" />
     <ClCompile Include="Source\CUISkill.cpp" />
+    <ClCompile Include="Source\CUIWeaponSwitch.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\CCharacter.h" />
@@ -66,6 +67,7 @@
     <ClInclude Include="Source\CGameEnemys.h" />
     <ClInclude Include="Source\CAnimationEnemyAppear.h" />
     <ClInclude Include="Source\CUISkill.h" />
+    <ClInclude Include="Source\CUIWeaponSwitch.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Source\game.rc" />
@@ -302,6 +304,7 @@
     <Image Include="res\enemy\bmp00100.bmp" />
     <Image Include="res\enemy\skill_ui.bmp" />
     <Image Include="res\enemy\bmp00101.bmp" />
+    <Image Include="res\enemy\bmp00102.bmp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="RES\bmp0.bmp" />

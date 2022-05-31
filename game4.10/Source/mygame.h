@@ -51,6 +51,7 @@
 #include "CUIWeapon.h"
 #include "CGameEnemys.h"
 #include "CUISkill.h"
+#include "CUIWeaponSwitch.h"
 
 
 namespace game_framework {

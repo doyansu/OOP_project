@@ -740,18 +740,7 @@ namespace game_framework {
 			this->SetMovingDown(true);
 			break;
 		case  KEY_X:
-			if (_weapons[_nowWeapon ^ 1] != nullptr)
-			{
-				//	切換武器
-				_nowWeapon ^= 1;
-				//	播放音效
-				CAudio::Instance()->Play(AUDIO_SWITCH_WEAPON);
-				// 切換武器會取消技能
-				if (_skillCounter < _SKILLTD)
-				{
-					_skillCounter = _SKILLTD;
-				}
-			}
+			SwitchWeapon();
 			break;
 		case KEY_C:
 			UseSkill();
@@ -799,6 +788,22 @@ namespace game_framework {
 			_skillWeapon = ProductFactory<CGameWeapon>::Instance().GetProduct((int)_weapons[_nowWeapon]->GetType());
 			_skillWeapon->SetUser(this);
 			_skillWeapon->SetTarget("enemy");
+		}
+	}
+
+	void CCharacter::SwitchWeapon()
+	{
+		if (_weapons[_nowWeapon ^ 1] != nullptr)
+		{
+			//	切換武器
+			_nowWeapon ^= 1;
+			//	播放音效
+			CAudio::Instance()->Play(AUDIO_SWITCH_WEAPON);
+			// 切換武器會取消技能
+			if (_skillCounter < _SKILLTD)
+			{
+				_skillCounter = _SKILLTD;
+			}
 		}
 	}
 
@@ -873,6 +878,11 @@ namespace game_framework {
 	int CCharacter::GetGold()
 	{
 		return _gold;
+	}
+
+	CGameWeapon* CCharacter::GetNowWeapon()
+	{
+		return _weapons[_nowWeapon];
 	}
 
 	void CCharacter::ModifyGold(int value)

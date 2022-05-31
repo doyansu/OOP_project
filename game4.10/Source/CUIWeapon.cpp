@@ -55,6 +55,7 @@ namespace game_framework
 		this->OnShow();
 
 		CInteger integer;
+		CInteger::LoadBitmap();
 		integer.SetInteger(_atk);
 		integer.SetTopLeft(x + 78 -integer.GetLen() * integer.GetWidth(), y + 10);
 		integer.ShowBitmap(false);

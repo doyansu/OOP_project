@@ -279,6 +279,7 @@
     <ClCompile Include="Source\CUIMinMap.cpp" />
     <ClCompile Include="Source\CUISkill.cpp" />
     <ClCompile Include="Source\CUIWeapon.cpp" />
+    <ClCompile Include="Source\CUIWeaponSwitch.cpp" />
     <ClCompile Include="Source\game.cpp">
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -346,6 +347,7 @@
     <ClInclude Include="Source\CUIMinMap.h" />
     <ClInclude Include="Source\CUISkill.h" />
     <ClInclude Include="Source\CUIWeapon.h" />
+    <ClInclude Include="Source\CUIWeaponSwitch.h" />
     <ClInclude Include="Source\game.h" />
     <ClInclude Include="Source\gameDoc.h" />
     <ClInclude Include="Source\gameView.h" />
@@ -529,6 +531,7 @@
     <Image Include="res\enemy\bmp00099.bmp" />
     <Image Include="res\enemy\bmp00100.bmp" />
     <Image Include="res\enemy\bmp00101.bmp" />
+    <Image Include="res\enemy\bmp00102.bmp" />
     <Image Include="res\enemy\btn_bgm_.bmp" />
     <Image Include="res\enemy\btn_setu.bmp" />
     <Image Include="res\enemy\btn_soun.bmp" />

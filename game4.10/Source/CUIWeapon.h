@@ -33,5 +33,4 @@ namespace game_framework
 		
 	};
 
-
 }

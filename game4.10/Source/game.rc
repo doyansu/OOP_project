@@ -502,6 +502,8 @@ IDB_Skill_UI_blue       BITMAP                  "..\\res\\enemy\\skill_ui.bmp"
 
 IDB_Skill_UI_backGround BITMAP                  "..\\res\\enemy\\bmp00101.bmp"
 
+IDB_weapon_ui_switch    BITMAP                  "..\\res\\enemy\\bmp00102.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //

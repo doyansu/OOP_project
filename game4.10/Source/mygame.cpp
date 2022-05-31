@@ -381,7 +381,10 @@ void CGameStateRun::OnBeginState()
 	UI_posy = 0;
 	setup_posy = SIZE_Y;
 	isPaused = false;
-
+	
+	//
+	CUISkill::Instance().SetTopLeft(SIZE_X - CUISkill::Instance().Width() - 20, SIZE_Y - CUISkill::Instance().Height() - 10);
+	CUIWeaponSwitch::Instance().SetTopLeft(CUISkill::Instance().Left() + ((CUISkill::Instance().Width() - CUIWeaponSwitch::Instance().Width()) >> 1) - 5, CUISkill::Instance().Top() - CUIWeaponSwitch::Instance().Height() - 10);
 	
 
 	// Game
@@ -755,6 +758,10 @@ void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的
 		{
 			character.UseSkill();
 		}
+		else if (CUIWeaponSwitch::Instance().PointIn(point.x, point.y))
+		{
+			character.SwitchWeapon();
+		}
 	}
 	else
 	{
@@ -975,20 +982,24 @@ void CGameStateRun::OnShow()
 
 	//	關卡數
 	GAMELEVEL.SetInteger(1 + gameLevel / 5);
-	GAMELEVEL.SetTopLeft(SIZE_X - 40 + dMinMap, 200 + btn_pause.Height());
+	GAMELEVEL.SetTopLeft(SIZE_X - 110 + dMinMap, 200 + btn_pause.Height());
 	GAMELEVEL.ShowBitmap(false);
 	GAMELEVEL.SetInteger(1 + gameLevel % 5);
-	GAMELEVEL.SetTopLeft(SIZE_X - 20 + dMinMap, 200 + btn_pause.Height());
+	GAMELEVEL.SetTopLeft(SIZE_X - 90 + dMinMap, 200 + btn_pause.Height());
 	GAMELEVEL.ShowBitmap(false);
-	MINUS.SetTopLeft(SIZE_X - 30 + dMinMap, 200 + btn_pause.Height());
+	MINUS.SetTopLeft(SIZE_X - 100 + dMinMap, 200 + btn_pause.Height());
 	MINUS.ShowBitmap();
 
 	//	UI小地圖
 	minMap.SetXY(SIZE_X - 180 + dMinMap, 25 + btn_pause.Height());
 	minMap.OnShow();
 
-	//	UI 技能
+	//	技能 BOUTTON UI
 	CUISkill::Instance().ShowUI();
+
+	//	更換武器 BOUTTON UI
+	CUIWeaponSwitch::Instance().SetWeapon(character.GetNowWeapon());
+	CUIWeaponSwitch::Instance().ShowUI();
 
 	// 武器 UI 調動
 	CUIWeapon::Instance().ShowUI();

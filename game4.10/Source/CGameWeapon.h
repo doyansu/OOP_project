@@ -28,11 +28,12 @@ namespace game_framework
 		virtual void LoadBitmap();
 		virtual void OnMove(CGameMap* map);
 		virtual void OnShow(CGameMap* map);
-		//void Shoot(CGameMap*, CGameObj*);	//	暫時沒用
 		virtual void Shoot(double, double);			//	武器射擊
 		void SetDT(int);					//	根據朝向更改動畫		
 		void OnObjCollision(CGameMap* map, CGameObj* other);
 		static map<CGameObj*, CGameWeapon*> WeaponMap;
+
+		vector<CAnimation>::iterator GetAnima(Anima);// 取得動畫
 
 	protected:
 		bool _fire;		
@@ -47,7 +48,7 @@ namespace game_framework
 		AUDIO_ID _shootID;
 		Type _weaponType;
 
-		vector<CAnimation>::iterator GetAnima(Anima);	// 取得動畫
+			
 
 	private:
 		CGameWeapon& operator=(const CGameWeapon&) {};
