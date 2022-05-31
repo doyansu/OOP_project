@@ -89,6 +89,7 @@ namespace game_framework
 			static ProductRegistrar<CEnemy, CGameEnemy_Init> Register2((int)CEnemy::Type::INIT);
 			static ProductRegistrar<CGameWeapon, CGameWeapon_NewInit> Register3((int)CGameWeapon::Type::NEWINIT);
 			static ProductRegistrar<CGameBullet, CGamBullet_Init> Register4((int)CGameBullet::Type::INIT);
+			static ProductRegistrar<CGameWeapon, CGameWeapon_AK47> Register5((int)CGameWeapon::Type::AK47);
 		
 		
 		}

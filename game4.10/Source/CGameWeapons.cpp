@@ -131,4 +131,51 @@ namespace game_framework {
 
 	/////////////////////////////////////////////////////////////////////////////
 
+	/////////////////////////////////////////////////////////////////////////////
+	//	¯}ÂÂªº¤âºj
+	CGameWeapon_AK47& CGameWeapon_AK47::Instance()
+	{
+		static CGameWeapon_AK47 Instance;
+		static bool isLoad = false;
+		if (isLoad == false)
+		{
+			Instance.LoadBitmap();
+			isLoad = true;
+		}
+		return Instance;
+	}
+
+	CGameWeapon_AK47::CGameWeapon_AK47()
+	{
+		_atk = 3;
+		_cost = 1;
+		_crit = 12;
+		_spread = 10;
+		_shootDelay = RPS(5);
+		_bulletSpeed = 20;
+		_weaponType = Type::AK47;
+	}
+
+	void CGameWeapon_AK47::LoadBitmap()
+	{
+		_animaIter = GetAnima(CGameWeapon::Anima::Theta_0);
+		_animaIter->AddBitmap(IDB_weapon_0_0, RGB(255, 255, 255));
+		_animaIter = GetAnima(CGameWeapon::Anima::Theta_45);
+		_animaIter->AddBitmap(IDB_weapon_0_45, RGB(255, 255, 255));
+		_animaIter = GetAnima(CGameWeapon::Anima::Theta_90);
+		_animaIter->AddBitmap(IDB_weapon_0_90, RGB(255, 255, 255));
+		_animaIter = GetAnima(CGameWeapon::Anima::Theta_135);
+		_animaIter->AddBitmap(IDB_weapon_0_135, RGB(255, 255, 255));
+		_animaIter = GetAnima(CGameWeapon::Anima::Theta_180);
+		_animaIter->AddBitmap(IDB_weapon_0_180, RGB(255, 255, 255));
+		_animaIter = GetAnima(CGameWeapon::Anima::Theta_225);
+		_animaIter->AddBitmap(IDB_weapon_0_225, RGB(255, 255, 255));
+		_animaIter = GetAnima(CGameWeapon::Anima::Theta_270);
+		_animaIter->AddBitmap(IDB_weapon_0_270, RGB(255, 255, 255));
+		_animaIter = GetAnima(CGameWeapon::Anima::Theta_315);
+		_animaIter->AddBitmap(IDB_weapon_0_315, RGB(255, 255, 255));
+
+		*GetAnima(Anima::ARROW) = CGameArrow::Instance();
+	}
+	/////////////////////////////////////////////////////////////////////////////
 }

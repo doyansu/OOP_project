@@ -416,47 +416,14 @@ void CGameStateRun::OnBeginState()
 	CAudio::Instance()->Play(AUDIO_BGM_SNOW, true);
 
 	// TEST
-	CGameTreasure* treasure = CGameTreasure::CreateObj(rand() % (int)CGameTreasure::Type::TYPECOUNT);
+	CGameWeapon * w = ProductFactory<CGameWeapon>::Instance().GetProduct((int)CGameWeapon::Type::AK47);
+	w->SetXY(MYMAPWIDTH * gameMap.GetRoom(MYORGROOM, MYORGROOM)->CenterX(),
+		MYMAPHIGH * gameMap.GetRoom(MYORGROOM, MYORGROOM)->CenterY());
+	CGameObj::AddObj(w);
+	/*CGameTreasure* treasure = CGameTreasure::CreateObj(rand() % (int)CGameTreasure::Type::TYPECOUNT);
 	treasure->SetXY(MYMAPWIDTH * gameMap.GetRoom(MYORGROOM, MYORGROOM)->CenterX(),
 		MYMAPHIGH * gameMap.GetRoom(MYORGROOM, MYORGROOM)->CenterY());
-	CGameObj::AddObj(treasure);
-
-	// 舊版房間建構
-	/*for (int i = 0; i < MYMAXNOFROOM; i++)
-		for (int j = 0; j < MYMAXNOFROOM; j++)
-		{
-			RoomData* roomdata = gameMap.GetRoom(i, j);
-			switch (roomdata->GetRoomType())
-			{
-			case RoomData::RoomType::NORMAL:	// 一般房間
-			{
-				CGameRoom* room = new CGameRoom(roomdata);
-				room->Initialization(&gameMap);
-				CGameObjCenter::AddObj(room);
-				break;
-			}
-			case RoomData::RoomType::END:		// 傳送房間
-			{
-				//TransferGate.SetXY(roomdata.CenterX() * MYMAPWIDTH, roomdata.CenterY() * MYMAPHIGH);
-				TransferGate.SetXY(roomdata->CenterX() * MYMAPWIDTH - (TransferGate.Width() >> 1) + (MYMAPWIDTH >> 1),
-					roomdata->CenterY() * MYMAPHIGH - (TransferGate.Height() >> 1) + (MYMAPHIGH >> 1));
-				CGameObjCenter::AddObj(&TransferGate);
-				break;
-			}	
-			case RoomData::RoomType::TREASURE:	//	寶箱房間
-			{
-				CGameTreasure* treasure = new CGameTreasure(gameTreasure);
-				treasure->SetXY(roomdata->CenterX() * MYMAPWIDTH - (treasure->Width() >> 1) + (MYMAPWIDTH >> 1),
-					roomdata->CenterY() * MYMAPHIGH - (treasure->Height() >> 1) + (MYMAPHIGH >> 1));
-				CGameObjCenter::AddObj(treasure);
-				break;
-			}
-			case RoomData::RoomType::BOSS:		//	BOSS房間
-				break;
-			default:
-				break;
-			}
-		}*/
+	CGameObj::AddObj(treasure);*/
 
 }
 
