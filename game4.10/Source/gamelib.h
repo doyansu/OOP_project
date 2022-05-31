@@ -258,6 +258,7 @@ private:
 
 class CInteger {
 public:
+	enum class Color {WHITE, RED, COLORCOUNT};
 	CInteger();					// default 5 digits
 	void Add(int n);			// 增加整數值
 	int  GetInteger();			// 回傳整數值
@@ -268,6 +269,7 @@ public:
 	void SetTopLeft(int,int);	// 將動畫的左上角座標移至 (x,y)
 	void ShowBitmap();			// 將動畫貼到螢幕
 	void ShowBitmap(bool leadingZero);	// 有無前導0
+	void SetColor(Color);		// 設定數字顏色
 
 	static void CInteger::LoadBitmap()	// 載入0..9及負號之圖形
 	{
@@ -275,19 +277,29 @@ public:
 		// digit[i]為class varibale，所以必須避免重複LoadBitmap
 		//
 		if (!isBmpLoaded) {
-			int d[11] = { IDB_0,IDB_1,IDB_2,IDB_3,IDB_4,IDB_5,IDB_6,IDB_7,IDB_8,IDB_9,IDB_MINUS };
-			for (int i = 0; i < 11; i++)
-				digit[i].LoadBitmap(d[i], RGB(0, 0, 0));
+
+			int d[(int)Color::COLORCOUNT][11] = 
+			{
+				{ IDB_0,IDB_1,IDB_2,IDB_3,IDB_4,IDB_5,IDB_6,IDB_7,IDB_8,IDB_9,IDB_MINUS },
+				{ IDB_0,IDB_1,IDB_2,IDB_3,IDB_4,IDB_5,IDB_6,IDB_7,IDB_8,IDB_9,IDB_MINUS }
+			}
+			;
+			for (int c = 0; c < (int)Color::COLORCOUNT; c++)
+			{
+				for (int i = 0; i < 11; i++)
+					digit[c][i].LoadBitmap(d[c][i], RGB(0, 0, 0));
+			}
 			isBmpLoaded = true;
 		}
 	}			
 
 private:
 	int NUMDIGITS;			// 共顯示NUMDIGITS個位數
-	static CMovingBitmap digit[11]; // 儲存0..9及負號之圖形(bitmap)
+	static CMovingBitmap digit[(int)Color::COLORCOUNT][11]; // 儲存0..9及負號之圖形(bitmap)
 	int x, y;						// 顯示的座標
 	int n;							// 整數值
 	static bool isBmpLoaded;				// 是否已經載入圖形
+	Color color;
 	int Intlength(int);
 };
 

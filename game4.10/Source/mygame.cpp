@@ -458,19 +458,6 @@ void CGameStateRun::OnBeginState()
 			}
 		}*/
 
-
-	// TransferGate.SetXY(character.CenterX(), character.CenterY());
-
-	//test
-	/*CGameBullet test;
-	test.LoadBitmap();
-	CGameObjCenter::AddObj(new CGameBullet(test));*/
-	//gameObjCenter.AddObj(new CEnemy(enemy1));
-	/*CEnemy test;
-	test.LoadBitmap();*/
-	
-	/*CGameObjCenter::AddObj(new CEnemy(enemy0));
-	CGameObjCenter::AddObj(new CEnemy(enemy1));*/
 }
 
 void CGameStateRun::OnMove()							// 移動遊戲元素

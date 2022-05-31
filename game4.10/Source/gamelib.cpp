@@ -274,12 +274,18 @@ int CAnimation::BmpSize()
 // 2. 糶笲ノCMovingBitmap祘Α把σ祘Α糶猭
 /////////////////////////////////////////////////////////////////////////////
 
-CMovingBitmap CInteger::digit[11];
+CMovingBitmap CInteger::digit[(int)Color::COLORCOUNT][11];
 bool CInteger::isBmpLoaded = false;
 
 CInteger::CInteger()
 {
 	NUMDIGITS = 5;
+	color = Color::WHITE;
+}
+
+void CInteger::SetColor(Color c)
+{
+	color = c;
 }
 
 void CInteger::Add(int x)
@@ -294,12 +300,12 @@ int CInteger::GetInteger()
 
 int  CInteger::GetFinal()
 {
-	return x + digit[0].Width() * NUMDIGITS;
+	return x + digit[(int)color][0].Width() * NUMDIGITS;
 }
 
 int  CInteger::GetWidth()
 {
-	return digit[0].Width();
+	return digit[(int)color][0].Width();
 }
 
 int  CInteger::GetLen()
@@ -336,21 +342,21 @@ void CInteger::ShowBitmap()
 	int MSB;	// 程オ娩(才腹)计计
 	if (n >= 0) {
 		MSB = n;
-		nx = x+digit[0].Width()*(NUMDIGITS-1);
+		nx = x+digit[(int)color][0].Width()*(NUMDIGITS-1);
 	} else {
 		MSB = -n;
-		nx = x+digit[0].Width()*NUMDIGITS;
+		nx = x+digit[(int)color][0].Width()*NUMDIGITS;
 	}
 	for (int i=0; i < NUMDIGITS; i++) {
 		int d = MSB % 10;
 		MSB /= 10;
-		digit[d].SetTopLeft(nx, y);
-		digit[d].ShowBitmap();
-		nx -= digit[d].Width();
+		digit[(int)color][d].SetTopLeft(nx, y);
+		digit[(int)color][d].ShowBitmap();
+		nx -= digit[(int)color][d].Width();
 	}
 	if (n < 0) { // 狦0玥陪ボ璽腹
-		digit[10].SetTopLeft(nx, y);
-		digit[10].ShowBitmap();
+		digit[(int)color][10].SetTopLeft(nx, y);
+		digit[(int)color][10].ShowBitmap();
 	}
 }
 
