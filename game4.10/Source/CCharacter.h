@@ -45,7 +45,7 @@ namespace game_framework {
 		static CCharacter* _nowPlayer;
 	
 	protected:
-		const int _ATTDELAY, _SKILLCD, _SKILLTD;	// 近戰攻擊間隔、技能 CD、技能持續時間
+		const int _SKILLCD, _SKILLTD;				// 技能 CD、技能持續時間
 		int _DT;									// direction 朝向控制 1 朝右 0 朝左
 		int _mp, _maxMp, _shield, _maxShield;		// 魔力值、最大魔力值、護盾、最大護盾值
 		int _gold;									// 金幣數
@@ -58,7 +58,6 @@ namespace game_framework {
 		CGameDmgInteger _dmgInteger;				// 受傷時顯示數字
 		CGameDmgInteger _goldInteger, _eneryInteger;// 吃到金幣或能量球顯示數字
 
-		int _attCounter;							// 近戰計數器
 		int _deathCounter;							// 死亡倒數
 		int _shieldCounter;							// 護頓恢復倒數
 		int _skillCounter;							// 技能使用計數

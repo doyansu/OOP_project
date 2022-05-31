@@ -12,7 +12,7 @@
 namespace game_framework {
 	CCharacter* CCharacter::_nowPlayer = nullptr;
 
-	CCharacter::CCharacter():_ATTDELAY(10), _SKILLCD(8 * GAME_ONE_SECONED), _SKILLTD(5 * GAME_ONE_SECONED)
+	CCharacter::CCharacter():_SKILLCD(8 * GAME_ONE_SECONED), _SKILLTD(5 * GAME_ONE_SECONED)
 	{
 		//	動畫載入
 		const int AnimaSize = (int)Anima::ANIMACOUNT;
@@ -66,7 +66,6 @@ namespace game_framework {
 		_canAttack = true;
 		_canInteractive = false;
 		_skillCounter = _SKILLTD + _SKILLCD;
-		_attCounter = 0;
 		_deathCounter = GAME_ONE_SECONED * 2;
 		_shieldCounter = GAME_ONE_SECONED;
 		CCharacter::CGameObj::Reset();
@@ -499,13 +498,16 @@ namespace game_framework {
 				{
 					double vx = (double)(target->CenterX() - this->CenterX()) / d;
 					double vy = (double)(target->CenterY() - this->CenterY()) / d;
-					_weapons[_nowWeapon]->Shoot(vx, vy);
-					this->ModifyMp(-_weapons[_nowWeapon]->GetCost());	
+					if (_mp >= _weapons[_nowWeapon]->GetCost())
+					{
+						_weapons[_nowWeapon]->Shoot(vx, vy);
+						this->ModifyMp(-_weapons[_nowWeapon]->GetCost());
+					}
 				}
-				else if (_attCounter == 0 && d < MINSEARCH) // 近戰攻擊
+				else if (d < MINSEARCH) // 近戰攻擊
 				{
-					_attCounter = _ATTDELAY;
 					target->TakeDmg(_damage);
+					_doSomeThing = false;
 				}
 
 				//	正在使用技能
@@ -513,11 +515,15 @@ namespace game_framework {
 				{
 					double vx = (double)(target->CenterX() - this->CenterX()) / d;
 					double vy = (double)(target->CenterY() - this->CenterY()) / d;
-					_skillWeapon->Shoot(vx, vy);
-					this->ModifyMp(-_skillWeapon->GetCost());
+					if (_mp >= _skillWeapon->GetCost())
+					{
+						_skillWeapon->Shoot(vx, vy);
+						this->ModifyMp(-_skillWeapon->GetCost());
+					}
+					
 				}
 			}
-			else // 沒找到敵人朝 vector 射擊
+			else if (_mp >= _weapons[_nowWeapon]->GetCost())// 沒找到敵人朝 vector 射擊
 			{
 				if (_weapons[_nowWeapon]->CanFire())
 				{
@@ -533,10 +539,6 @@ namespace game_framework {
 			}
 		}
 		
-
-		// 近戰攻擊計數
-		if (_attCounter > 0)
-			_attCounter--;
 		// 護頓計數
 		if (--_shieldCounter == 0)
 		{
@@ -679,6 +681,7 @@ namespace game_framework {
 		const char KEY_Z = 0x5A;
 		const char KEY_X = 0x58;
 		const char KEY_C = 0x43;
+		const char KEY_E = 0x45;
 		const char KEY_LEFT = 0x25; // keyboard左箭頭
 		const char KEY_UP = 0x26; // keyboard上箭頭
 		const char KEY_RIGHT = 0x27; // keyboard右箭頭
@@ -723,6 +726,7 @@ namespace game_framework {
 		const char KEY_Z = 0x5A;
 		const char KEY_X = 0x58;
 		const char KEY_C = 0x43;
+		const char KEY_E = 0x45;
 		const char KEY_LEFT = 0x25;		// keyboard左箭頭
 		const char KEY_UP = 0x26;		// keyboard上箭頭
 		const char KEY_RIGHT = 0x27;	// keyboard右箭頭
@@ -750,9 +754,11 @@ namespace game_framework {
 		case KEY_S:
 			this->SetMovingDown(true);
 			break;
-		case  KEY_X:
+		case KEY_Q:
+		case KEY_X:
 			SwitchWeapon();
 			break;
+		case KEY_E:
 		case KEY_C:
 			UseSkill();
 			break;

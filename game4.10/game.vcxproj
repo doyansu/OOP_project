@@ -553,6 +553,7 @@
     <Image Include="res\enemy\bmp00108.bmp" />
     <Image Include="res\enemy\bmp00109.bmp" />
     <Image Include="res\enemy\bmp00110.bmp" />
+    <Image Include="res\enemy\bmp00111.bmp" />
     <Image Include="res\enemy\bmp10.bmp" />
     <Image Include="res\enemy\btn_bgm_.bmp" />
     <Image Include="res\enemy\btn_setu.bmp" />
