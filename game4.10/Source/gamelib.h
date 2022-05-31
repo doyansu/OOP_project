@@ -258,7 +258,7 @@ private:
 
 class CInteger {
 public:
-	enum class Color {WHITE, RED, COLORCOUNT};
+	enum class Color {WHITE, RED, YELLOW, BLUE, COLORCOUNT};
 	CInteger();					// default 5 digits
 	void Add(int n);			// 增加整數值
 	int  GetInteger();			// 回傳整數值
@@ -281,9 +281,11 @@ public:
 			int d[(int)Color::COLORCOUNT][11] = 
 			{
 				{ IDB_0,IDB_1,IDB_2,IDB_3,IDB_4,IDB_5,IDB_6,IDB_7,IDB_8,IDB_9,IDB_MINUS },
-				{ IDB_0,IDB_1,IDB_2,IDB_3,IDB_4,IDB_5,IDB_6,IDB_7,IDB_8,IDB_9,IDB_MINUS }
-			}
-			;
+				{ IDB_red_0,IDB_red_1,IDB_red_2,IDB_red_3,IDB_red_4,IDB_red_5,IDB_red_6,IDB_red_7,IDB_red_8,IDB_red_9,IDB_MINUS },
+				{ IDB_yello_0,IDB_yello_1,IDB_yello_2,IDB_yello_3,IDB_yello_4,IDB_yello_5,IDB_yello_6,IDB_yello_7,IDB_yello_8,IDB_yello_9,IDB_MINUS },
+				{ IDB_blue_0,IDB_blue_1,IDB_blue_2,IDB_blue_3,IDB_blue_4,IDB_blue_5,IDB_blue_6,IDB_blue_7,IDB_blue_8,IDB_blue_9,IDB_MINUS }
+			};
+			
 			for (int c = 0; c < (int)Color::COLORCOUNT; c++)
 			{
 				for (int i = 0; i < 11; i++)

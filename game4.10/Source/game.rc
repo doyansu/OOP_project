@@ -504,6 +504,66 @@ IDB_Skill_UI_backGround BITMAP                  "..\\res\\enemy\\bmp00101.bmp"
 
 IDB_weapon_ui_switch    BITMAP                  "..\\res\\enemy\\bmp00102.bmp"
 
+IDB_red_0               BITMAP                  "..\\res\\enemy\\bmp10.bmp"
+
+IDB_red_1               BITMAP                  "..\\res\\enemy\\red_1.bmp"
+
+IDB_red_2               BITMAP                  "..\\res\\enemy\\red_2.bmp"
+
+IDB_red_3               BITMAP                  "..\\res\\enemy\\red_3.bmp"
+
+IDB_red_4               BITMAP                  "..\\res\\enemy\\red_4.bmp"
+
+IDB_red_5               BITMAP                  "..\\res\\enemy\\red_5.bmp"
+
+IDB_red_6               BITMAP                  "..\\res\\enemy\\red_6.bmp"
+
+IDB_red_7               BITMAP                  "..\\res\\enemy\\red_7.bmp"
+
+IDB_red_8               BITMAP                  "..\\res\\enemy\\red_8.bmp"
+
+IDB_red_9               BITMAP                  "..\\res\\enemy\\red_9.bmp"
+
+IDB_yello_0             BITMAP                  "..\\res\\enemy\\red_10.bmp"
+
+IDB_yello_1             BITMAP                  "..\\res\\enemy\\yello_1.bmp"
+
+IDB_yello_2             BITMAP                  "..\\res\\enemy\\yello_2.bmp"
+
+IDB_yello_3             BITMAP                  "..\\res\\enemy\\yello_3.bmp"
+
+IDB_yello_4             BITMAP                  "..\\res\\enemy\\yello_4.bmp"
+
+IDB_yello_5             BITMAP                  "..\\res\\enemy\\yello_5.bmp"
+
+IDB_yello_6             BITMAP                  "..\\res\\enemy\\yello_6.bmp"
+
+IDB_yello_7             BITMAP                  "..\\res\\enemy\\yello_7.bmp"
+
+IDB_yello_8             BITMAP                  "..\\res\\enemy\\yello_8.bmp"
+
+IDB_yello_9             BITMAP                  "..\\res\\enemy\\yello_9.bmp"
+
+IDB_blue_0              BITMAP                  "..\\res\\enemy\\yello_10.bmp"
+
+IDB_blue_1              BITMAP                  "..\\res\\enemy\\blue_1.bmp"
+
+IDB_blue_2              BITMAP                  "..\\res\\enemy\\blue_2.bmp"
+
+IDB_blue_3              BITMAP                  "..\\res\\enemy\\blue_3.bmp"
+
+IDB_blue_4              BITMAP                  "..\\res\\enemy\\blue_4.bmp"
+
+IDB_blue_5              BITMAP                  "..\\res\\enemy\\blue_5.bmp"
+
+IDB_blue_6              BITMAP                  "..\\res\\enemy\\blue_6.bmp"
+
+IDB_blue_7              BITMAP                  "..\\res\\enemy\\blue_7.bmp"
+
+IDB_blue_8              BITMAP                  "..\\res\\enemy\\blue_8.bmp"
+
+IDB_blue_9              BITMAP                  "..\\res\\enemy\\blue_9.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
