@@ -332,6 +332,15 @@
 #define IDB_MINUS_yellow                472
 #define IDB_MINUS3                      473
 #define IDB_MINUS_blue                  473
+#define IDB_weapon_0_91                 474
+#define IDB_weapon_1_90                 474
+#define IDB_weapon_1_45                 475
+#define IDB_weapon_1_315                476
+#define IDB_weapon_1_270                477
+#define IDB_weapon_1_225                478
+#define IDB_weapon_1_180                479
+#define IDB_weapon_1_135                480
+#define IDB_weapon_1_0                  481
 #define IDC_README                      1001
 #define ID_FILE_PAUSE                   32771
 #define ID_TOGGLE_FULLSCREEN            32772

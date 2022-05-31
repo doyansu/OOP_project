@@ -570,6 +570,22 @@ IDB_MINUS_yellow        BITMAP                  "..\\res\\enemy\\minus2.bmp"
 
 IDB_MINUS_blue          BITMAP                  "..\\res\\enemy\\minus3.bmp"
 
+IDB_weapon_1_90         BITMAP                  "..\\res\\enemy\\bmp00104.bmp"
+
+IDB_weapon_1_45         BITMAP                  "..\\res\\enemy\\bmp00105.bmp"
+
+IDB_weapon_1_315        BITMAP                  "..\\res\\enemy\\bmp00106.bmp"
+
+IDB_weapon_1_270        BITMAP                  "..\\res\\enemy\\bmp00107.bmp"
+
+IDB_weapon_1_225        BITMAP                  "..\\res\\enemy\\bmp00108.bmp"
+
+IDB_weapon_1_180        BITMAP                  "..\\res\\enemy\\bmp00109.bmp"
+
+IDB_weapon_1_135        BITMAP                  "..\\res\\enemy\\bmp00110.bmp"
+
+IDB_weapon_1_0          BITMAP                  "..\\res\\enemy\\bmp00103.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //

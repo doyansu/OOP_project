@@ -543,6 +543,14 @@
     <Image Include="res\enemy\bmp00100.bmp" />
     <Image Include="res\enemy\bmp00101.bmp" />
     <Image Include="res\enemy\bmp00102.bmp" />
+    <Image Include="res\enemy\bmp00103.bmp" />
+    <Image Include="res\enemy\bmp00104.bmp" />
+    <Image Include="res\enemy\bmp00105.bmp" />
+    <Image Include="res\enemy\bmp00106.bmp" />
+    <Image Include="res\enemy\bmp00107.bmp" />
+    <Image Include="res\enemy\bmp00108.bmp" />
+    <Image Include="res\enemy\bmp00109.bmp" />
+    <Image Include="res\enemy\bmp00110.bmp" />
     <Image Include="res\enemy\bmp10.bmp" />
     <Image Include="res\enemy\btn_bgm_.bmp" />
     <Image Include="res\enemy\btn_setu.bmp" />

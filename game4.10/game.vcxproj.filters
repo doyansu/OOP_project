@@ -340,6 +340,14 @@
     <Image Include="res\enemy\minus1.bmp" />
     <Image Include="res\enemy\minus2.bmp" />
     <Image Include="res\enemy\minus3.bmp" />
+    <Image Include="res\enemy\bmp00104.bmp" />
+    <Image Include="res\enemy\bmp00105.bmp" />
+    <Image Include="res\enemy\bmp00106.bmp" />
+    <Image Include="res\enemy\bmp00107.bmp" />
+    <Image Include="res\enemy\bmp00108.bmp" />
+    <Image Include="res\enemy\bmp00109.bmp" />
+    <Image Include="res\enemy\bmp00110.bmp" />
+    <Image Include="res\enemy\bmp00103.bmp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="RES\bmp0.bmp" />
