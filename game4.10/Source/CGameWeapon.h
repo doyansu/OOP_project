@@ -48,7 +48,7 @@ namespace game_framework
 		AUDIO_ID _shootID;
 		Type _weaponType;
 
-			
+		virtual void AddBullet(double x, double y, CGameBullet* newbullet);
 
 	private:
 		CGameWeapon& operator=(const CGameWeapon&) {};

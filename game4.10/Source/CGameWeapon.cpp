@@ -26,9 +26,9 @@ namespace game_framework
 		_user = user;
 		_fire = false;
 		_cost = 0;
-		_shootDelay = 10;
+		_shootDelay = RPS(1);
 		_fireCounter = _shootDelay;
-		_bulletSpeed = 20;
+		_bulletSpeed = 18;
 		_crit = 0;
 		_spread = 0;
 		_atk = 0;
@@ -178,21 +178,26 @@ namespace game_framework
 		{
 			// 音效播放
 			CAudio::Instance()->Play(_shootID);
-
-			CGameBullet* newbullet = ProductFactory<CGameBullet>::Instance().GetProduct((int)CGameBullet::Type::INIT);
-			newbullet->SetSpeed(_bulletSpeed);
-			newbullet->SetTarget(_target);
-			// 出發點
-			newbullet->SetXY(this->CenterX(), this->CenterY());
-			// 是否爆擊調整傷害
-			newbullet->SetDamage(this->_atk * ((rand() % 50 < 5 + this->_crit) ? 2 : 1));
-			// 決定方向
-			newbullet->SetVector(x + 0.05 * (-(this->_spread >> 1) + rand() % this->_spread)
-				, y + 0.05 * (-(this->_spread >> 1) + rand() % this->_spread));		
-			CGameObj::AddObj(newbullet);
+			AddBullet(x, y, ProductFactory<CGameBullet>::Instance().GetProduct((int)CGameBullet::Type::INIT));
 			_fire = false;
 			_fireCounter = _shootDelay;
 		}
+	}
+
+	void CGameWeapon::AddBullet(double x, double y, CGameBullet* newbullet)
+	{
+		// 子彈速度
+		newbullet->SetSpeed(_bulletSpeed);
+		// 子彈目標
+		newbullet->SetTarget(_target);
+		// 出發點
+		newbullet->SetXY(this->CenterX(), this->CenterY());
+		// 是否爆擊調整傷害
+		newbullet->SetDamage(this->_atk * ((rand() % 50 < 5 + this->_crit) ? 2 : 1));
+		// 決定方向
+		newbullet->SetVector(x + 0.03 * (-(this->_spread >> 1) + rand() % this->_spread)
+			, y + 0.03 * (-(this->_spread >> 1) + rand() % this->_spread));
+		CGameObj::AddObj(newbullet);
 	}
 
 	bool CGameWeapon::CanFire() 

@@ -85,11 +85,12 @@ namespace game_framework
 	public:
 		static void Registrars()	//	註冊所有工廠可生產物件
 		{
-
 			static ProductRegistrar<CGameWeapon, CGameWeapon_Init> Register1((int)CGameWeapon::Type::INIT);
 			static ProductRegistrar<CEnemy, CGameEnemy_Init> Register2((int)CEnemy::Type::INIT);
 			static ProductRegistrar<CGameWeapon, CGameWeapon_NewInit> Register3((int)CGameWeapon::Type::NEWINIT);
 			static ProductRegistrar<CGameBullet, CGamBullet_Init> Register4((int)CGameBullet::Type::INIT);
+		
+		
 		}
 	private:
 		

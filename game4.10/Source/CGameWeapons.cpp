@@ -113,17 +113,17 @@ namespace game_framework {
 			// 音效播放
 			CAudio::Instance()->Play(_shootID);
 
-			CGameBullet* newbullet = ProductFactory<CGameBullet>::Instance().GetProduct((int)CGameBullet::Type::INIT);
-			newbullet->SetSpeed(_bulletSpeed);
-			newbullet->SetTarget(_target);
-			// 出發點
-			newbullet->SetXY(this->CenterX(), this->CenterY());
-			// 是否爆擊調整傷害
-			newbullet->SetDamage(this->_atk * ((rand() % 50 < 5 + this->_crit) ? 2 : 1));
-			// 決定方向
-			newbullet->SetVector(x + 0.05 * (-(this->_spread >> 1) + rand() % this->_spread)
-				, y + 0.05 * (-(this->_spread >> 1) + rand() % this->_spread));
-			CGameObj::AddObj(newbullet);
+			int t = 1;
+			if (rand() % 5 == 0)	//	20 % 機率射出5發子彈
+			{
+				t = 5;
+			}
+
+			while (t--)
+			{
+				AddBullet(x, y, ProductFactory<CGameBullet>::Instance().GetProduct((int)CGameBullet::Type::INIT));
+			}
+			
 			_fire = false;
 			_fireCounter = _shootDelay;
 		}
