@@ -28,7 +28,7 @@ namespace game_framework {
 		// ÄÝ©Ê³]©w
 		this->SetXY(400, 400);
 		this->SetShowPriority(1);
-		this->_hp = 10;
+		this->_maxHp = this->_hp = 10;
 		this->_moveSpeed = 3;
 		CEnemy::CGameObj::SetTag("enemy");
 		_enemyType = Type::INIT;

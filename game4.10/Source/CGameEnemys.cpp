@@ -12,7 +12,7 @@ namespace game_framework {
 
 	CGameEnemy_Init::CGameEnemy_Init()
 	{
-
+		
 	}
 
 	void CGameEnemy_Init::LoadBitmap()

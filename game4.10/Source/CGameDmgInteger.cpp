@@ -11,7 +11,7 @@ namespace game_framework
 	CGameDmgInteger::CGameDmgInteger()
 	{
 		_surviveTime = 0;
-		_survive = GAME_ONE_SECONED >> 2;
+		_survive = GAME_ONE_SECONED / 3;
 		this->SetColor(CInteger::Color::RED);
 	}
 
