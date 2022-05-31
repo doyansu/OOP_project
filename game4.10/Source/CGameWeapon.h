@@ -8,7 +8,7 @@ namespace game_framework
 	class CGameWeapon : public CGameObj
 	{
 	public:
-		enum class Type { INIT, TYPECOUNT };
+		enum class Type { INIT, NEWINIT, TYPECOUNT };
 		enum class Anima { Theta_0, Theta_45, Theta_90, Theta_135, Theta_180, Theta_225, Theta_270, Theta_315, ARROW, ANIMACOUNT};	// 動畫種類
 
 		CGameWeapon(CGameObj* = nullptr, Type = Type::INIT);

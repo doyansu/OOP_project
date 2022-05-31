@@ -57,7 +57,6 @@ namespace game_framework {
 		_nowWeapon = 0;
 		_weapons[_nowWeapon]->SetUser(this);
 		_weapons[_nowWeapon]->SetTarget("enemy");
-		_weapons[_nowWeapon]->SetAttributes(4, 1, 20, 15);
 
 	}
 
@@ -155,7 +154,6 @@ namespace game_framework {
 		_nowWeapon = 0;
 		_weapons[_nowWeapon]->SetUser(this);
 		_weapons[_nowWeapon]->SetTarget("enemy");
-		_weapons[_nowWeapon]->SetAttributes(4, 1, 20, 15);
 
 		_isLoad = true;
 	}

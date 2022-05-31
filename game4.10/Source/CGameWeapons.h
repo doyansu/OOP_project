@@ -1,8 +1,10 @@
 #pragma once
 #include "CGameWeapon.h"
-#define RPS 0
+#define RPS(X) GAME_ONE_SECONED / X
 
 namespace game_framework {
+	/////////////////////////////////////////////////////////////////////////////
+	//	破舊的手槍
 	class CGameWeapon_Init : public CGameWeapon
 	{
 	public:
@@ -15,5 +17,22 @@ namespace game_framework {
 	private:
 		
 	};
+	/////////////////////////////////////////////////////////////////////////////
 
+	/////////////////////////////////////////////////////////////////////////////
+	//	嶄新的手槍
+	class CGameWeapon_NewInit : public CGameWeapon
+	{
+	public:
+		static CGameWeapon_NewInit& Instance();
+
+		CGameWeapon_NewInit();
+		void LoadBitmap();
+		void Shoot(double x, double y);
+	protected:
+
+	private:
+
+	};
+	/////////////////////////////////////////////////////////////////////////////
 }
