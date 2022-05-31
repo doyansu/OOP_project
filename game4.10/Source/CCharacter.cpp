@@ -6,6 +6,7 @@
 #include "gamelib.h"
 #include "CCharacter.h"
 #include "CGameFactorys.h"
+#include "CUISkill.h"
 
 
 namespace game_framework {
@@ -531,8 +532,12 @@ namespace game_framework {
 			_shieldCounter = GAME_ONE_SECONED;
 			ModifyShield(1);
 		}
-		if (_skillCounter < _SKILLTD + _SKILLCD)
+		if (_skillCounter <= _SKILLTD + _SKILLCD)
 		{
+			if(_skillCounter < _SKILLTD)
+				CUISkill::Instance().SetValue(100 * (_SKILLTD - _skillCounter) / _SKILLTD);
+			else 
+				CUISkill::Instance().SetValue(100 * (_skillCounter - _SKILLTD) / _SKILLCD);
 			_skillCounter++;
 		}
 			
@@ -741,6 +746,11 @@ namespace game_framework {
 				_nowWeapon ^= 1;
 				//	播放音效
 				CAudio::Instance()->Play(AUDIO_SWITCH_WEAPON);
+				// 切換武器會取消技能
+				if (_skillCounter < _SKILLTD)
+				{
+					_skillCounter = _SKILLTD;
+				}
 			}
 			break;
 		case KEY_C:
@@ -753,7 +763,6 @@ namespace game_framework {
 				_skillWeapon->SetUser(this);
 				_skillWeapon->SetTarget("enemy");
 			}
-				
 			break;
 		default:
 			break;

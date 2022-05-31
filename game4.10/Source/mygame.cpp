@@ -983,6 +983,9 @@ void CGameStateRun::OnShow()
 	minMap.SetXY(SIZE_X - 180 + dMinMap, 25 + btn_pause.Height());
 	minMap.OnShow();
 
+	//	UI 技能
+	CUISkill::Instance().ShowUI();
+
 	// 武器 UI 調動
 	CUIWeapon::Instance().ShowUI();
 

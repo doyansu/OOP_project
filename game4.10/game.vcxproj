@@ -277,6 +277,7 @@
     <ClCompile Include="Source\CBouncingBall.cpp" />
     <ClCompile Include="Source\CEraser.cpp" />
     <ClCompile Include="Source\CUIMinMap.cpp" />
+    <ClCompile Include="Source\CUISkill.cpp" />
     <ClCompile Include="Source\CUIWeapon.cpp" />
     <ClCompile Include="Source\game.cpp">
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -343,6 +344,7 @@
     <ClInclude Include="Source\CEraser.h" />
     <ClInclude Include="Source\CUIButton.h" />
     <ClInclude Include="Source\CUIMinMap.h" />
+    <ClInclude Include="Source\CUISkill.h" />
     <ClInclude Include="Source\CUIWeapon.h" />
     <ClInclude Include="Source\game.h" />
     <ClInclude Include="Source\gameDoc.h" />
@@ -524,6 +526,9 @@
     <Image Include="res\enemy\bmp00096.bmp" />
     <Image Include="res\enemy\bmp00097.bmp" />
     <Image Include="res\enemy\bmp00098.bmp" />
+    <Image Include="res\enemy\bmp00099.bmp" />
+    <Image Include="res\enemy\bmp00100.bmp" />
+    <Image Include="res\enemy\bmp00101.bmp" />
     <Image Include="res\enemy\btn_bgm_.bmp" />
     <Image Include="res\enemy\btn_setu.bmp" />
     <Image Include="res\enemy\btn_soun.bmp" />
@@ -573,6 +578,7 @@
     <Image Include="res\enemy\enemyapp.bmp" />
     <Image Include="res\enemy\playerap.bmp" />
     <Image Include="res\enemy\roommark.bmp" />
+    <Image Include="res\enemy\skill_ui.bmp" />
     <Image Include="res\enemy\weapon_0.bmp" />
     <Image Include="res\floorwall\bitmap50.bmp" />
     <Image Include="res\floorwall\bitmap51.bmp" />
