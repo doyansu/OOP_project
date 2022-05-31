@@ -260,6 +260,7 @@
     <ClCompile Include="source\CEnemy.cpp" />
     <ClCompile Include="Source\CGameArrow.cpp" />
     <ClCompile Include="Source\CGameBullet.cpp" />
+    <ClCompile Include="Source\CGameDmgInteger.cpp" />
     <ClCompile Include="Source\CGameEnemys.cpp" />
     <ClCompile Include="Source\CGameFactorys.cpp" />
     <ClCompile Include="Source\CGameInteractOnceObj.cpp" />
@@ -327,6 +328,7 @@
     <ClInclude Include="source\CEnemy.h" />
     <ClInclude Include="Source\CGameArrow.h" />
     <ClInclude Include="Source\CGameBullet.h" />
+    <ClInclude Include="Source\CGameDmgInteger.h" />
     <ClInclude Include="Source\CGameEnemys.h" />
     <ClInclude Include="Source\CGameFactorys.h" />
     <ClInclude Include="Source\CGameInteractOnceObj.h" />
@@ -589,6 +591,9 @@
     <Image Include="RES\enemy\enemy34_7_l.bmp" />
     <Image Include="RES\enemy\enemy34_8.bmp" />
     <Image Include="res\enemy\enemyapp.bmp" />
+    <Image Include="res\enemy\minus1.bmp" />
+    <Image Include="res\enemy\minus2.bmp" />
+    <Image Include="res\enemy\minus3.bmp" />
     <Image Include="res\enemy\playerap.bmp" />
     <Image Include="res\enemy\red_1.bmp" />
     <Image Include="res\enemy\red_10.bmp" />

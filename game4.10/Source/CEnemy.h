@@ -1,6 +1,7 @@
 #pragma once
 #include "CGameWeapons.h"
 #include "CAnimationEnemyAppear.h"
+#include "CGameDmgInteger.h"
 
 namespace game_framework {
 
@@ -27,6 +28,7 @@ namespace game_framework {
 	protected:
 		CGameWeapon* _weapon;
 		Type _enemyType;
+		CGameDmgInteger _dmgInteger;
 
 		void Die();
 		vector<CAnimation>::iterator GetAnima(Anima);

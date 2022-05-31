@@ -308,6 +308,11 @@ int  CInteger::GetWidth()
 	return digit[(int)color][0].Width();
 }
 
+int  CInteger::GetHeight()
+{
+	return digit[(int)color][0].Height();
+}
+
 int  CInteger::GetLen()
 {
 	int len = Intlength(n);

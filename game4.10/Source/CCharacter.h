@@ -1,6 +1,7 @@
 #pragma once
 #include "CGameObj.h"
 #include "CGameWeapons.h"
+#include "CGameDmgInteger.h"
 
 namespace game_framework {
 
@@ -54,6 +55,8 @@ namespace game_framework {
 		bool _canInteractive;						// 是否有物件可互動
 		CGameWeapon* _weapons[2], *_skillWeapon;	// 可擁有2把武器
 		int _nowWeapon;								// 當前武器 index
+		CGameDmgInteger _dmgInteger;				// 受傷時顯示數字
+		CGameDmgInteger _goldInteger, _eneryInteger;// 吃到金幣或能量球顯示數字
 
 		int _attCounter;							// 近戰計數器
 		int _deathCounter;							// 死亡倒數

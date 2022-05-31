@@ -564,6 +564,12 @@ IDB_blue_8              BITMAP                  "..\\res\\enemy\\blue_8.bmp"
 
 IDB_blue_9              BITMAP                  "..\\res\\enemy\\blue_9.bmp"
 
+IDB_MINUS_red           BITMAP                  "..\\res\\enemy\\minus1.bmp"
+
+IDB_MINUS_yellow        BITMAP                  "..\\res\\enemy\\minus2.bmp"
+
+IDB_MINUS_blue          BITMAP                  "..\\res\\enemy\\minus3.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //

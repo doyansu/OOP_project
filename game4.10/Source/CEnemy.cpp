@@ -61,6 +61,7 @@ namespace game_framework {
 		_weapon->SetUser(this);
 		_weapon->SetAttributes(1, 0, 5, 50);
 		_weapon->SetTarget("player");
+		this->_dmgInteger = other._dmgInteger;
 	}
 
 	void CEnemy::free()
@@ -108,6 +109,8 @@ namespace game_framework {
 			CEnemy::CGameObj::OnShow(map);
 			if(!_isDie)
 				_weapon->OnShow(map);
+			_dmgInteger.SetTopLeft(map->ScreenX(this->CenterX() - (_dmgInteger.GetWidth() >> 1)), map->ScreenY(this->GetY1() - _dmgInteger.GetHeight()));
+			_dmgInteger.OnShow();
 		}
 		else
 		{
@@ -231,6 +234,7 @@ namespace game_framework {
 
 	void CEnemy::TakeDmg(int dmg)
 	{
+		_dmgInteger.AddDmg(-dmg);
 		CGameObj::TakeDmg(dmg);
 		// ÀH¾÷ HIT ­µ®Ä CAudio::Instance()->Play(AUDIO_HIT_ENEMY_0 + rand() % (AUDIO_HIT_ENEMY_COUNT - AUDIO_HIT_ENEMY_0));
 		CAudio::Instance()->Play(AUDIO_HIT_ENEMY_0);

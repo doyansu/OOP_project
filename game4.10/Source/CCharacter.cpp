@@ -34,6 +34,10 @@ namespace game_framework {
 		_skillWeapon = nullptr;
 		_tag = "player";
 		_needFree = false;
+		_goldInteger.SetColor(CInteger::Color::YELLOW);
+		_goldInteger.SetSurviveTime(GAME_ONE_SECONED >> 1);
+		_eneryInteger.SetColor(CInteger::Color::BLUE);
+		_eneryInteger.SetSurviveTime(GAME_ONE_SECONED >> 1);
 		this->Reset();
 
 	}
@@ -170,6 +174,15 @@ namespace game_framework {
 				if (_skillCounter < _SKILLTD)
 					_skillWeapon->OnShow(map);
 			}
+			// 顯示數字
+			_dmgInteger.SetTopLeft(map->ScreenX(this->CenterX() - (_dmgInteger.GetWidth() >> 1)), map->ScreenY(this->GetY1() - _dmgInteger.GetHeight() - 20));
+			_dmgInteger.OnShow();
+			if (!_goldInteger.IsSurvive())
+				_goldInteger.SetTopLeft(map->ScreenX(_mx - 5 + rand() % this->GetWidth()), map->ScreenY(_my - 20));
+			_goldInteger.OnShow();
+			if (!_eneryInteger.IsSurvive())
+				_eneryInteger.SetTopLeft(map->ScreenX(_mx - 5 + rand() % this->GetWidth()), map->ScreenY(_my - 20));
+			_eneryInteger.OnShow();
 		}
 		else
 		{
@@ -752,6 +765,7 @@ namespace game_framework {
 
 	void CCharacter::TakeDmg(int dmg)
 	{
+		_dmgInteger.AddDmg(-dmg);
 		if (dmg > 0)
 		{
 			_shieldCounter = GAME_ONE_SECONED * 5; // 約 5 秒
@@ -887,11 +901,14 @@ namespace game_framework {
 
 	void CCharacter::ModifyGold(int value)
 	{
+		_goldInteger.AddDmg(value);
 		_gold += value;
 	}
 
 	void CCharacter::ModifyMp(int value)
 	{
+		if(value > 0)
+			_eneryInteger.AddDmg(value);
 		_mp += value;
 		if (_mp < 0)
 			_mp = 0;

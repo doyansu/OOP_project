@@ -318,7 +318,6 @@
 #define IDB_yello_7                     458
 #define IDB_yello_8                     459
 #define IDB_yello_9                     460
-#define IDB_yello_10                    461
 #define IDB_blue_0                      461
 #define IDB_blue_1                      462
 #define IDB_blue_2                      463
@@ -329,6 +328,10 @@
 #define IDB_blue_7                      468
 #define IDB_blue_8                      469
 #define IDB_blue_9                      470
+#define IDB_MINUS_red                   471
+#define IDB_MINUS_yellow                472
+#define IDB_MINUS3                      473
+#define IDB_MINUS_blue                  473
 #define IDC_README                      1001
 #define ID_FILE_PAUSE                   32771
 #define ID_TOGGLE_FULLSCREEN            32772

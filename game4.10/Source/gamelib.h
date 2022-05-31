@@ -264,6 +264,7 @@ public:
 	int  GetInteger();			// 回傳整數值
 	int  GetFinal();			// 回傳最後圖片在螢幕的位置
 	int  GetWidth();			// 取得圖片寬度
+	int  GetHeight();			// 取得圖片高度
 	int  GetLen();				// 取得數字位數
 	void SetInteger(int);		// 設定整數值
 	void SetTopLeft(int,int);	// 將動畫的左上角座標移至 (x,y)
@@ -281,9 +282,9 @@ public:
 			int d[(int)Color::COLORCOUNT][11] = 
 			{
 				{ IDB_0,IDB_1,IDB_2,IDB_3,IDB_4,IDB_5,IDB_6,IDB_7,IDB_8,IDB_9,IDB_MINUS },
-				{ IDB_red_0,IDB_red_1,IDB_red_2,IDB_red_3,IDB_red_4,IDB_red_5,IDB_red_6,IDB_red_7,IDB_red_8,IDB_red_9,IDB_MINUS },
-				{ IDB_yello_0,IDB_yello_1,IDB_yello_2,IDB_yello_3,IDB_yello_4,IDB_yello_5,IDB_yello_6,IDB_yello_7,IDB_yello_8,IDB_yello_9,IDB_MINUS },
-				{ IDB_blue_0,IDB_blue_1,IDB_blue_2,IDB_blue_3,IDB_blue_4,IDB_blue_5,IDB_blue_6,IDB_blue_7,IDB_blue_8,IDB_blue_9,IDB_MINUS }
+				{ IDB_red_0,IDB_red_1,IDB_red_2,IDB_red_3,IDB_red_4,IDB_red_5,IDB_red_6,IDB_red_7,IDB_red_8,IDB_red_9,IDB_MINUS_red },
+				{ IDB_yello_0,IDB_yello_1,IDB_yello_2,IDB_yello_3,IDB_yello_4,IDB_yello_5,IDB_yello_6,IDB_yello_7,IDB_yello_8,IDB_yello_9,IDB_MINUS_yellow },
+				{ IDB_blue_0,IDB_blue_1,IDB_blue_2,IDB_blue_3,IDB_blue_4,IDB_blue_5,IDB_blue_6,IDB_blue_7,IDB_blue_8,IDB_blue_9,IDB_MINUS_blue }
 			};
 			
 			for (int c = 0; c < (int)Color::COLORCOUNT; c++)
