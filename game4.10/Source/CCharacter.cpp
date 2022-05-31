@@ -63,7 +63,6 @@ namespace game_framework {
 	void CCharacter::Reset()
 	{
 		_doSomeThing = false;
-		_canAttack = true;
 		_canInteractive = false;
 		_skillCounter = _SKILLTD + _SKILLCD;
 		_deathCounter = GAME_ONE_SECONED * 2;
@@ -493,8 +492,8 @@ namespace game_framework {
 			}
 			else if (target != nullptr)	// 找到敵人朝敵人射擊
 			{
-				const double MINSEARCH = 0.0;	// 最小搜索範圍 (目前沒有)
-				if (_weapons[_nowWeapon]->CanFire() && d <= MAXSEARCH)// 找到敵人朝敵人射擊
+				const double MINSEARCH = 50;	// 最小搜索範圍 (目前沒有)
+				if (_weapons[_nowWeapon]->CanFire() && d >= MINSEARCH)// 找到敵人朝敵人射擊
 				{
 					double vx = (double)(target->CenterX() - this->CenterX()) / d;
 					double vy = (double)(target->CenterY() - this->CenterY()) / d;
@@ -511,7 +510,7 @@ namespace game_framework {
 				}
 
 				//	正在使用技能
-				if (_skillCounter < _SKILLTD && _skillWeapon->CanFire())
+				if (_skillCounter < _SKILLTD && _skillWeapon->CanFire() && d >= MINSEARCH)
 				{
 					double vx = (double)(target->CenterX() - this->CenterX()) / d;
 					double vy = (double)(target->CenterY() - this->CenterY()) / d;

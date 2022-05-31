@@ -51,7 +51,6 @@ namespace game_framework {
 		int _gold;									// 金幣數
 		int _damage;								// 近戰傷害
 		bool _doSomeThing;							// 鍵盤按鍵判斷
-		bool _canAttack;							// 近戰攻擊判斷
 		bool _canInteractive;						// 是否有物件可互動
 		CGameWeapon* _weapons[2], *_skillWeapon;	// 可擁有2把武器
 		int _nowWeapon;								// 當前武器 index

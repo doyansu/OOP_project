@@ -221,6 +221,7 @@ namespace game_framework
 						newEnemy->SetFree(false);
 						_roomEnemys.push_back(newEnemy);
 					}
+					_hasEnemys = true;
 					_reGenerate--;
 				}
 				else
