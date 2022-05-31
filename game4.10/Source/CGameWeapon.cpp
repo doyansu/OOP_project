@@ -6,6 +6,7 @@
 #include "gamelib.h"
 #include "CGameWeapon.h"
 #include "CUIWeapon.h"
+#include "CGameFactorys.h"
 
 
 namespace game_framework
@@ -37,12 +38,6 @@ namespace game_framework
 		_shootID = AUDIO_ID::AUDIO_GUN_0;
 		_collPlayer = false;
 		_weaponType = type;
-
-		// 子彈設定
-		//_bullet = new CGameBullet(this->CenterX(), this->CenterY());
-		_bullet = new CGameBullet(this->GetX1(), this->GetY1());
-		//_bullet->SetXY(this->CenterX(), this->CenterY());
-		_bullet->SetSpeed(_bulletSpeed);
 
 		WeaponMap[(CGameObj*)this] = this;
 	}
@@ -78,7 +73,6 @@ namespace game_framework
 		this->_shootDelay = other._shootDelay;
 		this->_fireCounter = other._fireCounter;
 		this->_DT = other._DT;
-		this->_bullet = new CGameBullet(*(other._bullet));
 		this->_user = other._user;
 		this->_center[0] = other._center[0];
 		this->_center[1] = other._center[1];
@@ -93,11 +87,7 @@ namespace game_framework
 
 	void CGameWeapon::free()
 	{
-		if (_bullet != nullptr)
-		{
-			delete _bullet;
-			_bullet = nullptr;
-		}
+
 	}
 
 	void CGameWeapon::LoadBitmap()
@@ -119,7 +109,6 @@ namespace game_framework
 		_animaIter = GetAnima(CGameWeapon::Anima::Theta_315);
 		_animaIter->AddBitmap(IDB_weapon_0_315, RGB(255, 255, 255));
 
-		_bullet->LoadBitmap();
 
 		*GetAnima(Anima::ARROW) = CGameArrow::Instance();
 		_isLoad = true;
@@ -190,7 +179,9 @@ namespace game_framework
 			// 音效播放
 			CAudio::Instance()->Play(_shootID);
 
-			CGameBullet* newbullet = new CGameBullet(*_bullet);
+			CGameBullet* newbullet = ProductFactory<CGameBullet>::Instance().GetProduct((int)CGameBullet::Type::INIT);
+			newbullet->SetSpeed(_bulletSpeed);
+			newbullet->SetTarget(_target);
 			// 出發點
 			newbullet->SetXY(this->CenterX(), this->CenterY());
 			// 是否爆擊調整傷害
@@ -252,7 +243,7 @@ namespace game_framework
 
 	void CGameWeapon::SetTarget(string target)
 	{
-		_bullet->SetTarget(target);
+		_target = target;
 	}
 
 	void CGameWeapon::SetUser(CGameObj* user)
@@ -266,8 +257,6 @@ namespace game_framework
 		_cost = cost;
 		_bulletSpeed = bulletSpeed;
 		_shootDelay = shootDelay;
-		_bullet->SetSpeed(_bulletSpeed);
-		_bullet->SetDamage(atk);
 	}
 
 	void CGameWeapon::SetCenter(int x, int y)

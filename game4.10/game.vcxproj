@@ -260,6 +260,7 @@
     <ClCompile Include="source\CEnemy.cpp" />
     <ClCompile Include="Source\CGameArrow.cpp" />
     <ClCompile Include="Source\CGameBullet.cpp" />
+    <ClCompile Include="Source\CGameBullets.cpp" />
     <ClCompile Include="Source\CGameDmgInteger.cpp" />
     <ClCompile Include="Source\CGameEnemys.cpp" />
     <ClCompile Include="Source\CGameFactorys.cpp" />
@@ -328,6 +329,7 @@
     <ClInclude Include="source\CEnemy.h" />
     <ClInclude Include="Source\CGameArrow.h" />
     <ClInclude Include="Source\CGameBullet.h" />
+    <ClInclude Include="Source\CGameBullets.h" />
     <ClInclude Include="Source\CGameDmgInteger.h" />
     <ClInclude Include="Source\CGameEnemys.h" />
     <ClInclude Include="Source\CGameFactorys.h" />

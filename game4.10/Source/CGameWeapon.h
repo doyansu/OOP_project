@@ -1,6 +1,6 @@
 #pragma once
 #include "audio.h"
-#include "CGameBullet.h"
+#include "CGameBullets.h"
 #include "CGameArrow.h"
 
 namespace game_framework
@@ -43,7 +43,7 @@ namespace game_framework
 		int _fireCounter;							//	射擊間格計數
 		int _DT;									//	動畫判斷
 		int _collPlayer;							//	碰撞玩家判定
-		CGameBullet* _bullet;						//	子彈設定
+		string _target;
 		CGameObj* _user;
 		AUDIO_ID _shootID;
 		Type _weaponType;

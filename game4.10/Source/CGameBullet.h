@@ -6,21 +6,21 @@ namespace game_framework
 	class CGameBullet : public CGameObj
 	{
 	public:
-		//CGameBullet();
-		CGameBullet(int x, int y);
-		CGameBullet(const CGameBullet& other);
+		enum class Type { INIT, TYPECOUNT };
+		CGameBullet();
+		//CGameBullet(const CGameBullet& other);
 
 		void SetTarget(string);
 		void SetDamage(int);
 
-		void LoadBitmap();
-		void OnMove(CGameMap* map);
-		//void OnShow(CGameMap* map);
-		void OnObjCollision(CGameMap*, CGameObj*);
+		virtual void LoadBitmap() = 0;
+		virtual void OnMove(CGameMap* map);
+		virtual void OnObjCollision(CGameMap*, CGameObj*);
 
 	protected:
 		int _damage;		//¤l¼u§ðÀ»¤O
 		string _target;
+		Type _bulletType;
 
 	private:
 	};

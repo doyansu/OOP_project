@@ -50,8 +50,6 @@ namespace game_framework {
 		_animaIter = GetAnima(CGameWeapon::Anima::Theta_315);
 		_animaIter->AddBitmap(IDB_weapon_0_315, RGB(255, 255, 255));
 
-		_bullet->LoadBitmap();
-
 		*GetAnima(Anima::ARROW) = CGameArrow::Instance();
 
 		_isLoad = true;
@@ -102,7 +100,6 @@ namespace game_framework {
 		_animaIter = GetAnima(CGameWeapon::Anima::Theta_315);
 		_animaIter->AddBitmap(IDB_weapon_1_315, RGB(255, 255, 255));
 
-		_bullet->LoadBitmap();
 
 		*GetAnima(Anima::ARROW) = CGameArrow::Instance();
 
@@ -116,7 +113,9 @@ namespace game_framework {
 			// 音效播放
 			CAudio::Instance()->Play(_shootID);
 
-			CGameBullet* newbullet = new CGameBullet(*_bullet);
+			CGameBullet* newbullet = ProductFactory<CGameBullet>::Instance().GetProduct((int)CGameBullet::Type::INIT);
+			newbullet->SetSpeed(_bulletSpeed);
+			newbullet->SetTarget(_target);
 			// 出發點
 			newbullet->SetXY(this->CenterX(), this->CenterY());
 			// 是否爆擊調整傷害

@@ -15,26 +15,21 @@ namespace game_framework
 		_target = "";
 		CGameBullet::CGameObj::SetTag("bullet");
 	}*/
-	CGameBullet::CGameBullet(int x, int y)
+	CGameBullet::CGameBullet()
 	{
-		_mx = x;
-		_my = y;
 		_showPriority = 5;
 		_damage = 4;
 		_target = "";
-		CGameBullet::CGameObj::SetTag("bullet");
+		_bulletType = Type::INIT;
+		this->SetTag("bullet");
 	}
 
-	CGameBullet::CGameBullet(const CGameBullet& other):CGameObj(other)
+	/*CGameBullet::CGameBullet(const CGameBullet& other):CGameObj(other)
 	{
 		_damage = other._damage;
 		_target = other._target;
-	}
+	}*/
 
-	void CGameBullet::LoadBitmap()
-	{
-		CGameBullet::CGameObj::_animaIter->AddBitmap(IDB_Bullet0, RGB(255, 255, 255)); //test image
-	}
 
 	void CGameBullet::OnMove(CGameMap* map)
 	{
@@ -46,11 +41,6 @@ namespace game_framework
 		if (CGameBullet::CGameObj::Collision(map) || CGameBullet::CGameObj::Collision(map, CGameMap::ContentType::AISLEWALL))
 			CGameBullet::CGameObj::SetEnable(false);
 	}
-
-	/*void CGameBullet::OnShow(CGameMap* map)
-	{
-
-	}*/
 
 	void CGameBullet::OnObjCollision(CGameMap* map, CGameObj* other)
 	{
