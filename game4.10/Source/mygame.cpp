@@ -751,6 +751,10 @@ void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的
 				btn_pause.OnMove();
 			}
 		}
+		else if (CUISkill::Instance().PointIn(point.x, point.y))
+		{
+			character.UseSkill();
+		}
 	}
 	else
 	{

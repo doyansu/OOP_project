@@ -754,15 +754,7 @@ namespace game_framework {
 			}
 			break;
 		case KEY_C:
-			if (_skillCounter >= _SKILLTD + _SKILLCD)
-			{
-				_skillCounter = 0;
-				if (_skillWeapon != nullptr)
-					delete _skillWeapon;
-				_skillWeapon = ProductFactory<CGameWeapon>::Instance().GetProduct((int)_weapons[_nowWeapon]->GetType());
-				_skillWeapon->SetUser(this);
-				_skillWeapon->SetTarget("enemy");
-			}
+			UseSkill();
 			break;
 		default:
 			break;
@@ -795,6 +787,19 @@ namespace game_framework {
 		}
 			 
 		
+	}
+
+	void CCharacter::UseSkill()
+	{
+		if (_skillCounter >= _SKILLTD + _SKILLCD)
+		{
+			_skillCounter = 0;
+			if (_skillWeapon != nullptr)
+				delete _skillWeapon;
+			_skillWeapon = ProductFactory<CGameWeapon>::Instance().GetProduct((int)_weapons[_nowWeapon]->GetType());
+			_skillWeapon->SetUser(this);
+			_skillWeapon->SetTarget("enemy");
+		}
 	}
 
 	void CCharacter::ModifyShield(int add)

@@ -27,6 +27,7 @@ namespace game_framework {
 		void ModifyGold(int);
 		void ModifyMp(int);
 		void TakeDmg(int);
+		void UseSkill();
 
 		void LoadBitmap();				// 載入圖形
 		void OnShow(CGameMap*);			// 將圖形貼到畫面
