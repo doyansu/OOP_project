@@ -28,7 +28,7 @@ namespace game_framework {
 	{
 		_spread = 5;
 		_atk = 3;
-		_shootDelay = RPS(2);
+		_shootDelay = RPS(3);
 	}
 
 	void CGameWeapon_Init::LoadBitmap()
@@ -79,7 +79,7 @@ namespace game_framework {
 		_cost = 0;
 		_crit = 0;
 		_spread = 7;
-		_shootDelay = RPS(2);
+		_shootDelay = RPS(3);
 		_weaponType = Type::NEWINIT;
 	}
 
