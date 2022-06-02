@@ -24,7 +24,7 @@ namespace game_framework
 
 		// ÄÝ©Ê³]©w
 		_user = user;
-		_fire = false;
+		_fire = true;
 		_cost = 0;
 		_shootDelay = RPS(1);
 		_fireCounter = _shootDelay;
