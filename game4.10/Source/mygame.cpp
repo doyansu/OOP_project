@@ -345,8 +345,9 @@ void CGameStateOver::OnInit()
 
 	counterDown.SetTopLeft(btn_statectl.Left(), btn_statectl.Top());
 
-	enemyDie.SetTopLeft(0, 0);
-
+	
+	enemyDie.SetColor(CInteger::Color::YELLOW);
+	enemyDie.SetTopLeft(180, 245);
 
 	//Sleep(300);				// 放慢，以便看清楚進度，實際遊戲請刪除此Sleep
 	//
