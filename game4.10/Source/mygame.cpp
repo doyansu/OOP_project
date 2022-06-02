@@ -336,6 +336,9 @@ void CGameStateOver::OnInit()
 	//
 	// 開始載入資料
 	//
+	background.LoadBitmap(IDB_gameover_background);
+	background.SetTopLeft(0, 0);
+
 	btn_statectl.AddBitmap(IDB_BTN_continue_0, RGB(255, 255, 255));
 	btn_statectl.AddBitmap(IDB_BTN_continue_1, RGB(255, 255, 255));
 	btn_statectl.SetTopLeft((SIZE_X - btn_statectl.Width()) / 2, SIZE_Y - btn_statectl.Height() - 10);
@@ -343,6 +346,7 @@ void CGameStateOver::OnInit()
 	counterDown.SetTopLeft(btn_statectl.Left(), btn_statectl.Top());
 
 	enemyDie.SetTopLeft(0, 0);
+
 
 	//Sleep(300);				// 放慢，以便看清楚進度，實際遊戲請刪除此Sleep
 	//
@@ -405,6 +409,9 @@ void CGameStateOver::OnLButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的�
 
 void CGameStateOver::OnShow()
 {
+	//	背景
+	background.ShowBitmap();
+
 	//	按鈕
 	btn_statectl.OnShow();
 
@@ -415,15 +422,16 @@ void CGameStateOver::OnShow()
 	enemyDie.SetInteger(CEnemy::GetDieAmount());
 	enemyDie.ShowBitmap(false);
 
+	
 	/*
 	CDC *pDC = CDDraw::GetBackCDC();			// 取得 Back Plain 的 CDC 
 	CFont f,*fp;
 	f.CreatePointFont(160,"Times New Roman");	// 產生 font f; 160表示16 point的字
 	fp=pDC->SelectObject(&f);					// 選用 font f
 	pDC->SetBkColor(RGB(0,0,0));
-	pDC->SetTextColor(RGB(255,255,0));
+	pDC->SetTextColor(RGB(0,0,0));
 	char str[80];								// Demo 數字對字串的轉換
-	sprintf(str, "Game Over ! (%d)", counter / GAME_ONE_SECONED);
+	sprintf(str, "%d S", counter / GAME_ONE_SECONED);
 	pDC->TextOut(240,210,str);
 	pDC->SelectObject(fp);						// 放掉 font f (千萬不要漏了放掉)
 	CDDraw::ReleaseBackCDC();					// 放掉 Back Plain 的 CDC

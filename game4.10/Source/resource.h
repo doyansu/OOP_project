@@ -300,6 +300,8 @@
 #define IDB_weapon_ui_switch            437
 #define IDB_red_0                       438
 #define IDB_handknife_right             439
+#define IDB_BITMAP58                    440
+#define IDB_gameover_background         440
 #define IDB_red_1                       442
 #define IDB_red_2                       443
 #define IDB_red_3                       444
@@ -367,7 +369,7 @@
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_3D_CONTROLS                     1
-#define _APS_NEXT_RESOURCE_VALUE        440
+#define _APS_NEXT_RESOURCE_VALUE        441
 #define _APS_NEXT_COMMAND_VALUE         32776
 #define _APS_NEXT_CONTROL_VALUE         1003
 #define _APS_NEXT_SYMED_VALUE           101

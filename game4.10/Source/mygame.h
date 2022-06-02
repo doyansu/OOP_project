@@ -166,6 +166,7 @@ namespace game_framework {
 	private:
 		CUIButton btn_statectl;
 		CInteger counterDown, enemyDie;
+		CMovingBitmap background;
 		enum class STATE {start, runAnima, gotoInit };
 		STATE state;
 		int counter;	// 倒數之計數器
