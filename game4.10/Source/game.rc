@@ -586,7 +586,9 @@ IDB_weapon_1_135        BITMAP                  "..\\res\\enemy\\bmp00110.bmp"
 
 IDB_weapon_1_0          BITMAP                  "..\\res\\enemy\\bmp00103.bmp"
 
-IDB_handknife           BITMAP                  "..\\res\\enemy\\bmp00111.bmp"
+IDB_handknife_right     BITMAP                  "..\\res\\enemy\\bmp00111.bmp"
+
+IDB_handknife_left      BITMAP                  "..\\res\\enemy\\handknif.bmp"
 
 
 /////////////////////////////////////////////////////////////////////////////

@@ -299,8 +299,7 @@
 #define IDB_Skill_UI_backGround         436
 #define IDB_weapon_ui_switch            437
 #define IDB_red_0                       438
-#define IDB_BITMAP58                    439
-#define IDB_handknife                   439
+#define IDB_handknife_right             439
 #define IDB_red_1                       442
 #define IDB_red_2                       443
 #define IDB_red_3                       444
@@ -342,6 +341,8 @@
 #define IDB_weapon_1_180                479
 #define IDB_weapon_1_135                480
 #define IDB_weapon_1_0                  481
+#define IDB_handknife_right1            482
+#define IDB_handknife_left              482
 #define IDC_README                      1001
 #define ID_FILE_PAUSE                   32771
 #define ID_TOGGLE_FULLSCREEN            32772

@@ -505,7 +505,10 @@ namespace game_framework {
 				}
 				else if (d < MINSEARCH) // ªñ¾Ô§ðÀ»
 				{
-					target->TakeDmg(_damage);
+					//target->TakeDmg(_damage);
+					CGameBullet* handKnife = ProductFactory<CGameBullet>::Instance().GetProduct((int)CGameBullet::Type::HandKnife);
+					handKnife->SetXY((this->CenterX() + target->CenterX() - handKnife->GetWidth()) / 2, (this->CenterY() + target->CenterY() - handKnife->GetHeight()) / 2);
+					CGameObj::AddObj(handKnife);
 					_doSomeThing = false;
 				}
 

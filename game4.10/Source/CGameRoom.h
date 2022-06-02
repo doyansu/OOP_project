@@ -139,8 +139,8 @@ namespace game_framework
 			//	開箱音效
 			CAudio::Instance()->Play(AUDIO_ID::AUDIO_BOX_OPEN);
 
-			//	暫時各 100 %
-			if (true)
+			//	暫時各 50 %
+			if (rand() % 2)
 			{
 				CGameWeapon* obj = ProductFactory<CGameWeapon>::Instance().GetProduct(rand() % (int)CGameWeapon::Type::TYPECOUNT);
 				//obj->LoadBitmap();

@@ -416,14 +416,14 @@ void CGameStateRun::OnBeginState()
 	CAudio::Instance()->Play(AUDIO_BGM_SNOW, true);
 
 	// TEST
-	CGameWeapon * w = ProductFactory<CGameWeapon>::Instance().GetProduct((int)CGameWeapon::Type::AK47);
+	/*CGameWeapon * w = ProductFactory<CGameWeapon>::Instance().GetProduct((int)CGameWeapon::Type::AK47);
 	w->SetXY(MYMAPWIDTH * gameMap.GetRoom(MYORGROOM, MYORGROOM)->CenterX(),
 		MYMAPHIGH * gameMap.GetRoom(MYORGROOM, MYORGROOM)->CenterY());
-	CGameObj::AddObj(w);
-	/*CGameTreasure* treasure = CGameTreasure::CreateObj(rand() % (int)CGameTreasure::Type::TYPECOUNT);
+	CGameObj::AddObj(w);*/
+	CGameTreasure* treasure = CGameTreasure::CreateObj(rand() % (int)CGameTreasure::Type::TYPECOUNT);
 	treasure->SetXY(MYMAPWIDTH * gameMap.GetRoom(MYORGROOM, MYORGROOM)->CenterX(),
 		MYMAPHIGH * gameMap.GetRoom(MYORGROOM, MYORGROOM)->CenterY());
-	CGameObj::AddObj(treasure);*/
+	CGameObj::AddObj(treasure);
 
 }
 

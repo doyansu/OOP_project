@@ -8,18 +8,10 @@
 
 namespace game_framework
 {
-	/*CGameBullet::CGameBullet()
-	{
-		_showPriority = 5;
-		_damage = 4;
-		_target = "";
-		CGameBullet::CGameObj::SetTag("bullet");
-	}*/
 	CGameBullet::CGameBullet()
 	{
 		_showPriority = 5;
 		_damage = 4;
-		_target = "";
 		_bulletType = Type::INIT;
 		this->SetTag("bullet");
 	}
@@ -44,16 +36,33 @@ namespace game_framework
 
 	void CGameBullet::OnObjCollision(CGameMap* map, CGameObj* other)
 	{
-		if (other->GetTag() == _target)
+		for (string target : _targets)
 		{
-			this->SetEnable(false);
-			other->TakeDmg(_damage);
+			if (other->GetTag() == target)
+			{
+				other->TakeDmg(_damage);
+				this->Die();
+				break;
+			}
 		}
+		
 	}
 
-	void CGameBullet::SetTarget(string target)
+	void CGameBullet::Die()
 	{
-		_target = target;
+		this->SetEnable(false);
+		this->SetCollision(false);
+		this->SetDie(true);
+	}
+
+	void CGameBullet::OnDie(CGameMap*)
+	{
+		this->SetDie(false);
+	}
+
+	void CGameBullet::AddTarget(string target)
+	{
+		_targets.push_back(target);
 	}
 
 	void CGameBullet::SetDamage(int damage)

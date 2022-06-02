@@ -189,7 +189,7 @@ namespace game_framework
 		// 子彈速度
 		newbullet->SetSpeed(_bulletSpeed);
 		// 子彈目標
-		newbullet->SetTarget(_target);
+		newbullet->AddTarget(_target);
 		// 出發點
 		newbullet->SetXY(this->CenterX(), this->CenterY());
 		// 是否爆擊調整傷害

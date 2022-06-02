@@ -602,6 +602,7 @@
     <Image Include="RES\enemy\enemy34_7_l.bmp" />
     <Image Include="RES\enemy\enemy34_8.bmp" />
     <Image Include="res\enemy\enemyapp.bmp" />
+    <Image Include="res\enemy\handknif.bmp" />
     <Image Include="res\enemy\minus1.bmp" />
     <Image Include="res\enemy\minus2.bmp" />
     <Image Include="res\enemy\minus3.bmp" />

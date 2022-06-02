@@ -85,13 +85,25 @@ namespace game_framework
 	public:
 		static void Registrars()	//	註冊所有工廠可生產物件
 		{
-			static ProductRegistrar<CGameWeapon, CGameWeapon_Init> Register1((int)CGameWeapon::Type::INIT);
-			static ProductRegistrar<CEnemy, CGameEnemy_Init> Register2((int)CEnemy::Type::INIT);
-			static ProductRegistrar<CGameWeapon, CGameWeapon_NewInit> Register3((int)CGameWeapon::Type::NEWINIT);
-			static ProductRegistrar<CGameBullet, CGamBullet_Init> Register4((int)CGameBullet::Type::INIT);
-			static ProductRegistrar<CGameWeapon, CGameWeapon_AK47> Register5((int)CGameWeapon::Type::AK47);
-		
-		
+			/////////////////////////////////////////////////////////////////////////////
+			// 武器
+			static ProductRegistrar<CGameWeapon, CGameWeapon_Init> w1((int)CGameWeapon::Type::INIT);
+			static ProductRegistrar<CGameWeapon, CGameWeapon_NewInit> w2((int)CGameWeapon::Type::NEWINIT);
+			static ProductRegistrar<CGameWeapon, CGameWeapon_AK47> w3((int)CGameWeapon::Type::AK47);
+			/////////////////////////////////////////////////////////////////////////////
+
+			/////////////////////////////////////////////////////////////////////////////
+			// 子彈
+			static ProductRegistrar<CGameBullet, CGamBullet_Init> b1((int)CGameBullet::Type::INIT);
+			static ProductRegistrar<CGameBullet, CGamBullet_HandKnife> b2((int)CGameBullet::Type::HandKnife);
+			/////////////////////////////////////////////////////////////////////////////
+
+			/////////////////////////////////////////////////////////////////////////////
+			// 敵人
+			static ProductRegistrar<CEnemy, CGameEnemy_Init> e1((int)CEnemy::Type::INIT);
+			/////////////////////////////////////////////////////////////////////////////
+			
+			
 		}
 	private:
 		
