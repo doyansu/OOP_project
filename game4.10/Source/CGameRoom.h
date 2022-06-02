@@ -478,7 +478,7 @@ namespace game_framework
 						return obj->GetTag() == "player";
 					});*/
 
-					CGameObj* player = CCharacter::_nowPlayer;
+					CGameObj* player = CCharacter::Instance();
 					while (t--)
 					{
 						int r = rand() % 2;

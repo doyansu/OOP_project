@@ -134,7 +134,7 @@ namespace game_framework {
 		// GAME
 		int gameLevel;						//	關卡數
 		CGameMap gameMap;					//	地圖
-		CCharacter character;				//	角色
+		CCharacter* character;				//	角色
 		CGameRoom* Rooms[MYMAXNOFROOM][MYMAXNOFROOM];				//	房間物件
 
 		// debug

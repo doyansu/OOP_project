@@ -149,7 +149,7 @@ namespace game_framework {
 		_weapon->SetCenter(this->CenterX(), this->CenterY());
 		_weapon->OnMove(map);
 		
-		CGameObj* player = CCharacter::_nowPlayer;
+		CGameObj* player = CCharacter::Instance();
 		const double MAXSEARCH = 300.0;	// ³Ì¤j·j¯Á½d³ò
 		double d = MAXSEARCH;
 		double vx = 0;

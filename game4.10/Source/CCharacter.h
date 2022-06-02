@@ -42,7 +42,17 @@ namespace game_framework {
 		void Reset();					// 重置狀態
 		void Init();					// 初始狀態
 
-		static CCharacter* _nowPlayer;
+		static CCharacter* Instance()
+		{
+			static CCharacter instance;
+			static bool isLoad = false;
+			if (isLoad == false)
+			{
+				instance.LoadBitmap();
+				isLoad = true;
+			}
+			return &instance;
+		}
 	
 	protected:
 		const int _SKILLCD, _SKILLTD;				// 技能 CD、技能持續時間

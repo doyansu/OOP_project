@@ -178,6 +178,7 @@ void CGameStateInit::OnBeginState()
 
 	this->OnInit();
 	CAudio::Instance()->Play(AUDIO_BGM_INIT);
+
 	
 }
 
@@ -496,9 +497,9 @@ void CGameStateRun::OnBeginState()
 	//	將房間資訊傳入小地圖
 	minMap.SetRoom(gameMap.GetRooms());				
 	//	重設角色屬性
-	character.Reset();			
-	character.SetXY(MYMAPWIDTH * gameMap.GetRoom(MYORGROOM, MYORGROOM)->CenterX(), MYMAPHIGH * gameMap.GetRoom(MYORGROOM, MYORGROOM)->CenterY());	//	暫時設定初始位置
-	CGameObj::AddObj(&character);
+	character->Reset();
+	character->SetXY(MYMAPWIDTH * gameMap.GetRoom(MYORGROOM, MYORGROOM)->CenterX(), MYMAPHIGH * gameMap.GetRoom(MYORGROOM, MYORGROOM)->CenterY());	//	暫時設定初始位置
+	CGameObj::AddObj(character);
 
 	//	房間建構
 	for (int i = 0; i < MYMAXNOFROOM; i++)
@@ -603,7 +604,7 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 
 
 	// GAME
-	gameMap.OnMove(character.CenterX(), character.CenterY());
+	gameMap.OnMove(character->CenterX(), character->CenterY());
 
 	CGameObj::UpdateObjs();
 
@@ -635,7 +636,7 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	}
 
 
-	if (!character.IsEnable() && !character.IsDie())
+	if (!character->IsEnable() && !character->IsDie())
 	{
 		this->GameEnd();
 		GotoGameState(GAME_STATE_OVER);
@@ -696,7 +697,6 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	//	遊戲物件初始化
 	CGameObj::Init();	
 	CGameRoom::Init();
-	CCharacter::_nowPlayer = &character;
 
 	//	物件註冊
 	Registrar::Registrars();
@@ -705,7 +705,7 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 		
 	
 	gameMap.LoadBitmap();
-	character.LoadBitmap();
+	character = CCharacter::Instance();
 
 	gameLevel = 0;					//	關卡數
 	
@@ -750,7 +750,7 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
 	if (nChar == 0x47)	// 按 G 扣血
-		character.TakeDmg(9999);
+		character->TakeDmg(9999);
 	else if (nChar == 78)	// 按 N 進入下一關卡
 	{
 		//test
@@ -770,11 +770,11 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	}*/
 
 	gameMap.OnKeyDown(nChar);
-	character.OnKeyDown(nChar);
+	character->OnKeyDown(nChar);
 
 	// 碰觸傳送門進下一關
 	CGameTransferGate* TransferGate = CGameTransferGate::Instance();
-	if (character.IsDoingSomeThing() && character.Collision(TransferGate))
+	if (character->IsDoingSomeThing() && character->Collision(TransferGate))
 	{
 		TransferGate->SetDie(false);
 		//	關卡數加一
@@ -793,7 +793,7 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
 	gameMap.OnKeyUp(nChar);
-	character.OnKeyUp(nChar);
+	character->OnKeyUp(nChar);
 }
 
 void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的動作
@@ -808,11 +808,11 @@ void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的
 		}
 		else if (CUISkill::Instance().PointIn(point.x, point.y))
 		{
-			character.UseSkill();
+			character->UseSkill();
 		}
 		else if (CUIWeaponSwitch::Instance().PointIn(point.x, point.y))
 		{
-			character.SwitchWeapon();
+			character->SwitchWeapon();
 		}
 	}
 	else
@@ -981,19 +981,19 @@ void CGameStateRun::OnShow()
 	HPBACKGROUND.SetTopLeft(0, UI_posy);
 
 	// 血量、魔量、護頓 動畫
-	int percent = character.GetHP() * 100 / character.GetMAXHP();
+	int percent = character->GetHP() * 100 / character->GetMAXHP();
 	for (int i = 0; i < percent; i++)
 	{
 		HPBAR.SetTopLeft(27 + i, 10 + UI_posy);
 		HPBAR.ShowBitmap();
 	}
-	percent = character.GetShield() * 100 / character.GetMAXShield();
+	percent = character->GetShield() * 100 / character->GetMAXShield();
 	for (int i = 0; i < percent; i++)
 	{
 		SPBAR.SetTopLeft(27 + i, 31 + UI_posy);
 		SPBAR.ShowBitmap();
 	}
-	percent = character.GetMP() * 100 / character.GetMAXMP();
+	percent = character->GetMP() * 100 / character->GetMAXMP();
 	for (int i = 0; i < percent; i++)
 	{
 		MPBAR.SetTopLeft(26 + i, 51 + UI_posy);
@@ -1001,12 +1001,12 @@ void CGameStateRun::OnShow()
 	}
 
 	// 血量、魔量、護頓數字
-	HP.SetInteger(character.GetHP());
-	SP.SetInteger(character.GetShield());
-	MP.SetInteger(character.GetMP());
-	MAXHP.SetInteger(character.GetMAXHP());
-	MAXSP.SetInteger(character.GetMAXShield());
-	MAXMP.SetInteger(character.GetMAXMP());
+	HP.SetInteger(character->GetHP());
+	SP.SetInteger(character->GetShield());
+	MP.SetInteger(character->GetMP());
+	MAXHP.SetInteger(character->GetMAXHP());
+	MAXSP.SetInteger(character->GetMAXShield());
+	MAXMP.SetInteger(character->GetMAXMP());
 	HP.SetTopLeft(70 - HP.GetLen() * HP.GetWidth(), 7 + UI_posy);
 	SP.SetTopLeft(70 - SP.GetLen() * SP.GetWidth(), 28 + UI_posy);
 	MP.SetTopLeft(70 - MP.GetLen() * MP.GetWidth(), 48 + UI_posy);
@@ -1026,7 +1026,7 @@ void CGameStateRun::OnShow()
 	SLASH.ShowBitmap();
 
 	//	金幣
-	GOLDINTGER.SetInteger(character.GetGold());
+	GOLDINTGER.SetInteger(character->GetGold());
 	GOLDINTGER.SetTopLeft((SIZE_X - btn_pause.Width() - 50) - GOLDINTGER.GetLen() * GOLDINTGER.GetWidth(), 8 + UI_posy);
 	GOLDINTGER.ShowBitmap(false);
 	GOLD.SetTopLeft((SIZE_X - btn_pause.Width() - 70) - (GOLDINTGER.GetLen() * GOLDINTGER.GetWidth() + GOLD.Width()), 10 + UI_posy);
@@ -1050,7 +1050,7 @@ void CGameStateRun::OnShow()
 	CUISkill::Instance().ShowUI();
 
 	//	更換武器 BOUTTON UI
-	CUIWeaponSwitch::Instance().SetWeapon(character.GetNowWeapon());
+	CUIWeaponSwitch::Instance().SetWeapon(character->GetNowWeapon());
 	CUIWeaponSwitch::Instance().ShowUI();
 
 	// 武器 UI 調動
@@ -1103,8 +1103,8 @@ void CGameStateRun::OnShow()
 
 void CGameStateRun::GameEnd()
 {
-	character.Init();
 	CAudio::Instance()->Stop(AUDIO_BGM_SNOW);
 	gameLevel = 0;
+	CCharacter::Instance()->Init();
 }
 }

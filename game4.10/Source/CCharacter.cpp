@@ -10,7 +10,6 @@
 
 
 namespace game_framework {
-	CCharacter* CCharacter::_nowPlayer = nullptr;
 
 	CCharacter::CCharacter():_SKILLCD(8 * GAME_ONE_SECONED), _SKILLTD(5 * GAME_ONE_SECONED)
 	{
