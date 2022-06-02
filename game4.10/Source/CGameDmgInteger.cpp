@@ -42,4 +42,9 @@ namespace game_framework
 		if (value > 0)
 			_survive = value;
 	}
+
+	void CGameDmgInteger::Kill()
+	{
+		_surviveTime = 0;
+	}
 }

@@ -11,6 +11,7 @@ namespace game_framework
 		void SetSurviveTime(int);
 		void AddDmg(int);
 		void OnShow();
+		void Kill();
 
 	private:
 		int _surviveTime;		// ­p¼Æ

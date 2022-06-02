@@ -57,7 +57,15 @@ namespace game_framework
 
 	void CGameBullet::OnDie(CGameMap*)
 	{
-		this->SetDie(false);
+		//	動畫播完再釋放
+		if (!_animaIter->IsFinalBitmap())
+		{
+			_animaIter->OnMove();
+		}
+		else
+		{
+			this->SetDie(false);
+		}
 	}
 
 	void CGameBullet::AddTarget(string target)

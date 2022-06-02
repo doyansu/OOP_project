@@ -590,6 +590,32 @@ IDB_handknife_right     BITMAP                  "..\\res\\enemy\\bmp00111.bmp"
 
 IDB_handknife_left      BITMAP                  "..\\res\\enemy\\handknif.bmp"
 
+IDB_handknife_right1    BITMAP                  "..\\res\\enemy\\bmp00112.bmp"
+
+IDB_handknife_right2    BITMAP                  "..\\res\\enemy\\bmp00113.bmp"
+
+IDB_handknife_right3    BITMAP                  "..\\res\\enemy\\bmp00114.bmp"
+
+IDB_handknife_right4    BITMAP                  "..\\res\\enemy\\bmp00115.bmp"
+
+IDB_handknife_right5    BITMAP                  "..\\res\\enemy\\bmp00116.bmp"
+
+IDB_handknife_right6    BITMAP                  "..\\res\\enemy\\bmp00117.bmp"
+
+IDB_handknife_right7    BITMAP                  "..\\res\\enemy\\bmp00118.bmp"
+
+IDB_handknife_right8    BITMAP                  "..\\res\\enemy\\bmp00119.bmp"
+
+IDB_handknife_right9    BITMAP                  "..\\res\\enemy\\bmp00120.bmp"
+
+IDB_handknife_right10   BITMAP                  "..\\res\\enemy\\bmp00121.bmp"
+
+IDB_handknife_right11   BITMAP                  "..\\res\\enemy\\bmp00122.bmp"
+
+IDB_handknife_right12   BITMAP                  "..\\res\\enemy\\bmp00123.bmp"
+
+IDB_handknife_right13   BITMAP                  "..\\res\\enemy\\bmp00124.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //

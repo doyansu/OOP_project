@@ -25,7 +25,6 @@ namespace game_framework
 
 		void LoadBitmap();
 		void OnMove(CGameMap*);
-		void OnDie(CGameMap*);
 
 	private:
 

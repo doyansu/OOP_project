@@ -24,6 +24,16 @@ namespace game_framework {
 		void OnObjCollision(CGameMap*, CGameObj*);
 		void OnDie(CGameMap*);
 
+		static int GetDieAmount()
+		{
+			return _amountDie;
+		}
+
+		static void ResetDieAmount()
+		{
+			_amountDie = 0;
+		}
+
 		//CEnemy& operator=(const CEnemy&);
 	protected:
 		CGameWeapon* _weapon;
@@ -32,6 +42,9 @@ namespace game_framework {
 
 		void Die();
 		vector<CAnimation>::iterator GetAnima(Anima);
+
+		static int _amountDie;
+		
 
 	private:
 		void copy(const CEnemy&);

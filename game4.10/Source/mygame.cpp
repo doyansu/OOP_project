@@ -173,6 +173,9 @@ void CGameStateInit::OnBeginState()
 	btn_posy = SIZE_Y;
 	btn_movey = 10;
 
+	//	初始化殺敵數
+	CEnemy::ResetDieAmount();
+
 	this->OnInit();
 	CAudio::Instance()->Play(AUDIO_BGM_INIT);
 	
@@ -200,7 +203,7 @@ void CGameStateInit::OnLButtonDown(UINT nFlags, CPoint point)
 void CGameStateInit::OnLButtonUp(UINT nFlags, CPoint point)
 {
 	if (newgame.PointIn(point.x, point.y)) {
-		Sleep(300);	// 延遲一下再進入遊戲
+		Sleep(200);	// 延遲一下再進入遊戲
 		CAudio::Instance()->Stop(AUDIO_BGM_INIT);
 		GotoGameState(GAME_STATE_RUN);
 	}
@@ -289,14 +292,35 @@ void CGameStateOver::OnMove()
 	counter--;
 	if (counter < 0)
 	{
+		state = STATE::gotoInit;
+	}
+
+	switch (state)
+	{
+	case game_framework::CGameStateOver::STATE::start:
+		if (counter < 5 * GAME_ONE_SECONED)
+		{
+			state = STATE::runAnima;
+		}
+		break;
+	case game_framework::CGameStateOver::STATE::runAnima:
+	{
+		break;
+	}
+	case game_framework::CGameStateOver::STATE::gotoInit:
+		state = STATE::start;
 		GotoGameState(GAME_STATE_INIT);
+		break;
+	default:
+		break;
 	}
 		
 }
 
 void CGameStateOver::OnBeginState()
 {
-	counter = 30 * 1; // 5 seconds
+	counter = 10 * GAME_ONE_SECONED; // 10 seconds
+	state = STATE::start;
 }
 
 void CGameStateOver::OnInit()
@@ -306,9 +330,19 @@ void CGameStateOver::OnInit()
 	//     等的不耐煩，遊戲會出現「Loading ...」，顯示Loading的進度。
 	//
 	ShowInitProgress(66);	// 接個前一個狀態的進度，此處進度視為66%
+
+	
 	//
 	// 開始載入資料
 	//
+	btn_statectl.AddBitmap(IDB_BTN_continue_0, RGB(255, 255, 255));
+	btn_statectl.AddBitmap(IDB_BTN_continue_1, RGB(255, 255, 255));
+	btn_statectl.SetTopLeft((SIZE_X - btn_statectl.Width()) / 2, SIZE_Y - btn_statectl.Height() - 10);
+
+	counterDown.SetTopLeft(btn_statectl.Left(), btn_statectl.Top());
+
+	enemyDie.SetTopLeft(0, 0);
+
 	//Sleep(300);				// 放慢，以便看清楚進度，實際遊戲請刪除此Sleep
 	//
 	// 最終進度為100%
@@ -316,8 +350,71 @@ void CGameStateOver::OnInit()
 	ShowInitProgress(100);
 }
 
+void CGameStateOver::OnKeyDown(UINT, UINT, UINT)
+{
+	if (!btn_statectl.IsFinalBitmap()) {
+		btn_statectl.OnMove();
+		CAudio::Instance()->Play(AUDIO_BTN_DOWN);
+	}
+}
+
+void CGameStateOver::OnKeyUp(UINT, UINT, UINT)
+{
+	switch (state)
+	{
+	case game_framework::CGameStateOver::STATE::start:
+		state = STATE::runAnima;
+		break;
+	case game_framework::CGameStateOver::STATE::runAnima:
+		state = STATE::gotoInit;
+		break;
+	default:
+		break;
+	}
+	btn_statectl.Reset();
+}
+
+void CGameStateOver::OnLButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的動作
+{
+	if (btn_statectl.PointIn(point.x, point.y)) {
+		if (!btn_statectl.IsFinalBitmap()) {
+			btn_statectl.OnMove();
+			CAudio::Instance()->Play(AUDIO_BTN_DOWN);
+		}
+	}
+}
+
+void CGameStateOver::OnLButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動作
+{
+	if (btn_statectl.PointIn(point.x, point.y)) {
+		switch (state)
+		{
+		case game_framework::CGameStateOver::STATE::start:
+			state = STATE::runAnima;
+			break;
+		case game_framework::CGameStateOver::STATE::runAnima:
+			state = STATE::gotoInit;
+			break;
+		default:
+			break;
+		}
+	}
+	btn_statectl.Reset();
+}
+
 void CGameStateOver::OnShow()
 {
+	//	按鈕
+	btn_statectl.OnShow();
+
+	//	倒數數字
+	counterDown.SetInteger(counter / GAME_ONE_SECONED);
+	counterDown.ShowBitmap(false);
+
+	enemyDie.SetInteger(CEnemy::GetDieAmount());
+	enemyDie.ShowBitmap(false);
+
+	/*
 	CDC *pDC = CDDraw::GetBackCDC();			// 取得 Back Plain 的 CDC 
 	CFont f,*fp;
 	f.CreatePointFont(160,"Times New Roman");	// 產生 font f; 160表示16 point的字
@@ -325,10 +422,11 @@ void CGameStateOver::OnShow()
 	pDC->SetBkColor(RGB(0,0,0));
 	pDC->SetTextColor(RGB(255,255,0));
 	char str[80];								// Demo 數字對字串的轉換
-	sprintf(str, "Game Over ! (%d)", counter / 30);
+	sprintf(str, "Game Over ! (%d)", counter / GAME_ONE_SECONED);
 	pDC->TextOut(240,210,str);
 	pDC->SelectObject(fp);						// 放掉 font f (千萬不要漏了放掉)
 	CDDraw::ReleaseBackCDC();					// 放掉 Back Plain 的 CDC
+	*/
 }
 
 /////////////////////////////////////////////////////////////////////////////

@@ -10,9 +10,7 @@
 #include "CGameTrackObj.h"
 
 namespace game_framework {
-	/////////////////////////////////////////////////////////////////////////////
-	// CEnemy: Eraser class
-	/////////////////////////////////////////////////////////////////////////////
+	int CEnemy::_amountDie = 0;
 
 	CEnemy::CEnemy()
 	{
@@ -199,6 +197,7 @@ namespace game_framework {
 
 	void CEnemy::Die()
 	{
+		_amountDie++;	// 敵人死亡數加一
 		this->SetEnable(false);
 		this->SetDie(true);
 		this->SetCollision(false);

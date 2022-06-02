@@ -71,6 +71,11 @@ namespace game_framework {
 		_vector[0] = 1;	//預設朝右
 		_DT = 1;
 
+		//	重設數字
+		_dmgInteger.Kill();				
+		_goldInteger.Kill();
+		_eneryInteger.Kill();
+
 		// 出場動畫重置
 		if(GetAnima(Anima::APPEARANCE)->BmpSize() != 0)
 			GetAnima(Anima::APPEARANCE)->Reset();

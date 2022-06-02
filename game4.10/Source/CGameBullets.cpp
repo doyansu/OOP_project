@@ -57,8 +57,25 @@ namespace game_framework
 
 	void CGamBullet_HandKnife::LoadBitmap()
 	{
-		_animaIter->SetDelayCount(10);
-		_animaIter->AddBitmap(IDB_handknife_right, RGB(0, 0, 0)); //test image
+		_animaIter->SetDelayCount(1);
+		_animaIter->AddBitmap(IDB_handknife_right, RGB(0, 0, 0));
+		_animaIter->AddBitmap(IDB_handknife_right, RGB(0, 0, 0));
+		_animaIter->AddBitmap(IDB_handknife_right, RGB(0, 0, 0));
+		_animaIter->AddBitmap(IDB_handknife_right, RGB(0, 0, 0));
+		_animaIter->AddBitmap(IDB_handknife_right, RGB(0, 0, 0));
+		_animaIter->AddBitmap(IDB_handknife_right1, RGB(0, 0, 0));
+		_animaIter->AddBitmap(IDB_handknife_right2, RGB(0, 0, 0));
+		_animaIter->AddBitmap(IDB_handknife_right3, RGB(0, 0, 0));
+		_animaIter->AddBitmap(IDB_handknife_right4, RGB(0, 0, 0));
+		_animaIter->AddBitmap(IDB_handknife_right5, RGB(0, 0, 0));
+		_animaIter->AddBitmap(IDB_handknife_right6, RGB(0, 0, 0));
+		_animaIter->AddBitmap(IDB_handknife_right7, RGB(0, 0, 0));
+		_animaIter->AddBitmap(IDB_handknife_right8, RGB(0, 0, 0));
+		_animaIter->AddBitmap(IDB_handknife_right9, RGB(0, 0, 0));
+		_animaIter->AddBitmap(IDB_handknife_right10, RGB(0, 0, 0));
+		_animaIter->AddBitmap(IDB_handknife_right11, RGB(0, 0, 0));
+		_animaIter->AddBitmap(IDB_handknife_right12, RGB(0, 0, 0));
+		_animaIter->AddBitmap(IDB_handknife_right13, RGB(0, 0, 0));
 	}
 
 	void CGamBullet_HandKnife::OnMove(CGameMap*)
@@ -67,17 +84,6 @@ namespace game_framework
 		this->SetDie(true);
 	}
 
-	void CGamBullet_HandKnife::OnDie(CGameMap*)
-	{
-		//	動畫播完再釋放
-		if (!_animaIter->IsFinalBitmap())
-		{
-			_animaIter->OnMove();
-		}
-		else
-		{
-			this->SetDie(false);
-		}
-	}
+
 	/////////////////////////////////////////////////////////////////////////////
 }

@@ -154,10 +154,20 @@ namespace game_framework {
 		CGameStateOver(CGame *g);
 		void OnBeginState();							// 設定每次重玩所需的變數
 		void OnInit();
+
+		void OnKeyDown(UINT, UINT, UINT);
+		void OnKeyUp(UINT, UINT, UINT);
+		void OnLButtonDown(UINT nFlags, CPoint point);  // 處理滑鼠的動作
+		void OnLButtonUp(UINT nFlags, CPoint point);	// 處理滑鼠的動作
+
 	protected:
 		void OnMove();									// 移動遊戲元素
 		void OnShow();									// 顯示這個狀態的遊戲畫面
 	private:
+		CUIButton btn_statectl;
+		CInteger counterDown, enemyDie;
+		enum class STATE {start, runAnima, gotoInit };
+		STATE state;
 		int counter;	// 倒數之計數器
 	};
 
