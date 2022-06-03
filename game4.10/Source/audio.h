@@ -165,6 +165,7 @@ enum AUDIO_ID {						//  定義各種音效的編號
 	AUDIO_HEALTH,					//	恢復
 	AUDIO_SWITCH_WEAPON,			//	更換武器
 	AUDIO_SHIELDBREAK,				//	護頓破裂
+	AUDIO_TRANSFORM,				//	傳送
 	/////////////////////////////////////////////////////////////////////////////
 
 	AUDIO_END						//	只是結尾

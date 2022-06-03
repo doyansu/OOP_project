@@ -114,17 +114,13 @@ namespace game_framework {
 		void OnMove();									// 移動遊戲元素
 		void OnShow();									// 顯示這個狀態的遊戲畫面
 	private:
-		/*const int		NUMBALLS;	// 球的總數
-		CMovingBitmap	background;	// 背景圖
-		CMovingBitmap	help;		// 說明圖
-		CBall			*ball;		// 球的陣列
-		CMovingBitmap	corner;		// 角落圖
-		CEraser			eraser;		// 拍子
-		CInteger		hits_left;	// 剩下的撞擊數
-		CBouncingBall   bball;		// 反覆彈跳的球*/
-
 		// 遊戲內狀態
-		enum class STATE{ RUN, PAUSE, GOTONEXT, PLAYERDIE};
+		enum class STATE{ 
+			RUN,				//	正常執行
+			PAUSE,				//	暫停
+			GOTONEXT,			//	正常執行
+			PLAYERDIE			//	玩家死亡
+		};		
 		STATE gameRunState;
 
 		// UI
@@ -132,13 +128,17 @@ namespace game_framework {
 		CMovingBitmap HPBACKGROUND, SLASH, HPBAR, SPBAR, MPBAR, MINUS, GOLD, pause_UI, setup_UI;
 		CUIButton btn_pause, btn_goBack, btn_continue, btn_setup, btn_BGM, btn_soundEffect;
 		CUIMinMap minMap;
-		int dMinMap;								//	小地圖位移
-		int btn_posy, UI_posy, setup_posy;						//	暫停介面位移
+		int dMinMap;												//	小地圖位移
+		int btn_posy, UI_posy, setup_posy;							//	暫停介面位移
 
-		// GAME
-		CGameMap* gameMap;					//	地圖
-		CCharacter* character;				//	角色
+		// GAMERUN
+		CGameMap* gameMap;											//	地圖
+		CCharacter* character;										//	角色
 		CGameRoom* Rooms[MYMAXNOFROOM][MYMAXNOFROOM];				//	房間物件
+
+		// GOTONEXT
+		CAnimation cutscenes;
+		int cutscenesCounter;										//	過場動畫計數
 
 		// debug
 		CInteger debugx, debugy;
