@@ -51,18 +51,18 @@ namespace game_framework {
 
 		int GetScreenX();
 		int GetScreenY();
+		int GetGameLevel();
 		RoomData* GetRoom(int, int);
 		RoomData** GetRooms();
 
 		void SetScreen(int x, int y);	
 		void ModifyDsx(int, int=0x7fffffff);
 		void ModifyDsy(int, int=0x7fffffff);
+		void AddGameLevel(int);
 
 		void OnMove(int x, int y);
 		void OnShow(bool cover = false);
-		void OnKeyUp(char nChar);
-		void OnKeyDown(char nChar);
-		void GenerateMap(bool hasBOSS = false);				//	生成地圖
+		void GenerateMap();				//	生成地圖
 		void Reset();
 
 		static CGameMap* Instance()
@@ -127,6 +127,7 @@ namespace game_framework {
 		CGameMap::MapContent _map[MYMAPSIZE][MYMAPSIZE];			
 		int _sx, _sy, _moveSpeed;						// 螢幕點座標、移動速度	
 		int _dsx, _dsy;									// 螢幕位置偏移量
+		int _gameLevel;									// 關卡數
 		vector<vector<CAnimation>> _animas;				// 地圖動畫
 		const int _MAPW, _MAPH;							// 地圖每格寬高
 		const int _MAXNOFROOM;							// 最大房間數 _MAXNOFROOM * _MAXNOFROOM

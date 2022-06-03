@@ -19,6 +19,7 @@ namespace game_framework {
 
 		_Rooms = nullptr; 
 		_roomTree = nullptr;
+		_gameLevel = 0;
 
 		Reset();
 	}
@@ -31,7 +32,7 @@ namespace game_framework {
 	void CGameMap::Reset()
 	{
 		_sx = _sy = _dsx = _dsy = 0;
-		
+
 		for (int i = 0; i < MYMAPSIZE; i++)
 		{
 			for (int j = 0; j < MYMAPSIZE; j++)
@@ -165,9 +166,13 @@ namespace game_framework {
 		}
 	}
 
-	void CGameMap::GenerateMap(bool hasBOSS)
+	void CGameMap::GenerateMap()
 	{
 		Reset();
+		
+		bool hasBOSS = false;
+		if (_gameLevel % 5 == 4)		//	第五關為 boss 關
+			hasBOSS = true;
 		
 		const int INTERNAL = ROOMINTERNAL;
 		const int NROOMS = _MAXNOFROOM;
@@ -192,7 +197,7 @@ namespace game_framework {
 		start->SetParent(_roomTree);
 		_Rooms[start->Get(0)][start->Get(1)]._roomType = RoomData::RoomType::NORMAL;
 
-		int specialRoom = 1 + (rand() % 2);						// 特殊房間數
+		int specialRoom = 1 + (rand() % 1);						// 特殊房間數
 		int normalRoom = 1 + (rand() % 3);						// 一般房間數
 		int dir[4][2] = { {0, -1}, {0, 1}, {-1, 0}, {1, 0} };	// 搜索用向量
 		bool hasEnd = false;									// 判斷是否已經有傳送房間
@@ -329,77 +334,9 @@ namespace game_framework {
 		// 沒生成完成重新生成一次
 		if (normalRoom > 0)
 		{
-			CGameMap::GenerateMap(hasBOSS);
+			CGameMap::GenerateMap();
 			return;
 		}
-		
-
-		/*
-		// 舊版生成
-		queue<CGameMap::Point> queue;
-		CGameMap::Point start(MYORGROOM, MYORGROOM);
-		start.Set((rand() % 2), MYORGROOM + (1 ^ ((1 ^ -1) * (rand() % 2))));
-		queue.push(start);
-		int specialRoom = 1 + (rand() % 3);						// 特殊房間數
-		int nrmalRoom = 3 + (rand() % 3);						// 一般房間數
-		int maxRoom = specialRoom + nrmalRoom + 1;				// 最大額外房間數
-		int dir[4][2] = { {0, -1}, {0, 1}, {-1, 0}, {1, 0} };	// 搜索用向量
-		while (!queue.empty() && maxRoom)
-		{
-			CGameMap::Point point = queue.front();
-			int x = point.Get(0), y = point.Get(1);
-			if (!_Rooms[x][y]._hasRoom)
-			{
-				// 初始化房間參數
-				_Rooms[x][y]._hasRoom = true;
-				_Rooms[x][y]._roomType = RoomData::RoomType::NORMAL;
-				_Rooms[x][y]._width = 15 + (rand() % 5) * 2;
-				_Rooms[x][y]._high = 15 + (rand() % 5) * 2;
-				_Rooms[x][y]._centerX = (INTERNAL >> 1) + INTERNAL * x;
-				_Rooms[x][y]._centerY = (INTERNAL >> 1) + INTERNAL * y;
-
-				// 隨機選周邊房間
-				int rTimes = 2 + (rand() % 2);
-				while (rTimes--)
-				{
-					int nx, ny, m = 10;
-					int jx = 0, jy = 0;		// 判斷初始房間周圍不出現房間
-					do {
-						int r = rand() % 4;
-						nx = x + dir[r][0], ny = y + dir[r][1];
-						jx = abs(nx - MYORGROOM);
-						jy = abs(ny - MYORGROOM);
-					} while ((nx < 0 || ny < 0 || nx == MYMAXNOFROOM || ny == MYMAXNOFROOM || _Rooms[nx][ny]._hasRoom || jx + jy <= 1) && m-- > 0);
-					if(nx >= 0 && ny >= 0 && nx < MYMAXNOFROOM && ny < MYMAXNOFROOM && jx + jy > 1 && m)
-						queue.push(CGameMap::Point(nx, ny));
-				}
-
-				// 設定特殊房間
-				if (--maxRoom == 0)// 最後一個為傳送房間
-				{
-					_Rooms[x][y]._roomType = RoomData::RoomType::END;
-					_Rooms[x][y]._width = 11;
-					_Rooms[x][y]._high = 11;
-				}
-				else if (maxRoom <= specialRoom)// 特殊房間
-				{
-					// 寶箱房間
-					_Rooms[x][y]._roomType = RoomData::RoomType::TREASURE;
-					_Rooms[x][y]._width = 11;
-					_Rooms[x][y]._high = 11;
-				}
-			}
-			queue.pop();
-		}
-
-		// 沒生成完成重新生成一次
-		if (maxRoom)
-		{
-			CGameMap::GenerateMap(hasBOSS);
-			return;
-		}*/
-		
-
 
 		//	設定中心區域
 		for (int i = 0; i < NROOMS; i++)
@@ -555,77 +492,6 @@ namespace game_framework {
 			queue.pop();
 		}
 
-
-		/*
-		//	舊版通道建立連結所有相連房間
-		//	設定房間之間的通道
-		for (int i = 0; i < NROOMS; i++)
-		{
-			for (int j = 0; j < NROOMS; j++)
-			{
-				if (_Rooms[i][j]._hasRoom == false)
-					continue;
-				int h1 = _Rooms[i][j]._width, h2; // 寬高好像用反了
-				int w1 = _Rooms[i][j]._high, w2;
-				int cx = _Rooms[i][j]._centerX;
-				int cy = _Rooms[i][j]._centerY;
-
-				// 左右通道
-				if ((i + 1) != NROOMS && _Rooms[i + 1][j]._hasRoom) {
-					_Rooms[i][j]._hasRoad[3] = true;
-					_Rooms[i + 1][j]._hasRoad[2] = true;
-					h2 = _Rooms[i + 1][j]._width;
-					w2 = _Rooms[i + 1][j]._high;
-					// 主通道
-					for (int x = cx + h1 / 2 + 1 ; x < cx + INTERNAL - h2 / 2; x++)
-					{
-						_map[x][cy - 3] = MapContent(ContentType::WALL, GetAnima(ContentType::WALL));
-						_map[x][cy + 3] = MapContent(ContentType::WALL, GetAnima(ContentType::WALL), true);
-						
-						for (int y = -2; y < 3; y++)
-						{
-							_map[x][cy + y] = MapContent(ContentType::FLOOR, GetAnima(ContentType::FLOOR));
-						}
-					}
-					// 進房間區隔
-					for (int y = -2; y < 3; y++) {
-						_map[cx + h1 / 2 + 1][cy + y] = MapContent(ContentType::AISLEWALL, GetAnima(ContentType::AISLEWALL));
-						_map[cx + INTERNAL - h2 / 2 - 1][cy + y] = MapContent(ContentType::AISLEWALL, GetAnima(ContentType::AISLEWALL));
-					}
-				}
-
-				// 上下通道
-				if ((j + 1) != NROOMS && _Rooms[i][j + 1]._hasRoom) {
-					_Rooms[i][j]._hasRoad[1] = true;
-					_Rooms[i][j + 1]._hasRoad[0] = true;
-					h2 = _Rooms[i][j + 1]._width;
-					w2 = _Rooms[i][j + 1]._high;
-					for (int y = cy + w1 / 2 + 1; y < cy + INTERNAL - w2 / 2; y++)
-					{
-						if (y == cy + w1 / 2 + 1)
-						{
-							_map[cx + 3][y] = MapContent(ContentType::WALL, GetAnima(ContentType::WALL), true);
-							_map[cx - 3][y] = MapContent(ContentType::WALL, GetAnima(ContentType::WALL), true);
-						}
-						else
-						{
-							_map[cx + 3][y] = MapContent(ContentType::WALL, GetAnima(ContentType::WALL));
-							_map[cx - 3][y] = MapContent(ContentType::WALL, GetAnima(ContentType::WALL));
-						}
-						
-						for (int x = -2; x < 3; x++)
-						{
-							_map[cx + x][y] = MapContent(ContentType::FLOOR, GetAnima(ContentType::FLOOR));
-						}
-					}
-					for (int x = -2; x < 3; x++)
-					{
-						_map[cx + x][cy + w1 / 2 + 1] = MapContent(ContentType::AISLEWALL, GetAnima(ContentType::AISLEWALL));
-						_map[cx + x][cy + INTERNAL - w2 / 2 - 1] = MapContent(ContentType::AISLEWALL, GetAnima(ContentType::AISLEWALL));
-					}
-				}
-			}
-		}*/
 		
 	}
 
@@ -727,16 +593,6 @@ namespace game_framework {
 		default:
 			break;
 		}
-	}
-
-	void CGameMap::OnKeyUp(char nChar)
-	{
-
-	}
-
-	void CGameMap::OnKeyDown(char nChar)
-	{
-
 	}
 
 	int CGameMap::ScreenX(int x)
@@ -842,6 +698,13 @@ namespace game_framework {
 		
 	}
 
+	void CGameMap::AddGameLevel(int value)
+	{
+		_gameLevel += value;
+		if(_gameLevel < 0 || _gameLevel > 15)
+			_gameLevel -= value;
+	}
+
 	vector<CAnimation>::iterator CGameMap::GetAnima(ContentType Type, int index)
 	{
 		// index < 0 隨機選擇
@@ -891,6 +754,11 @@ namespace game_framework {
 	int CGameMap::GetScreenY()
 	{
 		return _sy;
+	}
+
+	int CGameMap::GetGameLevel()
+	{
+		return _gameLevel;
 	}
 
 

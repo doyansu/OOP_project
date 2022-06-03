@@ -138,6 +138,10 @@ void CGameStateInit::OnInit()
 	//	物件註冊
 	Registrar::Registrars();
 
+	//	遊戲物件初始化
+	CGameObj::Init();
+	CGameRoom::Init();
+
 	// UI
 	background.LoadBitmap(IDB_Homepage);
 	title.LoadBitmap(IDB_Homepage_title, RGB(0, 0, 0));
@@ -180,8 +184,12 @@ void CGameStateInit::OnBeginState()
 	//	初始化殺敵數
 	CEnemy::ResetDieAmount();
 
+	//	初始化地圖物件關卡數
+	CGameMap::Instance()->AddGameLevel(-CGameMap::Instance()->GetGameLevel());
+
 	//	玩家物件初始化
 	CCharacter::Instance()->Init();
+
 }
 
 void CGameStateInit::OnLButtonDown(UINT nFlags, CPoint point)
@@ -506,15 +514,13 @@ void CGameStateRun::OnBeginState()
 	//	清空地圖物件
 	CGameObj::FreeAllObj();
 	//	生成地圖
-	if(gameLevel % 5 == 4)		//	第五關為 boss 關
-		gameMap->GenerateMap(true);		
-	else
-		gameMap->GenerateMap();
+	gameMap->GenerateMap();
 	//	將房間資訊傳入小地圖
 	minMap.SetRoom(gameMap->GetRooms());
 	//	重設角色屬性
 	character->Reset();
-	character->SetXY(MYMAPWIDTH * gameMap->GetRoom(MYORGROOM, MYORGROOM)->CenterX(), MYMAPHIGH * gameMap->GetRoom(MYORGROOM, MYORGROOM)->CenterY());	//	暫時設定初始位置
+	character->SetXY(MYMAPWIDTH * gameMap->GetRoom(MYORGROOM, MYORGROOM)->CenterX(),
+		MYMAPHIGH * gameMap->GetRoom(MYORGROOM, MYORGROOM)->CenterY());	//	暫時設定初始位置
 	CGameObj::AddObj(character);
 
 	//	房間建構
@@ -683,6 +689,11 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	//
 	// 開始載入資料
 	//
+
+	// GAME
+	gameMap = CGameMap::Instance();
+	character = CCharacter::Instance();
+
 	/*int i;
 	for (i = 0; i < NUMBALLS; i++)	
 		ball[i].LoadBitmap();*/							// 載入第i個球的圖形
@@ -708,23 +719,7 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	// 此OnInit動作會接到CGameStaterOver::OnInit()，所以進度還沒到100%
 	//
 
-	// GAME
 	
-	//	遊戲物件初始化
-	CGameObj::Init();	
-	CGameRoom::Init();
-
-	
-	//ProductRegistrar<CGameWeapon, CGameWeapon_Init>::Registrars();
-	//ProductRegistrar<CGameWeapon, CGameWeapon_Init> test1(2);
-		
-	
-	gameMap = CGameMap::Instance();
-	character = CCharacter::Instance();
-
-	gameLevel = 0;					//	關卡數
-	
-
 	// UI
 	CInteger::LoadBitmap();	// 數字圖片
 	HPBACKGROUND.LoadBitmap(IDB_UI_HP);	// bar 背景
@@ -769,22 +764,16 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	else if (nChar == 78)	// 按 N 進入下一關卡
 	{
 		//test
-		gameLevel++;
-		if (gameLevel == 15)//	打完 3-5 通關	
+		gameMap->AddGameLevel(1);
+		if (gameMap->GetGameLevel() == 15)//	打完 3-5 通關	
 		{
 			this->GameEnd();
-			GotoGameState(GAME_STATE_INIT);
+			GotoGameState(GAME_STATE_OVER);
 		}
 		else
 			GotoGameState(GAME_STATE_RUN);
 	}
-	/*else if (nChar == 80)
-	{
-		// test
-		character.ModifyGold(500);
-	}*/
 
-	gameMap->OnKeyDown(nChar);
 	character->OnKeyDown(nChar);
 
 	// 碰觸傳送門進下一關
@@ -793,8 +782,8 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	{
 		TransferGate->SetDie(false);
 		//	關卡數加一
-		gameLevel++;
-		if (gameLevel == 15)				//	打完 3-5 通關	
+		gameMap->AddGameLevel(1);
+		if (gameMap->GetGameLevel() == 15)				//	打完 3-5 通關	
 		{
 			this->GameEnd();
 			GotoGameState(GAME_STATE_INIT);
@@ -807,7 +796,6 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 
 void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
-	gameMap->OnKeyUp(nChar);
 	character->OnKeyUp(nChar);
 }
 
@@ -1048,10 +1036,10 @@ void CGameStateRun::OnShow()
 	GOLD.ShowBitmap();
 
 	//	關卡數
-	GAMELEVEL.SetInteger(1 + gameLevel / 5);
+	GAMELEVEL.SetInteger(1 + gameMap->GetGameLevel() / 5);
 	GAMELEVEL.SetTopLeft(SIZE_X - 110 + dMinMap, 200 + btn_pause.Height());
 	GAMELEVEL.ShowBitmap(false);
-	GAMELEVEL.SetInteger(1 + gameLevel % 5);
+	GAMELEVEL.SetInteger(1 + gameMap->GetGameLevel() % 5);
 	GAMELEVEL.SetTopLeft(SIZE_X - 90 + dMinMap, 200 + btn_pause.Height());
 	GAMELEVEL.ShowBitmap(false);
 	MINUS.SetTopLeft(SIZE_X - 100 + dMinMap, 200 + btn_pause.Height());
@@ -1119,6 +1107,5 @@ void CGameStateRun::OnShow()
 void CGameStateRun::GameEnd()
 {
 	CAudio::Instance()->Stop(AUDIO_BGM_SNOW);
-	gameLevel = 0;
 }
 }

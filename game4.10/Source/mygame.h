@@ -132,7 +132,6 @@ namespace game_framework {
 		bool isPaused;								//	暫停判斷
 
 		// GAME
-		int gameLevel;						//	關卡數
 		CGameMap* gameMap;					//	地圖
 		CCharacter* character;				//	角色
 		CGameRoom* Rooms[MYMAXNOFROOM][MYMAXNOFROOM];				//	房間物件
