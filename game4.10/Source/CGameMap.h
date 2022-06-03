@@ -42,8 +42,7 @@ namespace game_framework {
 	{
 	public:
 		enum class ContentType { NULLPTR, FLOOR, WALL, AISLEWALL, WALLBOTTOM };		//地圖內容物類型
-		CGameMap();
-		~CGameMap();
+
 		void LoadBitmap();
 		int ScreenX(int x);				//	地圖點座標在螢幕位置
 		int ScreenY(int y);
@@ -66,7 +65,21 @@ namespace game_framework {
 		void GenerateMap(bool hasBOSS = false);				//	生成地圖
 		void Reset();
 
+		static CGameMap* Instance()
+		{
+			static CGameMap Instance;
+			static bool isLoad = false;
+			if (isLoad == false)
+			{
+				Instance.LoadBitmap();
+				isLoad = true;
+			}
+			return &Instance;
+		}
+
 	protected:
+		CGameMap();
+		~CGameMap();
 		class MapContent	
 		{
 		friend class CGameMap;

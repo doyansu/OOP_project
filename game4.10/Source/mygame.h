@@ -133,7 +133,7 @@ namespace game_framework {
 
 		// GAME
 		int gameLevel;						//	關卡數
-		CGameMap gameMap;					//	地圖
+		CGameMap* gameMap;					//	地圖
 		CCharacter* character;				//	角色
 		CGameRoom* Rooms[MYMAXNOFROOM][MYMAXNOFROOM];				//	房間物件
 
@@ -165,7 +165,7 @@ namespace game_framework {
 		void OnShow();									// 顯示這個狀態的遊戲畫面
 	private:
 		CUIButton btn_statectl;
-		CInteger counterDown, enemyDie;
+		CInteger counterDown, enemyDie, coin;
 		CMovingBitmap background;
 		enum class STATE {start, runAnima, gotoInit };
 		STATE state;

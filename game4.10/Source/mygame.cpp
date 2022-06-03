@@ -135,7 +135,8 @@ void CGameStateInit::OnInit()
 	CAudio::Instance()->Load(AUDIO_DEAD_ENEMY_9, "sounds\\Dead\\fx_dead_cell_absorb.wav");
 	CAudio::Instance()->Load(AUDIO_DEAD_ENEMY_10, "sounds\\Dead\\fx_dead_note.wav");
 
-
+	//	物件註冊
+	Registrar::Registrars();
 
 	// UI
 	background.LoadBitmap(IDB_Homepage);
@@ -173,13 +174,14 @@ void CGameStateInit::OnBeginState()
 	btn_posy = SIZE_Y;
 	btn_movey = 10;
 
-	//	初始化殺敵數
-	CEnemy::ResetDieAmount();
-
 	this->OnInit();
 	CAudio::Instance()->Play(AUDIO_BGM_INIT);
 
-	
+	//	初始化殺敵數
+	CEnemy::ResetDieAmount();
+
+	//	玩家物件初始化
+	CCharacter::Instance()->Init();
 }
 
 void CGameStateInit::OnLButtonDown(UINT nFlags, CPoint point)
@@ -336,6 +338,7 @@ void CGameStateOver::OnInit()
 	//
 	// 開始載入資料
 	//
+
 	background.LoadBitmap(IDB_gameover_background);
 	background.SetTopLeft(0, 0);
 
@@ -343,11 +346,12 @@ void CGameStateOver::OnInit()
 	btn_statectl.AddBitmap(IDB_BTN_continue_1, RGB(255, 255, 255));
 	btn_statectl.SetTopLeft((SIZE_X - btn_statectl.Width()) / 2, SIZE_Y - btn_statectl.Height() - 10);
 
-	counterDown.SetTopLeft(btn_statectl.Left(), btn_statectl.Top());
+	counterDown.SetTopLeft(btn_statectl.Left() + (btn_statectl.Width() / 2) + 20, btn_statectl.Top() + ((btn_statectl.Height() - counterDown.GetHeight()) / 2));
 
 	
-	enemyDie.SetColor(CInteger::Color::YELLOW);
-	enemyDie.SetTopLeft(180, 245);
+	enemyDie.SetTopLeft(390, 245);
+	coin.SetColor(CInteger::Color::YELLOW);
+	coin.SetTopLeft(240, 245);
 
 	//Sleep(300);				// 放慢，以便看清楚進度，實際遊戲請刪除此Sleep
 	//
@@ -422,6 +426,9 @@ void CGameStateOver::OnShow()
 
 	enemyDie.SetInteger(CEnemy::GetDieAmount());
 	enemyDie.ShowBitmap(false);
+
+	coin.SetInteger(CCharacter::Instance()->GetGold());
+	coin.ShowBitmap(false);
 
 	
 	/*
@@ -500,22 +507,22 @@ void CGameStateRun::OnBeginState()
 	CGameObj::FreeAllObj();
 	//	生成地圖
 	if(gameLevel % 5 == 4)		//	第五關為 boss 關
-		gameMap.GenerateMap(true);		
+		gameMap->GenerateMap(true);		
 	else
-		gameMap.GenerateMap();
+		gameMap->GenerateMap();
 	//	將房間資訊傳入小地圖
-	minMap.SetRoom(gameMap.GetRooms());				
+	minMap.SetRoom(gameMap->GetRooms());
 	//	重設角色屬性
 	character->Reset();
-	character->SetXY(MYMAPWIDTH * gameMap.GetRoom(MYORGROOM, MYORGROOM)->CenterX(), MYMAPHIGH * gameMap.GetRoom(MYORGROOM, MYORGROOM)->CenterY());	//	暫時設定初始位置
+	character->SetXY(MYMAPWIDTH * gameMap->GetRoom(MYORGROOM, MYORGROOM)->CenterX(), MYMAPHIGH * gameMap->GetRoom(MYORGROOM, MYORGROOM)->CenterY());	//	暫時設定初始位置
 	CGameObj::AddObj(character);
 
 	//	房間建構
 	for (int i = 0; i < MYMAXNOFROOM; i++)
 		for (int j = 0; j < MYMAXNOFROOM; j++)
 		{
-			CGameRoom* room = new CGameRoom(gameMap.GetRoom(i, j));
-			room->Initialization(&gameMap);
+			CGameRoom* room = new CGameRoom(gameMap->GetRoom(i, j));
+			room->Initialization(gameMap);
 			CGameObj::AddObj(room);
 			Rooms[i][j] = room;
 		}
@@ -525,12 +532,12 @@ void CGameStateRun::OnBeginState()
 
 	// TEST
 	/*CGameWeapon * w = ProductFactory<CGameWeapon>::Instance().GetProduct((int)CGameWeapon::Type::AK47);
-	w->SetXY(MYMAPWIDTH * gameMap.GetRoom(MYORGROOM, MYORGROOM)->CenterX(),
-		MYMAPHIGH * gameMap.GetRoom(MYORGROOM, MYORGROOM)->CenterY());
+	w->SetXY(MYMAPWIDTH * gameMap->GetRoom(MYORGROOM, MYORGROOM)->CenterX(),
+		MYMAPHIGH * gameMap->GetRoom(MYORGROOM, MYORGROOM)->CenterY());
 	CGameObj::AddObj(w);*/
 	CGameTreasure* treasure = CGameTreasure::CreateObj(rand() % (int)CGameTreasure::Type::TYPECOUNT);
-	treasure->SetXY(MYMAPWIDTH * gameMap.GetRoom(MYORGROOM, MYORGROOM)->CenterX(),
-		MYMAPHIGH * gameMap.GetRoom(MYORGROOM, MYORGROOM)->CenterY());
+	treasure->SetXY(MYMAPWIDTH * gameMap->GetRoom(MYORGROOM, MYORGROOM)->CenterX(),
+		MYMAPHIGH * gameMap->GetRoom(MYORGROOM, MYORGROOM)->CenterY());
 	CGameObj::AddObj(treasure);
 
 }
@@ -613,7 +620,7 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 
 
 	// GAME
-	gameMap.OnMove(character->CenterX(), character->CenterY());
+	gameMap->OnMove(character->CenterX(), character->CenterY());
 
 	CGameObj::UpdateObjs();
 
@@ -623,11 +630,11 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 		CGameObj* obj = CGameObj::_allObj.at(i);
 		if (obj->IsEnable())
 		{
-			obj->OnMove(&gameMap);
+			obj->OnMove(gameMap);
 		}
 		else if (obj->IsDie())
 		{
-			obj->OnDie(&gameMap);
+			obj->OnDie(gameMap);
 		}
 	}
 
@@ -639,8 +646,8 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 		for (int j = i + 1; j < (int)CGameObj::_allObj.size(); j++)
 			if (CGameObj::_allObj.at(j)->IsCollision() && CGameObj::_allObj.at(i)->Collision(CGameObj::_allObj.at(j)))
 			{
-				CGameObj::_allObj.at(i)->OnObjCollision(&gameMap, CGameObj::_allObj.at(j));
-				CGameObj::_allObj.at(j)->OnObjCollision(&gameMap, CGameObj::_allObj.at(i));
+				CGameObj::_allObj.at(i)->OnObjCollision(gameMap, CGameObj::_allObj.at(j));
+				CGameObj::_allObj.at(j)->OnObjCollision(gameMap, CGameObj::_allObj.at(i));
 			}
 	}
 
@@ -707,13 +714,12 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	CGameObj::Init();	
 	CGameRoom::Init();
 
-	//	物件註冊
-	Registrar::Registrars();
+	
 	//ProductRegistrar<CGameWeapon, CGameWeapon_Init>::Registrars();
 	//ProductRegistrar<CGameWeapon, CGameWeapon_Init> test1(2);
 		
 	
-	gameMap.LoadBitmap();
+	gameMap = CGameMap::Instance();
 	character = CCharacter::Instance();
 
 	gameLevel = 0;					//	關卡數
@@ -778,7 +784,7 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 		character.ModifyGold(500);
 	}*/
 
-	gameMap.OnKeyDown(nChar);
+	gameMap->OnKeyDown(nChar);
 	character->OnKeyDown(nChar);
 
 	// 碰觸傳送門進下一關
@@ -801,7 +807,7 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 
 void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
-	gameMap.OnKeyUp(nChar);
+	gameMap->OnKeyUp(nChar);
 	character->OnKeyUp(nChar);
 }
 
@@ -971,15 +977,15 @@ void CGameStateRun::OnShow()
 	corner.ShowBitmap();*/
 
 	// GAME
-	gameMap.OnShow(false);
+	gameMap->OnShow(false);
 
 	for (CGameObj* obj : CGameObj::_allObj)
 	{
-		if (gameMap.InScreen(obj->GetX1(), obj->GetY1(), obj->GetX2(), obj->GetY2()))
-			obj->OnShow(&gameMap);
+		if (gameMap->InScreen(obj->GetX1(), obj->GetY1(), obj->GetX2(), obj->GetY2()))
+			obj->OnShow(gameMap);
 	}
 
-	gameMap.OnShow(true);
+	gameMap->OnShow(true);
 
 	// UI
 
@@ -1114,6 +1120,5 @@ void CGameStateRun::GameEnd()
 {
 	CAudio::Instance()->Stop(AUDIO_BGM_SNOW);
 	gameLevel = 0;
-	CCharacter::Instance()->Init();
 }
 }
