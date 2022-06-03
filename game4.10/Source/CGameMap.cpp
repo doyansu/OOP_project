@@ -198,7 +198,7 @@ namespace game_framework {
 		_Rooms[start->Get(0)][start->Get(1)]._roomType = RoomData::RoomType::NORMAL;
 
 		int specialRoom = 1 + (rand() % 1);						// 特殊房間數
-		int normalRoom = 1 + (rand() % 3);						// 一般房間數
+		int normalRoom = 0;// 1 + (rand() % 3);						// 一般房間數
 		int dir[4][2] = { {0, -1}, {0, 1}, {-1, 0}, {1, 0} };	// 搜索用向量
 		bool hasEnd = false;									// 判斷是否已經有傳送房間
 		while (!queue.empty())

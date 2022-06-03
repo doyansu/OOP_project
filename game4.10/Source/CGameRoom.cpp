@@ -144,28 +144,18 @@ namespace game_framework
 
 	CGameRoom::~CGameRoom()
 	{
-		switch (_room->GetRoomType())
+		if (_hasEnemys)
 		{
-		case RoomData::RoomType::BOSS:
-		case RoomData::RoomType::NORMAL:
-		{
-			if (_hasEnemys)
-			{
-				for (CEnemy* obj : _roomEnemys)
-				{
-					if (!obj->NeedFree())
-						delete obj;
-				}
-			}
-			for (RoomWall* obj : _roomWalls)
+			for (CEnemy* obj : _roomEnemys)
 			{
 				if (!obj->NeedFree())
 					delete obj;
 			}
-			break;
 		}
-		default:
-			break;
+		for (RoomWall* obj : _roomWalls)
+		{
+			if (!obj->NeedFree())
+				delete obj;
 		}
 	}
 
