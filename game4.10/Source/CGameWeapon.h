@@ -3,12 +3,15 @@
 #include "CGameBullets.h"
 #include "CGameArrow.h"
 
+#define RPS(X) (int)((double)GAME_ONE_SECONED / X)
+
 namespace game_framework
 {
 	class CGameWeapon : public CGameObj
 	{
 	public:
-		enum class Type { INIT, NEWINIT, AK47, TYPECOUNT };
+		//	TYPECOUNT 前的可被寶相開出 後面拿來放敵人的武器
+		enum class Type { INIT, NEWINIT, AK47, TYPECOUNT, enemy_0 };
 		enum class Anima { Theta_0, Theta_45, Theta_90, Theta_135, Theta_180, Theta_225, Theta_270, Theta_315, ARROW, ANIMACOUNT};	// 動畫種類
 
 		CGameWeapon(CGameObj* = nullptr, Type = Type::INIT);
@@ -51,7 +54,7 @@ namespace game_framework
 		virtual void AddBullet(double x, double y, CGameBullet* newbullet);
 
 	private:
-		CGameWeapon& operator=(const CGameWeapon&) {};
+		//CGameWeapon& operator=(const CGameWeapon&) {};
 		void copy(const CGameWeapon&);
 		void free();
 		

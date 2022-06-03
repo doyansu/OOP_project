@@ -16,6 +16,7 @@ namespace game_framework
 
 	};
 
+
 	class CGamBullet_HandKnife : public CGameBullet
 	{
 	public:
@@ -25,6 +26,19 @@ namespace game_framework
 
 		void LoadBitmap();
 		void OnMove(CGameMap*);
+
+	private:
+
+	};
+
+	class CGamBullet_Enemy_No1 : public CGameBullet
+	{
+	public:
+		CGamBullet_Enemy_No1();
+
+		static CGamBullet_Enemy_No1& Instance();
+
+		void LoadBitmap();
 
 	private:
 

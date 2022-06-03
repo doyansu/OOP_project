@@ -357,9 +357,10 @@
 #define IDB_handknife_right11           493
 #define IDB_handknife_right12           494
 #define IDB_handknife_right13           495
-#define IDB_BITMAP58                    496
 #define IDB_gameover_player_0           496
 #define IDB_gameover_player_1           497
+#define IDB_BITMAP58                    498
+#define IDB_Bullet_enemyNo1             498
 #define IDC_README                      1001
 #define ID_FILE_PAUSE                   32771
 #define ID_TOGGLE_FULLSCREEN            32772
@@ -372,7 +373,7 @@
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_3D_CONTROLS                     1
-#define _APS_NEXT_RESOURCE_VALUE        497
+#define _APS_NEXT_RESOURCE_VALUE        499
 #define _APS_NEXT_COMMAND_VALUE         32776
 #define _APS_NEXT_CONTROL_VALUE         1003
 #define _APS_NEXT_SYMED_VALUE           101

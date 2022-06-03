@@ -12,7 +12,19 @@ namespace game_framework {
 
 	CGameEnemy_Init::CGameEnemy_Init()
 	{
-		
+		_hp = _maxHp = 10;
+	}
+
+	CGameEnemy_Init& CGameEnemy_Init::Instance()
+	{
+		static CGameEnemy_Init Instance;
+		static bool isLoad = false;
+		if (isLoad == false)
+		{
+			Instance.LoadBitmap();
+			isLoad = true;
+		}
+		return Instance;
 	}
 
 	void CGameEnemy_Init::LoadBitmap()
@@ -41,9 +53,8 @@ namespace game_framework {
 
 
 		// ªZ¾¹³]©w
-		_weapon = ProductFactory<CGameWeapon>::Instance().GetProduct((int)CGameWeapon::Type::INIT);
+		_weapon = ProductFactory<CGameWeapon>::Instance().GetProduct((int)CGameWeapon::Type::enemy_0);
 		_weapon->SetUser(this);
-		_weapon->SetAttributes(1, 0, 5, 50);
 		_weapon->SetTarget("player");
 	}
 }

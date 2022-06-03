@@ -1,7 +1,5 @@
 ﻿#pragma once
 
-#include "CGameWeapons.h"
-#include "CGameEnemys.h"
 //參考網址 https://zhuanlan.zhihu.com/p/83537599
 
 namespace game_framework
@@ -83,28 +81,7 @@ namespace game_framework
 	class Registrar	//	註冊用物件
 	{
 	public:
-		static void Registrars()	//	註冊所有工廠可生產物件
-		{
-			/////////////////////////////////////////////////////////////////////////////
-			// 武器
-			static ProductRegistrar<CGameWeapon, CGameWeapon_Init> w1((int)CGameWeapon::Type::INIT);
-			static ProductRegistrar<CGameWeapon, CGameWeapon_NewInit> w2((int)CGameWeapon::Type::NEWINIT);
-			static ProductRegistrar<CGameWeapon, CGameWeapon_AK47> w3((int)CGameWeapon::Type::AK47);
-			/////////////////////////////////////////////////////////////////////////////
-
-			/////////////////////////////////////////////////////////////////////////////
-			// 子彈
-			static ProductRegistrar<CGameBullet, CGamBullet_Init> b1((int)CGameBullet::Type::INIT);
-			static ProductRegistrar<CGameBullet, CGamBullet_HandKnife> b2((int)CGameBullet::Type::HandKnife);
-			/////////////////////////////////////////////////////////////////////////////
-
-			/////////////////////////////////////////////////////////////////////////////
-			// 敵人
-			static ProductRegistrar<CEnemy, CGameEnemy_Init> e1((int)CEnemy::Type::INIT);
-			/////////////////////////////////////////////////////////////////////////////
-			
-			
-		}
+		static void Registrars();	//	註冊所有工廠可生產物件
 	private:
 		
 	};

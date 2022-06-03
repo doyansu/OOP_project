@@ -84,6 +84,32 @@ namespace game_framework
 		this->SetDie(true);
 	}
 
+	/////////////////////////////////////////////////////////////////////////////
 
+	/////////////////////////////////////////////////////////////////////////////
+	//	¼Ä¤H¤@¯ë¤l¼u
+	CGamBullet_Enemy_No1::CGamBullet_Enemy_No1()
+	{
+		_damage = 1;
+		_bulletType = Type::enemyNo1;
+		this->AddTarget("player");
+	}
+
+	CGamBullet_Enemy_No1& CGamBullet_Enemy_No1::Instance()
+	{
+		static CGamBullet_Enemy_No1 Instance;
+		static bool isLoad = false;
+		if (isLoad == false)
+		{
+			Instance.LoadBitmap();
+			isLoad = true;
+		}
+		return Instance;
+	}
+
+	void CGamBullet_Enemy_No1::LoadBitmap()
+	{
+		_animaIter->AddBitmap(IDB_Bullet_e, RGB(255, 255, 255));
+	}
 	/////////////////////////////////////////////////////////////////////////////
 }

@@ -203,7 +203,7 @@ namespace game_framework
 					int r = 1 + (rand() % (_maxEnemy - 1));
 					for (int i = 0; i < r; i++)
 					{
-						CEnemy* newEnemy = ProductFactory<CEnemy>::Instance().GetProduct(rand() % (int)CEnemy::Type::TYPECOUNT);;
+						CEnemy* newEnemy = ProductFactory<CEnemy>::Instance().GetProduct(rand() % (int)CEnemy::Type::TYPECOUNT);
 						// 碰到障礙重新選位置
 						do {
 							newEnemy->SetXY(_mx + MYMAPWIDTH * (1 + rand() % (_room->Width() - 2)), _my + MYMAPHIGH * (1 + rand() % (_room->High() - 2)));

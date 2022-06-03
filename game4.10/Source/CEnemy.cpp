@@ -55,9 +55,8 @@ namespace game_framework {
 	void CEnemy::copy(const CEnemy& other)
 	{
 		this->_enemyType = other._enemyType;
-		_weapon = ProductFactory<CGameWeapon>::Instance().GetProduct((int)CGameWeapon::Type::INIT);
+		_weapon = ProductFactory<CGameWeapon>::Instance().GetProduct((int)other._weapon->GetType());
 		_weapon->SetUser(this);
-		_weapon->SetAttributes(1, 0, 5, 50);
 		_weapon->SetTarget("player");
 		this->_dmgInteger = other._dmgInteger;
 	}
@@ -94,9 +93,8 @@ namespace game_framework {
 
 
 		// ªZ¾¹³]©w
-		_weapon = ProductFactory<CGameWeapon>::Instance().GetProduct((int)CGameWeapon::Type::INIT);
+		_weapon = ProductFactory<CGameWeapon>::Instance().GetProduct((int)CGameWeapon::Type::enemy_0);
 		_weapon->SetUser(this);
-		_weapon->SetAttributes(1, 0, 5, 50);
 		_weapon->SetTarget("player");
 	}
 
