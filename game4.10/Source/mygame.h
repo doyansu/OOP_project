@@ -52,6 +52,7 @@
 #include "CGameEnemys.h"
 #include "CUISkill.h"
 #include "CUIWeaponSwitch.h"
+#include "CGameTimer.h"
 
 
 namespace game_framework {
@@ -164,11 +165,18 @@ namespace game_framework {
 		void OnShow();									// 顯示這個狀態的遊戲畫面
 	private:
 		CUIButton btn_statectl;
-		CInteger counterDown, enemyDie, coin;
-		CMovingBitmap background;
+		CInteger counterDown, enemyDie, coin, SpendTime;
+		CMovingBitmap background, colon;
+
 		enum class STATE {start, runAnima, gotoInit };
-		STATE state;
-		int counter;	// 倒數之計數器
+		STATE state;									// 進行狀態
+
+		int counter;									// 倒數之計數器
+		int spendSecond;								// 儲存花費遊戲時間
+		int animaRate;									// 動畫完成進度
+		const int animaFinishTime;						// 多久要完成動畫
+
+		int endCounter;
 	};
 
 	

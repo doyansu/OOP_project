@@ -618,6 +618,8 @@ IDB_handknife_right13   BITMAP                  "..\\res\\enemy\\bmp00124.bmp"
 
 IDB_gameover_background BITMAP                  "..\\res\\enemy\\bmp00125.bmp"
 
+IDB_COLON               BITMAP                  "..\\res\\enemy\\bmp00126.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //

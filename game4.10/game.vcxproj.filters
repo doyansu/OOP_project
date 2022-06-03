@@ -34,6 +34,7 @@
     <ClCompile Include="Source\CUIWeaponSwitch.cpp" />
     <ClCompile Include="Source\CGameDmgInteger.cpp" />
     <ClCompile Include="Source\CGameBullets.cpp" />
+    <ClCompile Include="Source\CGameTimer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\CCharacter.h" />
@@ -72,6 +73,7 @@
     <ClInclude Include="Source\CUIWeaponSwitch.h" />
     <ClInclude Include="Source\CGameDmgInteger.h" />
     <ClInclude Include="Source\CGameBullets.h" />
+    <ClInclude Include="Source\CGameTimer.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Source\game.rc" />

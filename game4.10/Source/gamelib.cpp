@@ -303,6 +303,16 @@ int  CInteger::GetFinal()
 	return x + digit[(int)color][0].Width() * NUMDIGITS;
 }
 
+int	 CInteger::GetLeft()
+{
+	return x;
+}
+
+int	 CInteger::GetTop()
+{
+	return y;
+}
+
 int  CInteger::GetWidth()
 {
 	return digit[(int)color][0].Width();
@@ -554,6 +564,7 @@ void CGameState::OnCycle() // Template Method
 {
 	OnMove();
 	OnShow();
+	CGameTimer::Instance().Timing();	//	自己的時間計數
 }
 
 /////////////////////////////////////////////////////////////////////////////

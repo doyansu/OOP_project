@@ -269,6 +269,7 @@
     <ClCompile Include="Source\CGameObj.cpp" />
     <ClCompile Include="Source\CGameObjCenter.cpp" />
     <ClCompile Include="Source\CGameRoom.cpp" />
+    <ClCompile Include="Source\CGameTimer.cpp" />
     <ClCompile Include="Source\CGameTool.cpp" />
     <ClCompile Include="Source\CGameTrackObj.cpp" />
     <ClCompile Include="Source\CGameWeapon.cpp" />
@@ -338,6 +339,7 @@
     <ClInclude Include="Source\CGameObj.h" />
     <ClInclude Include="Source\CGameObjCenter.h" />
     <ClInclude Include="Source\CGameRoom.h" />
+    <ClInclude Include="Source\CGameTimer.h" />
     <ClInclude Include="Source\CGameTool.h" />
     <ClInclude Include="Source\CGameTrackObj.h" />
     <ClInclude Include="Source\CGameWeapon.h" />

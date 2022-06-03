@@ -265,6 +265,8 @@ public:
 	int  GetFinal();			// 回傳最後圖片在螢幕的位置
 	int  GetWidth();			// 取得圖片寬度
 	int  GetHeight();			// 取得圖片高度
+	int	 GetLeft();				// 取得 x 座標
+	int	 GetTop();				// 取得 y 座標
 	int  GetLen();				// 取得數字位數
 	void SetInteger(int);		// 設定整數值
 	void SetTopLeft(int,int);	// 將動畫的左上角座標移至 (x,y)

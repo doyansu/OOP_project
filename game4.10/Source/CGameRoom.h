@@ -6,7 +6,7 @@
 #include "CGameArrow.h"
 #include "CGameFactorys.h"
 
-#define REGENERATETIME GAME_ONE_SECONED + (GAME_ONE_SECONED >> 1)
+#define REGENERATETIME (GAME_ONE_SECONED + (GAME_ONE_SECONED >> 1))
 
 namespace game_framework
 {

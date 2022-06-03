@@ -214,8 +214,13 @@ void CGameStateInit::OnLButtonDown(UINT nFlags, CPoint point)
 void CGameStateInit::OnLButtonUp(UINT nFlags, CPoint point)
 {
 	if (newgame.PointIn(point.x, point.y)) {
-		Sleep(200);	// 延遲一下再進入遊戲
+		Sleep(150);	// 延遲一下再進入遊戲
+		//	停止 BGM
 		CAudio::Instance()->Stop(AUDIO_BGM_INIT);
+
+		//	開始計時
+		CGameTimer::Instance().SetStartPoint(-1);	//	小於 0 起點會被設為當前時間
+
 		GotoGameState(GAME_STATE_RUN);
 	}
 	if (gamenote.PointIn(point.x, point.y)) {
@@ -294,7 +299,7 @@ void CGameStateInit::OnShow()
 /////////////////////////////////////////////////////////////////////////////
 
 CGameStateOver::CGameStateOver(CGame *g)
-: CGameState(g)
+: CGameState(g), animaFinishTime(2 * GAME_ONE_SECONED)
 {
 }
 
@@ -309,19 +314,27 @@ void CGameStateOver::OnMove()
 	switch (state)
 	{
 	case game_framework::CGameStateOver::STATE::start:
-		if (counter < 5 * GAME_ONE_SECONED)
+		if (counter < 6 * GAME_ONE_SECONED)				//	剩 6 秒開始跑動畫
 		{
 			state = STATE::runAnima;
 		}
 		break;
 	case game_framework::CGameStateOver::STATE::runAnima:
 	{
+		if(animaRate < animaFinishTime)
+			animaRate++;
 		break;
 	}
 	case game_framework::CGameStateOver::STATE::gotoInit:
-		state = STATE::start;
-		GotoGameState(GAME_STATE_INIT);
+	{
+		animaRate = animaFinishTime;
+		endCounter--;
+		if (counter < 0 || endCounter < 0)
+		{
+			GotoGameState(GAME_STATE_INIT);
+		}
 		break;
+	}
 	default:
 		break;
 	}
@@ -330,8 +343,16 @@ void CGameStateOver::OnMove()
 
 void CGameStateOver::OnBeginState()
 {
+	//	設定倒數秒數
 	counter = 10 * GAME_ONE_SECONED; // 10 seconds
+	//	初始化狀態
 	state = STATE::start;
+	//	重置動畫進度
+	animaRate = 0;
+	//	設定按兩下的延遲以便看到動畫完成
+	endCounter = GAME_ONE_SECONED;
+	//	取得計時時間
+	spendSecond = CGameTimer::ConvertToSeconds(CGameTimer::Instance().GetTimingTime());
 }
 
 void CGameStateOver::OnInit()
@@ -347,19 +368,28 @@ void CGameStateOver::OnInit()
 	// 開始載入資料
 	//
 
+	//	背景
 	background.LoadBitmap(IDB_gameover_background);
 	background.SetTopLeft(0, 0);
 
+	//	按鈕
 	btn_statectl.AddBitmap(IDB_BTN_continue_0, RGB(255, 255, 255));
 	btn_statectl.AddBitmap(IDB_BTN_continue_1, RGB(255, 255, 255));
 	btn_statectl.SetTopLeft((SIZE_X - btn_statectl.Width()) / 2, SIZE_Y - btn_statectl.Height() - 10);
 
+	//	到計時
 	counterDown.SetTopLeft(btn_statectl.Left() + (btn_statectl.Width() / 2) + 20, btn_statectl.Top() + ((btn_statectl.Height() - counterDown.GetHeight()) / 2));
-
 	
+	//	殺敵數
 	enemyDie.SetTopLeft(390, 245);
+
+	//	取得金幣
 	coin.SetColor(CInteger::Color::YELLOW);
 	coin.SetTopLeft(240, 245);
+
+	// 冒號
+	colon.LoadBitmap(IDB_COLON, RGB(0, 0, 0));
+
 
 	//Sleep(300);				// 放慢，以便看清楚進度，實際遊戲請刪除此Sleep
 	//
@@ -432,11 +462,29 @@ void CGameStateOver::OnShow()
 	counterDown.SetInteger(counter / GAME_ONE_SECONED);
 	counterDown.ShowBitmap(false);
 
-	enemyDie.SetInteger(CEnemy::GetDieAmount());
+	//	殺敵數
+	enemyDie.SetInteger(CEnemy::GetDieAmount() * animaRate / animaFinishTime);
 	enemyDie.ShowBitmap(false);
 
-	coin.SetInteger(CCharacter::Instance()->GetGold());
+	//	取得金幣數
+	coin.SetInteger(CCharacter::Instance()->GetGold() * animaRate / animaFinishTime);
 	coin.ShowBitmap(false);
+
+	//	花費遊戲時間
+	int temp = spendSecond * animaRate / animaFinishTime;
+	SpendTime.SetTopLeft(80, 245);
+	SpendTime.SetInteger(temp / 3600);			//	小時
+	SpendTime.ShowBitmap(false);
+	colon.SetTopLeft(SpendTime.GetLeft() + SpendTime.GetWidth() * SpendTime.GetLen(), 245);
+	colon.ShowBitmap();
+	SpendTime.SetTopLeft(colon.Left() + colon.Width(), 245);
+	SpendTime.SetInteger(temp % 60);			//	秒
+	SpendTime.ShowBitmap(false);
+	colon.SetTopLeft(SpendTime.GetLeft() + SpendTime.GetWidth() * SpendTime.GetLen(), 245);
+	colon.ShowBitmap();
+	SpendTime.SetTopLeft(colon.Left() + colon.Width(), 245);
+	SpendTime.SetInteger((temp / 60) % 60);		//	分鐘
+	SpendTime.ShowBitmap(false);
 
 	
 	/*
@@ -613,6 +661,8 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 			UI_posy -= 10;
 		if (btn_posy < 100)
 			btn_posy += 50;
+		//	暫停時間不列入計算
+		CGameTimer::Instance().SetStartPoint(CGameTimer::Instance().GetStartPoint() + 1);
 		return;
 	}
 	else
