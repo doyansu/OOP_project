@@ -165,8 +165,9 @@ namespace game_framework {
 		void OnShow();									// 顯示這個狀態的遊戲畫面
 	private:
 		CUIButton btn_statectl;
-		CInteger counterDown, enemyDie, coin, SpendTime;
-		CMovingBitmap background, colon;
+		CInteger counterDown, enemyDie, coin, SpendTime, gameLevel;
+		CMovingBitmap background, colon, minus;
+		CAnimation player;
 
 		enum class STATE {start, runAnima, gotoInit };
 		STATE state;									// 進行狀態

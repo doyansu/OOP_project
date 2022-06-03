@@ -323,11 +323,19 @@ void CGameStateOver::OnMove()
 	{
 		if(animaRate < animaFinishTime)
 			animaRate++;
+		else if(!player.IsFinalBitmap() && CGameMap::Instance()->GetGameLevel() != 15)
+		{
+			player.OnMove();
+		}
 		break;
 	}
 	case game_framework::CGameStateOver::STATE::gotoInit:
 	{
 		animaRate = animaFinishTime;
+		if (!player.IsFinalBitmap() && CGameMap::Instance()->GetGameLevel() != 15)
+		{
+			player.OnMove();
+		}
 		endCounter--;
 		if (counter < 0 || endCounter < 0)
 		{
@@ -349,6 +357,8 @@ void CGameStateOver::OnBeginState()
 	state = STATE::start;
 	//	重置動畫進度
 	animaRate = 0;
+	//	重置動畫
+	player.Reset();
 	//	設定按兩下的延遲以便看到動畫完成
 	endCounter = GAME_ONE_SECONED;
 	//	取得計時時間
@@ -387,8 +397,15 @@ void CGameStateOver::OnInit()
 	coin.SetColor(CInteger::Color::YELLOW);
 	coin.SetTopLeft(240, 245);
 
-	// 冒號
+	//	冒號
 	colon.LoadBitmap(IDB_COLON, RGB(0, 0, 0));
+
+	//	減號
+	minus.LoadBitmap(IDB_MINUS, RGB(0, 0, 0));
+
+	//	腳色
+	player.AddBitmap(IDB_gameover_player_1, RGB(0, 0, 0));
+	player.AddBitmap(IDB_gameover_player_0, RGB(0, 0, 0));
 
 
 	//Sleep(300);				// 放慢，以便看清楚進度，實際遊戲請刪除此Sleep
@@ -471,20 +488,44 @@ void CGameStateOver::OnShow()
 	coin.ShowBitmap(false);
 
 	//	花費遊戲時間
-	int temp = spendSecond * animaRate / animaFinishTime;
+	int temp;
+	temp = spendSecond * animaRate / animaFinishTime;
+
 	SpendTime.SetTopLeft(80, 245);
 	SpendTime.SetInteger(temp / 3600);			//	小時
 	SpendTime.ShowBitmap(false);
 	colon.SetTopLeft(SpendTime.GetLeft() + SpendTime.GetWidth() * SpendTime.GetLen(), 245);
 	colon.ShowBitmap();
 	SpendTime.SetTopLeft(colon.Left() + colon.Width(), 245);
-	SpendTime.SetInteger(temp % 60);			//	秒
+	SpendTime.SetInteger((temp / 60) % 60);		//	分鐘
 	SpendTime.ShowBitmap(false);
 	colon.SetTopLeft(SpendTime.GetLeft() + SpendTime.GetWidth() * SpendTime.GetLen(), 245);
 	colon.ShowBitmap();
 	SpendTime.SetTopLeft(colon.Left() + colon.Width(), 245);
-	SpendTime.SetInteger((temp / 60) % 60);		//	分鐘
+	SpendTime.SetInteger(temp % 60);			//	秒
 	SpendTime.ShowBitmap(false);
+
+
+	//	關卡數
+	temp = (1 + CGameMap::Instance()->GetGameLevel()) * animaRate / animaFinishTime;
+
+	if (temp == 16)
+		temp--;
+
+	minus.SetTopLeft(15 + 45 * temp, 185);
+	minus.ShowBitmap();
+	gameLevel.SetTopLeft(minus.Left() - gameLevel.GetWidth(), 185);
+	gameLevel.SetInteger(temp < 1 ? 0 : 1 + (temp - 1) / 5);
+	gameLevel.ShowBitmap(false);
+	gameLevel.SetTopLeft(minus.Left() + minus.Width(), 185);
+	gameLevel.SetInteger(temp < 1 ? 0 : 1 + (temp - 1) % 5);
+	gameLevel.ShowBitmap(false);
+
+	//	角色
+	player.SetTopLeft(15 - (player.Width() / 2) + 45 * temp, 100);
+	player.OnShow();
+	
+	
 
 	
 	/*
@@ -814,6 +855,7 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	else if (nChar == 78)	// 按 N 進入下一關卡
 	{
 		//test
+		
 		gameMap->AddGameLevel(1);
 		if (gameMap->GetGameLevel() == 15)//	打完 3-5 通關	
 		{
@@ -821,7 +863,10 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 			GotoGameState(GAME_STATE_OVER);
 		}
 		else
+		{
 			GotoGameState(GAME_STATE_RUN);
+		}
+			
 	}
 
 	character->OnKeyDown(nChar);
@@ -836,10 +881,13 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 		if (gameMap->GetGameLevel() == 15)				//	打完 3-5 通關	
 		{
 			this->GameEnd();
-			GotoGameState(GAME_STATE_INIT);
+			GotoGameState(GAME_STATE_OVER);
 		}
 		else
+		{
 			GotoGameState(GAME_STATE_RUN);
+		}
+			
 	}
 
 }

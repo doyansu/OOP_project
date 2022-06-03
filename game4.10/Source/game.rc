@@ -620,6 +620,10 @@ IDB_gameover_background BITMAP                  "..\\res\\enemy\\bmp00125.bmp"
 
 IDB_COLON               BITMAP                  "..\\res\\enemy\\bmp00126.bmp"
 
+IDB_gameover_player_0   BITMAP                  "..\\res\\enemy\\bmp00127.bmp"
+
+IDB_gameover_player_1   BITMAP                  "..\\res\\enemy\\gameover.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
