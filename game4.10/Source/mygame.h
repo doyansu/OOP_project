@@ -123,6 +123,10 @@ namespace game_framework {
 		CInteger		hits_left;	// 剩下的撞擊數
 		CBouncingBall   bball;		// 反覆彈跳的球*/
 
+		// 遊戲內狀態
+		enum class STATE{ RUN, PAUSE, GOTONEXT, PLAYERDIE};
+		STATE gameRunState;
+
 		// UI
 		CInteger HP, MP, SP, MAXHP, MAXMP, MAXSP, GAMELEVEL, GOLDINTGER;
 		CMovingBitmap HPBACKGROUND, SLASH, HPBAR, SPBAR, MPBAR, MINUS, GOLD, pause_UI, setup_UI;
@@ -130,7 +134,6 @@ namespace game_framework {
 		CUIMinMap minMap;
 		int dMinMap;								//	小地圖位移
 		int btn_posy, UI_posy, setup_posy;						//	暫停介面位移
-		bool isPaused;								//	暫停判斷
 
 		// GAME
 		CGameMap* gameMap;					//	地圖

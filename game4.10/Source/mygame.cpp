@@ -585,6 +585,10 @@ void CGameStateRun::OnBeginState()
 	CAudio::Instance()->Play(AUDIO_DING, false);		// 撥放 WAVE
 	CAudio::Instance()->Play(AUDIO_NTUT, true);			// 撥放 MIDI*/
 	
+
+	// 初始化狀態
+	gameRunState = STATE::RUN;
+
 	// UI
 	dMinMap = 0;
 	btn_setup.Reset();
@@ -592,7 +596,6 @@ void CGameStateRun::OnBeginState()
 	btn_posy = -300;
 	UI_posy = 0;
 	setup_posy = SIZE_Y;
-	isPaused = false;
 	
 	//
 	CUISkill::Instance().SetTopLeft(SIZE_X - CUISkill::Instance().Width() - 20, SIZE_Y - CUISkill::Instance().Height() - 10);
@@ -681,9 +684,9 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	//
 	bball.OnMove();*/
 
-	// UI
+	
 
-	// button
+	// UI button
 	if (btn_setup.IsFinalBitmap())
 	{
 		if (setup_posy > SIZE_Y - setup_UI.Height())
@@ -695,8 +698,10 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 			setup_posy += 15;
 	}
 
-	// 暫停處理
-	if (isPaused)
+
+	switch (gameRunState)
+	{
+	case game_framework::CGameStateRun::STATE::PAUSE:// 暫停處理
 	{
 		if (UI_posy > -HPBACKGROUND.Height() - 50)
 			UI_posy -= 10;
@@ -704,70 +709,91 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 			btn_posy += 50;
 		//	暫停時間不列入計算
 		CGameTimer::Instance().SetStartPoint(CGameTimer::Instance().GetStartPoint() + 1);
-		return;
+		break;
 	}
-	else
+		
+	case game_framework::CGameStateRun::STATE::GOTONEXT:
+	{
+
+		GotoGameState(GAME_STATE_RUN);
+		break;
+	}
+
+	case game_framework::CGameStateRun::STATE::PLAYERDIE:
+	{
+		GotoGameState(GAME_STATE_OVER);
+		break;
+	}
+		
+	case game_framework::CGameStateRun::STATE::RUN:
 	{
 		if (btn_posy > -300)
 			btn_posy -= 50;
-	}
 
-	// 武器 UI 調動
-	CUIWeapon::Instance().MoveUI();
+		// 武器 UI 調動
+		CUIWeapon::Instance().MoveUI();
 
 
-	// GAME
-	gameMap->OnMove(character->CenterX(), character->CenterY());
+		// GAME
+		gameMap->OnMove(character->CenterX(), character->CenterY());
 
-	CGameObj::UpdateObjs();
+		CGameObj::UpdateObjs();
 
-	// 移動、新增物件
-	for (int i = 0; i < (int)CGameObj::_allObj.size(); i++)
-	{
-		CGameObj* obj = CGameObj::_allObj.at(i);
-		if (obj->IsEnable())
+		// 移動、新增物件
+		for (int i = 0; i < (int)CGameObj::_allObj.size(); i++)
 		{
-			obj->OnMove(gameMap);
-		}
-		else if (obj->IsDie())
-		{
-			obj->OnDie(gameMap);
-		}
-	}
-
-	// 處理碰撞
-	for (int i = 0; i < (int)CGameObj::_allObj.size(); i++)
-	{
-		if (!CGameObj::_allObj.at(i)->IsCollision())
-			continue;
-		for (int j = i + 1; j < (int)CGameObj::_allObj.size(); j++)
-			if (CGameObj::_allObj.at(j)->IsCollision() && CGameObj::_allObj.at(i)->Collision(CGameObj::_allObj.at(j)))
+			CGameObj* obj = CGameObj::_allObj.at(i);
+			if (obj->IsEnable())
 			{
-				CGameObj::_allObj.at(i)->OnObjCollision(gameMap, CGameObj::_allObj.at(j));
-				CGameObj::_allObj.at(j)->OnObjCollision(gameMap, CGameObj::_allObj.at(i));
+				obj->OnMove(gameMap);
 			}
-	}
+			else if (obj->IsDie())
+			{
+				obj->OnDie(gameMap);
+			}
+		}
 
+		// 處理碰撞
+		for (int i = 0; i < (int)CGameObj::_allObj.size(); i++)
+		{
+			if (!CGameObj::_allObj.at(i)->IsCollision())
+				continue;
+			for (int j = i + 1; j < (int)CGameObj::_allObj.size(); j++)
+				if (CGameObj::_allObj.at(j)->IsCollision() && CGameObj::_allObj.at(i)->Collision(CGameObj::_allObj.at(j)))
+				{
+					CGameObj::_allObj.at(i)->OnObjCollision(gameMap, CGameObj::_allObj.at(j));
+					CGameObj::_allObj.at(j)->OnObjCollision(gameMap, CGameObj::_allObj.at(i));
+				}
+		}
 
-	if (!character->IsEnable() && !character->IsDie())
-	{
-		this->GameEnd();
-		GotoGameState(GAME_STATE_OVER);
-	}
+		//	角色死亡
+		if (!character->IsEnable() && !character->IsDie())
+		{
+			this->GameEnd();
+			gameRunState = STATE::PLAYERDIE;
+			//GotoGameState(GAME_STATE_OVER);
+		}
 
-	//	UI小地圖
-	minMap.OnMove();
-	int px = minMap.GetPlayerIn(0), py = minMap.GetPlayerIn(1);
-	if (Rooms[px][py]->IsStrat())// 進一般、Boss房間小地圖收起
-	{
-		if (dMinMap < 180)
-			dMinMap += 5;
+		//	UI小地圖
+		minMap.OnMove();
+		int px = minMap.GetPlayerIn(0), py = minMap.GetPlayerIn(1);
+		if (Rooms[px][py]->IsStrat())// 進一般、Boss房間小地圖收起
+		{
+			if (dMinMap < 180)
+				dMinMap += 5;
+		}
+		else
+		{
+			if (dMinMap > 0)
+				dMinMap -= 5;
+		}
+		break;
 	}
-	else
-	{
-		if (dMinMap > 0)
-			dMinMap -= 5;
+		
+	default:
+		break;
 	}
+	
 }
 
 void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
@@ -850,44 +876,66 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 
 void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
-	if (nChar == 0x47)	// 按 G 扣血
-		character->TakeDmg(9999);
-	else if (nChar == 78)	// 按 N 進入下一關卡
+	switch (gameRunState)
 	{
-		//test
-		
-		gameMap->AddGameLevel(1);
-		if (gameMap->GetGameLevel() == 15)//	打完 3-5 通關	
+	case game_framework::CGameStateRun::STATE::RUN:
+	{
+		if (nChar == 0x47)	// 按 G 扣血
+			character->TakeDmg(9999);
+		else if (nChar == 78)	// 按 N 進入下一關卡
 		{
-			this->GameEnd();
-			GotoGameState(GAME_STATE_OVER);
+			//test
+
+			gameMap->AddGameLevel(1);
+			if (gameMap->GetGameLevel() == 15)//	打完 3-5 通關	
+			{
+				this->GameEnd();
+				gameRunState = STATE::PLAYERDIE;
+				//GotoGameState(GAME_STATE_OVER);
+			}
+			else
+			{
+				gameRunState = STATE::GOTONEXT;
+				//GotoGameState(GAME_STATE_RUN);
+			}
+
 		}
-		else
+
+		character->OnKeyDown(nChar);
+
+		// 碰觸傳送門進下一關
+		CGameTransferGate* TransferGate = CGameTransferGate::Instance();
+		if (character->IsDoingSomeThing() && character->Collision(TransferGate))
 		{
-			GotoGameState(GAME_STATE_RUN);
+			TransferGate->SetDie(false);
+			//	關卡數加一
+			gameMap->AddGameLevel(1);
+			if (gameMap->GetGameLevel() == 15)				//	打完 3-5 通關	
+			{
+				this->GameEnd();
+				GotoGameState(GAME_STATE_OVER);
+			}
+			else
+			{
+				gameRunState = STATE::GOTONEXT;
+				//GotoGameState(GAME_STATE_RUN);
+			}
+
 		}
-			
+		break;
 	}
-
-	character->OnKeyDown(nChar);
-
-	// 碰觸傳送門進下一關
-	CGameTransferGate* TransferGate = CGameTransferGate::Instance();
-	if (character->IsDoingSomeThing() && character->Collision(TransferGate))
+	case game_framework::CGameStateRun::STATE::PAUSE:
+		break;
+	case game_framework::CGameStateRun::STATE::GOTONEXT:
 	{
-		TransferGate->SetDie(false);
-		//	關卡數加一
-		gameMap->AddGameLevel(1);
-		if (gameMap->GetGameLevel() == 15)				//	打完 3-5 通關	
-		{
-			this->GameEnd();
-			GotoGameState(GAME_STATE_OVER);
-		}
-		else
+		if (nChar == 78)	// 按 N 跳過動畫
 		{
 			GotoGameState(GAME_STATE_RUN);
 		}
-			
+		break;
+	}
+	default:
+		break;
 	}
 
 }
@@ -899,7 +947,9 @@ void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 
 void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的動作
 {
-	if (!isPaused)
+	switch (gameRunState)
+	{
+	case game_framework::CGameStateRun::STATE::RUN:
 	{
 		if (btn_pause.PointIn(point.x, point.y)) {
 			//	暫停按鈕動畫變換
@@ -915,8 +965,9 @@ void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的
 		{
 			character->SwitchWeapon();
 		}
+		break;
 	}
-	else
+	case game_framework::CGameStateRun::STATE::PAUSE:
 	{
 		if (btn_goBack.PointIn(point.x, point.y))
 		{
@@ -930,20 +981,32 @@ void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的
 				btn_continue.OnMove();
 			}
 		}
+		break;
 	}
-
+		
+	case game_framework::CGameStateRun::STATE::GOTONEXT:
+		break;
+	case game_framework::CGameStateRun::STATE::PLAYERDIE:
+		break;
+	default:
+		break;
+	}
 }
 
 void CGameStateRun::OnLButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動作
 {
-	if (!isPaused)
+	switch (gameRunState)
+	{
+	case game_framework::CGameStateRun::STATE::RUN:
 	{
 		if (btn_pause.PointIn(point.x, point.y)) {
-			isPaused = true;
+			gameRunState = STATE::PAUSE;
 			CAudio::Instance()->Play(AUDIO_BTN_DOWN);
 		}
+		break;
 	}
-	else
+		
+	case game_framework::CGameStateRun::STATE::PAUSE:
 	{
 		if (btn_goBack.PointIn(point.x, point.y))
 		{
@@ -954,7 +1017,7 @@ void CGameStateRun::OnLButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動
 		else if (btn_continue.PointIn(point.x, point.y))
 		{
 			CAudio::Instance()->Play(AUDIO_BTN_DOWN);
-			isPaused = false;
+			gameRunState = STATE::RUN;
 			UI_posy = 0;
 			btn_setup.Reset();
 		}
@@ -966,10 +1029,10 @@ void CGameStateRun::OnLButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動
 		else if (btn_BGM.PointIn(point.x, point.y))
 		{
 			btn_BGM.OnMove();
-			if(!btn_soundEffect.IsFinalBitmap())
+			if (!btn_soundEffect.IsFinalBitmap())
 				CAudio::Instance()->Play(AUDIO_BTN_DOWN);
 			if (btn_BGM.IsFinalBitmap())
-			{		
+			{
 				// 暫停所有 BGM
 				for (unsigned int id = AUDIO_ID::AUDIO_BGM_INIT; id < AUDIO_ID::AUDIO_BGM_COUNT; id++)
 				{
@@ -997,7 +1060,7 @@ void CGameStateRun::OnLButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動
 				CAudio::Instance()->Resume();
 				CAudio::Instance()->Play(AUDIO_BTN_DOWN);
 			}
-				
+
 			if (btn_BGM.IsFinalBitmap())
 			{
 				// 暫停所有 BGM
@@ -1015,6 +1078,15 @@ void CGameStateRun::OnLButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動
 				}
 			}
 		}
+		break;
+	}
+		
+	case game_framework::CGameStateRun::STATE::GOTONEXT:
+		break;
+	case game_framework::CGameStateRun::STATE::PLAYERDIE:
+		break;
+	default:
+		break;
 	}
 
 	btn_pause.Reset();
