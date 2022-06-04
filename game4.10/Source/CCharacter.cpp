@@ -26,7 +26,6 @@ namespace game_framework {
 		_hp = _maxHp = 6;
 		_mp = _maxMp = 180;
 		_shield = _maxShield = 5;
-		_damage = 4;
 		_moveSpeed = 8;
 		_showPriority = 10;
 		_gold = 0;
@@ -63,6 +62,7 @@ namespace game_framework {
 	{
 		_doSomeThing = false;
 		_canInteractive = false;
+		_doHandKnife = false;
 		_skillCounter = _SKILLTD + _SKILLCD;
 		_deathCounter = GAME_ONE_SECONED * 2;
 		_shieldCounter = GAME_ONE_SECONED;
@@ -496,38 +496,41 @@ namespace game_framework {
 			}
 			else if (target != nullptr)	// 找到敵人朝敵人射擊
 			{
-				const double MINSEARCH = 50;	// 最小搜索範圍 (目前沒有)
-				if (_weapons[_nowWeapon]->CanFire() && d >= MINSEARCH)// 找到敵人朝敵人射擊
+				if (_doHandKnife && d < 50) // 近戰攻擊
 				{
-					double vx = (double)(target->CenterX() - this->CenterX()) / d;
-					double vy = (double)(target->CenterY() - this->CenterY()) / d;
-					if (_mp >= _weapons[_nowWeapon]->GetCost())
-					{
-						_weapons[_nowWeapon]->Shoot(vx, vy);
-						this->ModifyMp(-_weapons[_nowWeapon]->GetCost());
-					}
-				}
-				else if (d < MINSEARCH) // 近戰攻擊
-				{
-					//target->TakeDmg(_damage);
 					CGameBullet* handKnife = ProductFactory<CGameBullet>::Instance().GetProduct((int)CGameBullet::Type::HandKnife);
 					handKnife->SetXY((this->CenterX() + target->CenterX() - handKnife->GetWidth()) / 2, (this->CenterY() + target->CenterY() - handKnife->GetHeight()) / 2);
 					CGameObj::AddObj(handKnife);
 					_doSomeThing = false;
+					_doHandKnife = false;
 				}
-
-				//	正在使用技能
-				if (_skillCounter < _SKILLTD && _skillWeapon->CanFire() && d >= MINSEARCH)
+				else
 				{
-					double vx = (double)(target->CenterX() - this->CenterX()) / d;
-					double vy = (double)(target->CenterY() - this->CenterY()) / d;
-					if (_mp >= _skillWeapon->GetCost())
+					if (_weapons[_nowWeapon]->CanFire())// 朝找到的敵人射擊
 					{
-						_skillWeapon->Shoot(vx, vy);
-						this->ModifyMp(-_skillWeapon->GetCost());
+						double vx = (double)(target->CenterX() - this->CenterX()) / d;
+						double vy = (double)(target->CenterY() - this->CenterY()) / d;
+						if (_mp >= _weapons[_nowWeapon]->GetCost())
+						{
+							_weapons[_nowWeapon]->Shoot(vx, vy);
+							this->ModifyMp(-_weapons[_nowWeapon]->GetCost());
+						}
 					}
-					
+
+					//	正在使用技能
+					if (_skillCounter < _SKILLTD && _skillWeapon->CanFire())
+					{
+						double vx = (double)(target->CenterX() - this->CenterX()) / d;
+						double vy = (double)(target->CenterY() - this->CenterY()) / d;
+						if (_mp >= _skillWeapon->GetCost())
+						{
+							_skillWeapon->Shoot(vx, vy);
+							this->ModifyMp(-_skillWeapon->GetCost());
+						}
+
+					}
 				}
+				
 			}
 			else if (_mp >= _weapons[_nowWeapon]->GetCost())// 沒找到敵人朝 vector 射擊
 			{
@@ -742,8 +745,26 @@ namespace game_framework {
 		{
 		case KEY_SPACE:
 		case KEY_Z:
+		{
 			_doSomeThing = true;
+
+			CGameObj* target = nullptr;
+			for (CGameObj* obj : CGameObj::_allObj)
+			{
+				double d = this->Distance(obj);
+				if (obj->IsEnable() && obj->GetTag() == "enemy" &&  d < 50)
+				{
+					if (target == nullptr || d < this->Distance(target))
+					{
+						target = obj;
+					}
+				}
+			}
+
+			if (target != nullptr)
+				_doHandKnife = true;
 			break;
+		}
 		case KEY_LEFT:
 		case KEY_A:
 			this->SetMovingLeft(true);

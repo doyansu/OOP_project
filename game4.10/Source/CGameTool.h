@@ -34,7 +34,7 @@ namespace game_framework
 		}
 
 		template<typename compare, typename source>	//	依比較函式找到最符合物件
-		static vector<source*> FindMaxObjBy(const vector<source*>& objs, compare cmp)
+		static source* FindMaxObjBy(const vector<source*>& objs, compare cmp)
 		{
 			source* maxObj = *(objs.begin());
 			for (source* obj : objs)

@@ -59,8 +59,8 @@ namespace game_framework {
 		int _DT;									// direction 朝向控制 1 朝右 0 朝左
 		int _mp, _maxMp, _shield, _maxShield;		// 魔力值、最大魔力值、護盾、最大護盾值
 		int _gold;									// 金幣數
-		int _damage;								// 近戰傷害
 		bool _doSomeThing;							// 鍵盤按鍵判斷
+		bool _doHandKnife;							// 手刀攻擊
 		bool _canInteractive;						// 是否有物件可互動
 		CGameWeapon* _weapons[2], *_skillWeapon;	// 可擁有2把武器
 		int _nowWeapon;								// 當前武器 index
