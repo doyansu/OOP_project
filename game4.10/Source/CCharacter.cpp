@@ -499,6 +499,7 @@ namespace game_framework {
 				if (_doHandKnife && d < 50) // ªñ¾Ô§ðÀ»
 				{
 					CGameBullet* handKnife = ProductFactory<CGameBullet>::Instance().GetProduct((int)CGameBullet::Type::HandKnife);
+					handKnife->AddTarget("enemy");
 					handKnife->SetXY((this->CenterX() + target->CenterX() - handKnife->GetWidth()) / 2, (this->CenterY() + target->CenterY() - handKnife->GetHeight()) / 2);
 					CGameObj::AddObj(handKnife);
 					_doSomeThing = false;

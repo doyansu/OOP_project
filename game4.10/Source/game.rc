@@ -628,6 +628,8 @@ IDB_Bullet_enemyNo1     BITMAP                  "..\\res\\enemy\\bmp00128.bmp"
 
 IDB_Bullet4             BITMAP                  "..\\res\\enemy\\bullet4.bmp"
 
+IDB_BITMAP58            BITMAP                  "..\\res\\enemy\\bmp00129.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //

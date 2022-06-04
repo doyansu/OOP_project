@@ -30,6 +30,7 @@ namespace game_framework {
 		this->_moveSpeed = 3;
 		CEnemy::CGameObj::SetTag("enemy");
 		_enemyType = Type::INIT;
+		_weapon = nullptr;
 	}
 
 	CEnemy::~CEnemy()
@@ -55,10 +56,15 @@ namespace game_framework {
 	void CEnemy::copy(const CEnemy& other)
 	{
 		this->_enemyType = other._enemyType;
-		_weapon = ProductFactory<CGameWeapon>::Instance().GetProduct((int)other._weapon->GetType());
-		_weapon->SetUser(this);
-		_weapon->SetTarget("player");
 		this->_dmgInteger = other._dmgInteger;
+		if (other._weapon != nullptr)
+		{
+			_weapon = ProductFactory<CGameWeapon>::Instance().GetProduct((int)other._weapon->GetType());
+			_weapon->SetUser(this);
+			_weapon->SetTarget("player");
+		}
+		else
+			_weapon = nullptr;
 	}
 
 	void CEnemy::free()
@@ -103,7 +109,7 @@ namespace game_framework {
 		if (GetAnima(Anima::APPEARANCE)->IsFinalBitmap())
 		{
 			CEnemy::CGameObj::OnShow(map);
-			if(!_isDie)
+			if(!_isDie && _weapon != nullptr)
 				_weapon->OnShow(map);
 			_dmgInteger.SetTopLeft(map->ScreenX(this->CenterX() - (_dmgInteger.GetWidth() >> 1)), map->ScreenY(this->GetY1() - _dmgInteger.GetHeight()));
 			_dmgInteger.OnShow();
@@ -144,8 +150,12 @@ namespace game_framework {
 		}
 
 		// ªZ¾¹²¾°Ê
-		_weapon->SetCenter(this->CenterX(), this->CenterY());
-		_weapon->OnMove(map);
+		if (_weapon != nullptr)
+		{
+			_weapon->SetCenter(this->CenterX(), this->CenterY());
+			_weapon->OnMove(map);
+		}
+		
 		
 		CGameObj* player = CCharacter::Instance();
 		const double MAXSEARCH = 300.0;	// ³Ì¤j·j¯Á½d³ò
@@ -165,15 +175,18 @@ namespace game_framework {
 			else
 				_animaIter = GetAnima(CEnemy::Anima::RUN_L);
 
-			if (vy <= 0)
-				_weapon->SetDT(CGameTool::TwoVectorAngle(vx * d, vy * d, 1.0, 0.0) / 45);
-			else
-				_weapon->SetDT(8 - CGameTool::TwoVectorAngle(vx * d, vy * d, 1.0, 0.0) / 45);
-
-			// ªZ¾¹®gÀ»
-			if (_weapon->CanFire()  && d < MAXSEARCH  && (rand() % 20 == 0))
+			if (_weapon != nullptr)
 			{
-				_weapon->Shoot(vx, vy);
+				if (vy <= 0)
+					_weapon->SetDT(CGameTool::TwoVectorAngle(vx * d, vy * d, 1.0, 0.0) / 45);
+				else
+					_weapon->SetDT(8 - CGameTool::TwoVectorAngle(vx * d, vy * d, 1.0, 0.0) / 45);
+
+				// ªZ¾¹®gÀ»
+				if (_weapon->CanFire() && d < MAXSEARCH && (rand() % 20 == 0))
+				{
+					_weapon->Shoot(vx, vy);
+				}
 			}
 		}
 		

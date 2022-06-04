@@ -67,4 +67,27 @@ namespace game_framework
 		int survive;		//	存活時間
 	};
 
+	class CGamBullet_Effect_shock : public CGameBullet
+	{
+	public:
+		static CGamBullet_Effect_shock& Instance()
+		{
+			static CGamBullet_Effect_shock Instance;
+			static bool isLoad = false;
+			if (isLoad == false)
+			{
+				Instance.LoadBitmap();
+				isLoad = true;
+			}
+			return Instance;
+		}
+
+		CGamBullet_Effect_shock();
+		void LoadBitmap();
+		void OnMove(CGameMap*);
+
+	private:
+
+	};
+
 }

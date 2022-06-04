@@ -41,7 +41,6 @@ namespace game_framework
 		_damage = 4;
 		_showPriority = 10;
 		_bulletType = Type::HandKnife;
-		this->AddTarget("enemy");
 	}
 
 	CGamBullet_HandKnife& CGamBullet_HandKnife::Instance()
@@ -142,6 +141,45 @@ namespace game_framework
 		//	接觸到地圖圍牆停止或房間通道連接處
 		if (CGameBullet::CGameObj::Collision(map) || CGameBullet::CGameObj::Collision(map, CGameMap::ContentType::AISLEWALL))
 			this->SetEnable(false);
+	}
+
+	/////////////////////////////////////////////////////////////////////////////
+
+	/////////////////////////////////////////////////////////////////////////////
+	// 地震特效
+	CGamBullet_Effect_shock::CGamBullet_Effect_shock()
+	{
+		_damage = 4;
+		_bulletType = Type::effect_shock;
+	}
+
+	void CGamBullet_Effect_shock::LoadBitmap()
+	{
+		_animaIter->SetDelayCount(1);
+		_animaIter->AddBitmap(IDB_handknife_right, RGB(0, 0, 0));
+		_animaIter->AddBitmap(IDB_handknife_right, RGB(0, 0, 0));
+		_animaIter->AddBitmap(IDB_handknife_right, RGB(0, 0, 0));
+		_animaIter->AddBitmap(IDB_handknife_right, RGB(0, 0, 0));
+		_animaIter->AddBitmap(IDB_handknife_right, RGB(0, 0, 0));
+		_animaIter->AddBitmap(IDB_handknife_right1, RGB(0, 0, 0));
+		_animaIter->AddBitmap(IDB_handknife_right2, RGB(0, 0, 0));
+		_animaIter->AddBitmap(IDB_handknife_right3, RGB(0, 0, 0));
+		_animaIter->AddBitmap(IDB_handknife_right4, RGB(0, 0, 0));
+		_animaIter->AddBitmap(IDB_handknife_right5, RGB(0, 0, 0));
+		_animaIter->AddBitmap(IDB_handknife_right6, RGB(0, 0, 0));
+		_animaIter->AddBitmap(IDB_handknife_right7, RGB(0, 0, 0));
+		_animaIter->AddBitmap(IDB_handknife_right8, RGB(0, 0, 0));
+		_animaIter->AddBitmap(IDB_handknife_right9, RGB(0, 0, 0));
+		_animaIter->AddBitmap(IDB_handknife_right10, RGB(0, 0, 0));
+		_animaIter->AddBitmap(IDB_handknife_right11, RGB(0, 0, 0));
+		_animaIter->AddBitmap(IDB_handknife_right12, RGB(0, 0, 0));
+		_animaIter->AddBitmap(IDB_handknife_right13, RGB(0, 0, 0));
+	}
+
+	void CGamBullet_Effect_shock::OnMove(CGameMap*)
+	{
+		this->SetEnable(false);
+		this->SetDie(true);
 	}
 
 	/////////////////////////////////////////////////////////////////////////////

@@ -27,12 +27,15 @@ namespace game_framework
 		static ProductRegistrar<CGameBullet, CGamBullet_HandKnife> b2((int)CGameBullet::Type::HandKnife);
 		static ProductRegistrar<CGameBullet, CGamBullet_Enemy_No1> b3((int)CGameBullet::Type::enemyNo1);
 		static ProductRegistrar<CGameBullet, CGamBullet_Enemy_Slow> b4((int)CGameBullet::Type::slow);
+		static ProductRegistrar<CGameBullet, CGamBullet_Effect_shock> b5((int)CGameBullet::Type::effect_shock);
+		
 		/////////////////////////////////////////////////////////////////////////////
 
 		/////////////////////////////////////////////////////////////////////////////
 		// ¼Ä¤H
 		static ProductRegistrar<CEnemy, CGameEnemy_Init> e1((int)CEnemy::Type::INIT);
 		static ProductRegistrar<CEnemy, CGameEnemy_SNOW_0> e2((int)CEnemy::Type::SNOW_SLOW);
+		static ProductRegistrar<CEnemy, CGameEnemy_SNOW_Monkey> e3((int)CEnemy::Type::SNOW_Monkey_0);
 		/////////////////////////////////////////////////////////////////////////////
 			
 			
