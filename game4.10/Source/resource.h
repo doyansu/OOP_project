@@ -359,8 +359,8 @@
 #define IDB_handknife_right13           495
 #define IDB_gameover_player_0           496
 #define IDB_gameover_player_1           497
-#define IDB_BITMAP58                    498
 #define IDB_Bullet_enemyNo1             498
+#define IDB_Bullet4                     499
 #define IDC_README                      1001
 #define ID_FILE_PAUSE                   32771
 #define ID_TOGGLE_FULLSCREEN            32772

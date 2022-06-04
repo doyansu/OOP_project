@@ -44,4 +44,27 @@ namespace game_framework
 
 	};
 
+	class CGamBullet_Enemy_Slow : public CGameBullet
+	{
+	public:
+		static CGamBullet_Enemy_Slow& Instance()
+		{
+			static CGamBullet_Enemy_Slow Instance;
+			static bool isLoad = false;
+			if (isLoad == false)
+			{
+				Instance.LoadBitmap();
+				isLoad = true;
+			}
+			return Instance;
+		}
+
+		CGamBullet_Enemy_Slow();
+		void LoadBitmap();
+		void OnMove(CGameMap* map);
+
+	private:
+		int survive;		//	存活時間
+	};
+
 }

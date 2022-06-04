@@ -8,7 +8,7 @@ namespace game_framework {
 	class CEnemy : public CGameObj
 	{
 	public:
-		enum class Type { INIT, TYPECOUNT };
+		enum class Type { INIT, SNOW_SLOW, TYPECOUNT };
 		enum class Anima { RUN_R, RUN_L, DIE, APPEARANCE, ANIMACOUNT};
 		CEnemy();
 		~CEnemy() override;

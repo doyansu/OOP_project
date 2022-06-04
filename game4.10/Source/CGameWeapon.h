@@ -11,7 +11,7 @@ namespace game_framework
 	{
 	public:
 		//	TYPECOUNT 前的可被寶相開出 後面拿來放敵人的武器
-		enum class Type { INIT, NEWINIT, AK47, TYPECOUNT, enemy_0 };
+		enum class Type { INIT, NEWINIT, AK47, TYPECOUNT, enemy_0, enemy_slow};
 		enum class Anima { Theta_0, Theta_45, Theta_90, Theta_135, Theta_180, Theta_225, Theta_270, Theta_315, ARROW, ANIMACOUNT};	// 動畫種類
 
 		CGameWeapon(CGameObj* = nullptr, Type = Type::INIT);

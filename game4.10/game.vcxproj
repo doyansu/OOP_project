@@ -577,6 +577,7 @@
     <Image Include="res\enemy\btn_bgm_.bmp" />
     <Image Include="res\enemy\btn_setu.bmp" />
     <Image Include="res\enemy\btn_soun.bmp" />
+    <Image Include="res\enemy\bullet4.bmp" />
     <Image Include="RES\enemy\enemy31_0.bmp" />
     <Image Include="RES\enemy\enemy31_0_l.bmp" />
     <Image Include="RES\enemy\enemy31_1.bmp" />

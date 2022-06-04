@@ -6,7 +6,7 @@ namespace game_framework
 	class CGameBullet : public CGameObj
 	{
 	public:
-		enum class Type { INIT, HandKnife, enemyNo1, TYPECOUNT};
+		enum class Type { INIT, HandKnife, enemyNo1, slow, TYPECOUNT};
 		CGameBullet();
 		//CGameBullet(const CGameBullet& other);
 

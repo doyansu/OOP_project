@@ -62,13 +62,41 @@ namespace game_framework {
 
 	//	¼Ä¤HªZ¾¹
 	/////////////////////////////////////////////////////////////////////////////
-	//	
+	//	ª®À»ºj
 	class CGameWeapon_Enemy_0 : public CGameWeapon
 	{
 	public:
 		static CGameWeapon_Enemy_0& Instance();
 
 		CGameWeapon_Enemy_0();
+		void LoadBitmap();
+		void Shoot(double x, double y);
+
+	protected:
+
+	private:
+
+	};
+	/////////////////////////////////////////////////////////////////////////////
+
+	/////////////////////////////////////////////////////////////////////////////
+	//	ÄÅ¼uºj
+	class CGameWeapon_Enemy_slow : public CGameWeapon
+	{
+	public:
+		static CGameWeapon_Enemy_slow& Instance()
+		{
+			static CGameWeapon_Enemy_slow Instance;
+			static bool isLoad = false;
+			if (isLoad == false)
+			{
+				Instance.LoadBitmap();
+				isLoad = true;
+			}
+			return Instance;
+		}
+
+		CGameWeapon_Enemy_slow();
 		void LoadBitmap();
 		void Shoot(double x, double y);
 

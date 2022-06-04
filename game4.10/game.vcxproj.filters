@@ -372,6 +372,7 @@
     <Image Include="res\enemy\bmp00127.bmp" />
     <Image Include="res\enemy\gameover.bmp" />
     <Image Include="res\enemy\bmp00128.bmp" />
+    <Image Include="res\enemy\bullet4.bmp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="RES\bmp0.bmp" />

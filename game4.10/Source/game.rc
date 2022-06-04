@@ -626,6 +626,8 @@ IDB_gameover_player_1   BITMAP                  "..\\res\\enemy\\gameover.bmp"
 
 IDB_Bullet_enemyNo1     BITMAP                  "..\\res\\enemy\\bmp00128.bmp"
 
+IDB_Bullet4             BITMAP                  "..\\res\\enemy\\bullet4.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //

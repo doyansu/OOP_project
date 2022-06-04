@@ -132,7 +132,7 @@ namespace game_framework {
 	/////////////////////////////////////////////////////////////////////////////
 
 	/////////////////////////////////////////////////////////////////////////////
-	//	破舊的手槍
+	//	AK47
 	CGameWeapon_AK47& CGameWeapon_AK47::Instance()
 	{
 		static CGameWeapon_AK47 Instance;
@@ -205,12 +205,12 @@ namespace game_framework {
 
 	CGameWeapon_Enemy_0::CGameWeapon_Enemy_0()
 	{
-		_atk = 1;
+		_atk = 5;
 		_cost = 0;
 		_crit = 0;
 		_spread = 1;
-		_shootDelay = RPS(1);
-		_bulletSpeed = 7;
+		_shootDelay = RPS(0.1);
+		_bulletSpeed = 13;
 		_weaponType = Type::enemy_0;
 	}
 
@@ -244,6 +244,62 @@ namespace game_framework {
 			CAudio::Instance()->Play(_shootID);
 
 			AddBullet(x, y, ProductFactory<CGameBullet>::Instance().GetProduct((int)CGameBullet::Type::enemyNo1));
+
+			_fire = false;
+			_fireCounter = _shootDelay;
+		}
+	}
+	/////////////////////////////////////////////////////////////////////////////
+
+
+
+	/////////////////////////////////////////////////////////////////////////////
+	CGameWeapon_Enemy_slow::CGameWeapon_Enemy_slow()
+	{
+		_atk = 3;
+		_cost = 0;
+		_crit = 0;
+		_spread = 50;
+		_shootDelay = RPS(0.2);
+		_bulletSpeed = 5;
+		_weaponType = Type::enemy_slow;
+	}
+
+	void CGameWeapon_Enemy_slow::LoadBitmap()
+	{
+		_animaIter = GetAnima(CGameWeapon::Anima::Theta_0);
+		_animaIter->AddBitmap(IDB_weapon_0_0, RGB(255, 255, 255));
+		_animaIter = GetAnima(CGameWeapon::Anima::Theta_45);
+		_animaIter->AddBitmap(IDB_weapon_0_45, RGB(255, 255, 255));
+		_animaIter = GetAnima(CGameWeapon::Anima::Theta_90);
+		_animaIter->AddBitmap(IDB_weapon_0_90, RGB(255, 255, 255));
+		_animaIter = GetAnima(CGameWeapon::Anima::Theta_135);
+		_animaIter->AddBitmap(IDB_weapon_0_135, RGB(255, 255, 255));
+		_animaIter = GetAnima(CGameWeapon::Anima::Theta_180);
+		_animaIter->AddBitmap(IDB_weapon_0_180, RGB(255, 255, 255));
+		_animaIter = GetAnima(CGameWeapon::Anima::Theta_225);
+		_animaIter->AddBitmap(IDB_weapon_0_225, RGB(255, 255, 255));
+		_animaIter = GetAnima(CGameWeapon::Anima::Theta_270);
+		_animaIter->AddBitmap(IDB_weapon_0_270, RGB(255, 255, 255));
+		_animaIter = GetAnima(CGameWeapon::Anima::Theta_315);
+		_animaIter->AddBitmap(IDB_weapon_0_315, RGB(255, 255, 255));
+
+		*GetAnima(Anima::ARROW) = CGameArrow::Instance();
+	}
+
+	void CGameWeapon_Enemy_slow::Shoot(double x, double y)
+	{
+		if (_fire)
+		{
+			// 音效播放
+			CAudio::Instance()->Play(_shootID);
+
+			int t = 5 + rand() % 3;
+
+			while (t--)
+			{
+				AddBullet(x, y, ProductFactory<CGameBullet>::Instance().GetProduct((int)CGameBullet::Type::slow));
+			}
 
 			_fire = false;
 			_fireCounter = _shootDelay;
