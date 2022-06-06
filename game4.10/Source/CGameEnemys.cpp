@@ -15,7 +15,7 @@ namespace game_framework {
 	//	狙擊兵
 	CGameEnemy_Init::CGameEnemy_Init()
 	{
-		_hp = _maxHp = 10;
+		_hp = _maxHp = 15;
 	}
 
 	CGameEnemy_Init& CGameEnemy_Init::Instance()
@@ -66,7 +66,8 @@ namespace game_framework {
 	//	霰彈兵
 	CGameEnemy_SNOW_0::CGameEnemy_SNOW_0()
 	{
-		_hp = _maxHp = 10;
+		_hp = _maxHp = 15;
+		_maxSearch = 250;
 	}
 
 	
@@ -107,7 +108,8 @@ namespace game_framework {
 	//	小雪猿
 	CGameEnemy_SNOW_Monkey::CGameEnemy_SNOW_Monkey()
 	{
-		_hp = _maxHp = 15;
+		_hp = _maxHp = 9;
+		_maxSearch = 250;
 		state = STATE::RANDMOVE;
 	}
 
@@ -143,7 +145,7 @@ namespace game_framework {
 		_weapon->SetTarget("player");*/
 	}
 
-	/*
+	
 	void CGameEnemy_SNOW_Monkey::OnMove(CGameMap* map)
 	{
 		if (!GetAnima(Anima::APPEARANCE)->IsFinalBitmap())
@@ -159,18 +161,22 @@ namespace game_framework {
 		double d = MAXSEARCH;
 		double vx = 0;
 		double vy = 0;
+		int Speed = _moveSpeed;
 
 		// 找到玩家
-		if (player && !player->hasObstacle(map, this) && d < MAXSEARCH)
+		if (player && !player->hasObstacle(map, this))
 		{
 			d = this->Distance(player);
 			vx = (double)(player->CenterX() - this->CenterX()) / d;
 			vy = (double)(player->CenterY() - this->CenterY()) / d;
 			// 切換動畫
-			if (vx > 0)
-				_animaIter = GetAnima(CEnemy::Anima::RUN_R);
-			else
-				_animaIter = GetAnima(CEnemy::Anima::RUN_L);
+			if (d < MAXSEARCH)
+			{
+				if (vx > 0)
+					_animaIter = GetAnima(CEnemy::Anima::RUN_R);
+				else
+					_animaIter = GetAnima(CEnemy::Anima::RUN_L);
+			}
 		}
 
 		// 敵人移動
@@ -187,55 +193,75 @@ namespace game_framework {
 			}
 
 			// 找到玩家
-			if (player && !player->hasObstacle(map, this) && rand() % 10 == 0)
+			if (rand() % 100 == 0 && player && !player->hasObstacle(map, this))
 			{
-				_tx = player->GetX1();
-				_ty = player->GetY1();
+				_tx = player->CenterX();
+				_ty = player->CenterY();
+
+				_vector[0] = vx;
+				_vector[1] = vy;
+
+				_maxTrackTime = 3 * GAME_ONE_SECONED + rand() % (2 * GAME_ONE_SECONED);
 				state = STATE::MOVETO;
 			}
 			break;
 		}
 		case game_framework::CGameEnemy_SNOW_Monkey::STATE::MOVETO:
 		{
-			double td = sqrt((_tx - _mx) * (_tx - _mx) + (_ty - _my) * (_ty - _my));
-			_vector[0] = (_tx - _mx) / td;
-			_vector[1] = (_ty - _my) / td;
-			if (_tx >= this->GetX1() && _ty >= this->GetY1() && _tx <= this->GetX2() && _ty <= this->GetY2())
+			Speed <<= 1;
+			_maxTrackTime--;
+			if (_maxTrackTime < 0 || (_tx >= this->GetX1() && _ty >= this->GetY1() && _tx <= this->GetX2() && _ty <= this->GetY2()))
 			{
 				CGameBullet* shock = ProductFactory<CGameBullet>::Instance().GetProduct((int)CGameBullet::Type::effect_shock);
 				shock->AddTarget("player");
 				shock->SetXY(this->CenterX() - (shock->GetWidth() >> 1), this->CenterY() - (shock->GetHeight() >> 1));
 				CGameObj::AddObj(shock);
 				state = STATE::RANDMOVE;
-				break;
 			}
+			break;
 		}
 		default:
 			break;
 		}
-		
 
-		int Speed = _moveSpeed;
 		int dx = (int)((double)Speed * _vector[0]), dy = (int)((double)Speed * _vector[1]);
-		
+
 		_mx += dx;
-		_my += dy;
 
 		if (CGameObj::Collision(map) || CGameObj::Collision(map, CGameMap::ContentType::AISLEWALL))
 		{
 			_mx -= dx;
-			_my -= dy;
-			
-			for (int i = 0; i < Speed; i++)
-			{
-				dx -= 
-			}
 		}
 
-		_mx += dx;
 		_my += dy;
 		
-	}*/
+		if (CGameObj::Collision(map) || CGameObj::Collision(map, CGameMap::ContentType::AISLEWALL))
+		{
+			_my -= dy;
+		}
+		
+		/*int ud = 0;
+
+		if(abs(dx) > 0)
+			ud = dx / abs(dx);
+
+		_mx += dx;
+		while (ud && (CGameObj::Collision(map) || CGameObj::Collision(map, CGameMap::ContentType::AISLEWALL)))
+		{
+			_mx -= ud;
+		}
+
+		ud = 0;
+		if (abs(dy) > 0)
+			ud = dy / abs(dy);
+		
+		_my += dy;
+		while (ud && (CGameObj::Collision(map) || CGameObj::Collision(map, CGameMap::ContentType::AISLEWALL)))
+		{
+			_my -= ud;
+		}*/
+		
+	}
 
 	/////////////////////////////////////////////////////////////////////////////
 	

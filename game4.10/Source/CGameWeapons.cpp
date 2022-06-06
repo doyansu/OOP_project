@@ -189,7 +189,7 @@ namespace game_framework {
 
 	//	¼Ä¤HªZ¾¹
 	/////////////////////////////////////////////////////////////////////////////
-	//	
+	//	ª®À»ºj
 
 	CGameWeapon_Enemy_0& CGameWeapon_Enemy_0::Instance()
 	{
@@ -205,7 +205,7 @@ namespace game_framework {
 
 	CGameWeapon_Enemy_0::CGameWeapon_Enemy_0()
 	{
-		_atk = 5;
+		_atk = 4;
 		_cost = 0;
 		_crit = 0;
 		_spread = 1;
@@ -254,9 +254,10 @@ namespace game_framework {
 
 
 	/////////////////////////////////////////////////////////////////////////////
+	//	ÄÅ¼uºj
 	CGameWeapon_Enemy_slow::CGameWeapon_Enemy_slow()
 	{
-		_atk = 3;
+		_atk = 2;
 		_cost = 0;
 		_crit = 0;
 		_spread = 50;

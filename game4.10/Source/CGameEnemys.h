@@ -4,6 +4,7 @@
 namespace game_framework
 {
 	/////////////////////////////////////////////////////////////////////////////
+	//	狙擊兵
 	class CGameEnemy_Init : public CEnemy
 	{
 	public:
@@ -20,6 +21,7 @@ namespace game_framework
 	/////////////////////////////////////////////////////////////////////////////
 
 	/////////////////////////////////////////////////////////////////////////////
+	//	霰彈兵
 	class CGameEnemy_SNOW_0 : public CEnemy
 	{
 	public:
@@ -46,6 +48,7 @@ namespace game_framework
 
 
 	/////////////////////////////////////////////////////////////////////////////
+	//	小雪猿
 	class CGameEnemy_SNOW_Monkey : public CEnemy
 	{
 	public:
@@ -63,7 +66,7 @@ namespace game_framework
 
 		CGameEnemy_SNOW_Monkey();
 		void LoadBitmap();
-		//void OnMove(CGameMap* map);
+		void OnMove(CGameMap* map);
 
 	protected:
 
@@ -74,7 +77,8 @@ namespace game_framework
 			MOVETO
 		};
 		STATE state;
-		int _tx, _ty;	//	MOVETO 目標位置
+		int _tx, _ty;			//	MOVETO 目標位置
+		int _maxTrackTime;
 	};
 	/////////////////////////////////////////////////////////////////////////////
 }

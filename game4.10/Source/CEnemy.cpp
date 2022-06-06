@@ -28,6 +28,7 @@ namespace game_framework {
 		this->SetShowPriority(1);
 		this->_maxHp = this->_hp = 10;
 		this->_moveSpeed = 3;
+		this->_maxSearch = 300;
 		CEnemy::CGameObj::SetTag("enemy");
 		_enemyType = Type::INIT;
 		_weapon = nullptr;
@@ -57,6 +58,7 @@ namespace game_framework {
 	{
 		this->_enemyType = other._enemyType;
 		this->_dmgInteger = other._dmgInteger;
+		this->_maxSearch = other._maxSearch;
 		if (other._weapon != nullptr)
 		{
 			_weapon = ProductFactory<CGameWeapon>::Instance().GetProduct((int)other._weapon->GetType());
@@ -158,8 +160,7 @@ namespace game_framework {
 		
 		
 		CGameObj* player = CCharacter::Instance();
-		const double MAXSEARCH = 300.0;	// ³Ì¤j·j¯Á½d³ò
-		double d = MAXSEARCH;
+		double d = _maxSearch;
 		double vx = 0;
 		double vy = 0;
 		
@@ -183,7 +184,7 @@ namespace game_framework {
 					_weapon->SetDT(8 - CGameTool::TwoVectorAngle(vx * d, vy * d, 1.0, 0.0) / 45);
 
 				// ªZ¾¹®gÀ»
-				if (_weapon->CanFire() && d < MAXSEARCH && (rand() % 20 == 0))
+				if (_weapon->CanFire() && d < _maxSearch && (rand() % 20 == 0))
 				{
 					_weapon->Shoot(vx, vy);
 				}

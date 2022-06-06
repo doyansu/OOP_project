@@ -149,7 +149,7 @@ namespace game_framework
 	// ¦a¾_¯S®Ä
 	CGamBullet_Effect_shock::CGamBullet_Effect_shock()
 	{
-		_damage = 4;
+		_damage = 3;
 		_bulletType = Type::effect_shock;
 	}
 

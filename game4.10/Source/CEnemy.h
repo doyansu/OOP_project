@@ -36,9 +36,10 @@ namespace game_framework {
 
 		//CEnemy& operator=(const CEnemy&);
 	protected:
-		CGameWeapon* _weapon;
-		Type _enemyType;
-		CGameDmgInteger _dmgInteger;
+		CGameWeapon* _weapon;				// 可配戴武器
+		Type _enemyType;					// 怪物類型
+		CGameDmgInteger _dmgInteger;		// 受傷數字
+		int _maxSearch;						// 最大搜索範圍
 
 		void Die();
 		vector<CAnimation>::iterator GetAnima(Anima);
