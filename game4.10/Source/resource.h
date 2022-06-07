@@ -361,7 +361,15 @@
 #define IDB_gameover_player_1           497
 #define IDB_Bullet_enemyNo1             498
 #define IDB_Bullet4                     499
-#define IDB_BITMAP58                    500
+#define IDB_Bullet_effectShoch0_0       500
+#define IDB_Bullet_effectShoch0_1       502
+#define IDB_Bullet_effectShoch0_2       503
+#define IDB_Bullet_effectShoch0_3       504
+#define IDB_Bullet_effectShoch0_4       505
+#define IDB_Bullet_effectShoch0_5       506
+#define IDB_Bullet_effectShoch0_6       507
+#define IDB_BITMAP64                    508
+#define IDB_Bullet_effectShoch0_7       508
 #define IDC_README                      1001
 #define ID_FILE_PAUSE                   32771
 #define ID_TOGGLE_FULLSCREEN            32772
@@ -374,7 +382,7 @@
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_3D_CONTROLS                     1
-#define _APS_NEXT_RESOURCE_VALUE        501
+#define _APS_NEXT_RESOURCE_VALUE        509
 #define _APS_NEXT_COMMAND_VALUE         32776
 #define _APS_NEXT_CONTROL_VALUE         1003
 #define _APS_NEXT_SYMED_VALUE           101

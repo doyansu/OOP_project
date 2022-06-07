@@ -374,6 +374,20 @@
     <Image Include="res\enemy\bmp00128.bmp" />
     <Image Include="res\enemy\bullet4.bmp" />
     <Image Include="res\enemy\bmp00129.bmp" />
+    <Image Include="res\enemy\bullet_e.bmp" />
+    <Image Include="res\enemy\bmp00130.bmp" />
+    <Image Include="res\enemy\bmp00131.bmp" />
+    <Image Include="res\enemy\bmp00132.bmp" />
+    <Image Include="res\enemy\bmp00133.bmp" />
+    <Image Include="res\enemy\bmp00134.bmp" />
+    <Image Include="res\enemy\bmp00135.bmp" />
+    <Image Include="RES\bullet\effect_shock\effect_shock0_1.bmp" />
+    <Image Include="RES\bullet\effect_shock\effect_shock0_2.bmp" />
+    <Image Include="RES\bullet\effect_shock\effect_shock0_3.bmp" />
+    <Image Include="RES\bullet\effect_shock\effect_shock0_4.bmp" />
+    <Image Include="RES\bullet\effect_shock\effect_shock0_5.bmp" />
+    <Image Include="RES\bullet\effect_shock\effect_shock0_6.bmp" />
+    <Image Include="RES\bullet\effect_shock\effect_shock0_7.bmp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="RES\bmp0.bmp" />

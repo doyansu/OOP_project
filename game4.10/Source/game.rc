@@ -628,7 +628,21 @@ IDB_Bullet_enemyNo1     BITMAP                  "..\\res\\enemy\\bmp00128.bmp"
 
 IDB_Bullet4             BITMAP                  "..\\res\\enemy\\bullet4.bmp"
 
-IDB_BITMAP58            BITMAP                  "..\\res\\enemy\\bmp00129.bmp"
+IDB_Bullet_effectShoch0_0 BITMAP                  "..\\res\\enemy\\bmp00129.bmp"
+
+IDB_Bullet_effectShoch0_1 BITMAP                  "C:\\MH\\Github\\OOP_project\\game4.10\\RES\\bullet\\effect_shock\\effect_shock0_1.bmp"
+
+IDB_Bullet_effectShoch0_2 BITMAP                  "C:\\MH\\Github\\OOP_project\\game4.10\\RES\\bullet\\effect_shock\\effect_shock0_2.bmp"
+
+IDB_Bullet_effectShoch0_3 BITMAP                  "C:\\MH\\Github\\OOP_project\\game4.10\\RES\\bullet\\effect_shock\\effect_shock0_3.bmp"
+
+IDB_Bullet_effectShoch0_4 BITMAP                  "C:\\MH\\Github\\OOP_project\\game4.10\\RES\\bullet\\effect_shock\\effect_shock0_4.bmp"
+
+IDB_Bullet_effectShoch0_5 BITMAP                  "C:\\MH\\Github\\OOP_project\\game4.10\\RES\\bullet\\effect_shock\\effect_shock0_5.bmp"
+
+IDB_Bullet_effectShoch0_6 BITMAP                  "C:\\MH\\Github\\OOP_project\\game4.10\\RES\\bullet\\effect_shock\\effect_shock0_6.bmp"
+
+IDB_Bullet_effectShoch0_7 BITMAP                  "C:\\MH\\Github\\OOP_project\\game4.10\\RES\\bullet\\effect_shock\\effect_shock0_7.bmp"
 
 
 /////////////////////////////////////////////////////////////////////////////
