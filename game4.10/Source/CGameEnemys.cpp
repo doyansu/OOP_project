@@ -321,7 +321,7 @@ namespace game_framework {
 		this->SetShowPriority(0);
 		_animaIter = GetAnima(CEnemy::Anima::DIE);
 		// 隨機 DEAD 音效  CAudio::Instance()->Play(AUDIO_DEAD_ENEMY_0 + rand() % (AUDIO_DEAD_ENEMY_COUNT - AUDIO_DEAD_ENEMY_0));
-		CAudio::Instance()->Play(AUDIO_DEAD_ENEMY_0);
+		//CAudio::Instance()->Play(AUDIO_DEAD_ENEMY_0);
 
 		// 掉落能量球
 		int t = 10 + rand() % 6;
@@ -384,7 +384,7 @@ namespace game_framework {
 		this->SetShowPriority(0);
 		_animaIter = GetAnima(CEnemy::Anima::DIE);
 		// 隨機 DEAD 音效  CAudio::Instance()->Play(AUDIO_DEAD_ENEMY_0 + rand() % (AUDIO_DEAD_ENEMY_COUNT - AUDIO_DEAD_ENEMY_0));
-		CAudio::Instance()->Play(AUDIO_DEAD_ENEMY_0);
+		//CAudio::Instance()->Play(AUDIO_DEAD_ENEMY_0);
 
 		// 掉落金幣
 		int t = 10 + rand() % 6;
@@ -514,13 +514,40 @@ namespace game_framework {
 			{
 			case 0:
 			{
-				
+				int r = - 1 + rand() % 3;
+				int xy = rand() % 2;
+				for (int theta = 0; theta < 360; theta += 20)
+				{
+					CGameBullet* newbullet = ProductFactory<CGameBullet>::Instance().GetProduct((int)CGameBullet::Type::enemyNo1);
+					// 調整傷害
+					newbullet->SetDamage(3);
+					// 子彈速度
+					newbullet->SetSpeed(4);
+					// 存活時間
+					newbullet->SetSurvive(5 * GAME_ONE_SECONED);
+					// 子彈目標
+					newbullet->AddTarget("player");
+					// 出發點
+					newbullet->SetXY(this->CenterX(), this->CenterY());
+					// 決定方向
+					vx = cos(theta * acos(-1) / 180);
+					vy = sin(theta * acos(-1) / 180);
+					if (xy)
+						vx += r;
+					else
+						vy += r;
+
+					newbullet->SetVector(vx, vy);
+
+					CGameObj::AddObj(newbullet);
+				}
+				break;
 			}
 			case 1:
 			{
 				for (int theta = 0; theta < 360; theta += 20)
 				{
-					CGameBullet* newbullet = ProductFactory<CGameBullet>::Instance().GetProduct((int)CGameBullet::Type::INIT);
+					CGameBullet* newbullet = ProductFactory<CGameBullet>::Instance().GetProduct((int)CGameBullet::Type::enemyNo1);
 					// 調整傷害
 					newbullet->SetDamage(3);
 					// 子彈速度
@@ -532,8 +559,9 @@ namespace game_framework {
 					// 出發點
 					newbullet->SetXY(this->CenterX(), this->CenterY());
 					// 決定方向
-					newbullet->SetVector(cos(theta * acos(-1) / 180),
-						sin(theta * acos(-1) / 180));
+					vx = cos(theta * acos(-1) / 180);
+					vy = sin(theta * acos(-1) / 180);
+					newbullet->SetVector(vx, vy);
 
 					CGameObj::AddObj(newbullet);
 				}
