@@ -210,13 +210,22 @@ namespace game_framework {
 		{
 			Speed <<= 1;
 			_maxTrackTime--;
-			if (_maxTrackTime < 0 || (_tx >= this->GetX1() && _ty >= this->GetY1() && _tx <= this->GetX2() && _ty <= this->GetY2()))
+			double td = sqrt((this->CenterX() - _tx) * (this->CenterX() - _tx) + (this->CenterY() - _ty) * (this->CenterY() - _ty));
+			if (_maxTrackTime == 0 || td < 45)
 			{
+				_maxTrackTime = 0;
+				_vector[0] = 0;
+				_vector[1] = 0;
+				_tx = -100;
+				_ty = -100;
+			}
+			else if (_maxTrackTime < - (GAME_ONE_SECONED >> 1))
+			{
+				state = STATE::RANDMOVE;
 				CGameBullet* shock = ProductFactory<CGameBullet>::Instance().GetProduct((int)CGameBullet::Type::effect_shock);
 				shock->AddTarget("player");
 				shock->SetXY(this->CenterX() - (shock->GetWidth() >> 1), this->CenterY() - (shock->GetHeight() >> 1));
 				CGameObj::AddObj(shock);
-				state = STATE::RANDMOVE;
 			}
 			break;
 		}
