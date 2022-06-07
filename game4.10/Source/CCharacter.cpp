@@ -66,6 +66,7 @@ namespace game_framework {
 		_skillCounter = _SKILLTD + _SKILLCD;
 		_deathCounter = GAME_ONE_SECONED * 2;
 		_shieldCounter = GAME_ONE_SECONED;
+		_hitCounter = 0;
 		CCharacter::CGameObj::Reset();
 		_vector[0] = 1;	//預設朝右
 		_DT = 1;
@@ -555,6 +556,7 @@ namespace game_framework {
 			_shieldCounter = GAME_ONE_SECONED;
 			ModifyShield(1);
 		}
+		// 技能計數
 		if (_skillCounter <= _SKILLTD + _SKILLCD)
 		{
 			if(_skillCounter < _SKILLTD)
@@ -562,6 +564,12 @@ namespace game_framework {
 			else 
 				CUISkill::Instance().SetValue(100 * (_skillCounter - _SKILLTD) / _SKILLCD);
 			_skillCounter++;
+		}
+		// 受傷計數
+		if (--_hitCounter < 0)
+		{
+			_hitCounter = 0;
+			_isCollision = true;
 		}
 			
 	}
@@ -577,7 +585,12 @@ namespace game_framework {
 
 	void CCharacter::OnObjCollision(CGameMap* map, CGameObj* other)
 	{
-		if (other->GetTag() == "cleartreasure" && other->IsEnable())	//	通關寶相物件
+		if (other->GetTag() == "bullet")
+		{
+			_isCollision = false;
+			_hitCounter = GAME_ONE_SECONED;
+		}
+		else if (other->GetTag() == "cleartreasure" && other->IsEnable())	//	通關寶相物件
 		{
 			other->TakeDmg(99999);
 		}	

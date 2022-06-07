@@ -70,6 +70,7 @@ namespace game_framework {
 		int _deathCounter;							// 计
 		int _shieldCounter;							// 臔箉確计
 		int _skillCounter;							// мㄏノ璸计
+		int _hitCounter;							// 端祏既礚寄璸计
 
 		void ModifyShield(int);
 		void free();
