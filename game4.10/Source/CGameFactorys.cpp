@@ -38,7 +38,7 @@ namespace game_framework
 		static ProductRegistrar<CEnemy, CGameEnemy_SNOW_Monkey> e3((int)CEnemy::Type::SNOW_Monkey_0);
 		static ProductRegistrar<CEnemy, CGameEnemy_Crystal> e4((int)CEnemy::Type::crystal);
 		static ProductRegistrar<CEnemy, CGameEnemy_Gold> e5((int)CEnemy::Type::gold);
-		static ProductRegistrar<CEnemy, CGameEnemy_Gold> e6((int)CEnemy::Type::BOSS_SNOW_0);
+		static ProductRegistrar<CEnemy, CGameEnemy_SNOW_BOSS_0> e6((int)CEnemy::Type::BOSS_SNOW_0);
 		
 		/////////////////////////////////////////////////////////////////////////////
 			

@@ -13,6 +13,7 @@ namespace game_framework {
 		~CCharacter();
 
 		bool IsDoingSomeThing();
+		bool IsMoveing();				// 是否正在移動
 
 		int GetHP();
 		int GetMAXHP();
@@ -26,6 +27,10 @@ namespace game_framework {
 		CGameWeapon* GetNowWeapon();
 
 		void SetXY(int x, int y);
+		void SetMovingDown(bool flag);
+		void SetMovingLeft(bool flag);
+		void SetMovingRight(bool flag);
+		void SetMovingUp(bool flag);
 		void ModifyGold(int);
 		void ModifyMp(int);
 		void TakeDmg(int);
@@ -62,6 +67,10 @@ namespace game_framework {
 		bool _doSomeThing;							// 鍵盤按鍵判斷
 		bool _doHandKnife;							// 手刀攻擊
 		bool _canInteractive;						// 是否有物件可互動
+		bool _isMovingDown;							// 是否正在往下移動
+		bool _isMovingLeft;							// 是否正在往左移動
+		bool _isMovingRight;						// 是否正在往右移動
+		bool _isMovingUp;							// 是否正在往上移動
 		CGameWeapon* _weapons[2], *_skillWeapon;	// 可擁有2把武器
 		int _nowWeapon;								// 當前武器 index
 		CGameDmgInteger _dmgInteger;				// 受傷時顯示數字

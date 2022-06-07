@@ -63,6 +63,7 @@ namespace game_framework {
 		_doSomeThing = false;
 		_canInteractive = false;
 		_doHandKnife = false;
+		_isMovingLeft = _isMovingRight = _isMovingUp = _isMovingDown = false;
 		_skillCounter = _SKILLTD + _SKILLCD;
 		_deathCounter = GAME_ONE_SECONED * 2;
 		_shieldCounter = GAME_ONE_SECONED;
@@ -886,6 +887,11 @@ namespace game_framework {
 		return _doSomeThing;
 	}
 
+	bool CCharacter::IsMoveing()
+	{
+		return _isMovingDown || _isMovingLeft || _isMovingRight || _isMovingUp;
+	}
+
 	vector<CAnimation>::iterator CCharacter::GetAnima(Anima type)
 	{
 		return _animas.begin() + (int)type;
@@ -956,6 +962,26 @@ namespace game_framework {
 			_mp = 0;
 		else if (_mp > _maxMp)
 			_mp = _maxMp;
+	}
+
+	void CCharacter::SetMovingDown(bool flag)
+	{
+		_isMovingDown = flag;
+	}
+
+	void CCharacter::SetMovingLeft(bool flag)
+	{
+		_isMovingLeft = flag;
+	}
+
+	void CCharacter::SetMovingRight(bool flag)
+	{
+		_isMovingRight = flag;
+	}
+
+	void CCharacter::SetMovingUp(bool flag)
+	{
+		_isMovingUp = flag;
 	}
 
 	void CCharacter::SetXY(int x, int y)

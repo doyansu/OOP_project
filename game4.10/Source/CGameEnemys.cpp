@@ -4,6 +4,7 @@
 #include <ddraw.h>
 #include "audio.h"
 #include "gamelib.h"
+#include <cmath>
 #include "CGameEnemys.h"
 #include "CAnimationEnemyAppear.h"
 #include "CGameFactorys.h"
@@ -72,7 +73,6 @@ namespace game_framework {
 		_maxSearch = 250;
 		_enemyType = Type::SNOW_SLOW;
 	}
-
 	
 	void CGameEnemy_SNOW_0::LoadBitmap()
 	{
@@ -117,7 +117,6 @@ namespace game_framework {
 		state = STATE::RANDMOVE;
 	}
 
-
 	void CGameEnemy_SNOW_Monkey::LoadBitmap()
 	{
 		_animaIter = GetAnima(CEnemy::Anima::RUN_R);
@@ -149,7 +148,6 @@ namespace game_framework {
 		_weapon->SetTarget("player");*/
 	}
 
-	
 	void CGameEnemy_SNOW_Monkey::OnMove(CGameMap* map)
 	{
 		if (!GetAnima(Anima::APPEARANCE)->IsFinalBitmap())
@@ -286,7 +284,6 @@ namespace game_framework {
 		_enemyType = Type::crystal;
 	}
 
-
 	void CGameEnemy_Crystal::LoadBitmap()
 	{
 		_animaIter = GetAnima(CEnemy::Anima::RUN_R);
@@ -305,7 +302,6 @@ namespace game_framework {
 		_animaIter = GetAnima(CEnemy::Anima::RUN_R);
 
 	}
-
 
 	void CGameEnemy_Crystal::OnMove(CGameMap* map)
 	{
@@ -351,7 +347,6 @@ namespace game_framework {
 		_enemyType = Type::gold;
 	}
 
-
 	void CGameEnemy_Gold::LoadBitmap()
 	{
 		_animaIter = GetAnima(CEnemy::Anima::RUN_R);
@@ -370,7 +365,6 @@ namespace game_framework {
 		_animaIter = GetAnima(CEnemy::Anima::RUN_R);
 
 	}
-
 
 	void CGameEnemy_Gold::OnMove(CGameMap* map) 
 	{
@@ -403,6 +397,187 @@ namespace game_framework {
 			obj->SetTarget(player);
 			CGameObj::AddObj(obj);
 		}
+
+	}
+
+	/////////////////////////////////////////////////////////////////////////////
+
+	/////////////////////////////////////////////////////////////////////////////
+	//	水晶巨蟹
+	CGameEnemy_SNOW_BOSS_0::CGameEnemy_SNOW_BOSS_0()
+	{
+		_hp = _maxHp = 500;
+		_maxSearch = 500;
+		_moveSpeed = 8;
+		_changeModeCounter = 0;
+		_enemyType = Type::BOSS_SNOW_0;
+		state = STATE::MOVE;
+	}
+
+
+	void CGameEnemy_SNOW_BOSS_0::LoadBitmap()
+	{
+		_animaIter = GetAnima(CEnemy::Anima::RUN_R);
+		_animaIter->AddBitmap(IDB_enemy2_0, RGB(255, 255, 255));
+		_animaIter->AddBitmap(IDB_enemy2_1, RGB(255, 255, 255));
+		_animaIter->AddBitmap(IDB_enemy2_2, RGB(255, 255, 255));
+		_animaIter->AddBitmap(IDB_enemy2_3, RGB(255, 255, 255));
+		_animaIter->AddBitmap(IDB_enemy2_4, RGB(255, 255, 255));
+
+		_animaIter = GetAnima(CEnemy::Anima::RUN_L);
+		_animaIter->AddBitmap(IDB_ENEMY2_0_L, RGB(255, 255, 255));
+		_animaIter->AddBitmap(IDB_ENEMY2_1_L, RGB(255, 255, 255));
+		_animaIter->AddBitmap(IDB_ENEMY2_2_L, RGB(255, 255, 255));
+		_animaIter->AddBitmap(IDB_ENEMY2_3_L, RGB(255, 255, 255));
+		_animaIter->AddBitmap(IDB_ENEMY2_4_L, RGB(255, 255, 255));
+
+		_animaIter = GetAnima(CEnemy::Anima::DIE);
+		_animaIter->AddBitmap(IDB_enemy_Crystal_die, RGB(255, 255, 255));
+
+		*GetAnima(Anima::APPEARANCE) = CAnimationEnemyAppear::Instance();
+
+
+		_animaIter = _animas.begin();
+
+	}
+
+
+	void CGameEnemy_SNOW_BOSS_0::OnMove(CGameMap* map)
+	{
+		if (!GetAnima(Anima::APPEARANCE)->IsFinalBitmap())
+		{
+			GetAnima(Anima::APPEARANCE)->OnMove();
+			return;
+		}
+
+		_animaIter->OnMove();
+
+		CGameObj* player = CCharacter::Instance();
+		const double MAXSEARCH = 300.0;	// 最大搜索範圍
+		double d = MAXSEARCH;
+		double vx = 0;
+		double vy = 0;
+
+		// 找到玩家
+		if (player && !player->hasObstacle(map, this))
+		{
+			d = this->Distance(player);
+			vx = (double)(player->CenterX() - this->CenterX()) / d;
+			vy = (double)(player->CenterY() - this->CenterY()) / d;
+			// 切換動畫
+			if (d < MAXSEARCH)
+			{
+				if (vx > 0)
+					_animaIter = GetAnima(CEnemy::Anima::RUN_R);
+				else
+					_animaIter = GetAnima(CEnemy::Anima::RUN_L);
+			}
+		}
+
+		int Speed = _moveSpeed;
+
+		// 敵人移動
+		switch (state)
+		{
+		case game_framework::CGameEnemy_SNOW_BOSS_0::STATE::MOVE:
+		{
+			const int randomRange = 20;	// 隨機變方向
+
+			if ((rand() % randomRange) == 0)
+			{
+				_vector[0] = (double)(-100 + rand() % 201) / 100.0;
+				_vector[1] = (double)(-100 + rand() % 201) / 100.0;
+			}
+
+			_changeModeCounter--;
+			if (_changeModeCounter < 0)
+			{
+				int r = rand() % 100;
+
+				if (r > 95)
+				{
+					state = STATE::DEFENSE;
+					_defenseCounter = GAME_ONE_SECONED + rand() % (2 * GAME_ONE_SECONED);
+				}
+				else
+				{
+					state = STATE::ATTACK;
+				}
+				_changeModeCounter = 2 * GAME_ONE_SECONED + rand() %  (2 * GAME_ONE_SECONED);
+			}
+			break;
+		}
+		case game_framework::CGameEnemy_SNOW_BOSS_0::STATE::ATTACK:
+		{
+			int type = rand() % 2;
+			switch (type)
+			{
+			case 0:
+			{
+				
+			}
+			case 1:
+			{
+				for (int theta = 0; theta < 360; theta += 20)
+				{
+					CGameBullet* newbullet = ProductFactory<CGameBullet>::Instance().GetProduct((int)CGameBullet::Type::INIT);
+					// 調整傷害
+					newbullet->SetDamage(3);
+					// 子彈速度
+					newbullet->SetSpeed(8);
+					// 存活時間
+					newbullet->SetSurvive(5 * GAME_ONE_SECONED);
+					// 子彈目標
+					newbullet->AddTarget("player");
+					// 出發點
+					newbullet->SetXY(this->CenterX(), this->CenterY());
+					// 決定方向
+					newbullet->SetVector(cos(theta * acos(-1) / 180),
+						sin(theta * acos(-1) / 180));
+
+					CGameObj::AddObj(newbullet);
+				}
+				break;
+			}
+			default:
+				break;
+			}
+			
+			state = STATE::MOVE;
+			break;
+		}
+		case game_framework::CGameEnemy_SNOW_BOSS_0::STATE::DEFENSE:
+		{
+			_vector[0] = 0;
+			_vector[1] = 0;
+			_defenseCounter--;
+			if (_defenseCounter < 0)
+			{
+				state = STATE::MOVE;
+			}
+			break;
+		}
+		default:
+			break;
+		}
+
+		int dx = (int)((double)Speed * _vector[0]), dy = (int)((double)Speed * _vector[1]);
+
+		_mx += dx;
+
+		if (CGameObj::Collision(map) || CGameObj::Collision(map, CGameMap::ContentType::AISLEWALL))
+		{
+			_mx -= dx;
+		}
+
+		_my += dy;
+
+		if (CGameObj::Collision(map) || CGameObj::Collision(map, CGameMap::ContentType::AISLEWALL))
+		{
+			_my -= dy;
+		}
+
+		
 
 	}
 

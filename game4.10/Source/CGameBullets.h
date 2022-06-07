@@ -64,7 +64,7 @@ namespace game_framework
 		void OnMove(CGameMap* map);
 
 	private:
-		int survive;		//	存活時間
+		
 	};
 
 	class CGamBullet_Effect_shock : public CGameBullet

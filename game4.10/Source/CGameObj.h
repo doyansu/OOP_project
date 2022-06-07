@@ -20,7 +20,6 @@ namespace game_framework {
 		bool IsEnable();				// 是否啟用
 		bool NeedFree();				// 是否釋放
 		bool IsDie();					// 是否死亡
-		bool IsMoveing();				// 是否正在移動
 		bool IsCollision();				// 是否啟用碰撞
 		bool IsLoad();					// 是否已執行 LoadBitmap()
 
@@ -43,10 +42,6 @@ namespace game_framework {
 		void SetDie(bool);
 		void SetCollision(bool);
 		void SetVector(double, double);
-		void SetMovingDown(bool flag);	
-		void SetMovingLeft(bool flag);	
-		void SetMovingRight(bool flag); 
-		void SetMovingUp(bool flag);	
 		void SetShowPriority(int);
 		virtual void SetXY(int, int);
 		void SetSpeed(int);
@@ -145,11 +140,8 @@ namespace game_framework {
 		int _showPriority;								//	顯示優先
 		int _hp, _maxHp;								//	血量值、最大血量值
 		double _vector[2];								//	移動、方向判別用向量
+		double _moveTarget[2];							//	移動位置暫存
 		bool _isEnable, _needFree, _isDie, _isCollision;//	是否啟用、釋放、死亡、碰撞
-		bool _isMovingDown;								//	是否正在往下移動
-		bool _isMovingLeft;								//	是否正在往左移動
-		bool _isMovingRight;							//	是否正在往右移動
-		bool _isMovingUp;								//	是否正在往上移動
 		bool _isLoad;									//	是否已執行 LoadBitmap()
 		string _tag;									//	TAG
 

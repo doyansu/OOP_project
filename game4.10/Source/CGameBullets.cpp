@@ -119,7 +119,7 @@ namespace game_framework
 		_damage = 3;
 		_bulletType = Type::slow;
 
-		survive = 0;
+		_survive = 0;
 	}
 
 	void CGamBullet_Enemy_Slow::LoadBitmap()
@@ -130,12 +130,16 @@ namespace game_framework
 	void CGamBullet_Enemy_Slow::OnMove(CGameMap* map)
 	{
 		//	根據 _vector 進行移動
-		double speed = _moveSpeed * exp(-survive / (GAME_ONE_SECONED >> 2));	//	根據存活時間調整距離
-		_mx += (int)((double)speed * _vector[0]);
-		_my += (int)((double)speed * _vector[1]);
+		double speed = _moveSpeed * exp(-_survive / (GAME_ONE_SECONED >> 2));	//	根據存活時間調整距離
+		double dx = speed * _vector[0];
+		double dy = speed * _vector[1];
+		_moveTarget[0] += dx;
+		_moveTarget[1] += dy;
+		_mx = (int)_moveTarget[0];
+		_my = (int)_moveTarget[1];
 
-		survive++;
-		if(survive > 3 * GAME_ONE_SECONED)	//	存在 3 秒
+		_survive++;
+		if(_survive > 3 * GAME_ONE_SECONED)	//	存在 3 秒
 			this->SetEnable(false);
 
 		//	接觸到地圖圍牆停止或房間通道連接處

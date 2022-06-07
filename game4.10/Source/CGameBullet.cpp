@@ -13,6 +13,7 @@ namespace game_framework
 		_showPriority = 5;
 		_damage = 4;
 		_bulletType = Type::INIT;
+		_survive = 99999 * GAME_ONE_SECONED;
 		this->SetTag("bullet");
 	}
 
@@ -26,12 +27,24 @@ namespace game_framework
 	void CGameBullet::OnMove(CGameMap* map)
 	{
 		//	根據 _vector 進行移動
-		_mx += (int)((double)_moveSpeed * _vector[0]);
-		_my += (int)((double)_moveSpeed * _vector[1]);
+		double Speed = _moveSpeed;
+		double dx = Speed * _vector[0];
+		double dy = Speed * _vector[1];
+		_moveTarget[0] += dx;
+		_moveTarget[1] += dy;
+		_mx = (int)_moveTarget[0];
+		_my = (int)_moveTarget[1];
+
+		//	存活時間過去會消失
+		_survive--;
+		if (_survive < 0)
+		{
+			Die();
+		}
 
 		//	接觸到地圖圍牆停止或房間通道連接處
 		if (CGameBullet::CGameObj::Collision(map) || CGameBullet::CGameObj::Collision(map, CGameMap::ContentType::AISLEWALL))
-			CGameBullet::CGameObj::SetEnable(false);
+			Die();
 	}
 
 	void CGameBullet::OnObjCollision(CGameMap* map, CGameObj* other)
@@ -76,6 +89,11 @@ namespace game_framework
 	void CGameBullet::SetDamage(int damage)
 	{
 		_damage = damage;
+	}
+
+	void CGameBullet::SetSurvive(int value)
+	{
+		_survive = value;
 	}
 
 }

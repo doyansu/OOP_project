@@ -134,22 +134,30 @@ namespace game_framework {
 		}
 
 		// 敵人移動
+		_animaIter->OnMove();
+		int Speed = _moveSpeed;
 		const int randomRange = 20;	// 隨機變方向
 
 		if ((rand() % randomRange) == 0)
 		{
-			_vector[0] = -(_moveSpeed) + (rand() % ((_moveSpeed << 1) + 1));
-			_vector[1] = -(_moveSpeed) + (rand() % ((_moveSpeed << 1) + 1));
+			_vector[0] = (double)(-100 + rand() % 201) / 100.0;
+			_vector[1] = (double)(-100 + rand() % 201) / 100.0;
 		}
+		
+		int dx = (int)((double)Speed * _vector[0]), dy = (int)((double)Speed * _vector[1]);
 
-		_animaIter->OnMove();
-		_mx += (int)_vector[0];
-		_my += (int)_vector[1];
+		_mx += dx;
 
 		if (CGameObj::Collision(map) || CGameObj::Collision(map, CGameMap::ContentType::AISLEWALL))
 		{
-			_mx -= (int)_vector[0];
-			_my -= (int)_vector[1];
+			_mx -= dx;
+		}
+
+		_my += dy;
+
+		if (CGameObj::Collision(map) || CGameObj::Collision(map, CGameMap::ContentType::AISLEWALL))
+		{
+			_my -= dy;
 		}
 
 		// 武器移動

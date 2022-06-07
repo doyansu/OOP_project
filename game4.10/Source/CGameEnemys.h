@@ -138,5 +138,42 @@ namespace game_framework
 	};
 	/////////////////////////////////////////////////////////////////////////////
 
+	/////////////////////////////////////////////////////////////////////////////
+	//	水晶巨蟹
+	class CGameEnemy_SNOW_BOSS_0 : public CEnemy
+	{
+	public:
+		static CGameEnemy_SNOW_BOSS_0& Instance()
+		{
+			static CGameEnemy_SNOW_BOSS_0 Instance;
+			static bool isLoad = false;
+			if (isLoad == false)
+			{
+				Instance.LoadBitmap();
+				isLoad = true;
+			}
+			return Instance;
+		}
+
+		CGameEnemy_SNOW_BOSS_0();
+		void LoadBitmap();
+		void OnMove(CGameMap* map);
+
+	protected:
+		
+	private:
+		//	行動模式
+		enum class STATE {
+			MOVE,
+			ATTACK,
+			DEFENSE
+		};
+		STATE state;
+
+		int _changeModeCounter;
+		int _defenseCounter;
+	};
+	/////////////////////////////////////////////////////////////////////////////
+
 	
 }

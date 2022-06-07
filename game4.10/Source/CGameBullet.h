@@ -12,6 +12,7 @@ namespace game_framework
 
 		void AddTarget(string);
 		void SetDamage(int);
+		void SetSurvive(int);
 
 		virtual void LoadBitmap() = 0;
 		virtual void OnMove(CGameMap* map);
@@ -20,7 +21,8 @@ namespace game_framework
 
 	protected:
 		virtual void Die();
-		int _damage;		//子彈攻擊力
+		int _damage;		// 子彈攻擊力
+		int _survive;		// 存活時間
 		vector<string> _targets;
 		Type _bulletType;
 

@@ -60,6 +60,70 @@ namespace game_framework
 				mine->SetFree(false);
 				_roomEnemys.push_back(mine);
 			}
+
+			//	加入 BOSS
+			CEnemy* boss = ProductFactory<CEnemy>::Instance().GetProduct((int)CEnemy::Type::BOSS_SNOW_0);
+			do {
+				boss->SetXY(_mx + MYMAPWIDTH * (1 + rand() % (_room->Width() - 2)), _my + MYMAPHIGH * (1 + rand() % (_room->High() - 2)));
+			} while (boss->Collision(map));
+			boss->SetFree(false);
+			_roomEnemys.push_back(boss);
+
+			// 通道牆創建
+			RoomWall wall;
+			wall.LoadBitmap();
+			wall.SetFree(false);
+			int cx = _room->CenterX(), cy = _room->CenterY();
+			int w = _room->Width(), h = _room->High();
+
+			// 上方有通道
+			if (_room->HasRoad(0))
+			{
+				wall.SetVector(0, 1);
+				for (int x = -2; x < 3; x++)
+				{
+					wall.SetXY(MYMAPWIDTH * (cx + x), MYMAPHIGH * (cy - (h / 2) - 1));
+					_roomWalls.push_back(new RoomWall(wall));
+				}
+			}
+			// 下方有通道
+			if (_room->HasRoad(1))
+			{
+				wall.SetVector(0, -1);
+				for (int x = -2; x < 3; x++)
+				{
+					wall.SetXY(MYMAPWIDTH * (cx + x), MYMAPHIGH * (cy + (h / 2) + 1));
+					RoomWall* newWall = new RoomWall(wall);								//	下方的需顯示高於玩家
+					newWall->SetShowPriority(12);
+					_roomWalls.push_back(newWall);
+				}
+			}
+			// 左方有通道
+			if (_room->HasRoad(2))
+			{
+				wall.SetVector(1, 0);
+				for (int y = -2; y < 3; y++)
+				{
+					wall.SetXY(MYMAPWIDTH * (cx - (w / 2) - 1), MYMAPHIGH * (cy + y));
+					RoomWall* newWall = new RoomWall(wall);
+					newWall->SetShowPriority(y);			//	調整優先度以正確顯示
+					_roomWalls.push_back(newWall);
+				}
+			}
+			// 右方有通道
+			if (_room->HasRoad(3))
+			{
+				wall.SetVector(-1, 0);
+				for (int y = -2; y < 3; y++)
+				{
+					wall.SetXY(MYMAPWIDTH * (cx + (w / 2) + 1), MYMAPHIGH * (cy + y));
+					RoomWall* newWall = new RoomWall(wall);
+					newWall->SetShowPriority(y);			//	調整優先度以正確顯示
+					_roomWalls.push_back(newWall);
+				}
+			}
+
+			break;
 		}
 		case RoomData::RoomType::NORMAL:	// 一般房間
 		{

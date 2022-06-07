@@ -28,7 +28,7 @@ namespace game_framework {
 	{
 		_mx = _my = 0;
 		_vector[0] = _vector[1] = 0.0;
-		_isMovingLeft = _isMovingRight = _isMovingUp = _isMovingDown = false;
+		_moveTarget[0] = _moveTarget[1] = 0.0;
 		_isEnable = true;
 		_isDie = false;
 		_isCollision = true;
@@ -65,8 +65,8 @@ namespace game_framework {
 		this->_needFree = other._needFree;
 		this->_isDie = other._isDie;
 		this->_isCollision = other._isCollision;
-		this->_isMovingLeft = this->_isMovingRight = this->_isMovingUp = this->_isMovingDown = false;
-		
+		this->_moveTarget[0] = other._moveTarget[0];
+		this->_moveTarget[1] = other._moveTarget[1];
 	}
 
 	CGameObj::~CGameObj()
@@ -114,16 +114,15 @@ namespace game_framework {
 
 	void CGameObj::OnMove(CGameMap* map)
 	{
-		_animaIter->OnMove();
-		if (_isMovingLeft)
-			_mx -= _moveSpeed;
-		if (_isMovingRight)
-			_mx += _moveSpeed;
-		if (_isMovingUp)
-			_my -= _moveSpeed;
-		if (_isMovingDown)
-			_my += _moveSpeed;
+		double Speed = _moveSpeed;
+		double dx = Speed * _vector[0];
+		double dy = Speed * _vector[1];
+		_moveTarget[0] += dx;
+		_moveTarget[1] += dy;
+		_mx = (int)_moveTarget[0];
+		_my = (int)_moveTarget[1];
 	}
+
 
 	/*void CGameObj::OnKeyUp(char nChar)
 	{
@@ -266,11 +265,6 @@ namespace game_framework {
 		return _isCollision;
 	}
 
-	bool CGameObj::IsMoveing()
-	{
-		return _isMovingDown || _isMovingLeft || _isMovingRight || _isMovingUp;
-	}
-
 	bool CGameObj::IsLoad()
 	{
 		return _isLoad;
@@ -307,30 +301,12 @@ namespace game_framework {
 		_vector[1] = vy;
 	}
 
-	void CGameObj::SetMovingDown(bool flag)
-	{
-		_isMovingDown = flag;
-	}
-
-	void CGameObj::SetMovingLeft(bool flag)
-	{
-		_isMovingLeft = flag;
-	}
-
-	void CGameObj::SetMovingRight(bool flag)
-	{
-		_isMovingRight = flag;
-	}
-
-	void CGameObj::SetMovingUp(bool flag)
-	{
-		_isMovingUp = flag;
-	}
-
 	void CGameObj::SetXY(int x, int y)
 	{
 		_mx = x;
 		_my = y;
+		_moveTarget[0] = x;
+		_moveTarget[1] = y;
 	}
 
 	void CGameObj::SetSpeed(int speed)
