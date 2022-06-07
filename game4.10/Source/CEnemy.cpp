@@ -221,11 +221,7 @@ namespace game_framework {
 		if (rand() % 10 < 2)	//	20 % 掉落金幣或能量球
 		{
 			int t = 1 + rand() % 3;
-			CGameObj* player = CGameTool::FindObjBy(CGameObj::_allObj,
-				[](CGameObj* obj)
-			{
-				return obj->GetTag() == "player";
-			});
+			CGameObj* player = CCharacter::Instance();
 			while (t--)
 			{
 				int r = rand() % 2;
@@ -239,6 +235,10 @@ namespace game_framework {
 
 	void CEnemy::OnDie(CGameMap* map)
 	{
+		if (!GetAnima(Anima::APPEARANCE)->IsFinalBitmap())
+		{
+			GetAnima(Anima::APPEARANCE)->OnMove();
+		}
 		_animaIter->OnMove();
 	}
 

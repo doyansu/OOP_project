@@ -81,4 +81,62 @@ namespace game_framework
 		int _maxTrackTime;
 	};
 	/////////////////////////////////////////////////////////////////////////////
+
+	/////////////////////////////////////////////////////////////////////////////
+	//	¤ô´¹Äq
+	class CGameEnemy_Crystal : public CEnemy
+	{
+	public:
+		static CGameEnemy_Crystal& Instance()
+		{
+			static CGameEnemy_Crystal Instance;
+			static bool isLoad = false;
+			if (isLoad == false)
+			{
+				Instance.LoadBitmap();
+				isLoad = true;
+			}
+			return Instance;
+		}
+
+		CGameEnemy_Crystal();
+		void LoadBitmap();
+		void OnMove(CGameMap* map);
+
+	protected:
+		void Die();
+
+	private:
+	};
+	/////////////////////////////////////////////////////////////////////////////
+
+	/////////////////////////////////////////////////////////////////////////////
+	//	ª÷Äq
+	class CGameEnemy_Gold : public CEnemy
+	{
+	public:
+		static CGameEnemy_Gold& Instance()
+		{
+			static CGameEnemy_Gold Instance;
+			static bool isLoad = false;
+			if (isLoad == false)
+			{
+				Instance.LoadBitmap();
+				isLoad = true;
+			}
+			return Instance;
+		}
+
+		CGameEnemy_Gold();
+		void LoadBitmap();
+		void OnMove(CGameMap* map);
+
+	protected:
+		void Die();
+
+	private:
+	};
+	/////////////////////////////////////////////////////////////////////////////
+
+	
 }

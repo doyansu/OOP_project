@@ -139,15 +139,15 @@ namespace game_framework
 			//	開箱音效
 			CAudio::Instance()->Play(AUDIO_ID::AUDIO_BOX_OPEN);
 
-			//	暫時各 50 %
-			if (rand() % 2)
+			//	武器 75 %
+			if (rand() % 4 > 0)
 			{
-				CGameWeapon* obj = ProductFactory<CGameWeapon>::Instance().GetProduct(rand() % (int)CGameWeapon::Type::TYPECOUNT);
+				CGameWeapon* obj = ProductFactory<CGameWeapon>::Instance().GetProduct(1 + rand() % ((int)CGameWeapon::Type::TYPECOUNT - 1));
 				//obj->LoadBitmap();
 				obj->SetXY(this->CenterX() - (obj->GetWidth() >> 1), this->GetY1() - (obj->GetHeight() >> 1));
 				CGameObj::AddObj(obj);
 			}
-			else  //	藥水
+			else  // 藥水 25 %
 			{
 				CGameInteractOnceObj* obj = CGameInteractOnceObj::CreateObj(rand() % 4);
 				obj->SetXY(this->CenterX() - (obj->Width() >> 1), this->GetY1() - (obj->Height() >> 1));

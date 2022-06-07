@@ -644,6 +644,14 @@ IDB_Bullet_effectShoch0_6 BITMAP                  "C:\\MH\\Github\\OOP_project\\
 
 IDB_Bullet_effectShoch0_7 BITMAP                  "C:\\MH\\Github\\OOP_project\\game4.10\\RES\\bullet\\effect_shock\\effect_shock0_7.bmp"
 
+IDB_enemy_Crystal       BITMAP                  "..\\res\\enemy\\bmp00130.bmp"
+
+IDB_enemy_Crystal_die   BITMAP                  "..\\res\\enemy\\bmp00131.bmp"
+
+IDB_enemy_Gold          BITMAP                  "..\\res\\enemy\\bmp00132.bmp"
+
+IDB_enemy_Gold_die      BITMAP                  "..\\res\\enemy\\enemy_go.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //

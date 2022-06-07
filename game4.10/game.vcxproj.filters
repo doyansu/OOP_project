@@ -388,6 +388,7 @@
     <Image Include="RES\bullet\effect_shock\effect_shock0_5.bmp" />
     <Image Include="RES\bullet\effect_shock\effect_shock0_6.bmp" />
     <Image Include="RES\bullet\effect_shock\effect_shock0_7.bmp" />
+    <Image Include="res\enemy\enemy_go.bmp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="RES\bmp0.bmp" />

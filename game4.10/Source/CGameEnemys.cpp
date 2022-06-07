@@ -8,6 +8,7 @@
 #include "CAnimationEnemyAppear.h"
 #include "CGameFactorys.h"
 #include "CCharacter.h"
+#include "CGameTrackObj.h"
 
 namespace game_framework {
 
@@ -270,6 +271,134 @@ namespace game_framework {
 			_my -= ud;
 		}*/
 		
+	}
+
+	/////////////////////////////////////////////////////////////////////////////
+
+	/////////////////////////////////////////////////////////////////////////////
+	//	水晶礦
+	CGameEnemy_Crystal::CGameEnemy_Crystal()
+	{
+		_hp = _maxHp = 60;
+	}
+
+
+	void CGameEnemy_Crystal::LoadBitmap()
+	{
+		_animaIter = GetAnima(CEnemy::Anima::RUN_R);
+		_animaIter->AddBitmap(IDB_enemy_Crystal, RGB(255, 255, 255));
+
+
+		_animaIter = GetAnima(CEnemy::Anima::RUN_L);
+		_animaIter->AddBitmap(IDB_enemy_Crystal, RGB(255, 255, 255));
+
+
+		_animaIter = GetAnima(CEnemy::Anima::DIE);
+		_animaIter->AddBitmap(IDB_enemy_Crystal_die, RGB(255, 255, 255));
+
+		*GetAnima(Anima::APPEARANCE) = CAnimationEnemyAppear::Instance();
+
+		_animaIter = GetAnima(CEnemy::Anima::RUN_R);
+
+	}
+
+
+	void CGameEnemy_Crystal::OnMove(CGameMap* map)
+	{
+		if (!GetAnima(Anima::APPEARANCE)->IsFinalBitmap())
+		{
+			GetAnima(Anima::APPEARANCE)->OnMove();
+		}
+		_animaIter->OnMove();
+	}
+
+	void CGameEnemy_Crystal::Die()
+	{
+		_amountDie++;	// 敵人死亡數加一
+		this->SetEnable(false);
+		this->SetDie(true);
+		this->SetCollision(false);
+		this->SetShowPriority(0);
+		_animaIter = GetAnima(CEnemy::Anima::DIE);
+		// 隨機 DEAD 音效  CAudio::Instance()->Play(AUDIO_DEAD_ENEMY_0 + rand() % (AUDIO_DEAD_ENEMY_COUNT - AUDIO_DEAD_ENEMY_0));
+		CAudio::Instance()->Play(AUDIO_DEAD_ENEMY_0);
+
+		// 掉落能量球
+		int t = 10 + rand() % 11;
+		CGameObj* player = CCharacter::Instance();
+
+		while (t--)
+		{
+			CGameTrackObj* obj = CGameTrackObj::CreateObj(1);
+			obj->SetXY(this->CenterX(), this->CenterY());
+			obj->SetTarget(player);
+			CGameObj::AddObj(obj);
+		}
+		
+	}
+
+	/////////////////////////////////////////////////////////////////////////////
+
+	/////////////////////////////////////////////////////////////////////////////
+	//	金礦
+	CGameEnemy_Gold::CGameEnemy_Gold()
+	{
+		_hp = _maxHp = 60;
+	}
+
+
+	void CGameEnemy_Gold::LoadBitmap()
+	{
+		_animaIter = GetAnima(CEnemy::Anima::RUN_R);
+		_animaIter->AddBitmap(IDB_enemy_Gold, RGB(255, 255, 255));
+
+
+		_animaIter = GetAnima(CEnemy::Anima::RUN_L);
+		_animaIter->AddBitmap(IDB_enemy_Gold, RGB(255, 255, 255));
+
+
+		_animaIter = GetAnima(CEnemy::Anima::DIE);
+		_animaIter->AddBitmap(IDB_enemy_Gold_die, RGB(255, 255, 255));
+
+		*GetAnima(Anima::APPEARANCE) = CAnimationEnemyAppear::Instance();
+
+		_animaIter = GetAnima(CEnemy::Anima::RUN_R);
+
+	}
+
+
+	void CGameEnemy_Gold::OnMove(CGameMap* map) 
+	{
+		if (!GetAnima(Anima::APPEARANCE)->IsFinalBitmap())
+		{
+			GetAnima(Anima::APPEARANCE)->OnMove();
+		}
+		_animaIter->OnMove();
+	}
+
+	void CGameEnemy_Gold::Die()
+	{
+		_amountDie++;	// 敵人死亡數加一
+		this->SetEnable(false);
+		this->SetDie(true);
+		this->SetCollision(false);
+		this->SetShowPriority(0);
+		_animaIter = GetAnima(CEnemy::Anima::DIE);
+		// 隨機 DEAD 音效  CAudio::Instance()->Play(AUDIO_DEAD_ENEMY_0 + rand() % (AUDIO_DEAD_ENEMY_COUNT - AUDIO_DEAD_ENEMY_0));
+		CAudio::Instance()->Play(AUDIO_DEAD_ENEMY_0);
+
+		// 掉落金幣
+		int t = 10 + rand() % 11;
+		CGameObj* player = CCharacter::Instance();
+
+		while (t--)
+		{
+			CGameTrackObj* obj = CGameTrackObj::CreateObj(0);
+			obj->SetXY(this->CenterX(), this->CenterY());
+			obj->SetTarget(player);
+			CGameObj::AddObj(obj);
+		}
+
 	}
 
 	/////////////////////////////////////////////////////////////////////////////

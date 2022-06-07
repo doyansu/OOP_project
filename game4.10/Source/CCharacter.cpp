@@ -585,12 +585,7 @@ namespace game_framework {
 
 	void CCharacter::OnObjCollision(CGameMap* map, CGameObj* other)
 	{
-		if (other->GetTag() == "bullet")
-		{
-			_isCollision = false;
-			_hitCounter = GAME_ONE_SECONED;
-		}
-		else if (other->GetTag() == "cleartreasure" && other->IsEnable())	//	通關寶相物件
+		if (other->GetTag() == "cleartreasure" && other->IsEnable())	//	通關寶相物件
 		{
 			other->TakeDmg(99999);
 		}	
@@ -813,6 +808,8 @@ namespace game_framework {
 		_dmgInteger.AddDmg(-dmg);
 		if (dmg > 0)
 		{
+			_isCollision = false;
+			_hitCounter = GAME_ONE_SECONED;
 			_shieldCounter = GAME_ONE_SECONED * 5; // 約 5 秒
 			if (_shield)
 			{

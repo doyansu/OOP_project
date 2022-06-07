@@ -136,7 +136,14 @@ namespace game_framework
 			break;
 		}
 		case RoomData::RoomType::SPECIAL:	//	特殊房間
+		{
+			// 水晶礦或金礦
+			CEnemy* mine = ProductFactory<CEnemy>::Instance().GetProduct((int)CEnemy::Type::crystal + rand() % ((int)CEnemy::Type::END - (int)CEnemy::Type::crystal));
+			mine->SetXY(_room->CenterX() * MYMAPWIDTH - (mine->GetWidth() >> 1) + (MYMAPWIDTH >> 1),
+				_room->CenterY() * MYMAPHIGH - (mine->GetHeight() >> 1) + (MYMAPHIGH >> 1));
+			CGameObj::AddObj(mine);
 			break;
+		}
 		default:
 			break;
 		}
