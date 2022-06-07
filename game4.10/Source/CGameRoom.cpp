@@ -49,6 +49,18 @@ namespace game_framework
 		switch (_room->GetRoomType())
 		{
 		case RoomData::RoomType::BOSS:		//	BOSS房間
+		{
+			//	BOSS房間 加入 4 個水晶礦
+			for (int i = 0; i < 4; i++)	
+			{
+				CEnemy* mine = ProductFactory<CEnemy>::Instance().GetProduct((int)CEnemy::Type::crystal);
+				do {
+					mine->SetXY(_mx + MYMAPWIDTH * (1 + rand() % (_room->Width() - 2)), _my + MYMAPHIGH * (1 + rand() % (_room->High() - 2)));
+				} while (mine->Collision(map));
+				mine->SetFree(false);
+				_roomEnemys.push_back(mine);
+			}
+		}
 		case RoomData::RoomType::NORMAL:	// 一般房間
 		{
 

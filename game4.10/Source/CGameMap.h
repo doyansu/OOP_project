@@ -136,7 +136,7 @@ namespace game_framework {
 	
 	private:
 		void free();
-		void normalRoomGenerate(int, int);
+		void normalRoomGenerate(int, int, int = -1);
 		vector<CAnimation>::iterator GetAnima(CGameMap::ContentType, int=-1);
 		CGameTool::Point* _roomTree;
 	};

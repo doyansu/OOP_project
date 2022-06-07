@@ -8,7 +8,8 @@ namespace game_framework {
 	class CEnemy : public CGameObj
 	{
 	public:
-		enum class Type { INIT, SNOW_SLOW, SNOW_Monkey_0, TYPECOUNT , crystal, gold, END};
+		//	一般敵人、BOSS、特殊敵人物件
+		enum class Type { INIT, SNOW_SLOW, SNOW_Monkey_0, TYPECOUNT, BOSS_SNOW_0, BOSSEND, crystal, gold, END};
 		enum class Anima { RUN_R, RUN_L, DIE, APPEARANCE, ANIMACOUNT};
 		CEnemy();
 		~CEnemy() override;
@@ -16,6 +17,8 @@ namespace game_framework {
 
 		bool hasAppeared();
 		Type GetType();
+		int GetX2();
+		int GetY2();
 
 		void TakeDmg(int);
 		void LoadBitmap();				// 載入圖形

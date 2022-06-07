@@ -17,6 +17,7 @@ namespace game_framework {
 	CGameEnemy_Init::CGameEnemy_Init()
 	{
 		_hp = _maxHp = 15;
+		_enemyType = Type::INIT;
 	}
 
 	CGameEnemy_Init& CGameEnemy_Init::Instance()
@@ -69,6 +70,7 @@ namespace game_framework {
 	{
 		_hp = _maxHp = 15;
 		_maxSearch = 250;
+		_enemyType = Type::SNOW_SLOW;
 	}
 
 	
@@ -111,6 +113,7 @@ namespace game_framework {
 	{
 		_hp = _maxHp = 9;
 		_maxSearch = 250;
+		_enemyType = Type::SNOW_Monkey_0;
 		state = STATE::RANDMOVE;
 	}
 
@@ -194,7 +197,7 @@ namespace game_framework {
 			}
 
 			// 找到玩家
-			if (rand() % 100 == 0 && player && !player->hasObstacle(map, this))
+			if (rand() % 60 == 0 && player && !player->hasObstacle(map, this))
 			{
 				_tx = player->CenterX();
 				_ty = player->CenterY();
@@ -280,6 +283,7 @@ namespace game_framework {
 	CGameEnemy_Crystal::CGameEnemy_Crystal()
 	{
 		_hp = _maxHp = 60;
+		_enemyType = Type::crystal;
 	}
 
 
@@ -324,7 +328,7 @@ namespace game_framework {
 		CAudio::Instance()->Play(AUDIO_DEAD_ENEMY_0);
 
 		// 掉落能量球
-		int t = 10 + rand() % 11;
+		int t = 10 + rand() % 6;
 		CGameObj* player = CCharacter::Instance();
 
 		while (t--)
@@ -344,6 +348,7 @@ namespace game_framework {
 	CGameEnemy_Gold::CGameEnemy_Gold()
 	{
 		_hp = _maxHp = 60;
+		_enemyType = Type::gold;
 	}
 
 
@@ -388,7 +393,7 @@ namespace game_framework {
 		CAudio::Instance()->Play(AUDIO_DEAD_ENEMY_0);
 
 		// 掉落金幣
-		int t = 10 + rand() % 11;
+		int t = 10 + rand() % 6;
 		CGameObj* player = CCharacter::Instance();
 
 		while (t--)

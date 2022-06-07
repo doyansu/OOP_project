@@ -381,6 +381,11 @@ namespace game_framework {
 				{
 					normalRoomGenerate(i, j);
 				}
+				else if (_Rooms[i][j]._roomType == RoomData::RoomType::BOSS)
+				{
+					//	BOSS 房間隨機矩形
+					normalRoomGenerate(i, j, 6);
+				}
 			}
 		}
 		
@@ -495,7 +500,7 @@ namespace game_framework {
 		
 	}
 
-	void CGameMap::normalRoomGenerate(int i, int j)
+	void CGameMap::normalRoomGenerate(int i, int j, int type)
 	{
 		int width = _Rooms[i][j]._width;
 		int high = _Rooms[i][j]._high;
@@ -505,7 +510,8 @@ namespace game_framework {
 		int cy = _Rooms[i][j]._centerY;
 
 		// 隨機類型
-		int type = rand() % 7;
+		if(type < 0)
+			type = rand() % 7;
 		MapContent wall = MapContent(ContentType::WALL, GetAnima(ContentType::WALL, 1), true);
 		//test type = 6;
 		switch (type)

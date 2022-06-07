@@ -110,15 +110,16 @@ namespace game_framework {
 	{
 		if (GetAnima(Anima::APPEARANCE)->IsFinalBitmap())
 		{
-			CEnemy::CGameObj::OnShow(map);
+			_animaIter->SetTopLeft(map->ScreenX(_mx), map->ScreenY(_my - _animaIter->Height() / 2));
+			_animaIter->OnShow();
 			if(!_isDie && _weapon != nullptr)
 				_weapon->OnShow(map);
-			_dmgInteger.SetTopLeft(map->ScreenX(this->CenterX() - (_dmgInteger.GetWidth() >> 1)), map->ScreenY(this->GetY1() - _dmgInteger.GetHeight()));
+			_dmgInteger.SetTopLeft(map->ScreenX(this->CenterX() - (_dmgInteger.GetWidth() >> 1)), map->ScreenY(this->GetY1() - _dmgInteger.GetHeight() - _animaIter->Height() / 2));
 			_dmgInteger.OnShow();
 		}
 		else
 		{
-			GetAnima(Anima::APPEARANCE)->SetTopLeft(map->ScreenX(_mx), map->ScreenY(_my - 50));
+			GetAnima(Anima::APPEARANCE)->SetTopLeft(map->ScreenX(_mx), map->ScreenY(_my - 50 - _animaIter->Height() / 2));
 			GetAnima(Anima::APPEARANCE)->OnShow();
 		}
 		
@@ -154,7 +155,7 @@ namespace game_framework {
 		// 武器移動
 		if (_weapon != nullptr)
 		{
-			_weapon->SetCenter(this->CenterX(), this->CenterY());
+			_weapon->SetCenter(this->CenterX(), this->CenterY() - _animaIter->Height() / 4);
 			_weapon->OnMove(map);
 		}
 		
@@ -265,4 +266,15 @@ namespace game_framework {
 	{
 		return _animas.begin() + (int)type;
 	}
+
+	int CEnemy::GetX2()
+	{
+		return _mx + _animaIter->Width();
+	}
+
+	int CEnemy::GetY2()	//	碰撞調整
+	{
+		return _my + _animaIter->Height() / 2;
+	}
+
 }
