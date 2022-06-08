@@ -13,7 +13,7 @@ namespace game_framework
 		_showPriority = 5;
 		_damage = 4;
 		_bulletType = Type::INIT;
-		_survive = 99999 * GAME_ONE_SECONED;
+		_survive = 60 * GAME_ONE_SECONED;
 		this->SetTag("bullet");
 	}
 
