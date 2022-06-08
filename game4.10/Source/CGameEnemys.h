@@ -158,6 +158,8 @@ namespace game_framework
 		CGameEnemy_SNOW_BOSS_0();
 		void LoadBitmap();
 		void OnMove(CGameMap* map);
+		void OnObjCollision(CGameMap* map, CGameObj* other);
+		void TakeDmg(int);
 
 	protected:
 		

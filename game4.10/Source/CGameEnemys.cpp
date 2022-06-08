@@ -408,7 +408,7 @@ namespace game_framework {
 	{
 		_hp = _maxHp = 500;
 		_maxSearch = 500;
-		_moveSpeed = 8;
+		_moveSpeed = 6;
 		_changeModeCounter = 0;
 		_enemyType = Type::BOSS_SNOW_0;
 		state = STATE::MOVE;
@@ -440,7 +440,6 @@ namespace game_framework {
 		_animaIter = _animas.begin();
 
 	}
-
 
 	void CGameEnemy_SNOW_BOSS_0::OnMove(CGameMap* map)
 	{
@@ -479,7 +478,7 @@ namespace game_framework {
 		// 敵人移動
 		switch (state)
 		{
-		case game_framework::CGameEnemy_SNOW_BOSS_0::STATE::MOVE:
+		case game_framework::CGameEnemy_SNOW_BOSS_0::STATE::MOVE:	//	隨機移動
 		{
 			const int randomRange = 20;	// 隨機變方向
 
@@ -507,12 +506,12 @@ namespace game_framework {
 			}
 			break;
 		}
-		case game_framework::CGameEnemy_SNOW_BOSS_0::STATE::ATTACK:
+		case game_framework::CGameEnemy_SNOW_BOSS_0::STATE::ATTACK:	//	隨機攻擊模式
 		{
 			int type = rand() % 2;
 			switch (type)
 			{
-			case 0:
+			case 0:		//	發射一圈子彈 速度較慢 有偏移量
 			{
 				int r = - 1 + rand() % 3;
 				int xy = rand() % 2;
@@ -543,7 +542,7 @@ namespace game_framework {
 				}
 				break;
 			}
-			case 1:
+			case 1:		//	發射一圈子彈 速度較快 無偏移量
 			{
 				for (int theta = 0; theta < 360; theta += 20)
 				{
@@ -574,7 +573,7 @@ namespace game_framework {
 			state = STATE::MOVE;
 			break;
 		}
-		case game_framework::CGameEnemy_SNOW_BOSS_0::STATE::DEFENSE:
+		case game_framework::CGameEnemy_SNOW_BOSS_0::STATE::DEFENSE:	//	防禦狀態受攻擊會回血
 		{
 			_vector[0] = 0;
 			_vector[1] = 0;
@@ -605,8 +604,29 @@ namespace game_framework {
 			_my -= dy;
 		}
 
-		
 
+	}
+
+	void CGameEnemy_SNOW_BOSS_0::OnObjCollision(CGameMap* map, CGameObj* other)
+	{
+		//	撞到玩家會造成傷害
+		if (other->GetTag() == "player")
+		{
+			other->TakeDmg(3);
+		}
+	}
+
+	void CGameEnemy_SNOW_BOSS_0::TakeDmg(int value)
+	{
+		//	防禦狀態受攻擊會回血
+		if (state == STATE::DEFENSE)
+		{
+			CEnemy::TakeDmg(-value);
+		}
+		else
+		{
+			CEnemy::TakeDmg(value);
+		}
 	}
 
 	/////////////////////////////////////////////////////////////////////////////
