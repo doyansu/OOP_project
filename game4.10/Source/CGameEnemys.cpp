@@ -10,6 +10,7 @@
 #include "CGameFactorys.h"
 #include "CCharacter.h"
 #include "CGameTrackObj.h"
+#include "CUIBossHpBar.h"
 
 namespace game_framework {
 
@@ -596,6 +597,18 @@ namespace game_framework {
 		}
 
 
+	}
+
+	void CGameEnemy_SNOW_BOSS_0::OnShow(CGameMap* map)
+	{
+		CUIBossHpBar::Instance().SetPercent(100 * this->_hp / this->_maxHp);
+		CEnemy::OnShow(map);
+	}
+
+	void CGameEnemy_SNOW_BOSS_0::Die()
+	{
+		CUIBossHpBar::Instance().SetEnable(false);
+		CEnemy::Die();
 	}
 
 	void CGameEnemy_SNOW_BOSS_0::OnObjCollision(CGameMap* map, CGameObj* other)

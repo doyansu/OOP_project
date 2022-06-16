@@ -158,11 +158,12 @@ namespace game_framework
 		CGameEnemy_SNOW_BOSS_0();
 		void LoadBitmap();
 		void OnMove(CGameMap* map);
+		void OnShow(CGameMap* map);
 		void OnObjCollision(CGameMap* map, CGameObj* other);
 		void TakeDmg(int);
 
 	protected:
-		
+		void Die();
 	private:
 		//	¦æ°Ê¼Ò¦¡
 		enum class STATE {

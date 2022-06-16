@@ -1146,23 +1146,6 @@ void CGameStateRun::OnShow()
 	//        否則當視窗重新繪圖時(OnDraw)，物件就會移動，看起來會很怪。換個術語
 	//        說，Move負責MVC中的Model，Show負責View，而View不應更動Model。
 	//
-	//
-	//  貼上背景圖、撞擊數、球、擦子、彈跳的球
-	//
-	//background.ShowBitmap();			// 貼上背景圖
-	/*help.ShowBitmap();					// 貼上說明圖
-	hits_left.ShowBitmap();
-	for (int i=0; i < NUMBALLS; i++)
-		ball[i].OnShow();				// 貼上第i號球
-	bball.OnShow();						// 貼上彈跳的球
-	eraser.OnShow();					// 貼上擦子*/
-	//
-	//  貼上左上及右下角落的圖
-	//
-	/*corner.SetTopLeft(0,0);
-	corner.ShowBitmap();
-	corner.SetTopLeft(SIZE_X-corner.Width(), SIZE_Y-corner.Height());
-	corner.ShowBitmap();*/
 
 
 	switch (gameRunState)
@@ -1255,6 +1238,9 @@ void CGameStateRun::OnShow()
 		//	UI小地圖
 		minMap.SetXY(SIZE_X - 180 + dMinMap, 25 + btn_pause.Height());
 		minMap.OnShow();
+
+		//	UI BossHpBar
+		CUIBossHpBar::Instance().ShowHpBar();
 
 		//	技能 BOUTTON UI
 		CUISkill::Instance().ShowUI();

@@ -5,6 +5,7 @@
 #include "audio.h"
 #include "gamelib.h"
 #include "CGameRoom.h"
+#include "CUIBossHpBar.h"
 
 namespace game_framework 
 {
@@ -357,6 +358,14 @@ namespace game_framework
 		switch (_room->GetRoomType())
 		{
 		case RoomData::RoomType::BOSS:
+		{
+			// 第一次進入Boss房間啟動血條 UI
+			if (_isDie == false && _isStrat == false && other->GetTag() == "player")
+			{
+				CUIBossHpBar::Instance().SetEnable(true);
+				CUIBossHpBar::Instance().SetPercent(100);
+			}
+		}
 		case RoomData::RoomType::NORMAL:
 		{
 			// 玩家第一次進入房間怪物開始動作

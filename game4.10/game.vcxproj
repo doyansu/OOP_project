@@ -259,6 +259,7 @@
     <ClCompile Include="source\CCharacter.cpp" />
     <ClCompile Include="source\CEnemy.cpp" />
     <ClCompile Include="Source\CGameArrow.cpp" />
+    <ClCompile Include="Source\CUIBossHpBar.cpp" />
     <ClCompile Include="Source\CGameBullet.cpp" />
     <ClCompile Include="Source\CGameBullets.cpp" />
     <ClCompile Include="Source\CGameDmgInteger.cpp" />
@@ -329,6 +330,7 @@
     <ClInclude Include="source\CCharacter.h" />
     <ClInclude Include="source\CEnemy.h" />
     <ClInclude Include="Source\CGameArrow.h" />
+    <ClInclude Include="Source\CUIBossHpBar.h" />
     <ClInclude Include="Source\CGameBullet.h" />
     <ClInclude Include="Source\CGameBullets.h" />
     <ClInclude Include="Source\CGameDmgInteger.h" />

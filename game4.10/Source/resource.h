@@ -373,8 +373,10 @@
 #define IDB_enemy_Crystal_die           510
 #define IDB_enemy_Gold                  511
 #define IDB_enemy_Gold_die              512
-#define IDB_BITMAP58                    513
 #define IDB_enemy_boss_snow_0           513
+#define IDB_BossHpBar_backGround        514
+#define IDB_BITMAP59                    515
+#define IDB_BossHpBar_fill              515
 #define IDC_README                      1001
 #define ID_FILE_PAUSE                   32771
 #define ID_TOGGLE_FULLSCREEN            32772
@@ -387,7 +389,7 @@
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_3D_CONTROLS                     1
-#define _APS_NEXT_RESOURCE_VALUE        514
+#define _APS_NEXT_RESOURCE_VALUE        516
 #define _APS_NEXT_COMMAND_VALUE         32776
 #define _APS_NEXT_CONTROL_VALUE         1003
 #define _APS_NEXT_SYMED_VALUE           101

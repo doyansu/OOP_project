@@ -43,16 +43,18 @@
 #include "CCharacter.h"
 #include "CEnemy.h"
 #include "CGameRoom.h"
-#include "CUIMinMap.h"
-#include "CUIButton.h"
 #include "CGameTool.h"
 #include "CGameFactorys.h"
 #include "CGameWeapons.h"
-#include "CUIWeapon.h"
 #include "CGameEnemys.h"
+#include "CGameTimer.h"
+
+#include "CUIMinMap.h"
+#include "CUIButton.h"
+#include "CUIWeapon.h"
 #include "CUISkill.h"
 #include "CUIWeaponSwitch.h"
-#include "CGameTimer.h"
+#include "CUIBossHpBar.h"
 
 
 namespace game_framework {
