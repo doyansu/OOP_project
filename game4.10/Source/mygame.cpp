@@ -640,10 +640,10 @@ void CGameStateRun::OnBeginState()
 	w->SetXY(MYMAPWIDTH * gameMap->GetRoom(MYORGROOM, MYORGROOM)->CenterX(),
 		MYMAPHIGH * gameMap->GetRoom(MYORGROOM, MYORGROOM)->CenterY());
 	CGameObj::AddObj(w);*/
-	CGameTreasure* treasure = CGameTreasure::CreateObj(rand() % (int)CGameTreasure::Type::TYPECOUNT);
+	/*CGameTreasure* treasure = CGameTreasure::CreateObj(rand() % (int)CGameTreasure::Type::TYPECOUNT);
 	treasure->SetXY(MYMAPWIDTH * gameMap->GetRoom(MYORGROOM, MYORGROOM)->CenterX(),
 		MYMAPHIGH * gameMap->GetRoom(MYORGROOM, MYORGROOM)->CenterY());
-	CGameObj::AddObj(treasure);
+	CGameObj::AddObj(treasure);*/
 
 }
 
