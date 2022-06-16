@@ -195,7 +195,7 @@ namespace game_framework {
 			}
 
 			// §ä¨ìª±®a
-			if (rand() % 60 == 0 && player && !player->hasObstacle(map, this))
+			if (rand() % 40 == 0 && player && !player->hasObstacle(map, this))
 			{
 				_tx = player->CenterX();
 				_ty = player->CenterY();
@@ -413,7 +413,6 @@ namespace game_framework {
 		_enemyType = Type::BOSS_SNOW_0;
 		state = STATE::MOVE;
 	}
-
 
 	void CGameEnemy_SNOW_BOSS_0::LoadBitmap()
 	{
