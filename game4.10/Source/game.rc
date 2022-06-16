@@ -652,6 +652,8 @@ IDB_enemy_Gold          BITMAP                  "..\\res\\enemy\\bmp00132.bmp"
 
 IDB_enemy_Gold_die      BITMAP                  "..\\res\\enemy\\enemy_go.bmp"
 
+IDB_enemy_boss_snow_0   BITMAP                  "..\\res\\enemy\\bmp00133.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //

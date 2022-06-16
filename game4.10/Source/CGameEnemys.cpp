@@ -408,7 +408,7 @@ namespace game_framework {
 	{
 		_hp = _maxHp = 500;
 		_maxSearch = 500;
-		_moveSpeed = 6;
+		_moveSpeed = 5;
 		_changeModeCounter = 0;
 		_enemyType = Type::BOSS_SNOW_0;
 		state = STATE::MOVE;
@@ -418,18 +418,10 @@ namespace game_framework {
 	void CGameEnemy_SNOW_BOSS_0::LoadBitmap()
 	{
 		_animaIter = GetAnima(CEnemy::Anima::RUN_R);
-		_animaIter->AddBitmap(IDB_enemy2_0, RGB(255, 255, 255));
-		_animaIter->AddBitmap(IDB_enemy2_1, RGB(255, 255, 255));
-		_animaIter->AddBitmap(IDB_enemy2_2, RGB(255, 255, 255));
-		_animaIter->AddBitmap(IDB_enemy2_3, RGB(255, 255, 255));
-		_animaIter->AddBitmap(IDB_enemy2_4, RGB(255, 255, 255));
+		_animaIter->AddBitmap(IDB_enemy_boss_snow_0, RGB(255, 255, 255));
 
 		_animaIter = GetAnima(CEnemy::Anima::RUN_L);
-		_animaIter->AddBitmap(IDB_ENEMY2_0_L, RGB(255, 255, 255));
-		_animaIter->AddBitmap(IDB_ENEMY2_1_L, RGB(255, 255, 255));
-		_animaIter->AddBitmap(IDB_ENEMY2_2_L, RGB(255, 255, 255));
-		_animaIter->AddBitmap(IDB_ENEMY2_3_L, RGB(255, 255, 255));
-		_animaIter->AddBitmap(IDB_ENEMY2_4_L, RGB(255, 255, 255));
+		_animaIter->AddBitmap(IDB_enemy_boss_snow_0, RGB(255, 255, 255));
 
 		_animaIter = GetAnima(CEnemy::Anima::DIE);
 		_animaIter->AddBitmap(IDB_enemy_Crystal_die, RGB(255, 255, 255));
