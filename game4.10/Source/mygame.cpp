@@ -193,6 +193,9 @@ void CGameStateInit::OnBeginState()
 	//	玩家物件初始化
 	CCharacter::Instance()->Init();
 
+	//	boss 血條 UI初始化
+	CUIBossHpBar::Instance().SetEnable(false);
+
 }
 
 void CGameStateInit::OnLButtonDown(UINT nFlags, CPoint point)
