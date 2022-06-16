@@ -21,20 +21,8 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_18551F45124B37A7F2551518696B3A9D"
-        "OwnerKey" = "8:_FEB1C521B758467A98F7B43033E60D12"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_2ED4D295E9CF44188DFB0BBDB4F84009"
         "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_495C517E4DCE4518990075D8FAB64A72"
-        "OwnerKey" = "8:_FEB1C521B758467A98F7B43033E60D12"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -57,12 +45,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_D22E850418614E31A4920048A3994DA0"
-        "OwnerKey" = "8:_FEB1C521B758467A98F7B43033E60D12"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_DBCE603814AD484F8F5A7A3AB2E3074C"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -77,12 +59,6 @@
         {
         "MsmKey" = "8:_EE9DD6B69FFF4437AC5B705A1846A163"
         "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_F33E07F16D3FB35892590759A0FF3FFF"
-        "OwnerKey" = "8:_FEB1C521B758467A98F7B43033E60D12"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -105,7 +81,7 @@
         "DisplayName" = "8:Debug"
         "IsDebugOnly" = "11:TRUE"
         "IsReleaseOnly" = "11:FALSE"
-        "OutputFilename" = "8:Setup\\Debug\\Setup.msi"
+        "OutputFilename" = "8:Setup\\Debug\\SoulKnight.msi"
         "PackageFilesAs" = "3:2"
         "PackageFileSize" = "3:-2147483648"
         "CabType" = "3:1"
@@ -132,7 +108,7 @@
         "DisplayName" = "8:Release"
         "IsDebugOnly" = "11:FALSE"
         "IsReleaseOnly" = "11:TRUE"
-        "OutputFilename" = "8:Setup\\Release\\Setup.msi"
+        "OutputFilename" = "8:Setup\\Release\\SoulKnight.msi"
         "PackageFilesAs" = "3:2"
         "PackageFileSize" = "3:-2147483648"
         "CabType" = "3:1"
@@ -192,26 +168,6 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_18551F45124B37A7F2551518696B3A9D"
-            {
-            "SourcePath" = "8:DDRAW.dll"
-            "TargetName" = "8:DDRAW.dll"
-            "Tag" = "8:"
-            "Folder" = "8:_A62E3FBC3C2C4A6D9157A8D6CE468FB2"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:TRUE"
-            "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_2ED4D295E9CF44188DFB0BBDB4F84009"
@@ -354,26 +310,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F33E07F16D3FB35892590759A0FF3FFF"
-            {
-            "SourcePath" = "8:WSOCK32.dll"
-            "TargetName" = "8:WSOCK32.dll"
-            "Tag" = "8:"
-            "Folder" = "8:_A62E3FBC3C2C4A6D9157A8D6CE468FB2"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:TRUE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_FA18546823CD42FD84683AEEE655DAA6"
             {
             "SourcePath" = "8:Sounds\\lake.mp3"
@@ -482,22 +418,22 @@
         "Product"
         {
         "Name" = "8:Microsoft Visual Studio"
-        "ProductName" = "8:Game Framework Sample Program 4.8"
-        "ProductCode" = "8:{A168951B-B5D8-468C-963E-51A317A3A0BA}"
-        "PackageCode" = "8:{4C26F049-1D6D-46FD-82B2-BF53F59EF65E}"
+        "ProductName" = "8:SoulKnight"
+        "ProductCode" = "8:{753EC9D6-5C4D-4E65-A0E6-63C7E94F3A2D}"
+        "PackageCode" = "8:{EB89188B-1E34-46E2-921C-1185B7216DF2}"
         "UpgradeCode" = "8:{56864DC0-362A-4E4F-BBE7-BD7B0F1DD0F9}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:4.8"
-        "Manufacturer" = "8:ntutcsie"
+        "ProductVersion" = "8:1.0.0"
+        "Manufacturer" = "8:NTUT-CSIE-2022Games"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
-        "Title" = "8:Game Framework Sample Program 4.6"
+        "Title" = "8:SoulKnight"
         "Subject" = "8:Game Framework"
-        "ARPCONTACT" = "8:Woei-Kae Chen"
+        "ARPCONTACT" = "8:Yuan-Hao Fan, Ruei-Lin Ke"
         "Keywords" = "8:MFC, DirectX, Game, Framework"
         "ARPCOMMENTS" = "8:A sample program for Game Framework"
         "ARPURLINFOABOUT" = "8:http://www.csie.ntut.edu.tw/game/"
@@ -645,7 +581,7 @@
                     "{688940B3-5CA9-4162-8DEE-2993FA9D8CBC}:_0DD4E1401B164D69B179C9E0C2EE6A1A"
                     {
                     "Sequence" = "3:300"
-                    "DisplayName" = "8:Confirm Installation"
+                    "DisplayName" = "8:確認安裝"
                     "UseDynamicProperties" = "11:TRUE"
                     "IsDependency" = "11:FALSE"
                     "SourcePath" = "8:<VsdDialogDir>\\VsdConfirmDlg.wid"
@@ -667,7 +603,7 @@
                     "{688940B3-5CA9-4162-8DEE-2993FA9D8CBC}:_68EA0C80AE7F4DA6BC11B9624CC5653F"
                     {
                     "Sequence" = "3:100"
-                    "DisplayName" = "8:Welcome"
+                    "DisplayName" = "8:歡迎"
                     "UseDynamicProperties" = "11:TRUE"
                     "IsDependency" = "11:FALSE"
                     "SourcePath" = "8:<VsdDialogDir>\\VsdWelcomeDlg.wid"
@@ -715,7 +651,7 @@
                     "{688940B3-5CA9-4162-8DEE-2993FA9D8CBC}:_A031DF00692B4929BB5746F02546C229"
                     {
                     "Sequence" = "3:200"
-                    "DisplayName" = "8:Installation Folder"
+                    "DisplayName" = "8:安裝資料夾"
                     "UseDynamicProperties" = "11:TRUE"
                     "IsDependency" = "11:FALSE"
                     "SourcePath" = "8:<VsdDialogDir>\\VsdFolderDlg.wid"
@@ -759,7 +695,7 @@
                     "{688940B3-5CA9-4162-8DEE-2993FA9D8CBC}:_C75B2F87350A47F794D0C92AF2CE56CA"
                     {
                     "Sequence" = "3:100"
-                    "DisplayName" = "8:Finished"
+                    "DisplayName" = "8:已經完成"
                     "UseDynamicProperties" = "11:TRUE"
                     "IsDependency" = "11:FALSE"
                     "SourcePath" = "8:<VsdDialogDir>\\VsdFinishedDlg.wid"
@@ -809,7 +745,7 @@
                     "{688940B3-5CA9-4162-8DEE-2993FA9D8CBC}:_BD523FA7873549CB846B9E530799BB33"
                     {
                     "Sequence" = "3:100"
-                    "DisplayName" = "8:Finished"
+                    "DisplayName" = "8:已經完成"
                     "UseDynamicProperties" = "11:TRUE"
                     "IsDependency" = "11:FALSE"
                     "SourcePath" = "8:<VsdDialogDir>\\VsdAdminFinishedDlg.wid"
@@ -846,7 +782,7 @@
                     "{688940B3-5CA9-4162-8DEE-2993FA9D8CBC}:_4BF894FCC3DC4AD0B52B9AE69935763B"
                     {
                     "Sequence" = "3:100"
-                    "DisplayName" = "8:Welcome"
+                    "DisplayName" = "8:歡迎"
                     "UseDynamicProperties" = "11:TRUE"
                     "IsDependency" = "11:FALSE"
                     "SourcePath" = "8:<VsdDialogDir>\\VsdAdminWelcomeDlg.wid"
@@ -894,7 +830,7 @@
                     "{688940B3-5CA9-4162-8DEE-2993FA9D8CBC}:_7A5F5AEEF0334D30856B9F5E436370C9"
                     {
                     "Sequence" = "3:300"
-                    "DisplayName" = "8:Confirm Installation"
+                    "DisplayName" = "8:確認安裝"
                     "UseDynamicProperties" = "11:TRUE"
                     "IsDependency" = "11:FALSE"
                     "SourcePath" = "8:<VsdDialogDir>\\VsdAdminConfirmDlg.wid"
@@ -916,7 +852,7 @@
                     "{688940B3-5CA9-4162-8DEE-2993FA9D8CBC}:_DA2A9D589C664DD1BE32034CA4A0999D"
                     {
                     "Sequence" = "3:200"
-                    "DisplayName" = "8:Installation Folder"
+                    "DisplayName" = "8:安裝資料夾"
                     "UseDynamicProperties" = "11:TRUE"
                     "IsDependency" = "11:FALSE"
                     "SourcePath" = "8:<VsdDialogDir>\\VsdAdminFolderDlg.wid"
@@ -947,7 +883,7 @@
                     "{688940B3-5CA9-4162-8DEE-2993FA9D8CBC}:_3851DAA5349D4535B013A77390CB9903"
                     {
                     "Sequence" = "3:100"
-                    "DisplayName" = "8:Progress"
+                    "DisplayName" = "8:進度"
                     "UseDynamicProperties" = "11:TRUE"
                     "IsDependency" = "11:FALSE"
                     "SourcePath" = "8:<VsdDialogDir>\\VsdProgressDlg.wid"
@@ -991,7 +927,7 @@
                     "{688940B3-5CA9-4162-8DEE-2993FA9D8CBC}:_074120E3A1A5436C9683885EF94CC599"
                     {
                     "Sequence" = "3:100"
-                    "DisplayName" = "8:Progress"
+                    "DisplayName" = "8:進度"
                     "UseDynamicProperties" = "11:TRUE"
                     "IsDependency" = "11:FALSE"
                     "SourcePath" = "8:<VsdDialogDir>\\VsdAdminProgressDlg.wid"
@@ -1028,34 +964,6 @@
         }
         "MergeModule"
         {
-            "{CEE29DC0-9FBA-4B99-8D47-5BC643D9B626}:_495C517E4DCE4518990075D8FAB64A72"
-            {
-            "UseDynamicProperties" = "11:TRUE"
-            "IsDependency" = "11:TRUE"
-            "SourcePath" = "8:Microsoft_VC100_DebugMFC_x86.msm"
-                "Properties"
-                {
-                }
-            "LanguageId" = "3:0"
-            "Exclude" = "11:FALSE"
-            "Folder" = "8:"
-            "Feature" = "8:"
-            "IsolateTo" = "8:"
-            }
-            "{CEE29DC0-9FBA-4B99-8D47-5BC643D9B626}:_D22E850418614E31A4920048A3994DA0"
-            {
-            "UseDynamicProperties" = "11:TRUE"
-            "IsDependency" = "11:TRUE"
-            "SourcePath" = "8:Microsoft_VC100_DebugCRT_x86.msm"
-                "Properties"
-                {
-                }
-            "LanguageId" = "3:0"
-            "Exclude" = "11:FALSE"
-            "Folder" = "8:"
-            "Feature" = "8:"
-            "IsolateTo" = "8:"
-            }
         }
         "ProjectOutput"
         {
