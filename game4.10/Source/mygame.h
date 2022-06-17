@@ -87,9 +87,22 @@ namespace game_framework {
 		void OnMove();
 		//void Onclick();
 	private:
-		CMovingBitmap background, title;
-		CUIButton start, newgame, gamenote, noteboard;
-		int btn_posy, btn_movey, board_posy, board_movey;
+		// 遊戲內狀態
+		enum class STATE {
+			RUN,				//	正常執行
+			ABOUT				//	轉換 about 畫面
+		};
+		STATE gameInitState;
+
+		
+		CMovingBitmap background, title, aboutBackGround;			//	背景圖
+
+		CAnimation noteboard;										//	遊戲說明
+		CAnimation start;											//	點擊開始動畫
+		CUIButton btn_newgame, btn_gamenote, btn_about, btn_close;	//	按鈕
+
+		int btn_posy, btn_movey, board_posy, board_movey;			//	按鈕位移
+
 		bool isLoad;	//	不知為何 OnBeginState() 會比 OnInit() 先執行 用來判斷是否已下載資料
 	};
 

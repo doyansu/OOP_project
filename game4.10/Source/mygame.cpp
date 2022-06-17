@@ -163,25 +163,32 @@ void CGameStateInit::OnInit()
 	start.AddBitmap(IDB_start2, RGB(0, 0, 0));
 	start.AddBitmap(IDB_start1, RGB(0, 0, 0));
 	start.SetDelayCount(3);
-	newgame.AddBitmap(IDB_newgame0, RGB(0, 0, 0));
-	newgame.AddBitmap(IDB_newgame1, RGB(0, 0, 0));
-	gamenote.AddBitmap(IDB_gamenote0, RGB(0, 0, 0));
-	gamenote.AddBitmap(IDB_gamenote1, RGB(0, 0, 0));
+	btn_newgame.AddBitmap(IDB_newgame0, RGB(0, 0, 0));
+	btn_newgame.AddBitmap(IDB_newgame1, RGB(0, 0, 0));
+	btn_gamenote.AddBitmap(IDB_gamenote0, RGB(0, 0, 0));
+	btn_gamenote.AddBitmap(IDB_gamenote1, RGB(0, 0, 0));
 	noteboard.AddBitmap(IDB_note_test, RGB(255, 255, 255));
-	newgame.SetDelayCount(1);
-	gamenote.SetDelayCount(1);
+	btn_about.AddBitmap(IDB_BTN_pause_0, RGB(0, 0, 0));
+	btn_about.AddBitmap(IDB_BTN_pause_1, RGB(0, 0, 0));
+	btn_close.AddBitmap(IDB_BTN_pause_0, RGB(0, 0, 0));
+	btn_close.AddBitmap(IDB_BTN_pause_1, RGB(0, 0, 0));
 
 	isLoad = true;
 }
 
 void CGameStateInit::OnBeginState()
 {
+	//	按鈕位置、位移設定
 	board_posy = -330;
 	board_movey = -20;
 	btn_posy = SIZE_Y;
 	btn_movey = 10;
+	gameInitState = STATE::RUN;
 
+	//	避免未先執行過 OnInit
 	this->OnInit();
+
+	//	播放 BGM
 	CAudio::Instance()->Play(AUDIO_BGM_INIT);
 
 	//	初始化殺敵數
@@ -200,43 +207,66 @@ void CGameStateInit::OnBeginState()
 
 void CGameStateInit::OnLButtonDown(UINT nFlags, CPoint point)
 {
-	if (newgame.PointIn(point.x, point.y)) {
-		if (!newgame.IsFinalBitmap()) {
-			newgame.OnMove();
-			CAudio::Instance()->Play(AUDIO_BTN_DOWN);
+	switch (gameInitState)
+	{
+	case game_framework::CGameStateInit::STATE::RUN:
+	{
+		if (btn_newgame.PointIn(point.x, point.y)) {
+			if (!btn_newgame.IsFinalBitmap()) {
+				btn_newgame.OnMove();
+				CAudio::Instance()->Play(AUDIO_BTN_DOWN);
+			}
 		}
-	}
-	else if (gamenote.PointIn(point.x, point.y)) {
-		if (!gamenote.IsFinalBitmap()) {
-			gamenote.OnMove();
-			CAudio::Instance()->Play(AUDIO_BTN_DOWN);
+		else if (btn_gamenote.PointIn(point.x, point.y)) {
+			if (!btn_gamenote.IsFinalBitmap()) {
+				btn_gamenote.OnMove();
+				CAudio::Instance()->Play(AUDIO_BTN_DOWN);
+			}
 		}
+		else if (board_movey < 0) {
+			btn_movey *= -1;
+		}
+		break;
 	}
-	else if (board_movey < 0) {
-		btn_movey *= -1;
+	case game_framework::CGameStateInit::STATE::ABOUT:
+		break;
+	default:
+		break;
 	}
+	
 }
 
 void CGameStateInit::OnLButtonUp(UINT nFlags, CPoint point)
 {
-	if (newgame.PointIn(point.x, point.y)) {
-		Sleep(150);	// 延遲一下再進入遊戲
-		//	停止 BGM
-		CAudio::Instance()->Stop(AUDIO_BGM_INIT);
+	switch (gameInitState)
+	{
+	case game_framework::CGameStateInit::STATE::RUN:
+	{
+		if (btn_newgame.PointIn(point.x, point.y)) {
+			Sleep(150);	// 延遲一下再進入遊戲
+			//	停止 BGM
+			CAudio::Instance()->Stop(AUDIO_BGM_INIT);
 
-		//	開始計時
-		CGameTimer::Instance().SetStartPoint(-1);	//	小於 0 起點會被設為當前時間
+			//	開始計時
+			CGameTimer::Instance().SetStartPoint(-1);	//	小於 0 起點會被設為當前時間
 
-		GotoGameState(GAME_STATE_RUN);
+			GotoGameState(GAME_STATE_RUN);
+		}
+		if (btn_gamenote.PointIn(point.x, point.y)) {
+			board_movey *= -1;
+		}
+		else if (board_movey > 0) {
+			board_movey *= -1;
+		}
+		btn_newgame.Reset();
+		btn_gamenote.Reset();
+		break;
 	}
-	if (gamenote.PointIn(point.x, point.y)) {
-		board_movey *= -1;
+	case game_framework::CGameStateInit::STATE::ABOUT:
+		break;
+	default:
+		break;
 	}
-	else if (board_movey > 0){
-		board_movey *= -1;
-	}
-	newgame.Reset();
-	gamenote.Reset();
 }
 
 void CGameStateInit::OnMove()
@@ -246,8 +276,8 @@ void CGameStateInit::OnMove()
 	if (btn_posy > SIZE_Y) {
 		btn_posy = SIZE_Y;
 	}
-	else if (btn_posy < (SIZE_Y - newgame.Height()-20)) {
-		btn_posy = SIZE_Y - newgame.Height()-20;
+	else if (btn_posy < (SIZE_Y - btn_newgame.Height()-20)) {
+		btn_posy = SIZE_Y - btn_newgame.Height()-20;
 	}
 
 	board_posy += board_movey;
@@ -284,20 +314,25 @@ void CGameStateInit::OnShow()
 	pDC->SelectObject(fp);						// 放掉 font f (千萬不要漏了放掉)
 	CDDraw::ReleaseBackCDC();					// 放掉 Back Plain 的 CDC
 	*/
-	noteboard.SetTopLeft(110, board_posy);
-	newgame.SetTopLeft(90, btn_posy);
-	gamenote.SetTopLeft(120 + newgame.Width(), btn_posy);
+
+	//	背景、動畫
 	background.SetTopLeft(0, 0);
-	title.SetTopLeft(20, 10);
-	start.SetTopLeft(250, 330);
 	background.ShowBitmap();
+	title.SetTopLeft(20, 10);
 	title.ShowBitmap();
+	start.SetTopLeft(250, 330);
 	if (btn_posy == SIZE_Y) {
 		start.OnShow();
 	}
-	newgame.OnShow();
-	gamenote.OnShow();
+	noteboard.SetTopLeft(110, board_posy);
 	noteboard.OnShow();
+
+	//	按鈕
+	btn_newgame.SetTopLeft(90, btn_posy);
+	btn_newgame.OnShow();
+	btn_gamenote.SetTopLeft(120 + btn_newgame.Width(), btn_posy);
+	btn_gamenote.OnShow();
+	
 }								
 
 /////////////////////////////////////////////////////////////////////////////
