@@ -658,6 +658,16 @@ IDB_BossHpBar_backGround BITMAP                  "..\\res\\enemy\\bmp00134.bmp"
 
 IDB_BossHpBar_fill      BITMAP                  "..\\res\\enemy\\bmp00135.bmp"
 
+IDB_aboutBackGround     BITMAP                  "..\\res\\enemy\\bmp00136.bmp"
+
+IDB_BTN_about_0         BITMAP                  "..\\res\\enemy\\bmp00137.bmp"
+
+IDB_BTN_about_1         BITMAP                  "..\\res\\enemy\\btn_abou.bmp"
+
+IDB_BTN_close_0         BITMAP                  "..\\res\\enemy\\bmp00138.bmp"
+
+IDB_BTN_close_1         BITMAP                  "..\\res\\enemy\\btn_clos.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //

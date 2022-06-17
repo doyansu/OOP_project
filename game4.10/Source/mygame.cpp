@@ -148,7 +148,7 @@ void CGameStateInit::OnInit()
 	// UI
 	background.LoadBitmap(IDB_Homepage);
 	title.LoadBitmap(IDB_Homepage_title, RGB(0, 0, 0));
-	aboutBackGround.LoadBitmap(IDB_Homepage);
+	aboutBackGround.LoadBitmap(IDB_aboutBackGround);
 	start.AddBitmap(IDB_start0, RGB(0, 0, 0));
 	start.AddBitmap(IDB_start1, RGB(0, 0, 0));
 	start.AddBitmap(IDB_start2, RGB(0, 0, 0));
@@ -168,11 +168,11 @@ void CGameStateInit::OnInit()
 	btn_newgame.AddBitmap(IDB_newgame1, RGB(0, 0, 0));
 	btn_gamenote.AddBitmap(IDB_gamenote0, RGB(0, 0, 0));
 	btn_gamenote.AddBitmap(IDB_gamenote1, RGB(0, 0, 0));
-	noteboard.AddBitmap(IDB_note_test, RGB(255, 255, 255));
-	btn_about.AddBitmap(IDB_BTN_pause_0, RGB(0, 0, 0));
-	btn_about.AddBitmap(IDB_BTN_pause_1, RGB(0, 0, 0));
-	btn_close.AddBitmap(IDB_BTN_pause_0, RGB(0, 0, 0));
-	btn_close.AddBitmap(IDB_BTN_pause_1, RGB(0, 0, 0));
+	noteboard.AddBitmap(IDB_note_test, RGB(0, 0, 0));
+	btn_about.AddBitmap(IDB_BTN_about_0, RGB(0, 0, 0));
+	btn_about.AddBitmap(IDB_BTN_about_1, RGB(0, 0, 0));
+	btn_close.AddBitmap(IDB_BTN_close_0, RGB(0, 0, 0));
+	btn_close.AddBitmap(IDB_BTN_close_1, RGB(0, 0, 0));
 
 	isLoad = true;
 }
@@ -209,7 +209,7 @@ void CGameStateInit::OnBeginState()
 	title.SetTopLeft(20, 10);
 	start.SetTopLeft((SIZE_X - start.Width()) / 2 - 10, SIZE_Y - start.Height() - 50);
 	aboutBackGround.SetTopLeft(0, SIZE_Y);
-	btn_about.SetTopLeft(10, SIZE_Y - btn_about.Height() - 10);
+	btn_about.SetTopLeft(10, SIZE_Y - btn_about.Height() - 20);
 }
 
 void CGameStateInit::OnLButtonDown(UINT nFlags, CPoint point)
@@ -395,7 +395,7 @@ void CGameStateInit::OnShow()
 
 	//	about 畫面
 	aboutBackGround.ShowBitmap();
-	btn_close.SetTopLeft(aboutBackGround.Left(), aboutBackGround.Top());
+	btn_close.SetTopLeft(aboutBackGround.Left() + 472, aboutBackGround.Top() + 120);
 	btn_close.OnShow();
 	
 }								
