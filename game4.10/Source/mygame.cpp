@@ -148,6 +148,7 @@ void CGameStateInit::OnInit()
 	// UI
 	background.LoadBitmap(IDB_Homepage);
 	title.LoadBitmap(IDB_Homepage_title, RGB(0, 0, 0));
+	aboutBackGround.LoadBitmap(IDB_Homepage);
 	start.AddBitmap(IDB_start0, RGB(0, 0, 0));
 	start.AddBitmap(IDB_start1, RGB(0, 0, 0));
 	start.AddBitmap(IDB_start2, RGB(0, 0, 0));
@@ -203,6 +204,12 @@ void CGameStateInit::OnBeginState()
 	//	boss 血條 UI初始化
 	CUIBossHpBar::Instance().SetEnable(false);
 
+	//	圖片、動畫、按鈕位置設定
+	background.SetTopLeft(0, 0);
+	title.SetTopLeft(20, 10);
+	start.SetTopLeft((SIZE_X - start.Width()) / 2 - 10, SIZE_Y - start.Height() - 50);
+	aboutBackGround.SetTopLeft(0, SIZE_Y);
+	btn_about.SetTopLeft(10, SIZE_Y - btn_about.Height() - 10);
 }
 
 void CGameStateInit::OnLButtonDown(UINT nFlags, CPoint point)
@@ -223,13 +230,27 @@ void CGameStateInit::OnLButtonDown(UINT nFlags, CPoint point)
 				CAudio::Instance()->Play(AUDIO_BTN_DOWN);
 			}
 		}
+		else if (btn_about.PointIn(point.x, point.y)) {
+			if (!btn_about.IsFinalBitmap()) {
+				btn_about.OnMove();
+				CAudio::Instance()->Play(AUDIO_BTN_DOWN);
+			}
+		}
 		else if (board_movey < 0) {
 			btn_movey *= -1;
 		}
 		break;
 	}
 	case game_framework::CGameStateInit::STATE::ABOUT:
-		break;
+	{
+		if (btn_close.PointIn(point.x, point.y)) {
+			if (!btn_close.IsFinalBitmap()) {
+				btn_close.OnMove();
+				CAudio::Instance()->Play(AUDIO_BTN_DOWN);
+			}
+		}
+		break;	
+	}
 	default:
 		break;
 	}
@@ -252,18 +273,29 @@ void CGameStateInit::OnLButtonUp(UINT nFlags, CPoint point)
 
 			GotoGameState(GAME_STATE_RUN);
 		}
-		if (btn_gamenote.PointIn(point.x, point.y)) {
+		else if (btn_gamenote.PointIn(point.x, point.y)) {
 			board_movey *= -1;
+		}
+		else if (btn_about.PointIn(point.x, point.y)) {
+			gameInitState = STATE::ABOUT;
 		}
 		else if (board_movey > 0) {
 			board_movey *= -1;
 		}
 		btn_newgame.Reset();
 		btn_gamenote.Reset();
+		btn_about.Reset();
 		break;
 	}
 	case game_framework::CGameStateInit::STATE::ABOUT:
+	{
+		if (btn_close.PointIn(point.x, point.y))
+		{
+			gameInitState = STATE::RUN;
+		}
+		btn_close.Reset();
 		break;
+	}
 	default:
 		break;
 	}
@@ -276,8 +308,8 @@ void CGameStateInit::OnMove()
 	if (btn_posy > SIZE_Y) {
 		btn_posy = SIZE_Y;
 	}
-	else if (btn_posy < (SIZE_Y - btn_newgame.Height()-20)) {
-		btn_posy = SIZE_Y - btn_newgame.Height()-20;
+	else if (btn_posy < (SIZE_Y - btn_newgame.Height() - 20)) {
+		btn_posy = SIZE_Y - btn_newgame.Height() - 20;
 	}
 
 	board_posy += board_movey;
@@ -286,6 +318,36 @@ void CGameStateInit::OnMove()
 	}
 	else if (board_posy > (30)) {
 		board_posy = 30;
+	}
+
+	switch (gameInitState)
+	{
+	case game_framework::CGameStateInit::STATE::RUN:	//	一般畫面
+	{
+		if (aboutBackGround.Top() < SIZE_Y)
+		{
+			aboutBackGround.SetTopLeft(aboutBackGround.Left(), aboutBackGround.Top() + 40);
+		}
+		else
+		{
+			aboutBackGround.SetTopLeft(aboutBackGround.Left(), SIZE_Y);
+		}
+		break;
+	}
+	case game_framework::CGameStateInit::STATE::ABOUT:	//	進入 about 畫面
+	{
+		if (aboutBackGround.Top() > 0)
+		{
+			aboutBackGround.SetTopLeft(aboutBackGround.Left(), aboutBackGround.Top() - 40);
+		}
+		else
+		{
+			aboutBackGround.SetTopLeft(aboutBackGround.Left(), 0);
+		}
+		break;
+	}
+	default:
+		break;
 	}
 }
 
@@ -316,11 +378,8 @@ void CGameStateInit::OnShow()
 	*/
 
 	//	背景、動畫
-	background.SetTopLeft(0, 0);
 	background.ShowBitmap();
-	title.SetTopLeft(20, 10);
 	title.ShowBitmap();
-	start.SetTopLeft(250, 330);
 	if (btn_posy == SIZE_Y) {
 		start.OnShow();
 	}
@@ -332,6 +391,12 @@ void CGameStateInit::OnShow()
 	btn_newgame.OnShow();
 	btn_gamenote.SetTopLeft(120 + btn_newgame.Width(), btn_posy);
 	btn_gamenote.OnShow();
+	btn_about.OnShow();
+
+	//	about 畫面
+	aboutBackGround.ShowBitmap();
+	btn_close.SetTopLeft(aboutBackGround.Left(), aboutBackGround.Top());
+	btn_close.OnShow();
 	
 }								
 
