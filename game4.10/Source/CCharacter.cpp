@@ -47,6 +47,7 @@ namespace game_framework {
 		_mp = _maxMp;
 		_shield = _maxShield;
 		_gold = 0;
+		_skillCounter = _SKILLTD + _SKILLCD;
 
 		// 重置為初始武器
 		free();
@@ -64,7 +65,6 @@ namespace game_framework {
 		_canInteractive = false;
 		_doHandKnife = false;
 		_isMovingLeft = _isMovingRight = _isMovingUp = _isMovingDown = false;
-		_skillCounter = _SKILLTD + _SKILLCD;
 		_deathCounter = GAME_ONE_SECONED * 2;
 		_shieldCounter = GAME_ONE_SECONED;
 		_hitCounter = 0;
