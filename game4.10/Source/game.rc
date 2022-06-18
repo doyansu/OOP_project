@@ -668,6 +668,22 @@ IDB_BTN_close_0         BITMAP                  "..\\res\\enemy\\bmp00138.bmp"
 
 IDB_BTN_close_1         BITMAP                  "..\\res\\enemy\\btn_clos.bmp"
 
+IDB_weapon_c90_2        BITMAP                  "..\\res\\enemy\\bmp00144.bmp"
+
+IDB_weapon_c45_2        BITMAP                  "..\\res\\enemy\\bmp00145.bmp"
+
+IDB_weapon_c315_2       BITMAP                  "..\\res\\enemy\\bmp00143.bmp"
+
+IDB_weapon_c270_2       BITMAP                  "..\\res\\enemy\\bmp00142.bmp"
+
+IDB_weapon_c225_2       BITMAP                  "..\\res\\enemy\\bmp00141.bmp"
+
+IDB_weapon_c180_2       BITMAP                  "..\\res\\enemy\\bmp00140.bmp"
+
+IDB_weapon_c135_2       BITMAP                  "..\\res\\enemy\\bmp00139.bmp"
+
+IDB_weapon_c0_2         BITMAP                  "..\\res\\enemy\\weapon_1.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //

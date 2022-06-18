@@ -592,6 +592,13 @@
     <Image Include="res\enemy\bmp00136.bmp" />
     <Image Include="res\enemy\bmp00137.bmp" />
     <Image Include="res\enemy\bmp00138.bmp" />
+    <Image Include="res\enemy\bmp00139.bmp" />
+    <Image Include="res\enemy\bmp00140.bmp" />
+    <Image Include="res\enemy\bmp00141.bmp" />
+    <Image Include="res\enemy\bmp00142.bmp" />
+    <Image Include="res\enemy\bmp00143.bmp" />
+    <Image Include="res\enemy\bmp00144.bmp" />
+    <Image Include="res\enemy\bmp00145.bmp" />
     <Image Include="res\enemy\bmp10.bmp" />
     <Image Include="res\enemy\btn_abou.bmp" />
     <Image Include="res\enemy\btn_bgm_.bmp" />
@@ -664,6 +671,7 @@
     <Image Include="res\enemy\roommark.bmp" />
     <Image Include="res\enemy\skill_ui.bmp" />
     <Image Include="res\enemy\weapon_0.bmp" />
+    <Image Include="res\enemy\weapon_1.bmp" />
     <Image Include="res\enemy\yello_1.bmp" />
     <Image Include="res\enemy\yello_10.bmp" />
     <Image Include="res\enemy\yello_2.bmp" />

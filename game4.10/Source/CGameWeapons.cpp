@@ -159,21 +159,21 @@ namespace game_framework {
 	void CGameWeapon_AK47::LoadBitmap()
 	{
 		_animaIter = GetAnima(CGameWeapon::Anima::Theta_0);
-		_animaIter->AddBitmap(IDB_weapon_0_0, RGB(255, 255, 255));
+		_animaIter->AddBitmap(IDB_weapon_c0_2, RGB(255, 255, 255));
 		_animaIter = GetAnima(CGameWeapon::Anima::Theta_45);
-		_animaIter->AddBitmap(IDB_weapon_0_45, RGB(255, 255, 255));
+		_animaIter->AddBitmap(IDB_weapon_c45_2, RGB(255, 255, 255));
 		_animaIter = GetAnima(CGameWeapon::Anima::Theta_90);
-		_animaIter->AddBitmap(IDB_weapon_0_90, RGB(255, 255, 255));
+		_animaIter->AddBitmap(IDB_weapon_c90_2, RGB(255, 255, 255));
 		_animaIter = GetAnima(CGameWeapon::Anima::Theta_135);
-		_animaIter->AddBitmap(IDB_weapon_0_135, RGB(255, 255, 255));
+		_animaIter->AddBitmap(IDB_weapon_c135_2, RGB(255, 255, 255));
 		_animaIter = GetAnima(CGameWeapon::Anima::Theta_180);
-		_animaIter->AddBitmap(IDB_weapon_0_180, RGB(255, 255, 255));
+		_animaIter->AddBitmap(IDB_weapon_c180_2, RGB(255, 255, 255));
 		_animaIter = GetAnima(CGameWeapon::Anima::Theta_225);
-		_animaIter->AddBitmap(IDB_weapon_0_225, RGB(255, 255, 255));
+		_animaIter->AddBitmap(IDB_weapon_c225_2, RGB(255, 255, 255));
 		_animaIter = GetAnima(CGameWeapon::Anima::Theta_270);
-		_animaIter->AddBitmap(IDB_weapon_0_270, RGB(255, 255, 255));
+		_animaIter->AddBitmap(IDB_weapon_c270_2, RGB(255, 255, 255));
 		_animaIter = GetAnima(CGameWeapon::Anima::Theta_315);
-		_animaIter->AddBitmap(IDB_weapon_0_315, RGB(255, 255, 255));
+		_animaIter->AddBitmap(IDB_weapon_c315_2, RGB(255, 255, 255));
 
 		*GetAnima(Anima::ARROW) = CGameArrow::Instance();
 	}
