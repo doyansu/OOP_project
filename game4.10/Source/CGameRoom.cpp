@@ -415,6 +415,14 @@ namespace game_framework
 			
 	}
 
+	void CGameRoom::kill()
+	{
+		for (CEnemy* obj : _roomEnemys)
+		{
+			obj->TakeDmg(9999);
+		}
+	}
+
 	void CGameRoom::Die() 
 	{
 		this->SetEnable(false);

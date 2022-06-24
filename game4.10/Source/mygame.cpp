@@ -1021,6 +1021,15 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 			}
 
 		}
+		else if (nChar == 75)	// 按k殺死關卡小怪
+		{
+			int px = minMap.GetPlayerIn(0), py = minMap.GetPlayerIn(1);
+			if (Rooms[px][py]->IsStrat())
+			{
+				Rooms[px][py]->kill();
+			}
+		}
+
 
 		character->OnKeyDown(nChar);
 

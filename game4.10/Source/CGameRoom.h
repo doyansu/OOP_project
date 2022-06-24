@@ -226,6 +226,7 @@ namespace game_framework
 		void OnDie(CGameMap*);
 		void OnShow(CGameMap*);
 		void Initialization(CGameMap*);
+		void kill();
 
 		static void Init()
 		{
