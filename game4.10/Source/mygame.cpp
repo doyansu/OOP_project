@@ -420,7 +420,7 @@ void CGameStateOver::OnMove()
 	switch (state)
 	{
 	case game_framework::CGameStateOver::STATE::start:
-		if (counter < 6 * GAME_ONE_SECONED)				//	剩 6 秒開始跑動畫
+		if (counter < 28 * GAME_ONE_SECONED)				//	剩 6 秒開始跑動畫
 		{
 			state = STATE::runAnima;
 		}
@@ -458,7 +458,7 @@ void CGameStateOver::OnMove()
 void CGameStateOver::OnBeginState()
 {
 	//	設定倒數秒數
-	counter = 10 * GAME_ONE_SECONED; // 10 seconds
+	counter = 30 * GAME_ONE_SECONED; // 30 seconds
 	//	初始化狀態
 	state = STATE::start;
 	//	重置動畫進度
